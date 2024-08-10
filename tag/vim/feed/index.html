@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>vim &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/vim/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:29:02 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>vim &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>The Mouse, the Screen, and the Vim</title>
+		<link>https://mossiso.com/2014/01/09/the-mouse-the-screen-and-the-vim/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 09 Jan 2014 22:49:31 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[screen]]></category>
+		<category><![CDATA[scrolling]]></category>
+		<category><![CDATA[SIMBL]]></category>
+		<category><![CDATA[vim]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1576</guid>
+
+					<description><![CDATA[A tale many years in the making&#8230; I have been lacking two things for so long, now that I can do it, I wonder if I will ever remember to use it! The Problem I use a MacBook Pro with OS X Mavericks. I log into my Linux servers with SSH. I use GNU screen &#8230; <a href="https://mossiso.com/2014/01/09/the-mouse-the-screen-and-the-vim/" class="more-link">Continue reading <span class="screen-reader-text">The Mouse, the Screen, and the Vim</span></a>]]></description>
+										<content:encoded><![CDATA[<p>A tale many years in the making&#8230;</p>
+<p>I have been lacking two things for so long, now that I can do it, I wonder if I will ever remember to use it!</p>
+<h2>The Problem</h2>
+<p>I use a MacBook Pro with OS X Mavericks. I log into my Linux servers with SSH. I use GNU screen to allow me to save sessions, detach, and come back later without closing running programs and what not. BUT, I can&#8217;t use the mouse scrolling for the terminal output or to scroll through files opened with Vim.</p>
+<h2>The Solution</h2>
+<p>I finally found the pieces missing to make this possible. All with a couple of lines of code and a new SIMBL bundle.</p>
+<p>To get the scroll working in screen, just add this line to your .screenrc</p>
+<p>&nbsp;</p>
+<pre class="lang:sh decode:true ">defscrollback 5000
+termcapinfo * ti@:te@
+</pre>
+<p>&nbsp;</p>
+<p>It&#8217;s not perfect. If you have multiple windows in a screen session, then the history buffers get all meshed together. But I usually just need to see info from a command output that is longer than the screen window, and this will let me see it. Finally! Thanks <a title="Screen and scrolling" href="http://slaptijack.com/system-administration/mac-os-x-terminal-and-gnu-screen-scrollback/" target="_blank">Slapitjack</a>! See <a href="http://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen" target="_blank">here</a> for an explanation of the code.</p>
+<p>To get the scroll back in Vim, whether using screen or not. You first need to install <a title="SIMBL" href="http://www.culater.net/software/SIMBL/SIMBL.php" target="_blank">SIMBL</a>. The version for Snow Leopard works with Mavericks. Then grab a copy of <a title="MouseTerm" href="https://bitheap.org/mouseterm/" target="_blank">MouseTerm</a>. The installer didn&#8217;t work, but you just need to copy the MouseTerm.bundle to /Library/Application Support/SIMBL/Plugins folder (or ~/Library/Application Support/SIMBL/Plugins if needed for just your user account). Restart your Terminal and you&#8217;re good to go.</p>
+<p>Viola! Vim and scrolling, GNU screen and scrolling! Live as it was meant to be&#8230;</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1576</post-id>	</item>
+	</channel>
+</rss>

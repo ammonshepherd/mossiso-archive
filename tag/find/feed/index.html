@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>find &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/find/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:20:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>find &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Convert WP to static HTML &#8211; part 2</title>
+		<link>https://mossiso.com/2009/07/20/convert-wp-to-static-html-part-2/</link>
+					<comments>https://mossiso.com/2009/07/20/convert-wp-to-static-html-part-2/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Mon, 20 Jul 2009 19:54:27 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[blog]]></category>
+		<category><![CDATA[find]]></category>
+		<category><![CDATA[perl]]></category>
+		<category><![CDATA[static html]]></category>
+		<category><![CDATA[wget]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=244</guid>
+
+					<description><![CDATA[This is a followup to this previous post. So I&#8217;ve been converting some more blogs to static html files, and this time around things seemed to be so different, that I made up a new how to. Here are the steps that I&#8217;ve been using to convert blogs using the default Kubric theme. Update the &#8230; <a href="https://mossiso.com/2009/07/20/convert-wp-to-static-html-part-2/" class="more-link">Continue reading <span class="screen-reader-text">Convert WP to static HTML &#8211; part 2</span></a>]]></description>
+										<content:encoded><![CDATA[<p>This is a followup to <a title="Converting WordPress to static html" href="http://mossiso.com/2007/09/10/converting-wordpress-to-static-html.html">this previous post</a>.</p>
+<p>So I&#8217;ve been converting some more blogs to static html files, and this time around things seemed to be so different, that I made up a new how to. Here are the steps that I&#8217;ve been using to convert blogs using the default Kubric theme.</p>
+<ol>
+<li>Update the permalink structure for the site so that it uses the year, month, day, postname structure.
+<pre class="lang:mysql decode:true " >UPDATE `database`.`prefix_options` SET `option_value` = ‘/%year%/%monthnum%/%day%/%postname%/’ WHERE `prefix_options`.`option_name` = ‘permalink_structure’ LIMIT 1 ;</pre>
+</li>
+<li>Make sure the blog does not block search engines. If the blog is set to block them, wget can only download the index.html file. And this took me a while to figure out. So, for the sake of search engines, if wget only downloads the index.html file or wget recursive gets only index.html file, then remember to check your robots.txt or similar settings.  Either edit in the admin section (under Settings-&gt;Privacy) or via SQL.
+<pre class="lang:sh decode:true " >UPDATE `database`.`prefix_options` SET `option_value` = '1' WHERE `prefix_options`.`option_name` = 'blog_public' LIMIT 1 ;</pre>
+</li>
+<li>Add the .htaccess file if not already there, where
+<pre>/path/to/wordpress/blog/</pre>
+<p>starts at the URL root, not the absolute file path. So http://sitename.com/path/to/wordpress/blog/ would have the .htaccess file below in the &#8216;blog&#8217; directory.</p>
+<pre class="lang:apache decode:true " >RewriteEngine On
+RewriteBase /path/to/wordpress/blog/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /path/to/wordpress/blog/index.php [L]</pre>
+</li>
+<li>Get rid of the meta links through the sidebar widget in the admin, or delete the appropriate lines from the theme files (for default Kubric theme edit comments.php, sidebar.php, single.php, footer.php), or see the last step. Delete the code that puts in the search, comments, trackback, rss, and anything in the footer you want out.</li>
+<li>When all is good, run wget to grab the files.
+<pre class="lang:sh decode:true " >wget --mirror -P blog-static -nH -np -p -k -E --cut-dirs=5 http://sitename.com/blog/</pre>
+</li>
+<li>Rename the blog directory. <code>mv blog blog-old</code></li>
+<li>Rename the static directory to be live. <code>mv blog-static blog</code></li>
+<li>Copy the images directory from the old theme to the appropriate static directory.
+<pre class="lang:sh decode:true " >cp -r blog-old/wordpress/wp-content/themes/default/images/ blog/wordpress/wp-content/themes/default/</pre>
+</li>
+<li>Alternative to get rid of unwanted links, etc. Use the find command to find all html files, then use perl to delete the lines. Don&#8217;t forget to escape forward slashes in the search field. Unfortunately, this method requires you to do it for every line of code you want to delete. It&#8217;s much better to delete the lines out of the theme files. The code below has an unnecessary space in the opening H3 tag so it will render properly.
+<pre class="lang:sh decode:true " >find . -name \*.html | xargs perl -ni -e 'print unless /&amp;lt; h3&amp;gt;Leave a Reply&amp;lt; \/h3&amp;gt;/'</pre>
+<p>Also, if you want to just search and replace instead of remove, this handy find and perl one-liner will find and replace text in all html files.</p>
+<pre class="lang:sh decode:true " >find . -name *.html | xargs perl -p -i'' -e "s/search text here/replace text there/"</pre>
+<p>The above would search for all the &#8220;search text here&#8221; phrases in all html files, and replace it with &#8220;replace text here&#8221;. You can obviously substitute whatever you want in those to places. If you have a &#8216;/&#8217; (forward slash) character, it will need to be escaped with a &#8216;\&#8217; (back slash) character. Perl uses the regular regular expression syntax, so look that up if you need help formulating a search and replace structure.</li>
+</ol>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2009/07/20/convert-wp-to-static-html-part-2/feed/</wfw:commentRss>
+			<slash:comments>21</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">244</post-id>	</item>
+	</channel>
+</rss>

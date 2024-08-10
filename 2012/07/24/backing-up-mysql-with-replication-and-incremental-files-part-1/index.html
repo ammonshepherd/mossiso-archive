@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://mossiso.com/xmlrpc.php">
+	<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<title>Backing up MySQL with Replication and Incremental Files &#8211; Part 1 &#8211; Ammon Shepherd</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='https://stats.wp.com/' />
+<link rel='dns-prefetch' href='https://v0.wordpress.com/' />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Feed" href="../../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Comments Feed" href="../../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Backing up MySQL with Replication and Incremental Files &#8211; Part 1 Comments Feed" href="feed/index.html" />
+<script>
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/mossiso.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.6.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+</script>
+<link rel='stylesheet' id='twentyfifteen-jetpack-css' href='../../../../wp-content/plugins/jetpack/modules/theme-tools/compat/twentyfifteen.css%3Fver=13.1.3.css' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='../../../../wp-includes/css/dist/block-library/style.min.css%3Fver=6.6.1.css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<style id='wp-block-library-theme-inline-css'>
+.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote.has-text-align-right{border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote.has-text-align-center{border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote.is-style-plain{border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}
+</style>
+<link rel='stylesheet' id='mediaelement-css' href='../../../../wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css%3Fver=4.2.17.css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css' href='../../../../wp-includes/js/mediaelement/wp-mediaelement.min.css%3Fver=6.6.1.css' media='all' />
+<style id='jetpack-sharing-buttons-style-inline-css'>
+.jetpack-sharing-buttons__services-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:0;list-style-type:none;margin:5px;padding:0}.jetpack-sharing-buttons__services-list.has-small-icon-size{font-size:12px}.jetpack-sharing-buttons__services-list.has-normal-icon-size{font-size:16px}.jetpack-sharing-buttons__services-list.has-large-icon-size{font-size:24px}.jetpack-sharing-buttons__services-list.has-huge-icon-size{font-size:36px}@media print{.jetpack-sharing-buttons__services-list{display:none!important}}ul.jetpack-sharing-buttons__services-list.has-background{padding:1.25em 2.375em}
+</style>
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #fff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--dark-gray: #111;--wp--preset--color--light-gray: #f1f1f1;--wp--preset--color--yellow: #f4ca16;--wp--preset--color--dark-brown: #352712;--wp--preset--color--medium-pink: #e53b51;--wp--preset--color--light-pink: #ffe5d1;--wp--preset--color--dark-purple: #2e2256;--wp--preset--color--purple: #674970;--wp--preset--color--blue-gray: #22313f;--wp--preset--color--bright-blue: #55c3dc;--wp--preset--color--light-blue: #e9f2f9;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--gradient--dark-gray-gradient-gradient: linear-gradient(90deg, rgba(17,17,17,1) 0%, rgba(42,42,42,1) 100%);--wp--preset--gradient--light-gray-gradient: linear-gradient(90deg, rgba(241,241,241,1) 0%, rgba(215,215,215,1) 100%);--wp--preset--gradient--white-gradient: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(230,230,230,1) 100%);--wp--preset--gradient--yellow-gradient: linear-gradient(90deg, rgba(244,202,22,1) 0%, rgba(205,168,10,1) 100%);--wp--preset--gradient--dark-brown-gradient: linear-gradient(90deg, rgba(53,39,18,1) 0%, rgba(91,67,31,1) 100%);--wp--preset--gradient--medium-pink-gradient: linear-gradient(90deg, rgba(229,59,81,1) 0%, rgba(209,28,51,1) 100%);--wp--preset--gradient--light-pink-gradient: linear-gradient(90deg, rgba(255,229,209,1) 0%, rgba(255,200,158,1) 100%);--wp--preset--gradient--dark-purple-gradient: linear-gradient(90deg, rgba(46,34,86,1) 0%, rgba(66,48,123,1) 100%);--wp--preset--gradient--purple-gradient: linear-gradient(90deg, rgba(103,73,112,1) 0%, rgba(131,93,143,1) 100%);--wp--preset--gradient--blue-gray-gradient: linear-gradient(90deg, rgba(34,49,63,1) 0%, rgba(52,75,96,1) 100%);--wp--preset--gradient--bright-blue-gradient: linear-gradient(90deg, rgba(85,195,220,1) 0%, rgba(43,180,211,1) 100%);--wp--preset--gradient--light-blue-gradient: linear-gradient(90deg, rgba(233,242,249,1) 0%, rgba(193,218,238,1) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='twentyfifteen-fonts-css' href='../../../../wp-content/themes/twentyfifteen/assets/fonts/noto-sans-plus-noto-serif-plus-inconsolata.css%3Fver=20230328.css' media='all' />
+<link rel='stylesheet' id='genericons-css' href='../../../../wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css%3Fver=3.1.css' media='all' />
+<link rel='stylesheet' id='twentyfifteen-style-css' href='../../../../wp-content/themes/twentyfifteen/style.css%3Fver=20231107.css' media='all' />
+<style id='twentyfifteen-style-inline-css'>
+
+			.post-navigation .nav-previous { background-image: url(../../../../wp-content/uploads/2012/06/Screen-Shot-2012-06-18-at-2.55.50-PM-624x162.png); }
+			.post-navigation .nav-previous .post-title, .post-navigation .nav-previous a:hover .post-title, .post-navigation .nav-previous .meta-nav { color: #fff; }
+			.post-navigation .nav-previous a:before { background-color: rgba(0, 0, 0, 0.4); }
+		
+			.post-navigation .nav-next { background-image: url(../../../../wp-content/uploads/2012/07/Conrad_von_Soest_Brillenapostel-seeing-double.jpg); border-top: 0; }
+			.post-navigation .nav-next .post-title, .post-navigation .nav-next a:hover .post-title, .post-navigation .nav-next .meta-nav { color: #fff; }
+			.post-navigation .nav-next a:before { background-color: rgba(0, 0, 0, 0.4); }
+		
+</style>
+<link rel='stylesheet' id='twentyfifteen-block-style-css' href='../../../../wp-content/themes/twentyfifteen/css/blocks.css%3Fver=20230623.css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css' href='../../../../wp-content/plugins/jetpack/css/jetpack.css%3Fver=13.1.3.css' media='all' />
+<link rel='stylesheet' id='sociable3-css' href='../../../../wp-content/plugins/sociable-30/sociable.css%3Fver=5.13.css' media='all' />
+<script src="../../../../wp-includes/js/jquery/jquery.min.js%3Fver=3.7.1" id="jquery-core-js"></script>
+<script src="../../../../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=3.4.1" id="jquery-migrate-js"></script>
+<script id="twentyfifteen-script-js-extra">
+var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
+</script>
+<script src="../../../../wp-content/themes/twentyfifteen/js/functions.js%3Fver=20221101" id="twentyfifteen-script-js" defer data-wp-strategy="defer"></script>
+<link rel="https://api.w.org/" href="../../../../wp-json/index.html" /><link rel="alternate" title="JSON" type="application/json" href="../../../../wp-json/wp/v2/posts/1277" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://mossiso.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.6.1" />
+<link rel="canonical" href="../../../../backing-up-mysql-with-replication-and-incremental-files-part-1/index.html" />
+<link rel='shortlink' href='https://wp.me/p9wosP-kB' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="../../../../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fmossiso.com%252F2012%252F07%252F24%252Fbacking-up-mysql-with-replication-and-incremental-files-part-1%252F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="../../../../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fmossiso.com%252F2012%252F07%252F24%252Fbacking-up-mysql-with-replication-and-incremental-files-part-1%252F&amp;format=xml" />
+	<style>img#wpstats{display:none}</style>
+		
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Backing up MySQL with Replication and Incremental Files &#8211; Part 1" />
+<meta property="og:url" content="https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/" />
+<meta property="og:description" content="I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for …" />
+<meta property="article:published_time" content="2012-07-24T19:49:38+00:00" />
+<meta property="article:modified_time" content="2014-09-22T18:09:13+00:00" />
+<meta property="og:site_name" content="Ammon Shepherd" />
+<meta property="og:image" content="https://mossiso.com/wp-content/uploads/2012/07/mysql-replication.jpg" />
+<meta property="og:image:width" content="1473" />
+<meta property="og:image:height" content="497" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:text:title" content="Backing up MySQL with Replication and Incremental Files &#8211; Part 1" />
+<meta name="twitter:image" content="https://mossiso.com/wp-content/uploads/2012/07/mysql-replication.jpg?w=640" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="icon" href="../../../../wp-content/uploads/2018/12/favicon-96x96.png" sizes="32x32" />
+<link rel="icon" href="../../../../wp-content/uploads/2018/12/favicon-96x96.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../../wp-content/uploads/2018/12/favicon-96x96.png" />
+<meta name="msapplication-TileImage" content="https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png" />
+<style type="text/css" id="wp-custom-css">a {
+	color:#BE1E23;
+}</style></head>
+
+<body class="post-template-default single single-post postid-1277 single-format-standard wp-custom-logo wp-embed-responsive">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="../../../../backing-up-mysql-with-replication-and-incremental-files-part-1/index.html#content">
+		Skip to content	</a>
+
+	<div id="sidebar" class="sidebar">
+		<header id="masthead" class="site-header">
+			<div class="site-branding">
+				<a href="../../../../index.html" class="custom-logo-link" rel="home"><img width="192" height="192" src="../../../../wp-content/uploads/2018/12/android-icon-192x192.png" class="custom-logo" alt="Ammon Shepherd" decoding="async" srcset="https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192.png 192w, https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192-150x150.png 150w" sizes="(max-width: 192px) 100vw, 192px" /></a>						<p class="site-title"><a href="../../../../index.html" rel="home">Ammon Shepherd</a></p>
+												<p class="site-description">mossiso = more better</p>
+										<button class="secondary-toggle">Menu and widgets</button>
+			</div><!-- .site-branding -->
+		</header><!-- .site-header -->
+
+			<div id="secondary" class="secondary">
+
+					<nav id="site-navigation" class="main-navigation">
+				<div class="menu-newmain-container"><ul id="menu-newmain" class="nav-menu"><li id="menu-item-1768" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1768"><a href="../../../../about/index.html">About</a></li>
+<li id="menu-item-1766" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1766"><a href="../../../../digital-projects/index.html">Digital Projects</a></li>
+<li id="menu-item-1767" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1767"><a href="../../../../courses/index.html">Courses</a></li>
+<li id="menu-item-1769" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1769"><a href="https://github.com/ammonshepherd">Code</a></li>
+<li id="menu-item-1770" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1770"><a href="../../../../resume/index.html">CV</a></li>
+</ul></div>			</nav><!-- .main-navigation -->
+		
+		
+		
+	</div><!-- .secondary -->
+
+	</div><!-- .sidebar -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main">
+
+		
+<article id="post-1277" class="post-1277 post type-post status-publish format-standard has-post-thumbnail hentry category-howto category-technical category-technology tag-database-admin tag-mysql tag-server-admin">
+	
+		<div class="post-thumbnail">
+			<img width="624" height="210" src="../../../../wp-content/uploads/2012/07/mysql-replication-624x210.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" decoding="async" fetchpriority="high" srcset="https://mossiso.com/wp-content/uploads/2012/07/mysql-replication-624x210.jpg 624w, https://mossiso.com/wp-content/uploads/2012/07/mysql-replication-300x101.jpg 300w, https://mossiso.com/wp-content/uploads/2012/07/mysql-replication-1024x345.jpg 1024w, https://mossiso.com/wp-content/uploads/2012/07/mysql-replication-250x84.jpg 250w, https://mossiso.com/wp-content/uploads/2012/07/mysql-replication-150x50.jpg 150w, https://mossiso.com/wp-content/uploads/2012/07/mysql-replication.jpg 1473w" sizes="(max-width: 624px) 100vw, 624px" />	</div><!-- .post-thumbnail -->
+
+	
+	<header class="entry-header">
+		<h1 class="entry-title">Backing up MySQL with Replication and Incremental Files &#8211; Part 1</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to backup. You can&#8217;t just copy the data files and then expect to copy them back over and have them just work. Especially if your databases have a mixture of InnoDB and MyISAM tables. In order to do a clean and accurate database backup, you need to stop the MySQL server, then copy the files, then restart MySQL.</p>
+<p>If you have a live production MySQL server, stopping it to make a backup is not really an option. Fortunately there are a few options. Before you decide on which option to choose, here is a list of things to keep in mind when choosing a backup solution (from the MySQL gurus at Percona):</p>
+<h3>WHAT TO LOOK FOR</h3>
+<p><a href="http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/" target="_blank">http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/</a></p>
+<ol>
+<li>Does the backup require shutting down MySQL? If not, what is the impact on the running server? Blocking, I/O load, cache pollution, etc?</li>
+<li>What technique is used for the backup? Is it mysqldump or a custom product that does something similar? Is it a filesystem copy?</li>
+<li>Does the backup system understand that <em>you cannot back up InnoDB by simply copying its files</em>?</li>
+<li>Does the backup use FLUSH TABLES, LOCK TABLES, or FLUSH TABLES WITH READ LOCK? These all interrupt processing.</li>
+<li>What other effects are there on MySQL? I’ve seen systems that do a RESET MASTER, which immediately breaks replication. Are there any FLUSH commands at all, like FLUSH LOGS?</li>
+<li>How does the system guarantee that you can perform point-in-time recovery?</li>
+<li>How does the system guarantee consistency with the binary log, InnoDB logs, and replication?</li>
+<li>Can you use the system to set up new MySQL replication slaves? How?</li>
+<li>Does the system verify that the backup is restorable, e.g. does it run InnoDB recovery before declaring success?</li>
+<li>Does anyone stand behind it with support, and guarantee working, recoverable backups? How strong is the legal guarantee of this and how much insurance do they have?</li>
+</ol>
+<p>&nbsp;</p>
+<h3>BACKUP PROGRAMS</h3>
+<p>There are a few MySQL backup products out there as well. I have used the first two on this list.</p>
+<ul>
+<li><a href="http://sourceforge.net/projects/automysqlbackup/" target="_blank">AutoMySQLBackup</a> script (handy for making a rotating incremental backup of your MySQL databases).</li>
+<li><a href="http://www.percona.com/software/percona-xtrabackup/" target="_blank">Percona XtraBackup</a> (nice way to ensure InnoDB and MyISAM tables are backed up properly, also does it incrementally)</li>
+<li><a href="https://zmanda.com/backup-mysql.html" target="_blank">Zmanda</a> (seems to be similar to Percona&#8217;s set up)</li>
+</ul>
+<p>There&#8217;s probably a gazillion more out there. Google&#8217;s your friend in finding things you need.</p>
+<h3>HOW TO DO IT</h3>
+<figure id="attachment_1279" aria-describedby="caption-attachment-1279" style="width: 300px" class="wp-caption alignright"><a href="../../../../wp-content/uploads/2012/07/master-and-slave.png"><img decoding="async" class="size-medium wp-image-1279" title="master-and-slave" alt="" src="../../../../wp-content/uploads/2012/07/master-and-slave-300x125.png" width="300" height="125" srcset="https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png 300w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-250x104.png 250w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-150x62.png 150w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png 503w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1279" class="wp-caption-text">How to get a copy of the master to the slave?</figcaption></figure>
+<p>There are several options. You could use a script above, or create a slave of the database (basically an exact copy of the production MySQL server &#8211; all changes that occur in the master are sent to the slave), or some combination. I&#8217;ll use a combination. I&#8217;ll replicate the production server onto the backup server, then run the incremental backups from there. This first part will walk through the process of setting up MySQL replication.</p>
+<p>To give proper credit, here are several other how to&#8217;s I found helpful.</p>
+<ul>
+<li><a href="http://www.badllama.com/content/mysql-backups-using-lvm-snapshots" target="_blank">http://www.badllama.com/content/mysql-backups-using-lvm-snapshots</a></li>
+<li><a href="http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/" target="_blank">http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/</a></li>
+<li><a href="http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html" target="_blank">http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html</a></li>
+<li><a href="http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/" target="_blank">http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/</a></li>
+</ul>
+<h3>On the master server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=1
+innodb_flush_log_at_trx_commit=1
+log_bin=mysql-bin.log
+sync_binlog=1
+</pre>
+</div>
+<p><strong>Step 2.</strong> Make a MySQL user for the slave to use.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">In a MySQL session on the terminal, type in the command:</p>
+<pre class="lang:sql decode:1 " >GRANT REPLICATION SLAVE ON *.* TO 'rep_user'@'localhost' IDENTIFIED BY 'passwordhere';</pre>
+</div>
+<p><strong>Step 3.</strong> Open a terminal session and log in to a MySQL prompt. Type the following command and hit enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >FLUSH TABLES WITH READ LOCK</pre>
+<p>Note: This will lock your database so that no changes can be made from any web applications or other programs. This session should remain open, and the database locked for the next few steps.</p>
+</div>
+<p><strong>Step 4.</strong> After the FLUSH TABLES command finishes, run the following command and press enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >SHOW MASTER STATUS</pre>
+<p>Record the information under &#8220;File Name&#8221; and &#8220;Position&#8221;.</p>
+</div>
+<p><strong>Step 5. </strong> Make a copy of the database files.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<p><strong>5.1 LVM Snapshot:</strong></p>
+<p>In another terminal session, run the following command to make an LVM snapshot of the database.</p>
+<pre class="lang:bash decode:1 " >lvcreate -L10G -s -n mysql-backup /dev/mapper/dbases</pre>
+<p>This creates a snapshot of the database files very quickly. We can use the snapshot later to copy the data to the backup server without interfering with the original database files.</p>
+<p>After this command finishes, you can unlock the database as shown in the next step. Then you can mount the new LVM partition and copy the files to the backup server.</p>
+<pre class="lang:bash decode:1 " >mkdir -p /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >mount -o nouuid /dev/mapper/mysql-backup /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /mnt/mysql-backup user@remote.host:/backup/location</pre>
+<p><strong>5.2 RSYNC:</strong></p>
+<p>If you don&#8217;t have your database files on an LVM partition, you can just copy the files to the backup server now using rsync, scp or what have you. This will take significantly longer (depending on the size of your database), leaving the database in a locked state.</p>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /dbases/mysql user@remote.host:/backup/location</pre>
+<p><strong>5.3 MySQL Dump:</strong></p>
+<p>You could also take a mysqldump of the database and copy that SQL file to the other server.</p>
+<pre class="lang:bash decode:1 " >mysqldump -uuser -p --all-databases &gt; mysql-backup.sql</pre>
+<pre class="lang:bash decode:1 " >scp mysql-backup.sql user@remote.host:/backup/location</pre>
+</div>
+<p><strong>Step 6.</strong> Once the lvcreate command has finished, you can unlock the database.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >UNLOCK TABLES</pre>
+</div>
+<p><strong>Step 7.</strong> If you haven&#8217;t already, copy the copy of the database files to the backup server.</p>
+<h3>On the slave server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=2
+</pre>
+</div>
+<p><strong>Step 2.</strong> Start MySQL and run the following commands in a mysql session to start the MySQL slave.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >
+CHANGE MASTER TO
+MASTER_HOST = "master.server.com",
+MASTER_USER = "rep_user",
+MASTER_PASSWORD = "passwordhere",
+MASTER_LOG_FILE = "mysql-bin.log",
+MASTER_LOG_POS = 2341234;
+</pre>
+<p>The MASTER_HOST is the domain name or IP address of the master server. MASTER_USER, MASTER_PASSWORD were created on the master server in <strong>Step 2</strong>. MASTER_LOG_FILE and MASTER_LOG_POS were gathered in <strong>Step 4</strong>.Then, finally, to start the slave, issue the following command in mysql.</p>
+<pre class="lang:sql decode:1 " >START SLAVE;</pre>
+</div>
+<div class='sociable'><div><span class='sociable-tagline'>Share and Enjoy:</span></div><ul><li><a rel="nofollow"   href="http://www.printfriendly.com/print/new?url=https%3A%2F%2Fmossiso.com%2F2012%2F07%2F24%2Fbacking-up-mysql-with-replication-and-incremental-files-part-1%2F" ><img decoding="async" src="../../../../wp-content/plugins/sociable-30/images/default/16/printfriendly.png" class="sociable-img sociable-hovers" title="Print" alt="Print" /></a></li><li><a rel="nofollow"   href="http://www.printfriendly.com/print/new?url=https%3A%2F%2Fmossiso.com%2F2012%2F07%2F24%2Fbacking-up-mysql-with-replication-and-incremental-files-part-1%2F" ><img decoding="async" src="../../../../wp-content/plugins/sociable-30/images/default/16/pdf.png" class="sociable-img sociable-hovers" title="PDF" alt="PDF" /></a></li><li><a rel="nofollow"   href="../../../../feed/index.html" ><img decoding="async" src="../../../../wp-content/plugins/sociable-30/images/default/16/rss.png" class="sociable-img sociable-hovers" title="RSS" alt="RSS" /></a></li></ul></div><h3 class='related_post_title'>Related Posts:</h3><ul class='related_post'><li><a href="../../../../making-multiple-mysql-instances-on-one-server/index.html" title="Making Multiple MySQL Instances on One Server">Making Multiple MySQL Instances on One Server</a></li><li><a href="../../../../when-your-os-updates-break-your-cam/index.html" title="When  your OS updates break your CAM">When  your OS updates break your CAM</a></li><li><a href="../../../../multiple-php-instances-with-one-apache/index.html" title="Multiple PHP Instances With One Apache">Multiple PHP Instances With One Apache</a></li><li><a href="../../../../tabledump/index.html" title="Tabledump">Tabledump</a></li></ul>	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../../backing-up-mysql-with-replication-and-incremental-files-part-1/index.html" rel="bookmark"><time class="entry-date published" datetime="2012-07-24T15:49:38-04:00">24 July, 2012</time><time class="updated" datetime="2014-09-22T14:09:13-04:00">22 September, 2014</time></a></span><span class="byline"><span class="author vcard"><span class="screen-reader-text">Author </span><a class="url fn n" href="../../../../author/ammon/index.html">ammon</a></span></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="../../../../category/technical/howto/index.html" rel="category tag">HowTo</a>, <a href="../../../../category/technical/index.html" rel="category tag">Technical</a>, <a href="../../../../category/technical/technology/index.html" rel="category tag">Technology</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../../tag/database-admin/index.html" rel="tag">database admin</a>, <a href="../../../../tag/mysql/index.html" rel="tag">mysql</a>, <a href="../../../../tag/server-admin/index.html" rel="tag">server admin</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1277 -->
+
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			2 thoughts on &ldquo;Backing up MySQL with Replication and Incremental Files &#8211; Part 1&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-12202" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-12202" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/91543c7bd9b40c9cf6efbfb818128ebb?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/91543c7bd9b40c9cf6efbfb818128ebb?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' decoding='async'/>						<b class="fn">daftu</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="../../../../backing-up-mysql-with-replication-and-incremental-files-part-1/index.html#comment-12202"><time datetime="2013-05-25T11:02:34-04:00">25 May, 2013 at 11:02 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>In step 1. there should be innodb_flush_log_at_trx_commit=1 (not &#8220;flash&#8221;)</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-12284" class="comment byuser comment-author-ammon bypostauthor odd alt depth-2">
+			<article id="div-comment-12284" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/62a31b8ca5219ddd426f253e948848e8?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/62a31b8ca5219ddd426f253e948848e8?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../../../../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="../../../../backing-up-mysql-with-replication-and-incremental-files-part-1/index.html#comment-12284"><time datetime="2013-06-06T12:30:46-04:00">6 June, 2013 at 12:30 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks for catching the typo. Updated the post to reflect the correction.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+		<p class="no-comments">Comments are closed.</p>
+	
+	
+</div><!-- .comments-area -->
+
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../../../../thatcamp-2012/index.html" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span> <span class="screen-reader-text">Previous post:</span> <span class="post-title">THATCamp 2012</span></a></div><div class="nav-next"><a href="../../../../making-multiple-mysql-instances-on-one-server/index.html" rel="next"><span class="meta-nav" aria-hidden="true">Next</span> <span class="screen-reader-text">Next post:</span> <span class="post-title">Making Multiple MySQL Instances on One Server</span></a></div></div>
+	</nav>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
+
+
+	</div><!-- .site-content -->
+
+	<footer id="colophon" class="site-footer">
+		<div class="site-info">
+									<a href="https://wordpress.org/" class="imprint">
+				Proudly powered by WordPress			</a>
+		</div><!-- .site-info -->
+	</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+	<div style="display:none">
+			<div class="grofile-hash-map-91543c7bd9b40c9cf6efbfb818128ebb">
+		</div>
+		<div class="grofile-hash-map-62a31b8ca5219ddd426f253e948848e8">
+		</div>
+		</div>
+		<script src="https://stats.wp.com/e-202432.js" id="jetpack-stats-js" data-wp-strategy="defer"></script>
+<script id="jetpack-stats-js-after">
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"140707563\",\"post\":\"1277\",\"tz\":\"-4\",\"srv\":\"mossiso.com\",\"j\":\"1:13.1.3\"}") ]);
+_stq.push([ "clickTrackerInit", "140707563", "1277" ]);
+</script>
+
+</body>
+</html>

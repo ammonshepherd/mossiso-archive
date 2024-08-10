@@ -1,0 +1,5 @@
+Sitemap: https://mossiso.com/sitemap.xml
+Sitemap: https://mossiso.com/news-sitemap.xml
+User-agent: *
+Disallow: /wp-admin/
+Allow: /wp-admin/admin-ajax.php

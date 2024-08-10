@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>firewall &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/firewall/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:36:14 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>firewall &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>OSSEC, Suhosin, and WordPress</title>
+		<link>https://mossiso.com/2013/06/14/ossec-suhosin-and-wordpress/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 14 Jun 2013 16:41:53 +0000</pubDate>
+				<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[firewall]]></category>
+		<category><![CDATA[iptables]]></category>
+		<category><![CDATA[ossec]]></category>
+		<category><![CDATA[shorewall]]></category>
+		<category><![CDATA[systems administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1479</guid>
+
+					<description><![CDATA[I had a problem show up on some of our servers. Visiting sites would work fine, but as soon as you log in to a WordPress site, then your IP was blocked at the firewall level. It took a bit of hunting around the OSSEC logs to figure out the cause, and then finally tipped &#8230; <a href="https://mossiso.com/2013/06/14/ossec-suhosin-and-wordpress/" class="more-link">Continue reading <span class="screen-reader-text">OSSEC, Suhosin, and WordPress</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I had a problem show up on some of our servers. Visiting sites would work fine, but as soon as you log in to a WordPress site, then your IP was blocked at the firewall level. It took a bit of hunting around the OSSEC logs to figure out the cause, and then finally <a href="https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612" target="_blank">tipped off</a> to a local rule to combat the blockage. I outline the process of figuring out what was wrong, and how to fix it below.</p>
+<h2>DENIED!</h2>
+<p><a href="http://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3.png"><img decoding="async" class="size-medium wp-image-1493 alignright" src="http://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-300x62.png" alt="gareth-davies-logo3" width="300" height="62" srcset="https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-300x62.png 300w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-250x52.png 250w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-150x31.png 150w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3.png 430w" sizes="(max-width: 300px) 100vw, 300px" /></a>So initially, this was quite confusing. All of a sudden people would have their IP blocked. I checked the different sites, and seemed to have no problem. Then when I logged in to the back end, BAM, blocked as well. We have <a href="http://shorewall.net">Shorewall</a> running, so doing:</p>
+<pre class="lang:sh decode:true">shorewall show dynamic</pre>
+<p>Showed all of the IPs that Shorewall had blocked. This could also be done by using iptables</p>
+<pre class="lang:sh decode:true">iptables -nL --line-numbers</pre>
+<p>Sure enough, my IP had been blocked. I unblocked my IP with:</p>
+<pre class="lang:sh decode:true">shorewall allow ip.ad.dr.es</pre>
+<p>Or could also do</p>
+<pre class="lang:sh decode:true">iptables -D INPUT 2</pre>
+<p>where INPUT is the position or section of the firewall chain, and &#8220;2&#8221; is the line number containing my IP address.</p>
+<p>Then I checked with other web applications on that server. Where they also causing an issue? I logged in to an Omeka install. No problems.</p>
+<h2>FOUND IT!</h2>
+<p><a href="http://mossiso.com/wp-content/uploads/2013/06/ossec_logo.png"><img decoding="async" class="alignleft size-full wp-image-1494" src="http://mossiso.com/wp-content/uploads/2013/06/ossec_logo.png" alt="ossec_logo" width="191" height="67" srcset="https://mossiso.com/wp-content/uploads/2013/06/ossec_logo.png 191w, https://mossiso.com/wp-content/uploads/2013/06/ossec_logo-150x52.png 150w" sizes="(max-width: 191px) 100vw, 191px" /></a>OK. I know <a href="http://ossec.net">OSSEC</a> is to blame some how. It&#8217;s an awesome HIDS (Host Intrusion Detection Software) that actively responds to issues on the server based on scanning through the system logs and various rules.</p>
+<p>OSSEC keeps itself chroot&#8217;ed to /var/ossec/, so all of the ossec logs are located in /var/ossec/logs/.</p>
+<p>I first looked in the /var/ossec/logs/active-responses.log. Sure enough, a couple of lines like this show my IP being completely blocked to the server.</p>
+<pre class="lang:vim decode:true">Fri Jun 14 06:50:47 EDT 2013 /var/ossec/active-response/bin/host-deny.sh add - XXX.XX.XX.XX 1371207047.5913585 20101
+Fri Jun 14 06:50:47 EDT 2013 /var/ossec/active-response/bin/firewall-drop.sh add - XXX.XX.XX.XX 1371207047.5913585 20101
+</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">So, there we are. OSSEC blocking the IP for some reason. Now why is it blocking the IP?</span></p>
+<p>Taking a look in the /var/ossec/logs/alerts/alerts.log file to see why it thinks it needs to block the IP&#8230;</p>
+<pre class="lang:sh decode:true">** Alert 1371206381.5698606: - ids,
+2013 Jun 14 06:39:41 (server1) 127.0.0.1-&gt;/var/log/messages
+Rule: 20101 (level 6) -&gt; 'IDS event.'
+Src IP: XXX.XX.XX.XX
+Jun 14 06:39:40 server1 suhosin[18563]: ALERT - script tried to increase memory_limit to 268435456 bytes which is above the allowed value (attacker 'XXX.XX.XX.XX', file '/var/html/wp-admin/admin.php', line 109)</pre>
+<p>There were other lines in there with my IP, but nothing would/should have caused blocking, like a WordPress login event, or an SSH login event. Also, the error above is categorized as an IDS event with level 6, which by default OSSEC rules means it gets blocked.</p>
+<h2>HOW TO FIX IT!</h2>
+<p>As a quick fix, I changed the &#8220;suhosin.memory_limit&#8221; option in /etc/php.d/suhosin.ini to 256M, and the &#8220;memory_limit&#8221; in /etc/php.ini to 256M so that no error would be generated.</p>
+<p>Now came the hard part of finding out how to fix it for real. OSSEC is a pretty big beast to tackle, so I turned to my friendly web search engine to help out.</p>
+<p>To fix the issue, I would need to write a decoder or new rule to ignore the suhosin rule causing the problem. OSSEC has descent documentation to get you started, but fortunately the blog linked above had the solution already. <a href="https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612">https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612</a></p>
+<p>From user &#8216;faris&#8217; in the forum linked above:</p>
+<p>Add the following lines the the /var/ossec/etc/rules.d/local_rules.xml file.<br />
+<b></b></p>
+<pre class="lang:xhtml decode:true ">&lt;group name="local,ids,"&gt;
+  &lt;!-- First Time Suhosin event rule --&gt;
+  &lt;rule id="101006" level="14"&gt;
+    &lt;if_sid&gt;20100&lt;/if_sid&gt;
+    &lt;decoded_as&gt;suhosin&lt;/decoded_as&gt;
+    &lt;description&gt;First Time Suhosin Event&lt;/description&gt;
+  &lt;/rule&gt;
+  &lt;!-- Generic Suhosin event rule --&gt;
+  &lt;rule id="101007" level="12"&gt;
+    &lt;if_sid&gt;20101&lt;/if_sid&gt;
+    &lt;decoded_as&gt;suhosin&lt;/decoded_as&gt;
+    &lt;description&gt;Suhosin Event&lt;/description&gt;
+  &lt;/rule&gt;
+  &lt;!-- Specific Suhosin event rule --&gt;
+  &lt;rule id="101008" level="5"&gt;
+    &lt;if_sid&gt;101006,101007&lt;/if_sid&gt;
+    &lt;match&gt;script tried to increase memory&lt;/match&gt;
+    &lt;description&gt;Suhosin Memory Increase Event&lt;/description&gt;
+  &lt;/rule&gt;
+&lt;/group&gt;
+</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">What these new rules do is change the level of the default rules that were tagged/decoded as being suhosin errors. In the first rule, if the default error is 20100, and is decoded (or tagged, or matches) as suhosin, then set the level to 14 instead of the default 8.</span></p>
+<p>The second rule detects if the default error 20101 is decoded as coming from suhosin and sets the level to 12 instead of the default 6.</p>
+<p>The third new rule looks at any error tagged as suhosin and if the error has the matching text in it, then it sets the error level to 5 (below the limit for firing an active response).</p>
+<p>So, just add that group of rules to the local_rules.xml file and restart the OSSEC service. BA-DA-BING! no more blocking the IP when logging in to WordPress.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1479</post-id>	</item>
+	</channel>
+</rss>

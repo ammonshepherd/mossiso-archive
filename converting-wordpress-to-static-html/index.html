@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://mossiso.com/xmlrpc.php">
+	<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<title>Converting WordPress to static html &#8211; Ammon Shepherd</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='https://stats.wp.com/' />
+<link rel='dns-prefetch' href='https://v0.wordpress.com/' />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Feed" href="../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Comments Feed" href="../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Converting WordPress to static html Comments Feed" href="../2007/09/10/converting-wordpress-to-static-html/feed/index.html" />
+<script>
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/mossiso.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.6.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+</script>
+<link rel='stylesheet' id='twentyfifteen-jetpack-css' href='../wp-content/plugins/jetpack/modules/theme-tools/compat/twentyfifteen.css%3Fver=13.1.3.css' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='../wp-includes/css/dist/block-library/style.min.css%3Fver=6.6.1.css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<style id='wp-block-library-theme-inline-css'>
+.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote.has-text-align-right{border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote.has-text-align-center{border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote.is-style-plain{border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}
+</style>
+<link rel='stylesheet' id='mediaelement-css' href='../wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css%3Fver=4.2.17.css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css' href='../wp-includes/js/mediaelement/wp-mediaelement.min.css%3Fver=6.6.1.css' media='all' />
+<style id='jetpack-sharing-buttons-style-inline-css'>
+.jetpack-sharing-buttons__services-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:0;list-style-type:none;margin:5px;padding:0}.jetpack-sharing-buttons__services-list.has-small-icon-size{font-size:12px}.jetpack-sharing-buttons__services-list.has-normal-icon-size{font-size:16px}.jetpack-sharing-buttons__services-list.has-large-icon-size{font-size:24px}.jetpack-sharing-buttons__services-list.has-huge-icon-size{font-size:36px}@media print{.jetpack-sharing-buttons__services-list{display:none!important}}ul.jetpack-sharing-buttons__services-list.has-background{padding:1.25em 2.375em}
+</style>
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #fff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--dark-gray: #111;--wp--preset--color--light-gray: #f1f1f1;--wp--preset--color--yellow: #f4ca16;--wp--preset--color--dark-brown: #352712;--wp--preset--color--medium-pink: #e53b51;--wp--preset--color--light-pink: #ffe5d1;--wp--preset--color--dark-purple: #2e2256;--wp--preset--color--purple: #674970;--wp--preset--color--blue-gray: #22313f;--wp--preset--color--bright-blue: #55c3dc;--wp--preset--color--light-blue: #e9f2f9;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--gradient--dark-gray-gradient-gradient: linear-gradient(90deg, rgba(17,17,17,1) 0%, rgba(42,42,42,1) 100%);--wp--preset--gradient--light-gray-gradient: linear-gradient(90deg, rgba(241,241,241,1) 0%, rgba(215,215,215,1) 100%);--wp--preset--gradient--white-gradient: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(230,230,230,1) 100%);--wp--preset--gradient--yellow-gradient: linear-gradient(90deg, rgba(244,202,22,1) 0%, rgba(205,168,10,1) 100%);--wp--preset--gradient--dark-brown-gradient: linear-gradient(90deg, rgba(53,39,18,1) 0%, rgba(91,67,31,1) 100%);--wp--preset--gradient--medium-pink-gradient: linear-gradient(90deg, rgba(229,59,81,1) 0%, rgba(209,28,51,1) 100%);--wp--preset--gradient--light-pink-gradient: linear-gradient(90deg, rgba(255,229,209,1) 0%, rgba(255,200,158,1) 100%);--wp--preset--gradient--dark-purple-gradient: linear-gradient(90deg, rgba(46,34,86,1) 0%, rgba(66,48,123,1) 100%);--wp--preset--gradient--purple-gradient: linear-gradient(90deg, rgba(103,73,112,1) 0%, rgba(131,93,143,1) 100%);--wp--preset--gradient--blue-gray-gradient: linear-gradient(90deg, rgba(34,49,63,1) 0%, rgba(52,75,96,1) 100%);--wp--preset--gradient--bright-blue-gradient: linear-gradient(90deg, rgba(85,195,220,1) 0%, rgba(43,180,211,1) 100%);--wp--preset--gradient--light-blue-gradient: linear-gradient(90deg, rgba(233,242,249,1) 0%, rgba(193,218,238,1) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='twentyfifteen-fonts-css' href='../wp-content/themes/twentyfifteen/assets/fonts/noto-sans-plus-noto-serif-plus-inconsolata.css%3Fver=20230328.css' media='all' />
+<link rel='stylesheet' id='genericons-css' href='../wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css%3Fver=3.1.css' media='all' />
+<link rel='stylesheet' id='twentyfifteen-style-css' href='../wp-content/themes/twentyfifteen/style.css%3Fver=20231107.css' media='all' />
+<link rel='stylesheet' id='twentyfifteen-block-style-css' href='../wp-content/themes/twentyfifteen/css/blocks.css%3Fver=20230623.css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css' href='../wp-content/plugins/jetpack/css/jetpack.css%3Fver=13.1.3.css' media='all' />
+<link rel='stylesheet' id='sociable3-css' href='../wp-content/plugins/sociable-30/sociable.css%3Fver=5.13.css' media='all' />
+<script src="../wp-includes/js/jquery/jquery.min.js%3Fver=3.7.1" id="jquery-core-js"></script>
+<script src="../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=3.4.1" id="jquery-migrate-js"></script>
+<script id="twentyfifteen-script-js-extra">
+var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
+</script>
+<script src="../wp-content/themes/twentyfifteen/js/functions.js%3Fver=20221101" id="twentyfifteen-script-js" defer data-wp-strategy="defer"></script>
+<link rel="https://api.w.org/" href="../wp-json/index.html" /><link rel="alternate" title="JSON" type="application/json" href="../wp-json/wp/v2/posts/84" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://mossiso.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.6.1" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='https://wp.me/p9wosP-1m' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fmossiso.com%252F2007%252F09%252F10%252Fconverting-wordpress-to-static-html%252F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fmossiso.com%252F2007%252F09%252F10%252Fconverting-wordpress-to-static-html%252F&amp;format=xml" />
+	<style>img#wpstats{display:none}</style>
+		
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Converting WordPress to static html" />
+<meta property="og:url" content="https://mossiso.com/2007/09/10/converting-wordpress-to-static-html/" />
+<meta property="og:description" content="UPDATE: Check out the new post on a better way to do this here: Convert WP to Static HTML Part 2. Or see the page devoted to the script here: Make WordPress Static. Usually people are wanting to co…" />
+<meta property="article:published_time" content="2007-09-10T21:21:33+00:00" />
+<meta property="article:modified_time" content="2011-03-07T16:05:08+00:00" />
+<meta property="og:site_name" content="Ammon Shepherd" />
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:text:title" content="Converting WordPress to static html" />
+<meta name="twitter:image" content="https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png" />
+<meta name="twitter:card" content="summary" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="icon" href="../wp-content/uploads/2018/12/favicon-96x96.png" sizes="32x32" />
+<link rel="icon" href="../wp-content/uploads/2018/12/favicon-96x96.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../wp-content/uploads/2018/12/favicon-96x96.png" />
+<meta name="msapplication-TileImage" content="https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png" />
+<style type="text/css" id="wp-custom-css">a {
+	color:#BE1E23;
+}</style></head>
+
+<body class="post-template-default single single-post postid-84 single-format-standard wp-custom-logo wp-embed-responsive">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="index.html#content">
+		Skip to content	</a>
+
+	<div id="sidebar" class="sidebar">
+		<header id="masthead" class="site-header">
+			<div class="site-branding">
+				<a href="../index.html" class="custom-logo-link" rel="home"><img width="192" height="192" src="../wp-content/uploads/2018/12/android-icon-192x192.png" class="custom-logo" alt="Ammon Shepherd" decoding="async" srcset="https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192.png 192w, https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192-150x150.png 150w" sizes="(max-width: 192px) 100vw, 192px" /></a>						<p class="site-title"><a href="../index.html" rel="home">Ammon Shepherd</a></p>
+												<p class="site-description">mossiso = more better</p>
+										<button class="secondary-toggle">Menu and widgets</button>
+			</div><!-- .site-branding -->
+		</header><!-- .site-header -->
+
+			<div id="secondary" class="secondary">
+
+					<nav id="site-navigation" class="main-navigation">
+				<div class="menu-newmain-container"><ul id="menu-newmain" class="nav-menu"><li id="menu-item-1768" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1768"><a href="../about/index.html">About</a></li>
+<li id="menu-item-1766" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1766"><a href="../digital-projects/index.html">Digital Projects</a></li>
+<li id="menu-item-1767" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1767"><a href="../courses/index.html">Courses</a></li>
+<li id="menu-item-1769" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1769"><a href="https://github.com/ammonshepherd">Code</a></li>
+<li id="menu-item-1770" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1770"><a href="../resume/index.html">CV</a></li>
+</ul></div>			</nav><!-- .main-navigation -->
+		
+		
+		
+	</div><!-- .secondary -->
+
+	</div><!-- .sidebar -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main">
+
+		
+<article id="post-84" class="post-84 post type-post status-publish format-standard hentry category-technology category-wordpress tag-bash-code tag-technology tag-wordpress">
+	
+	<header class="entry-header">
+		<h1 class="entry-title">Converting WordPress to static html</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>UPDATE: Check out the new post on a better way to do this here: <a title="Convert WP to static HTML – part 2" href="http://mossiso.com/2009/07/20/convert-wp-to-static-html-part-2.html">Convert WP to Static HTML Part 2</a>. Or see the page devoted to the script here: <a title="Make WordPress static" href="../code/make-wordpress-static.html">Make WordPress Static</a>.</p>
+<p>Usually people are wanting to convert their static html pages to some dynamic content management system. I&#8217;ve run into the issue of needing to go the other way.</p>
+<p>A few professors at GMU love to use WordPress for their classes. It&#8217;s a really great way to get more student participation and involve some of those who aren&#8217;t so talkative in class.</p>
+<p>But these blogs are usually only needed for one semester, and then just sit there.  This can be a security risk if they are not kept up to date, and is cumbersome when trying to update many of them (one professor had over 30 blogs!).</p>
+<p>Sometimes the content should still be viewable, but the need for a whole cms type back-end no longer exists. Sometimes the professor would just like a copy of the pages for their own future research or whatever.</p>
+<p>So, I figured out a way to convert a dynamic WordPress site into static html pages.</p>
+<p>Here are the basic steps I used:</p>
+<ol>
+<li>Change the permalink structure in the WordPress admin section. Alternatively, directly in the database change wp_options.permalink_structure.option_value to &#8220;/%postname%.html&#8221;.<br />
+[code lang=&#8221;SQL&#8221;]<br />
+UPDATE `database`.`prefix_options` SET `option_value` = &#8216;/%year%/%monthnum%/%day%/%postname%/&#8217; WHERE `prefix_options`.`option_name` = &#8216;permalink_structure&#8217; LIMIT 1 ;<br />
+[/code]&nbsp;</p>
+<p><strong class="green">UPDATE (2.12.08):</strong> Reading a <a href="http://www.christopherprice.net/fun-with-wordpress-permalinks-165.html">post from Christopher Price</a> (who linked to this post) about WP permalinks, I&#8217;m thinking using this structure (/archives/%post_id%.html) might afford the best results.  I often found a page that displayed the raw HTML instead of being rendered.  This just might fix that issue.</p>
+<p><strong class="green">UPDATE (3.11.08):</strong> I did some more dynamic to static conversions today, and found out the best permalink structure to use is just the post name. No extra categories and such. So the best structure to use would be this (/%postname%.html).  The benefit is that the every page is unique with a descriptive name for the url (albeit sometime very long), and there are not as many subdirectory issues that arise.</p>
+<p><strong>UPDATE (7.17.09):</strong> This time around, I have found that the following seems to work best for permalink: <code>/%year%/%monthnum%/%day%/%postname%/</code> And cleaned up the SQL statement.</li>
+<li>Add the .htaccess to /path/to/wp/  if not already there (where /path/to/wp/ is from http://somedomain.com/path/to/wp/ ). If there already is a .htaccess file and it is set to have permalinks, then you can probably leave it as it is.<code><br />
+RewriteEngine On<br />
+RewriteBase /path/to/wp/<br />
+RewriteCond %{REQUEST_FILENAME} !-f<br />
+RewriteCond %{REQUEST_FILENAME} !-d<br />
+RewriteRule . /path/to/wp/index.php [L]<br />
+</code></li>
+<li>Use wget to copy all of the files as static html files.<br />
+[code lang=&#8221;bash&#8221;]wget &#8211;mirror &#8211;wait=2 -P blogname-static -nH -np -p -k -E &#8211;cut-dirs=3 http://sitename.com/path/to/blog/[/code]<br />
+*** Change &#8211;cut-dirs to the appropriate number associated with how many directories are after the domain name. The trailing slash plays a part too. ****<br />
+<strong class="green">UPDATE (03.11.08):</strong> I found that the &#8211;cut-dirs doesn&#8217;t really do anything this time around.<br />
+<strong>UPDATE (7.17.09):</strong> This time around, I find the following to work best, even the &#8211;cut-dirs.&nbsp;</p>
+<pre>wget --mirror -P wpsite-static --cut-dirs=3 -nH -p -k -E https://site.com/path/to/wp/</pre>
+<p>This has the bonus of making the directory for you, thus negating the make directory step. Make sure to use two dashes and not an em dash.</li>
+<li>Copy the contents of wp-content to save uploaded files, themes, etc. This way copies a lot of unnecessary php files, which could be potentially dangerous, but is really easy if you&#8217;re just converting to archive.  To remove the security threat, just pick and choose the files you need.<br />
+[code lang=&#8221;bash&#8221;]cp -r /path/to/wp/wp-content/* /path/to/static/wp-content/[/code]</li>
+<li>Sometimes the files are created with folders in the archives folder.  To fix this run the following three commands in the archive folder to fix that up.  To get rid of the feed file in all of the directories:<br />
+[code]rm -f */feed [/code]<br />
+To delete all of the now empty direcotries:<br />
+[code]find . -type d -exec rmdir &#8216;{}&#8217; \;[/code]<br />
+To rename the files ###.1 to ###<br />
+[code]rename .1 &#8221; `find . -type f -name &#8220;*.1&#8243;`[/code] That&#8217;s two single quotes after the first &#8216;.1&#8217;</li>
+<p><strong class="green">UPDATE (03.11.08):</strong> I have found that the old &#8216;<strong>rename</strong>&#8216; command [<strong>rename .1 &#8221; *.1</strong>]only works on the current directory. If you want to do a recursive renaming you have to use the &#8216;<strong>find</strong>&#8216; command.  The above code has changed to reflect this.<br />
+<strong class="green">UPDATE (7.14.09):</strong> When the rename with find doesn’t work, it’s probably because the post has comments, so there is a folder with the same name as the post’s filename. In this case, just move the file (with the .1 extension) into the folder of the same name, but change the name of the file to index.html</p>
+<li>move to wp folder. make a backup of database: [code lang=&#8221;bash&#8221;]mysqldump -u [userfromwp-config.php] -p &#8211;opt databasename &gt; databasename.sql[/code]<br />
+<strong class="green">UPDATE (03.11.08):</strong> I found I needed to backup just a few tables from a database that contained many copies of wordpress.  To do this more easily, I used <a title="MySQL Table Dump" href="../index.html%3Fp=83.html" target="_self">a little script I wrote</a> earlier to dump tables with a common prefix.  This could also work if you just put in the full name of only the tables you wanted to backup.</li>
+<li>move one directory above wp install. make tar backup of old wordpress folder: [code lang=&#8221;bash&#8221;]tar -cf wordpress.tar wordpress/[/code]</li>
+<li>rename the old wordpress folder [code]mv wordpress wordpress-old[/code]</li>
+<li>move the static copy into place [code]mv static/wordpress/ wordpress/[/code]</li>
+<li>test out the site. If it&#8217;s totally broke, just delete the wordpress directory and restore the original from the tar file.</li>
+<li>remove the tar file and wordpress-old directory as needed.</li>
+</ol>
+<div class='sociable'><div><span class='sociable-tagline'>Share and Enjoy:</span></div><ul><li><a rel="nofollow"   href="http://www.printfriendly.com/print/new?url=https%3A%2F%2Fmossiso.com%2F2007%2F09%2F10%2Fconverting-wordpress-to-static-html%2F" ><img decoding="async" src="../wp-content/plugins/sociable-30/images/default/16/printfriendly.png" class="sociable-img sociable-hovers" title="Print" alt="Print" /></a></li><li><a rel="nofollow"   href="http://www.printfriendly.com/print/new?url=https%3A%2F%2Fmossiso.com%2F2007%2F09%2F10%2Fconverting-wordpress-to-static-html%2F" ><img decoding="async" src="../wp-content/plugins/sociable-30/images/default/16/pdf.png" class="sociable-img sociable-hovers" title="PDF" alt="PDF" /></a></li><li><a rel="nofollow"   href="../feed/index.html" ><img decoding="async" src="../wp-content/plugins/sociable-30/images/default/16/rss.png" class="sociable-img sociable-hovers" title="RSS" alt="RSS" /></a></li></ul></div><h3 class='related_post_title'>Related Posts:</h3><ul class='related_post'><li><a href="../that-podcast/index.html" title="THAT podcast">THAT podcast</a></li><li><a href="../ossec-suhosin-and-wordpress/index.html" title="OSSEC, Suhosin, and WordPress">OSSEC, Suhosin, and WordPress</a></li><li><a href="../filling-in-the-missing-dates-with-awstats/index.html" title="Filling in the missing dates with AWStats">Filling in the missing dates with AWStats</a></li><li><a href="../many-mechanical-machines/index.html" title="Many Mechanical Machines">Many Mechanical Machines</a></li><li><a href="../multiple-php-instances-with-one-apache/index.html" title="Multiple PHP Instances With One Apache">Multiple PHP Instances With One Apache</a></li></ul>	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="index.html" rel="bookmark"><time class="entry-date published" datetime="2007-09-10T14:21:33-04:00">10 September, 2007</time><time class="updated" datetime="2011-03-07T11:05:08-05:00">7 March, 2011</time></a></span><span class="byline"><span class="author vcard"><span class="screen-reader-text">Author </span><a class="url fn n" href="../author/ammon/index.html">ammon</a></span></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="../category/technical/technology/index.html" rel="category tag">Technology</a>, <a href="../category/technical/coding/wordpress/index.html" rel="category tag">wordpress</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../tag/bash-code/index.html" rel="tag">bash code</a>, <a href="../tag/technology/index.html" rel="tag">Technology</a>, <a href="../tag/wordpress/index.html" rel="tag">wordpress</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-84 -->
+
+<div id="comments" class="comments-area">
+
+			<h2 class="comments-title">
+			35 thoughts on &ldquo;Converting WordPress to static html&rdquo;		</h2>
+
+		
+		<ol class="comment-list">
+					<li id="comment-49" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://www.christopherprice.net/wordpress-canocality-permalinks-and-.html...-the-saga-continues-169.html" class="url" rel="ugc external nofollow">WordPress, Canocality, Permalinks, and .html&#8230; The Saga Continues | Christopher Price .net</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-50" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://www.christopherprice.net/wordpress-canocality-and-html...-the-saga-continues-170.html" class="url" rel="ugc external nofollow">WordPress, Canocality, and html&#8230; The Saga Continues | Christopher Price .net</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-51" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://www.christopherprice.net/wordpress-canocality-and-html-the-saga-continues-171.html" class="url" rel="ugc external nofollow">WordPress, Canocality, and html: The Saga Continues | Christopher Price .net</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-52" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://www.christopherprice.net/wordpress-canonically-and-html-the-saga-continues-172.html" class="url" rel="ugc external nofollow">WordPress, Canonically, and html: The Saga Continues | Christopher Price .net</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-53" class="comment even thread-even depth-1">
+			<article id="div-comment-53" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/bbcd4230138ad2c38704f584c5ee5b5a?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/bbcd4230138ad2c38704f584c5ee5b5a?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' decoding='async'/>						<b class="fn">wogahnct</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-53"><time datetime="2008-01-17T09:48:00-05:00">17 January, 2008 at 9:48 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>This is great and I followed it with my WordPress installation.  One question though, the links all refer to the posts by postnumber  (ie 40) not postnumber.html (ie 40.html)  so my browser simply displays it as text when you click on the link.  I can rename the files to postnumber.html and that&#8217;s great, but then all the links in the web pages are broken.</p>
+<p>Have you seen this before?</p>
+<p>Thanks!</p>
+<p>Cheryl</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-54" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-54" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/bbcd4230138ad2c38704f584c5ee5b5a?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/bbcd4230138ad2c38704f584c5ee5b5a?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' decoding='async'/>						<b class="fn">wogahnct</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-54"><time datetime="2008-01-17T11:21:37-05:00">17 January, 2008 at 11:21 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>p.s.  Comment links are still rendering as <a href="http://myservername/wordpress/?p=187#comment-224" rel="nofollow ugc">http://myservername/wordpress/?p=187#comment-224</a></p>
+<p>Will this work statically?</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-55" class="comment even thread-even depth-1">
+			<article id="div-comment-55" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-55"><time datetime="2008-01-17T16:31:29-05:00">17 January, 2008 at 4:31 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Cheryl,</p>
+<p>I have seen it a number of times, but I didn&#8217;t really investigate the issue more fully.  Usually the page would display properly even without the .html.</p>
+<p>I think all of the comments worked, even though they showed up with the PHP GET information.</p>
+<p>Another option might be to change the .htaccess settings to show names instead of numbers, or even some other way.</p>
+<p>Good luck, and I&#8217;m glad it proved helpful.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-56" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-56" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/bbcd4230138ad2c38704f584c5ee5b5a?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/bbcd4230138ad2c38704f584c5ee5b5a?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn">wogahnct</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-56"><time datetime="2008-01-18T11:33:53-05:00">18 January, 2008 at 11:33 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Thanks.  I changed the permalinks entry to be /archives/%post_id%.html and ran wget with the &#8211;html-extension option</p>
+<p>I did have to use Dreamweaver to edit some of the files, but it worked out great for me!</p>
+<p>Also, one thing to let people know&#8230; If they have installed widgets like &#8216;Recent Comments&#8217;, things that create links with php-type variables tacked on the end, remove the widgets BEFORE you use WGET.  When wget flattens the site, these links still come through and are unusable without the php behind them.</p>
+<p>Cheryl</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-57" class="comment even thread-even depth-1">
+			<article id="div-comment-57" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-57"><time datetime="2008-02-12T13:27:05-05:00">12 February, 2008 at 1:27 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I added an update to the steps:</p>
+<p>UPDATE (2.12.08): Reading a post from Christopher Price (who linked to this post) about WP permalinks, Iâ€™m thinking using this structure might afford the best results. I often found a page that displayed the raw HTML instead of being rendered. This just might fix that issue.</p>
+<p>Which will probably help with Cheryl&#8217;s questions.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-58" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-58" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/ae7c27be8238b10ac5ff6b76716a0470?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/ae7c27be8238b10ac5ff6b76716a0470?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.math.nyu.edu/~leingang" class="url" rel="ugc external nofollow">Matthew Leingang</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-58"><time datetime="2008-07-23T11:37:21-04:00">23 July, 2008 at 11:37 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Nice writeup! Definitely helped as I was trying to do this very thing.  A couple of additions:</p>
+<p>1. I don&#8217;t have mod_rewrite on my server so I made the permalink structure &#8220;/index.php/%postname%.html&#8221;</p>
+<p>5. I added the -k (correct links) option for wget to make sure the links to pages that were downloaded pointed to the right place.</p>
+<p>7. I removed the feed directories but I didn&#8217;t have a problem with other directories.  So I left them in their place.</p>
+<p>11. If you have other content in your site besides the wordpress stuff, use cp -r to instead of mv to avoid clobbering the rest.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-59" class="comment even thread-even depth-1 parent">
+			<article id="div-comment-59" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/1e9a97ce05f5b8455bfdd809ee444ef6?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/1e9a97ce05f5b8455bfdd809ee444ef6?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.hkministore.com" class="url" rel="ugc external nofollow">hk mini store</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-59"><time datetime="2009-07-07T00:10:15-04:00">7 July, 2009 at 12:10 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Hi This worked well.</p>
+<p>Is there anyway to form an href around the avatar itself so it has the same link as the comment author (if any)</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-61" class="comment odd alt depth-2">
+			<article id="div-comment-61" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-61"><time datetime="2009-07-22T14:35:21-04:00">22 July, 2009 at 2:35 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>@hk ministore</p>
+<p>You can add it in manually. But if you follow the new steps I have outlined, all of that stuff should be taken care of. See the new post about this here: <a href="http://historicalwebber.mossiso.com/convert-wp-to-static-html-part-2-244.html" rel="nofollow">http://historicalwebber.mossiso.com/convert-wp-to-static-html-part-2-244.html</a></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-60" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-60" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-60"><time datetime="2009-07-14T09:21:03-04:00">14 July, 2009 at 9:21 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Another update:<br />
+UPDATE (7.14.09): When the rename with find doesn&#8217;t work, it&#8217;s probably because the post has comments, so there is a folder with the same name as the post&#8217;s filename. In this case, just move the file (with the .1 extension) into the folder of the same name, but change the name of the file to index.html</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-62" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-62" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/52adc6862b6d7f0cd83a6cd10d89cd2d?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/52adc6862b6d7f0cd83a6cd10d89cd2d?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.iue.edu" class="url" rel="ugc external nofollow">Aaron</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-62"><time datetime="2009-08-12T09:33:27-04:00">12 August, 2009 at 9:33 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Wow.</p>
+<p>That&#8217;s EXACTLY What I was looking for.</p>
+<p>My site is unfortunately running on IIS 6 so I&#8217;ll have to make some adjustments for it to work (We have only spotty support for ReWrite, using an ISAPI module).</p>
+<p>If I make any modifications, I&#8217;ll post here about them, and put them up online somewhere.</p>
+<p>Cheers!</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-63" class="comment even depth-2">
+			<article id="div-comment-63" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-63"><time datetime="2009-08-12T09:53:59-04:00">12 August, 2009 at 9:53 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Aaron,<br />
+Glad it&#8217;s helpful. Yes, please post modifications for an IIS implementation.</p>
+<p>Make sure to check out the <a href="http://historicalwebber.mossiso.com/convert-wp-to-static-html-part-2-244.html" rel="nofollow">other post</a> with better, simplified steps.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-64" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-64" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/52adc6862b6d7f0cd83a6cd10d89cd2d?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/52adc6862b6d7f0cd83a6cd10d89cd2d?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.iue.edu" class="url" rel="ugc external nofollow">Aaron</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-64"><time datetime="2009-08-13T15:37:44-04:00">13 August, 2009 at 3:37 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I ended up using HTTracker instead of wget, and just left the &#8220;/index.php/&#8221; in the URL re-writing. I did use a .php extension rather than making it a directory, though. Leaving it as a directory would have probably created a crazy directory structure. 🙂</p>
+<p>works great though! <a href="http://www.iue.edu/blogs/archives/" rel="nofollow ugc">http://www.iue.edu/blogs/archives/</a></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-65" class="comment even depth-2">
+			<article id="div-comment-65" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-65"><time datetime="2009-08-13T20:11:49-04:00">13 August, 2009 at 8:11 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Looks great! Glad my steps were able to help in any way.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-66" class="comment odd alt thread-even depth-1">
+			<article id="div-comment-66" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/c09baa564e2ead205d41b81437e46851?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/c09baa564e2ead205d41b81437e46851?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn">Dale</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-66"><time datetime="2009-12-15T11:04:21-05:00">15 December, 2009 at 11:04 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I have a wordpress theme that I really like and would prefer it in HTML.  Is anyone willing to do this for me?  Of course I would be willing to pay.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-67" class="comment even thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-67" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/f2a05ea71558b1afaa0d3a81dcf83ff9?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/f2a05ea71558b1afaa0d3a81dcf83ff9?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.naeem.pk" class="url" rel="ugc external nofollow">Naeem</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-67"><time datetime="2010-02-24T07:34:08-05:00">24 February, 2010 at 7:34 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>can i creat   .html for my 17500+ posts ?</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-68" class="comment odd alt depth-2">
+			<article id="div-comment-68" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/d744526264f5d164485e15a5f97188fe?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-68"><time datetime="2010-03-02T18:38:29-05:00">2 March, 2010 at 6:38 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>The steps in the updated tutorial should be able to handle any number of posts.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-127" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://mossiso.com/2009/07/20/convert-wp-to-static-html-part-2.html" class="url" rel="ugc">Convert WP to static HTML &#8211; part 2</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-131" class="pingback odd alt thread-odd thread-alt depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://www.christopherprice.net/wordpress-canonical-urls-and-html-the-saga-continues-172.html" class="url" rel="ugc external nofollow">WordPress, Canonical, and html: The Saga Continues | Christopher Price .net</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-2305" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://blog.annamariamueller.de/2011/03/26/daily-digest/daily-digest-fuer-march-26th-2011/" class="url" rel="ugc external nofollow">Daily Digest — March 26th, 2011 &mdash; Amys Welt</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-2324" class="comment odd alt thread-odd thread-alt depth-1 parent">
+			<article id="div-comment-2324" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/b425cbcdcf92b267b77b4ad8247a18f4?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/b425cbcdcf92b267b77b4ad8247a18f4?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.hqsport.org" class="url" rel="ugc external nofollow">Shravan</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2324"><time datetime="2011-07-26T11:55:16-04:00">26 July, 2011 at 11:55 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Excellent article mate&#8230;my site speed is kinda increased&#8230;but the caveeat is that i cant add new post that i used to ocassionally.is there any workaround?</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-2442" class="comment byuser comment-author-ammon bypostauthor even depth-2">
+			<article id="div-comment-2442" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/62a31b8ca5219ddd426f253e948848e8?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/62a31b8ca5219ddd426f253e948848e8?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-2442"><time datetime="2011-09-02T10:11:21-04:00">2 September, 2011 at 10:11 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Yeah, that&#8217;s kind of the point of turning your WordPress into a static page. The process is not so much for speed increase, but for security. If the site is not active anymore, then I turn it into plain HTML pages and it can&#8217;t be hacked.</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-2342" class="pingback odd alt thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://rejon.org/2011/07/make-static-archiving-accelerating-and-securing-websites-or-converting-dynamic-sites-to-static-pages/" class="url" rel="ugc external nofollow">Make Static: Archiving, Accelerating and Securing Websites, or Converting Dynamic Sites to Static Pages | rejon is Jon Phillips.</a> 			</div>
+		</li><!-- #comment-## -->
+		<li id="comment-5139" class="comment even thread-odd thread-alt depth-1">
+			<article id="div-comment-5139" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/9562921537ed86bba9d260a3d713bef8?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/9562921537ed86bba9d260a3d713bef8?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.phoenixdiscountflooring.com" class="url" rel="ugc external nofollow">Larry Gauthier</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-5139"><time datetime="2012-02-01T11:02:42-05:00">1 February, 2012 at 11:02 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>is there anyone on the thread that can convert my wordpress site, (for pay), over to an html site?<br />
+<a href="http://www.phoenixdiscountflooring.com" rel="nofollow ugc">http://www.phoenixdiscountflooring.com</a></p>
+<p>let me know asap please.<br />
+thanks, larry</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-7404" class="comment odd alt thread-even depth-1 parent">
+			<article id="div-comment-7404" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/d7ff827bd0ec4644ad540847eee03c7d?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/d7ff827bd0ec4644ad540847eee03c7d?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.iosifszenasi.com" class="url" rel="ugc external nofollow">Iosif</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-7404"><time datetime="2012-06-07T01:21:34-04:00">7 June, 2012 at 1:21 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Kinda complicated&#8230; Is there any simple way to convert a blog to static HTML entirely?</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		<ol class="children">
+		<li id="comment-7416" class="comment byuser comment-author-ammon bypostauthor even depth-2">
+			<article id="div-comment-7416" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/62a31b8ca5219ddd426f253e948848e8?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/62a31b8ca5219ddd426f253e948848e8?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="../index.html" class="url" rel="ugc">ammon</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-7416"><time datetime="2012-06-07T09:46:33-04:00">7 June, 2012 at 9:46 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>My <a href="http://mossiso.com/2009/07/20/convert-wp-to-static-html-part-2.html" title="Convert WP to static HTML – part 2" rel="nofollow">updated post</a> or the <a href="../code/make-wordpress-static.html" title="Make WordPress static" rel="nofollow">script</a> I created make the process much easier.</p>
+<p>There are a few plugins out there that can do it. I can&#8217;t vouch for their quality or effectiveness. A quick google search turned up this one.</p>
+<p><a href="http://wordpress.org/extend/plugins/static-html-output-plugin/" target="_blank" rel="nofollow">http://wordpress.org/extend/plugins/static-html-output-plugin/</a></p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+</ol><!-- .children -->
+</li><!-- #comment-## -->
+		<li id="comment-10085" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-10085" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/66696096f69e9ffa57c77ab95da3e048?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/66696096f69e9ffa57c77ab95da3e048?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://SaltSpringHarmony.com" class="url" rel="ugc external nofollow">Gaianna</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-10085"><time datetime="2012-11-29T19:18:22-05:00">29 November, 2012 at 7:18 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>There&#8217;s a really simple way to do it without having to hack. If you have the theme Magazine basic I know it works. Go to Magazine Basic under appearance. Hit the Front Page tab. under number of posts insert 1.  Under excerpt or content, select content.  For some reason this sets up the front page and the rest of the pages as a static site ( : Hope it helps!</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-10991" class="comment even thread-even depth-1">
+			<article id="div-comment-10991" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/e82c85b68cc6791f7e9cef7e28f5c42c?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/e82c85b68cc6791f7e9cef7e28f5c42c?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn">ahmed</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-10991"><time datetime="2013-02-03T02:22:47-05:00">3 February, 2013 at 2:22 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>I am currently using wp only because of download and paid plugins, no more. wp is actually crap when it comes to SEO compared to HMTL static pages, I want to convert all their posts to static html pages and still use the plugins. how possible is that?</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-12136" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-12136" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/2d513c6d12eaf517f94868a2b22282ef?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/2d513c6d12eaf517f94868a2b22282ef?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.top5buzz.com" class="url" rel="ugc external nofollow">Top5Buzz</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-12136"><time datetime="2013-05-19T16:19:13-04:00">19 May, 2013 at 4:19 pm</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>it is complicated , is there someone help me to convert my blog..??</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-12138" class="comment even thread-even depth-1">
+			<article id="div-comment-12138" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/11a62b5cf777b793e6da108a4f2b67ba?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/11a62b5cf777b793e6da108a4f2b67ba?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn"><a href="http://www.partymix.co.za" class="url" rel="ugc external nofollow">Jermaine</a></b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-12138"><time datetime="2013-05-20T05:36:23-04:00">20 May, 2013 at 5:36 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>Wonderful! Just to find out if anyone has a sort of 1 click tool to convert wordpress to an html site?</p>
+<p>Many thanks!</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-12692" class="comment odd alt thread-odd thread-alt depth-1">
+			<article id="div-comment-12692" class="comment-body">
+				<footer class="comment-meta">
+					<div class="comment-author vcard">
+						<img alt='' src='https://secure.gravatar.com/avatar/77f45d0910ea28afaaf86ba475d1e90c?s=56&#038;r=g' srcset='https://secure.gravatar.com/avatar/77f45d0910ea28afaaf86ba475d1e90c?s=112&#038;r=g 2x' class='avatar avatar-56 photo' height='56' width='56' loading='lazy' decoding='async'/>						<b class="fn">lenny19</b> <span class="says">says:</span>					</div><!-- .comment-author -->
+
+					<div class="comment-metadata">
+						<a href="index.html#comment-12692"><time datetime="2013-08-06T08:27:35-04:00">6 August, 2013 at 8:27 am</time></a>					</div><!-- .comment-metadata -->
+
+									</footer><!-- .comment-meta -->
+
+				<div class="comment-content">
+					<p>My website has 6700 post which are made while wordpress permalink was set on default setting.  When I try to change permalink on post-name and using .htaccess by entering script as mentioned above it won&#8217;t change my permalink structure. In fact links are all broken unless I switch back to default settings.<br />
+I&#8217;m presently trying to convert this blog by running it on xampp.  Thanks for any idea how to proceed!</p>
+				</div><!-- .comment-content -->
+
+							</article><!-- .comment-body -->
+		</li><!-- #comment-## -->
+		<li id="comment-16313" class="pingback even thread-even depth-1">
+			<div class="comment-body">
+				Pingback: <a href="http://newswp.com/drama/162000-wordpress-sites" class="url" rel="ugc external nofollow">Was your site part of the 162,000 strong DDOS? | News WP</a> 			</div>
+		</li><!-- #comment-## -->
+		</ol><!-- .comment-list -->
+
+		
+	
+		<p class="no-comments">Comments are closed.</p>
+	
+	
+</div><!-- .comments-area -->
+
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../tabledump/index.html" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span> <span class="screen-reader-text">Previous post:</span> <span class="post-title">Tabledump</span></a></div><div class="nav-next"><a href="../slashdots-history/index.html" rel="next"><span class="meta-nav" aria-hidden="true">Next</span> <span class="screen-reader-text">Next post:</span> <span class="post-title">Slashdot&#039;s history</span></a></div></div>
+	</nav>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
+
+
+	</div><!-- .site-content -->
+
+	<footer id="colophon" class="site-footer">
+		<div class="site-info">
+									<a href="https://wordpress.org/" class="imprint">
+				Proudly powered by WordPress			</a>
+		</div><!-- .site-info -->
+	</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+	<div style="display:none">
+			<div class="grofile-hash-map-bbcd4230138ad2c38704f584c5ee5b5a">
+		</div>
+		<div class="grofile-hash-map-d744526264f5d164485e15a5f97188fe">
+		</div>
+		<div class="grofile-hash-map-ae7c27be8238b10ac5ff6b76716a0470">
+		</div>
+		<div class="grofile-hash-map-1e9a97ce05f5b8455bfdd809ee444ef6">
+		</div>
+		<div class="grofile-hash-map-52adc6862b6d7f0cd83a6cd10d89cd2d">
+		</div>
+		<div class="grofile-hash-map-c09baa564e2ead205d41b81437e46851">
+		</div>
+		<div class="grofile-hash-map-f2a05ea71558b1afaa0d3a81dcf83ff9">
+		</div>
+		<div class="grofile-hash-map-b425cbcdcf92b267b77b4ad8247a18f4">
+		</div>
+		<div class="grofile-hash-map-62a31b8ca5219ddd426f253e948848e8">
+		</div>
+		<div class="grofile-hash-map-9562921537ed86bba9d260a3d713bef8">
+		</div>
+		<div class="grofile-hash-map-d7ff827bd0ec4644ad540847eee03c7d">
+		</div>
+		<div class="grofile-hash-map-66696096f69e9ffa57c77ab95da3e048">
+		</div>
+		<div class="grofile-hash-map-e82c85b68cc6791f7e9cef7e28f5c42c">
+		</div>
+		<div class="grofile-hash-map-2d513c6d12eaf517f94868a2b22282ef">
+		</div>
+		<div class="grofile-hash-map-11a62b5cf777b793e6da108a4f2b67ba">
+		</div>
+		<div class="grofile-hash-map-77f45d0910ea28afaaf86ba475d1e90c">
+		</div>
+		</div>
+		<script src="https://stats.wp.com/e-202432.js" id="jetpack-stats-js" data-wp-strategy="defer"></script>
+<script id="jetpack-stats-js-after">
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"140707563\",\"post\":\"84\",\"tz\":\"-4\",\"srv\":\"mossiso.com\",\"j\":\"1:13.1.3\"}") ]);
+_stq.push([ "clickTrackerInit", "140707563", "84" ]);
+</script>
+
+</body>
+</html>

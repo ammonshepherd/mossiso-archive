@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Aside &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/type/aside/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Fri, 13 Apr 2018 14:46:32 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>Aside &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Wikijs port bindings</title>
+		<link>https://mossiso.com/2018/04/13/wikijs-port-bindings/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 13 Apr 2018 14:46:32 +0000</pubDate>
+				<category><![CDATA[Technical]]></category>
+		<category><![CDATA[docker-compose]]></category>
+		<category><![CDATA[wikijs]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1700</guid>
+
+					<description><![CDATA[It took me too long to figure this out, and the documentation wasn&#8217;t as clear as it should be. This is how the port bindings map out when using docker-compose with wikijs: config.yml -&#62; host = docker-compose.yml -&#62; left side of : in the ports section of the wikijs image config.yml -&#62; ports = docker-compose.yml &#8230; <a href="https://mossiso.com/2018/04/13/wikijs-port-bindings/" class="more-link">Continue reading <span class="screen-reader-text">Wikijs port bindings</span></a>]]></description>
+										<content:encoded><![CDATA[<p>It took me too long to figure this out, and the documentation wasn&#8217;t as clear as it should be. This is how the port bindings map out when using docker-compose with wikijs:</p>
+<p>config.yml -&gt; host = docker-compose.yml -&gt; left side of : in the ports section of the wikijs image</p>
+<p>config.yml -&gt; ports = docker-compose.yml -&gt; right side of : in the ports section of the wikijs image</p>
+<p>Here&#8217;s an image to make it more clear.</p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-1701 size-full" src="http://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings.png" alt="" width="960" height="720" srcset="https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings.png 960w, https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings-300x225.png 300w, https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings-768x576.png 768w, https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings-150x113.png 150w, https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings-624x468.png 624w" sizes="(max-width: 960px) 100vw, 960px" /></p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1700</post-id>	</item>
+		<item>
+		<title>Quick WP upgrading with WPCLI</title>
+		<link>https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 03 Jan 2018 20:30:59 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[update WP]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1683</guid>
+
+					<description><![CDATA[This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself. Requirements ssh access to your server wp-cli command installed (instructions for installing wp-cli at http://wp-cli.org/) Install/Upgrade WP CLI wp-cli should be upgraded each time a WordPress installation is upgraded. wp cli update Upgrade WP Prep work Change into the &#8230; <a href="https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/" class="more-link">Continue reading <span class="screen-reader-text">Quick WP upgrading with WPCLI</span></a>]]></description>
+										<content:encoded><![CDATA[<p>This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself.</p>
+<h1>Requirements</h1>
+<ul>
+<li>ssh access to your server</li>
+<li>wp-cli command installed (instructions for installing wp-cli at <a href="http://wp-cli.org/">http://wp-cli.org/</a>)</li>
+</ul>
+<h2>Install/Upgrade WP CLI</h2>
+<ul>
+<li><strong>wp-cli should be upgraded each time a WordPress installation is upgraded.</strong></li>
+</ul>
+<pre><code>wp cli update
+</code></pre>
+<h2>Upgrade WP</h2>
+<h3>Prep work</h3>
+<p>Change into the WP directory</p>
+<pre><code>cd /path/to/wordpress/installation/
+</code></pre>
+<p>Make a list of active plugins</p>
+<pre><code>wp plugin list --status=active --format=csv --fields=name | tail -n +2 &gt; ../active-plugins.txt
+</code></pre>
+<h3>Update all plugins</h3>
+<pre><code>wp plugin update --all
+</code></pre>
+<h3>Deactivate all of the plugins</h3>
+<pre><code>wp plugin deactivate --all
+</code></pre>
+<h3>Upgrade WordPress</h3>
+<pre><code>wp core update
+</code></pre>
+<h3>Reactivate all of the previously active plugins.</h3>
+<pre><code>cat ../active-plugins.txt | xargs wp plugin activate
+</code></pre>
+<h1>Check the site in various browsers (make sure cache has been cleared).</h1>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1683</post-id>	</item>
+		<item>
+		<title>Grab all of the domain names in Apache host file</title>
+		<link>https://mossiso.com/2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 30 Jun 2017 19:55:17 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[devops]]></category>
+		<category><![CDATA[systems administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1675</guid>
+
+					<description><![CDATA[Quick script I whipped up today to grab all of the domain names on a server. #!/bin/bash if [ -e alldomains ] then rm alldomains fi alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) ) for domain in ${alldomains[*]} do cat $domain &#124; egrep "ServerName&#124;ServerAlias" &#124; egrep -v "#" &#124; sed -e 's&#124;ServerName&#124;&#124;' -e 's&#124;ServerAlias&#124;&#124;' -e 's&#124;www.&#124;&#124;' -e &#8230; <a href="https://mossiso.com/2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/" class="more-link">Continue reading <span class="screen-reader-text">Grab all of the domain names in Apache host file</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Quick script I whipped up today to grab all of the domain names on a server.</p>
+<pre class="lang:sh decode:true">#!/bin/bash
+
+if [ -e alldomains ]
+then
+  rm alldomains
+fi
+
+alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) )
+
+for domain in ${alldomains[*]}
+do
+  cat $domain | egrep "ServerName|ServerAlias" | egrep -v "#" | sed -e 's|ServerName||' -e 's|ServerAlias||' -e 's|www.||' -e 's|:80||' | tr -s ' ' '\n' | tr -d ' ' | sed -e '/^\s*$/d' &gt;&gt; alldomains
+done
+
+sort alldomains | uniq | sort -o alldomains</pre>
+<p>&nbsp;</p>
+<p>This gets all of the domains from ServerName and ServerAlias lines, takes out all of the white space and empty lines, and creates a file with just a list of the unique domain names.</p>
+<p>This accounts for subdomains that use &#8216;www&#8217; or have port :80 on the end.</p>
+<p>For instance, www.somedomain.com and somedomain.com are the same, so the script takes out the &#8216;www.&#8217; which leaves to copies of somedomain.com, which it then deletes one of them in the final output to the file. The same for &#8216;:80&#8217;.</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1675</post-id>	</item>
+	</channel>
+</rss>

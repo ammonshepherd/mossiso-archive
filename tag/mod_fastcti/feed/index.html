@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>mod_fastcti &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/mod_fastcti/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:13:28 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>mod_fastcti &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Setting up a Hosting Environment, Part 5: Apache and PHP</title>
+		<link>https://mossiso.com/2014/09/22/setting-up-a-hosting-environment-part-5-apache-and-php/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Mon, 22 Sep 2014 18:13:28 +0000</pubDate>
+				<category><![CDATA[Setting up a Hosting Environment]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[apache.worker]]></category>
+		<category><![CDATA[apc]]></category>
+		<category><![CDATA[CentOS]]></category>
+		<category><![CDATA[mod_fastcti]]></category>
+		<category><![CDATA[mod_fcgi]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[php-fpm]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1426</guid>
+
+					<description><![CDATA[Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one &#8230; <a href="https://mossiso.com/2014/09/22/setting-up-a-hosting-environment-part-5-apache-and-php/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment, Part 5: Apache and PHP</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one point Mr. Knox exclaims:<br />
+&#8220;I can&#8217;t blab such blibber blubber!<br />
+My tongue isn&#8217;t make of rubber.&#8221;</p>
+<p>That&#8217;s what my brain felt like after trying to figure all of the options for Apache and PHP. To combat my rubber brain, I created this flow-chart to help me keep track of the options, the pros and cons for each, and the path I finally chose.</p>
+<p>First off, a list of requirements and goals:</p>
+<ol>
+<li>Chroot each vhost to it&#8217;s own directory, and have Apache and PHP run on that vhost&#8217;s server account</li>
+<li>Speed, run Apache and PHP at their most effective and efficient levels</li>
+<li>Utilize an opcode cache, APC, to speed up PHP pages</li>
+<li>Use trusted repositories to make installation and upgrading easier</li>
+</ol>
+<p>Here&#8217;s what I eventually figured out about Apache and PHP:</p>
+<figure id="attachment_1427" aria-describedby="caption-attachment-1427" style="width: 625px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-1427" src="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png" alt="ApachePHP" width="625" height="1017" srcset="https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png 629w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-184x300.png 184w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-250x406.png 250w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-92x150.png 92w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-624x1015.png 624w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png 1087w" sizes="(max-width: 625px) 100vw, 625px" /></a><figcaption id="caption-attachment-1427" class="wp-caption-text">Click on the image to see a larger view</figcaption></figure>
+<p>These sites were helpful for the initial set up of PHP as CGI with mod_fcgi and Apache in chroot (mod_fcgi sends one request to each PHP process regardless if PHP children are available to handle more, and no sharing of APC opcode cache across PHP processes):</p>
+<ul>
+<li><a href="http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2">http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2</a></li>
+<li><a href="http://forum.linode.com/viewtopic.php?t=2982">http://forum.linode.com/viewtopic.php?t=2982</a></li>
+</ul>
+<p>This site was helpful for setting up PHP as CGI with mod_fastcgi and Apache in chroot (mod_fastcgi sends multiple requests to a PHP process, so the process can send them to children processes, and having one PHP process for each site allows for APC opcode cache to be usable.)</p>
+<ul>
+<li><a href="http://www.brandonturner.net/blog/2009/07/fastcgi_with_php_opcode_cache/">http://www.brandonturner.net/blog/2009/07/fastcgi_with_php_opcode_cache/</a></li>
+</ul>
+<p>These sites helped me learn about php-fpm and how it is not quite ready for what I have in mind:</p>
+<ul>
+<li><a href="http://www.makina-corpus.org/blog/install-drupal-php-fpm-fastcgi-apache-and-chroot-php-fpm">http://www.makina-corpus.org/blog/install-drupal-php-fpm-fastcgi-apache-and-chroot-php-fpm</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups=#!topic/highload-php-en/Uq2MDrudMQ4">https://groups.google.com/forum/?fromgroups=#!topic/highload-php-en/Uq2MDrudMQ4</a></li>
+</ul>
+<p>I ended up going with Apache&#8217;s mod_fastcgi for using PHP as a CGI, and NOT using PHP-FPM, while running Apache in threaded mode with apache.worker enabled.</p>
+<p>To get this set up is pretty easy. I already had Apache and PHP installed and running (with PHP as CGI using mod_fcgi), so here are the steps I used to convert it to run mod_fastcgi and apache.worker. I&#8217;m running CentOS 6.3.</p>
+<h4>Install the RPMForge repo for installing mod_fastcgi.</h4>
+<ul>
+<li>Get latest from <a href="http://repoforge.org/use/">http://repoforge.org/use/</a> : <code>rpm -Uvh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm</code></li>
+<li><code>yum --enablerepo=rpmforge install mod_fastcgi</code></li>
+</ul>
+<h4>Edit the <code>/etc/httpd/conf/httpd.conf</code> file</h4>
+<ul>
+<li><code>ServerTokens Prod</code></li>
+<li><code>KeepAlive On</code></li>
+<li>Edit the worker section. I still need to do some testing to figure out the best configuration
+<pre class="decode-attributes:false lang:apache decode:true ">&lt;IfModule worker.c&gt;
+    StartServers         8
+    MaxClients         300
+    MinSpareThreads     25
+    MaxSpareThreads     75
+    ThreadsPerChild     25
+    MaxRequestsPerChild  0
+&lt;/IfModule&gt;</pre>
+</li>
+<li>If there, make sure to comment out, or delete the lines for mod_php: <code>LoadModule php5_module modules/libphp5.so</code></li>
+<li>this line also: <code>AddType application/x-httpd-php .php</code></li>
+<li>The last line should be: <code>Include conf/virtual_hosts.conf</code></li>
+</ul>
+<p>&nbsp;</p>
+<h4>Create a <code>/etc/httpd/conf/virtual_hosts.conf</code> file</h4>
+<p>Each virtual host needs to have an entry similar to this in the httpd.conf file, or I like to create a separate virtual_host.conf and include that in the main httpd.conf.</p>
+<pre class="decode-attributes:false lang:apache decode:true"># Name-based virtual hosts
+#
+
+# Default
+NameVirtualHost *:80
+
+# Begin domain-name.com section
+&lt;VirtualHost *:80&gt;
+    DocumentRoot /var/domain-name/home/html/
+    ServerName domain-name.com
+    ServerAlias www.domain-name.com
+
+    # Rewrite domain name to not use the 'www'
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST}    !^domain-name\.com$ [NC]
+    RewriteRule ^/(.*)  http://domain-name.com/$1 [R=301]
+
+    # Specify where the error logs go for each domain
+    ErrorLog /var/logs/httpd/current/domain-name.com-error_log
+    CustomLog /var/logs/httpd/current/domain-name.com-access_log combined
+
+    &lt;IfModule mod_fastcgi.c&gt;
+        SuexecUserGroup domain-name domain-name
+        ScriptAlias /cgi-bin/ "/var/www/cgi-bin/domain-name/"
+        &lt;Directory "/var/domain-name/home/html"&gt;
+            Options -Indexes FollowSymLinks +ExecCGI
+            AddHandler php5-fastcgi .php
+            Action php5-fastcgi /cgi-bin/php-fastcgi
+            Order allow,deny
+            Allow from all
+        &lt;/Directory&gt;
+    &lt;/IfModule&gt;
+&lt;/VirtualHost&gt;
+# End domain-name.com section</pre>
+<p>Things to note:</p>
+<ul>
+<li>The line with <code>SuexecUserGroup</code> should have the user/group for the project.</li>
+</ul>
+<h4>Create the php-fastcgi file</h4>
+<p>Add a <code>/var/www/cgi-bin/projectname/php-fastcgi</code> file for each project. This allows php to run as FastCGI, and use suEXEC. The php-fastcgi file needs to be under suexec’s default directory path <code>/var/www/cgi-bin/</code>.</p>
+<ul>
+<li>
+<div>
+<pre class="">#!/bin/bash
+#  Set PHPRC to the path for the php.ini file. Change this to
+#  /var/projectname/home/ to let projects have their own php.ini file
+PHPRC=/var/domain-name/home/
+export PHPRC
+export PHP_FCGI_MAX_REQUESTS=5000
+export PHP_FCGI_CHILDREN=5
+exec /usr/bin/php-cgi</pre>
+</div>
+</li>
+</ul>
+<p>Things to note:</p>
+<ul>
+<li>The directory and file created above must be have user/group of the project (the same as the user/group of the /var/projectname/ directory)</li>
+<li>The directory and file must be executable and writable by the owner ONLY.</li>
+<li>If you get Apache Internal Server errors, check <code>/var/log/httpd/suexec.log</code></li>
+<li>For each site, you can specify how much RAM the APC module can use. For large, busy sites, you set this higher. Not setting this defaults to 64MB, which is a bit more than needed for the average WP site. Change the last line in the <code>/var/www/cgi-bin/projectname/php-fastcgi</code> file:
+<ul>
+<li><code>exec /usr/bin/php-cgi -d apc.shm_size=128M</code></li>
+</ul>
+</li>
+</ul>
+<h4>Change php.conf</h4>
+<p>Comment out everything in the <code>/etc/httpd/conf.d/php.conf</code> file so php is not loaded as a module when Apache starts.</p>
+<h4>Apache multi-threaded</h4>
+<p>Edit the <code>/etc/sysconfig/httpd</code> file to allow Apache to use multi-threaded mode (httpd.worker) which handles basic HTML files much nicer (less RAM). Uncomment the line with <code>HTTPD=/usr/sbin/httpd.worker</code></p>
+<h4>Config Check</h4>
+<p>Check the Apache configuration files to see if there are any errors.</p>
+<ul>
+<li><code>service httpd configtest</code></li>
+</ul>
+<p>If all good, restart Apache</p>
+<ul>
+<li><code>service httpd restart</code> This will stop the running httpd service, and then start it again. Use this command after installing or removing a dynamically loaded module such as PHP. OR</li>
+<li><code>service httpd reload</code> This will cause the running httpd service to reload the configuration file. Note that any requests being currently processed will be interrupted, which may cause a client browser to display an error message or render a partial page. OR</li>
+<li><code>service httpd graceful</code> This will cause the running httpd service to reload the configuration file. Note that any requests being currently processed will use the old configuration.</li>
+</ul>
+<h3>Install APC</h3>
+<ul>
+<li><code>pecl install apc</code></li>
+</ul>
+<p>Set up log rotation for Apache</p>
+<ul>
+<li>Add a file <code>/etc/logrotate.d/httpd.monti</code></li>
+<li>
+<div>
+<pre class="decode-attributes:false lang:apache decode:true">/var/logs/httpd/*log {
+    daily
+    rotate 365
+    compress
+    missingok
+    notifempty
+    copytruncate
+    olddir /var/logs/httpd/archives/
+    sharedscripts
+    postrotate
+        /bin/kill -HUP `cat /var/run/httpd/httpd.pid 2&gt;/dev/null` 2&gt; /dev/null || true
+    endscript
+}</pre>
+</div>
+</li>
+</ul>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1426</post-id>	</item>
+	</channel>
+</rss>

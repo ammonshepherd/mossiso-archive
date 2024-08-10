@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>exhibit &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/exhibit/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Thu, 11 Oct 2012 23:07:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>exhibit &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>If at first you don&#8217;t succeed</title>
+		<link>https://mossiso.com/2012/10/11/if-at-first-you-dont-succeed/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 11 Oct 2012 23:07:40 +0000</pubDate>
+				<category><![CDATA[Academic]]></category>
+		<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Dissertation]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[exhibit]]></category>
+		<category><![CDATA[json]]></category>
+		<category><![CDATA[maps]]></category>
+		<category><![CDATA[spreadsheets]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1356</guid>
+
+					<description><![CDATA[&#8230;copy somebody&#8217;s code. Or at least your own from the past that works. I finally got the map to work for my Exhibit exhibit. See. &#160; First I copied the tutorial here. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken. So next &#8230; <a href="https://mossiso.com/2012/10/11/if-at-first-you-dont-succeed/" class="more-link">Continue reading <span class="screen-reader-text">If at first you don&#8217;t succeed</span></a>]]></description>
+										<content:encoded><![CDATA[<p>&#8230;copy somebody&#8217;s code. Or at least your own from the past that works.</p>
+<p>I finally got the map to work for my Exhibit exhibit. <a href="http://chnm.gmu.edu/staff/ammon/clio3/tunnels.php">See</a>.</p>
+<p>&nbsp;</p>
+<p>First I copied the tutorial <a href="http://simile.mit.edu/wiki/Exhibit/2.0/Map_View_Tutorial">here</a>. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken.</p>
+<p>So next I commented out all extraneous stuff, and finally got it to work. Now came the fun part of tracking down what code was making my awesome map look like nothing. I narrowed it down to something within the &lt;header&gt; tag. So line by line I uncommented and tested until I tracked the issue down to the bootstrap.css file I was using.</p>
+<p>Then came the same process within the bootstrap.css file. It was easily 1000 lines long, so a line by line process wasn&#8217;t going to work. Instead I commented out the first have of the file. Bing, the map displayed, so it was somewhere within that first 500 lines. Then I commented out the first 250 lines. Bing again. I kept dividing the culprits in half until I narrowed it down to styles for the img tag. Commented those out and I was in business.</p>
+<p>Through that grueling process I lost the images of the documents on the first page. Now I have to figure out how to get those back, apply some styling and we&#8217;re all set.</p>
+<p>Unfortunately I wasn&#8217;t ever able to get it to pull in the data from a spreadsheet, so the JSON file will have to do. The process for making a JSON file from a spreadsheet is simple:</p>
+<p>1. Make the spreadsheet file so that the headers are encapsulated with curly braces &#8216;{ }&#8217;</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png"><img fetchpriority="high" decoding="async" class="alignnone size-full wp-image-1361" title="Screen Shot 2012-10-11 at 6.44.16 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png" alt="" width="800" height="76" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png 800w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-300x28.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-250x23.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-150x14.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-624x59.png 624w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>2. If you&#8217;re using Google spreadsheets, export it as an Excel file. You&#8217;ll have to open it in Excel and save it as an older file format, because the next step doesn&#8217;t like .xlsx.</p>
+<p>3. Next, use <a href="http://service.simile-widgets.org/babel/">Similie&#8217;s Babel tool</a> to convert the spreadsheet to JSON.</p>
+<p>4. Select &#8220;Excel&#8221; as the &#8220;from format&#8221; and &#8220;Exhibit JSON&#8221; as the &#8220;to format&#8221; and then browse to find the xls file you just made.</p>
+<p>5. Click the &#8220;Upload and Convert&#8221; button.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png"><img decoding="async" class="alignnone size-large wp-image-1360" title="Screen Shot 2012-10-11 at 6.50.19 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png" alt="" width="550" height="254" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-300x139.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-250x115.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-150x69.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-624x289.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png 1294w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>6. The next screen is all of your spreadsheet data output into a nice JSON format.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png"><img decoding="async" class="alignnone size-full wp-image-1359" title="Screen Shot 2012-10-11 at 6.50.27 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png" alt="" width="527" height="860" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png 527w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-183x300.png 183w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-250x407.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-91x150.png 91w" sizes="(max-width: 527px) 100vw, 527px" /></a></p>
+<p>7. Now you can use this JSON file for any number of things. But it&#8217;s especially nice to use it in an Exhibit to display your data.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-1357" title="Screen Shot 2012-10-11 at 6.52.53 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png" alt="" width="550" height="422" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-300x230.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-250x192.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-150x115.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-624x479.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png 1110w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>This is cross posted at the class blog <a href="http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/">http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/</a></p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1356</post-id>	</item>
+	</channel>
+</rss>

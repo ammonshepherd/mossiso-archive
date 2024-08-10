@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>LAMP &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/lamp/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Fri, 01 Feb 2013 18:55:55 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>LAMP &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Multiple PHP Instances With One Apache</title>
+		<link>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/</link>
+					<comments>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 02 Sep 2009 21:12:02 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[bash code]]></category>
+		<category><![CDATA[CentOS]]></category>
+		<category><![CDATA[httpd]]></category>
+		<category><![CDATA[LAMP]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[tutorial]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=311</guid>
+
+					<description><![CDATA[&#160; Long-winded Introduction It took me a couple of days to figure this out due to lack of decent tutorials and not enough confidence in my Linux skills to build programs from source. I think I have the hang of it now, and write this up with the intent on providing another, or the only, &#8230; <a href="https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/" class="more-link">Continue reading <span class="screen-reader-text">Multiple PHP Instances With One Apache</span></a>]]></description>
+										<content:encoded><![CDATA[<p>&nbsp;</p>
+<h3>Long-winded Introduction</h3>
+<p>It took me a couple of days to figure this out due to lack of decent tutorials and not enough confidence in my Linux skills to build programs from source. I think I have the hang of it now, and write this up with the intent on providing another, or the only, tutorial on setting up CentOS 5 with multiple instances of PHP using one Apache install. That being said, there are a number of good tutorials out there, just none of them explicitly for CentOS and some leave out some details that n00bs like me get confused about.</p>
+<p><a href="http://www.aditus.nu/jpgraph/apache2suse10.php">PHP4 and PHP5 on SuSE 10.1</a> &#8211; This was by far the most helpful of the tutorials. Even though it was written for SuSE, it works almost straight across for CentOS.</p>
+<p>There is also a great list of instructions in the comments on the php.net site under installing PHP for Apache 2.0 on Unix systems (see <a href="http://www.php.net/manual/en/install.unix.apache2.php#90478">http://www.php.net/manual/en/install.unix.apache2.php#90478</a>).</p>
+<p>I found this one after I wrote up this tutorial at <a href="http://cuadradevelopment.com/blog/26/multiple-php-versions-with-apache-using-fastcgi-on-os-x/">http://cuadradevelopment.com</a>. It&#8217;s a bit different, but should work as well.</p>
+<p>There are basically two different ways I could have done this. 1- run a single instance of Apache, and run one instance of PHP as a module, and other installs as CGI. 2- run several instances of Apache, each with it&#8217;s own instance of PHP as a module. I chose to do the first method for no particular reason. <a href="http://blog.dreamhosters.com/kbase/index.cgi?area=2933">Dreamhost</a> has a post about the good and bad with running PHP as CGI.</p>
+<p>So basically, the steps are: 1. Set up Apache and have PHP install as a module. 2. Configure and make another instance of PHP to run as CGI. 3. Add a virtual host to Apache running under a different port to access the PHP as CGI.<br />
+<span id="more-311"></span></p>
+<h3>Set up Apache with PHP module</h3>
+<p>So here&#8217;s what I did to get the basic Apache, PHP and MySQL working. This sets up the first PHP install to run as a module in Apache:</p>
+<p>From a clean install of CentOS 5 (virtually no packages selected during initial install), I installed the following packages:</p>
+<p><code>$ yum install gcc make subversion ImageMagick php php-cli php-common php-ldap php-mysql php-pdo php-pear php-devel bzip2-devel libxml2-devel mysql mysql-server mysql-devel mod_auth_mysql httpd httpd-manual</code></p>
+<p>From there I needed to get PHP 5.2.x, so I did the following to get PHP, Apache, MySQL and PEAR all set up.</p>
+<ol>
+<li><strong>Step 1:</strong> GET PHP 5.2.x<br />
+Check out instructions and packages here: <a href="http://blog.famillecollet.com/pages/Config-en">http://blog.famillecollet.com/pages/Config-en</a></p>
+<pre>$ wget http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-2.noarch.rpm
+$ wget http://rpms.famillecollet.com/el5.i386/remi-release-5-4.el5.remi.noarch.rpm
+$ rpm -Uvh remi-release-5<strong>.rpm epel-release-5</strong>.rpm
+$ yum—enablerepo=remi update php-pear php</pre>
+<p>Copy the /etc/php.ini file from the /etc/php.ini.default:</p>
+<pre>$ cp /etc/php.ini.default /etc/php.ini</pre>
+<p>Change the following lines:</p>
+<ul>
+<li>1. upload_max_filesize = 20M #line 573</li>
+<li>2. mysql.default_socket =/path/to/mysql/mysql.sock #about line 736</li>
+<li>3. mysqli.default_socket =/path/to/mysql/mysql.sock #about line 771</li>
+</ul>
+</li>
+<li><strong>Step 2:</strong>Edit /etc/httpd/conf/httpd.conf by changing the following lines
+<ul>
+<li>1. Listen xxx.xxx.xxx.xxx:80 #line 134</li>
+<li>2. ServerAdmin admin@email.org #line 251</li>
+<li>3. ServerName somesite.org #line 265</li>
+<li>4. DocumentRoot ”/path/to/htdocs” #line 282</li>
+<li>5. &lt;Directory ”/path/to/htdocs”&gt; #line 307</li>
+<li>6. AllowOverride All #line 328</li>
+<li>7. DirectoryIndex index.php index.html index.html.var #line 392</li>
+</ul>
+</li>
+<li><strong>Step 3:</strong> Create the /etc/my.cnf file for MySQL<br />
+[code]</p>
+<pre>[mysqld]
+datadir=/path/to/mysql
+socket=/path/to/mysql/mysql.sock
+user=mysql
+# Default to using old password format for compatibility with mysql 3.x
+# clients (those using the mysqlclient10 compatibility package).
+old_passwords=1
+
+[client]
+socket=/path/to/mysql/mysql.sock
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid</pre>
+<p>[/code]</li>
+<li><strong>Step 4:</strong> Start apache and mysql and set them to start on boot up:<br />
+<blockquote>
+<pre>$ service httpd start
+$ service mysqld start
+$ chkconfig mysqld on
+$ chkconfig httpd on</pre>
+</blockquote>
+</li>
+<li><strong>Step 5:</strong> Set the MySQL password for root<br />
+<blockquote>
+<pre>$ mysqladmin -u root password ‘XXXXXX’</pre>
+</blockquote>
+</li>
+<li><strong>Step 6:</strong> install Phing and other PEAR packages<br />
+<blockquote>
+<pre>$ pear channel-discover pear.phing.info
+$ pear channel-discover pear.phpunit.de
+$ pear install phing/phing
+$ pear install PhpDocumentor
+$ pear install XML_Beautifier
+$ pear install PHPUnit
+$ pecl install Xdebug</pre>
+</blockquote>
+</li>
+</ol>
+<h3>Configure second version of PHP</h3>
+<p>From here we need to install a second version of PHP. Grab the version you want from <a href="http://www.php.net/releases/">http://www.php.net/releases/</a>, and stick that any where you want to (usually your root&#8217;s home directory is fine). I&#8217;m installing PHP 5.2.4, so I&#8217;ll use that in my examples.</p>
+<p>Unpack the tarball and enter the directory it created.</p>
+<pre>$ tar -xjf php-5.2.4.tar.bz2</pre>
+<p>Now, you&#8217;ll need to determine which modules you need to install. For this part I used the steps from the php.net comment under &#8220;my approach for determining required modules&#8221; (copied here, without permission, but with lots of gratitude and full credit going to the author of the comment).</p>
+<pre>my approach for determining required modules
+------------------------------------
+1. get the list of the modules
+     $  php -m | grep -v -e Modules] -e ^$ &gt; php-default-modules
+
+2. create the configure script
+$  for i in $(cat php-default-modules); do echo -n "--with-$i "&gt;&gt; phpconfigure.sh ;done
+
+     2.2 add #!/bin/bash to the top line, and ./configure to the second line.
+          Each of the --with-* need to be on the second line.
+
+3. run the configure script, and iterate through the "Configure script errors"
+    section below until it completes properly
+
+    $ ./phpconfigure.sh
+
+4. at the end of the output, look for a notice of unknown options
+
+     Notice: Following unknown configure options were used:
+     --with-date
+     --with-gum-disease
+
+     Check './configure --help' for available options
+
+5. as suggested, execute '$ ./configure --help' and correct the options. The
+     "for" command above indiscriminately inserts "--with-" for all modules,
+     but bundled modules may require "--enable-" instead, so mostly you'll
+     be changing those. For modules that are enabled by default you'll need
+     to remove the entry.
+
+6. Add anything else you personally want or need. I like to add "--enable-safe-mode".</pre>
+<p>After doing all of that, I had the following in phpconfigure.sh<br />
+[code lang=&#8221;bash&#8221;]<br />
+#!/bin/bash<br />
+./configure &#8211;prefix=/usr/share/ &#8211;datadir=/usr/share/php &#8211;libdir=/usr/share &#8211;includedir=/usr/include &#8211;bindir=/usr/bin &#8211;enable-safe-mode &#8211;with-config-file-path=/etc/php542 &#8211;enable-force-cgi-redirect &#8211;enable-discard-path &#8211;with-bz2 &#8211;enable-calendar &#8211;with-curl &#8211;enable-dbase &#8211;enable-exif &#8211;enable-ftp &#8211;with-gettext &#8211;with-gmp &#8211;with-iconv &#8211;with-ldap &#8211;with-libxml-dir=/usr/lib/ &#8211;enable-mbstring &#8211;with-mime_magic &#8211;with-mysql &#8211;with-mysqli &#8211;with-openssl &#8211;enable-pcntl &#8211;with-pcre-dir=/usr/lib/ &#8211;with-pdo_mysql &#8211;with-pdo_sqlite &#8211;with-readline &#8211;enable-shmop &#8211;enable-sockets &#8211;with-SQLite &#8211;enable-wddx &#8211;with-xsl &#8211;enable-zip &#8211;with-zlib</p>
+<p># Changes from what php -m spits out. You don&#8217;t need the info below in your phpconfigure.sh script<br />
+#&#8211;enable-calendar<br />
+#&#8211;with-ctype # default<br />
+#&#8211;with-date # not found, default?<br />
+#&#8211;enable-dbase<br />
+#&#8211;with-dom # default<br />
+#&#8211;enable-exif<br />
+#&#8211;with-filter #default<br />
+#&#8211;with-ftp<br />
+#&#8211;with-hash #default<br />
+#&#8211;with-json #default<br />
+#&#8211;with-libxml-dir=/usr/lib/<br />
+#&#8211;enable-mbstring<br />
+#&#8211;with-memcache #not found, default?<br />
+#&#8211;enable-pcntl<br />
+#&#8211;with-pcre-dir=/usr/lib/<br />
+#&#8211;with-PDO #taken care of with the pdo_mysql and pdo_sqlite<br />
+#&#8211;with-Reflection #default<br />
+#&#8211;with-session #default<br />
+#&#8211;enable-shmop<br />
+#&#8211;with-SimpleXML #default<br />
+#&#8211;enable-sockets<br />
+#&#8211;with-SPL #default<br />
+#&#8211;with-standard #not found, is it SPL? default?<br />
+#&#8211;with-tokenizer #default<br />
+#&#8211;enable-wddx<br />
+#&#8211;with-xdebug #not found, not needed<br />
+#&#8211;with-xml #default<br />
+#&#8211;with-xmlreader #default<br />
+#&#8211;with-xmlwriter #default<br />
+#&#8211;enable-zip<br />
+#&#8211;with-Xdebug #not found, not needed</p>
+<p>[/code]</p>
+<p><strong>NOTE:</strong> make sure you do not include &#8216;&#8211;with-apxs2=/usr/sbin/apxs&#8217;. This is what installs PHP as an Apache module. Also, since you have the original PHP running, you can theoretically make a phpinfo file (with phpinfo() ) in it, and grab the configure entries from that, making sure to change &#8216;&#8211;with-config-file-path=/etc&#8217; &#8216;&#8211;with-config-file-scan-dir=/etc/php.d&#8217;</p>
+<p>During the configure, you might run into some errors. Again from the php.net comment:</p>
+<pre>Configure script errors
+--------------------------------------------
+In my experience, these errors have been due (with any software, PHP included) mostly to missing
+development packages, which contain the libraries and headers needed to compile support for that
+library's function into the application.
+
+This becomes a process of:
+-executing the ./configure script and looking at the error
+-installing the devel package providing the resource referenced by the error (google using the error
+     as search term as needed)
+-repeat until the ./configure script makes it through without error
+
+Upshot: identify the software referenced by the error, and install it.
+
+Example
+-----------
+Example error:
+     configure: error: Cannot find OpenSSL's
+Example explanation
+     configure is looking for a header (and probably a lot of other stuff) from a missing openssl package.
+Example solution:
+php-5.2.9]$sudo yum install openssl-devel</pre>
+<p>The previous yum command should take care of most of those dependencies.</p>
+<p>After the phpconfigure script runs without errors, then simply run</p>
+<pre>$ make</pre>
+<p>As the JpGraph tutorial explains, there is no need to run &#8220;make install&#8221;. Just simply copy the php-cgi executable to the proper place. We&#8217;ll get to that step shortly.</p>
+<h3>Set up Apache VirtualHost and website directories</h3>
+<p>Now you need to create two directories to handle the PHP as CGI. They can be virtually wherever, but should be in the same directory where you have the main html content. So if you set the path to the website data (in the httpd.conf) to /path/to/htdocs/, then you&#8217;ll need to make a /path/to/php524/ and a /path/to/php524-cgi/</p>
+<pre>$ mkdir /path/to/php524/</pre>
+<p>and</p>
+<pre>$ mkdir /path/to/php524-cgi/</pre>
+<p>After you have those directories, you can add the VirtualHost information to the Apache config (httpd.conf). I like to have a separate file for the VirtualHosts, so I added this to the end of the httpd.conf file.</p>
+<pre>Include conf/XXXXX_vhosts.conf</pre>
+<p>And to allow VirtualHosts, uncomment this line:</p>
+<pre>NameVirtualHost *:80</pre>
+<p>To allow Apache to listen on (or accept requests from) different ports besides the default 80, add another Listen line to the httpd.conf file:</p>
+<pre>Listen XXX.XXX.XXX.XXX:8524</pre>
+<p>I used port 8524 to correspond to version 5.2.4 of PHP</p>
+<p>Now create the XXXXX_vhosts.conf file</p>
+<p>[code lang=&#8221;bash&#8221;]<br />
+#this doesn&#8217;t really seem to be needed, but it&#8217;s there<br />
+NameVirtualHost *:8524</p>
+<p># this is the original and runs the PHP as a module</p>
+<p>DocumentRoot /path/to/htdocs/<br />
+ServerName somesite.org</p>
+<p>####### Add other Virtual Hosts below here #######</p>
+<p># Setup PHP 5.2.4 on port 8524</p>
+<p>DocumentRoot /path/to/php524/<br />
+# We use a separate CGI directory<br />
+ScriptAlias /cgi-bin/ /path/to/php524-cgi/</p>
+<p># These are the two critical statements for this virtual<br />
+# host. This activates PHP 5.2.4 as a CGI module<br />
+Action php524-cgi /cgi-bin/php-cgi<br />
+AddHandler php524-cgi .php5 .php</p>
+<p>#Options None<br />
+Options FollowSymLinks<br />
+#AllowOverride None<br />
+AllowOverride All<br />
+Order allow,deny<br />
+Allow from all<br />
+# For good measure we also add recognition of PHP5 index<br />
+DirectoryIndex index.html index.php index.php5</p>
+<p>[/code]</p>
+<p>Now, you need to copy the php-cgi binary/executable to the /path/to/php524-cgi/ directory. The php-cgi file is located in the file where you ran the configure and make for the new php install. So if you did all that in the /opt/php-5.2.4/ directory, the php-cgi will be located at /opt/php-5.2.4/sapi/cgi/php-cgi.</p>
+<pre>$ cp /opt/php-5.2.4/sapi/cgi/php-cgi /path/to/php524-cgi/</pre>
+<p>Finally, copy the php.ini file to the right place. And configure as needed.</p>
+<pre>$ cp /opt/php-5.2.4/php.ini-dist /path/to/php524-cgi/php.ini</pre>
+<p>Test the apache configs to make sure they work:</p>
+<pre>$ /usr/sbin/apachectl configtest</pre>
+<p>If that returns OK restart Apache.</p>
+<pre>$ /etc/init.d/httpd graceful</pre>
+<p>You can make a phpinfo page to test that it&#8217;s using the new PHP version.<br />
+[code lang=&#8221;php&#8221;]<br />
+&lt; ?php<br />
+phpinfo();<br />
+? &gt;<br />
+[/code]<br />
+Then check out your new site: http://somesite.org:8524/phpinfo.php</p>
+<p>In order to get the different versions of PHP to interact with MySQL, you&#8217;ll have to use the URL on port 80 as the MySQL host. So, for example, in a WordPress install at http://somesite.org:8524/blog, the wp-config.php will have to have the following for the MySQL hostname:</p>
+<pre>define('DB_HOST', 'dev.omeka.org');</pre>
+<p>There is some issue with mod_rewrite on the different versions of PHP. I&#8217;ll replace this paragraph with a fix when I have one.<br />
+UPDATE: 9/9/09 &#8211; I figured out how to get the .htaccess working for the <a href="http://omeka.org">Omeka</a> installs we were working with. I needed to change the AllowOverride lines in the vhost.conf (or httpd.conf) file from None, to All.</p>
+<p>Well, there you go. Hope that&#8217;s enough detail to get you going.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/feed/</wfw:commentRss>
+			<slash:comments>4</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">311</post-id>	</item>
+	</channel>
+</rss>

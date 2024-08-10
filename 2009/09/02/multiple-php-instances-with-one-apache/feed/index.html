@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	
+	>
+<channel>
+	<title>
+	Comments on: Multiple PHP Instances With One Apache	</title>
+	<atom:link href="https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Fri, 01 Feb 2013 18:55:55 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+	<item>
+		<title>
+		By: ammon		</title>
+		<link>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comment-9760</link>
+
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Sat, 06 Oct 2012 15:36:43 +0000</pubDate>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=311#comment-9760</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comment-9759&quot;&gt;Justin&lt;/a&gt;.
+
+Great comment, Justin. I&#039;m glad the tutorial was helpful. I think at the time I wanted to see how cgi and module would perform. I&#039;m not sure if you can run PHP as two separate modules in Apache. I know multiple PHP as cgi is possible. I seem to remember Apache could only handle one PHP as module, but I bet it could be done with different PHP config and module files.
+
+If anyone does figure that out, please post back your findings.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comment-9759">Justin</a>.</p>
+<p>Great comment, Justin. I&#8217;m glad the tutorial was helpful. I think at the time I wanted to see how cgi and module would perform. I&#8217;m not sure if you can run PHP as two separate modules in Apache. I know multiple PHP as cgi is possible. I seem to remember Apache could only handle one PHP as module, but I bet it could be done with different PHP config and module files.</p>
+<p>If anyone does figure that out, please post back your findings.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Justin		</title>
+		<link>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comment-9759</link>
+
+		<dc:creator><![CDATA[Justin]]></dc:creator>
+		<pubDate>Sat, 06 Oct 2012 15:23:08 +0000</pubDate>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=311#comment-9759</guid>
+
+					<description><![CDATA[This post comes up within the first five results for a number of Google searches I did while trying to figure out how to configure multiple instances / versions of PHP on a single Apache server. The article is extremely well written and was very helpful, but by the time I finished with the configuration you suggest, I was puzzled by one thing.
+
+Why is it necessary to have the second instance run as CGI?
+
+Since you&#039;re declaring a separate Action and Handler (php524-cgi in your case), would it not be possible to have both versions of php compiled with apxs, and running as Apache modules?
+
+Your handler, declared within the VirtualHost configuration, would direct Apache to use php524 for that particular Virtual Host, while another VirtualHost configuration would use the &#039;default&#039; php module - which I assume in the example you give would be PHP 5.2.0 but could just as easily be PHP 5.3.x or PHP 5.4.x
+
+This would mean that it would be possible to run both instances as Apache modules and avoid the disadvantages associated with running PHP as CGI. Similarly, you could run both PHP versions as CGI and avoid the disadvantages of running as an Apache module - depending on your environment and what you&#039;re trying to achieve.
+
+Any thoughts on this?
+
+I have yet to try this as my dev server now is operational with the configuration as suggested above, but I&#039;d like to know if anyone has tried running two versions of PHP both as Apache modules.]]></description>
+			<content:encoded><![CDATA[<p>This post comes up within the first five results for a number of Google searches I did while trying to figure out how to configure multiple instances / versions of PHP on a single Apache server. The article is extremely well written and was very helpful, but by the time I finished with the configuration you suggest, I was puzzled by one thing.</p>
+<p>Why is it necessary to have the second instance run as CGI?</p>
+<p>Since you&#8217;re declaring a separate Action and Handler (php524-cgi in your case), would it not be possible to have both versions of php compiled with apxs, and running as Apache modules?</p>
+<p>Your handler, declared within the VirtualHost configuration, would direct Apache to use php524 for that particular Virtual Host, while another VirtualHost configuration would use the &#8216;default&#8217; php module &#8211; which I assume in the example you give would be PHP 5.2.0 but could just as easily be PHP 5.3.x or PHP 5.4.x</p>
+<p>This would mean that it would be possible to run both instances as Apache modules and avoid the disadvantages associated with running PHP as CGI. Similarly, you could run both PHP versions as CGI and avoid the disadvantages of running as an Apache module &#8211; depending on your environment and what you&#8217;re trying to achieve.</p>
+<p>Any thoughts on this?</p>
+<p>I have yet to try this as my dev server now is operational with the configuration as suggested above, but I&#8217;d like to know if anyone has tried running two versions of PHP both as Apache modules.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: ammon		</title>
+		<link>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comment-9092</link>
+
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 01 Aug 2012 17:47:36 +0000</pubDate>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=311#comment-9092</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comment-9090&quot;&gt;Matt&lt;/a&gt;.
+
+Hi Matt,
+
+Glad this helped.
+
+Boy this was a long time ago. We don&#039;t have this set up anymore, so I can&#039;t go back and verify, but here&#039;s my best guess as to what is up.
+
+The opening and closing tags should be in there. I added them as I think they should go.
+
+The ScriptAlias line should be the one pointing to /path/to/php524-cgi/.
+
+Thanks for catching those issues. I updated the post with those changes.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comment-9090">Matt</a>.</p>
+<p>Hi Matt,</p>
+<p>Glad this helped.</p>
+<p>Boy this was a long time ago. We don&#8217;t have this set up anymore, so I can&#8217;t go back and verify, but here&#8217;s my best guess as to what is up.</p>
+<p>The opening and closing tags should be in there. I added them as I think they should go.</p>
+<p>The ScriptAlias line should be the one pointing to /path/to/php524-cgi/.</p>
+<p>Thanks for catching those issues. I updated the post with those changes.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Matt		</title>
+		<link>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comment-9090</link>
+
+		<dc:creator><![CDATA[Matt]]></dc:creator>
+		<pubDate>Wed, 01 Aug 2012 17:20:16 +0000</pubDate>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=311#comment-9090</guid>
+
+					<description><![CDATA[I&#039;m confused by the last part, your XXXXX_vhosts.conf file.  First, you don&#039;t include the  opening and closing tags, shouldn&#039;t these be in there somewhere?  Also, the directories you instructed to create were:
+
+$ mkdir /path/to/php524/
+and
+$ mkdir /path/to/php524-cgi/
+
+However I don&#039;t see /path/to/php524-cgi/ used in your configuration directives?  Could you clarify?
+
+Great article, thanks.
+Matt]]></description>
+			<content:encoded><![CDATA[<p>I&#8217;m confused by the last part, your XXXXX_vhosts.conf file.  First, you don&#8217;t include the  opening and closing tags, shouldn&#8217;t these be in there somewhere?  Also, the directories you instructed to create were:</p>
+<p>$ mkdir /path/to/php524/<br />
+and<br />
+$ mkdir /path/to/php524-cgi/</p>
+<p>However I don&#8217;t see /path/to/php524-cgi/ used in your configuration directives?  Could you clarify?</p>
+<p>Great article, thanks.<br />
+Matt</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

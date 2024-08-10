@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	
+	>
+<channel>
+	<title>
+	Comments on: Making Multiple MySQL Instances on One Server	</title>
+	<atom:link href="https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:09:13 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+	<item>
+		<title>
+		By: Nazar Revutsky		</title>
+		<link>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/#comment-15241</link>
+
+		<dc:creator><![CDATA[Nazar Revutsky]]></dc:creator>
+		<pubDate>Fri, 03 Jan 2014 22:14:42 +0000</pubDate>
+		<guid isPermaLink="false">http://mossiso.com/?p=1275#comment-15241</guid>
+
+					<description><![CDATA[action $&quot;Initializing MySQL database: &quot; /usr/bin/mysql_install_db --datadir=&quot;$datadir&quot; --user=mysql
+should be changed, --defaults-file=&quot;$defaultfile&quot; is required to create proper new mysql instance:
+action $&quot;Initializing MySQL database: &quot; /usr/bin/mysql_install_db --defaults-file=&quot;$defaultfile&quot; --datadir=&quot;$datadir&quot; --user=mysql]]></description>
+			<content:encoded><![CDATA[<p>action $&#8221;Initializing MySQL database: &#8221; /usr/bin/mysql_install_db &#8211;datadir=&#8221;$datadir&#8221; &#8211;user=mysql<br />
+should be changed, &#8211;defaults-file=&#8221;$defaultfile&#8221; is required to create proper new mysql instance:<br />
+action $&#8221;Initializing MySQL database: &#8221; /usr/bin/mysql_install_db &#8211;defaults-file=&#8221;$defaultfile&#8221; &#8211;datadir=&#8221;$datadir&#8221; &#8211;user=mysql</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: ammon		</title>
+		<link>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/#comment-10059</link>
+
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Mon, 26 Nov 2012 21:13:10 +0000</pubDate>
+		<guid isPermaLink="false">http://mossiso.com/?p=1275#comment-10059</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/#comment-10048&quot;&gt;Ameya&lt;/a&gt;.
+
+I had not looked into mysqld_multi. Not sure I knew about it. I will have to take a look at it, though.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/#comment-10048">Ameya</a>.</p>
+<p>I had not looked into mysqld_multi. Not sure I knew about it. I will have to take a look at it, though.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Ameya		</title>
+		<link>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/#comment-10048</link>
+
+		<dc:creator><![CDATA[Ameya]]></dc:creator>
+		<pubDate>Fri, 23 Nov 2012 04:49:04 +0000</pubDate>
+		<guid isPermaLink="false">http://mossiso.com/?p=1275#comment-10048</guid>
+
+					<description><![CDATA[Hi ammon,
+
+that was quite descriptive. I was just wondering, if you have tried out mysqld_multi instead of this approach. Any thoughts?]]></description>
+			<content:encoded><![CDATA[<p>Hi ammon,</p>
+<p>that was quite descriptive. I was just wondering, if you have tried out mysqld_multi instead of this approach. Any thoughts?</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

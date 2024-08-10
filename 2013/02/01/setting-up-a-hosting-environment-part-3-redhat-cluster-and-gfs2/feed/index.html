@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	
+	>
+<channel>
+	<title>
+	Comments on: Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2	</title>
+	<atom:link href="https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:38:05 +0000</lastBuildDate>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+	<item>
+		<title>
+		By: ammon		</title>
+		<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-14972</link>
+
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 03 Dec 2013 20:37:56 +0000</pubDate>
+		<guid isPermaLink="false">http://mossiso.com/?p=1438#comment-14972</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-13228&quot;&gt;Evgen&lt;/a&gt;.
+
+Good question. GFS2 is not the only thing managed by rgmanager. It also manages MySQL, Apache httpdand other resources shared by the cluster. If one node is running Apache httpd and fails, rgmanager is what kicks it over to the other node.]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-13228">Evgen</a>.</p>
+<p>Good question. GFS2 is not the only thing managed by rgmanager. It also manages MySQL, Apache httpdand other resources shared by the cluster. If one node is running Apache httpd and fails, rgmanager is what kicks it over to the other node.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Evgen		</title>
+		<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-13228</link>
+
+		<dc:creator><![CDATA[Evgen]]></dc:creator>
+		<pubDate>Wed, 06 Nov 2013 18:45:06 +0000</pubDate>
+		<guid isPermaLink="false">http://mossiso.com/?p=1438#comment-13228</guid>
+
+					<description><![CDATA[Why do you use rgmanager and services in cluster.conf?
+When one node is die and cluster have quorum, on other node gfs2 mount point works correctly without having to work rgmanager.]]></description>
+			<content:encoded><![CDATA[<p>Why do you use rgmanager and services in cluster.conf?<br />
+When one node is die and cluster have quorum, on other node gfs2 mount point works correctly without having to work rgmanager.</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: ammon		</title>
+		<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-12770</link>
+
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 21 Aug 2013 18:51:52 +0000</pubDate>
+		<guid isPermaLink="false">http://mossiso.com/?p=1438#comment-12770</guid>
+
+					<description><![CDATA[In reply to &lt;a href=&quot;https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-12756&quot;&gt;kolmis&lt;/a&gt;.
+
+That is a typo, yes, they should be the same drive.
+
+should be:
+
+pvcreate /dev/mapper/mpatha1
+vgcreate -c y StorageTek2530 /dev/mapper/mpatha1
+
+I fixed that in the post. Thanks!]]></description>
+			<content:encoded><![CDATA[<p>In reply to <a href="https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-12756">kolmis</a>.</p>
+<p>That is a typo, yes, they should be the same drive.</p>
+<p>should be:</p>
+<p>pvcreate /dev/mapper/mpatha1<br />
+vgcreate -c y StorageTek2530 /dev/mapper/mpatha1</p>
+<p>I fixed that in the post. Thanks!</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: kolmis		</title>
+		<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-12756</link>
+
+		<dc:creator><![CDATA[kolmis]]></dc:creator>
+		<pubDate>Mon, 19 Aug 2013 08:46:13 +0000</pubDate>
+		<guid isPermaLink="false">http://mossiso.com/?p=1438#comment-12756</guid>
+
+					<description><![CDATA[pvcreate /dev/mapper/mpatha1
+vgcreate -c y StorageTek2530 /dev/mpatha1
+
+Should it be the same drive in both cases?]]></description>
+			<content:encoded><![CDATA[<p>pvcreate /dev/mapper/mpatha1<br />
+vgcreate -c y StorageTek2530 /dev/mpatha1</p>
+<p>Should it be the same drive in both cases?</p>
+]]></content:encoded>
+		
+			</item>
+		<item>
+		<title>
+		By: Local machine trying to enable service:GFS...Failure		</title>
+		<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comment-12313</link>
+
+		<dc:creator><![CDATA[Local machine trying to enable service:GFS...Failure]]></dc:creator>
+		<pubDate>Sun, 09 Jun 2013 18:48:42 +0000</pubDate>
+		<guid isPermaLink="false">http://mossiso.com/?p=1438#comment-12313</guid>
+
+					<description><![CDATA[[...] thing. Is it mandatory to add entry for GFS2 resources in /etc/fstab. I have got one such link.  Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2 &#124; Ammon Shepherd  Please advise me on this.  Thanks, Vaibhav Kanchan                     Reply With [...]]]></description>
+			<content:encoded><![CDATA[<p>[&#8230;] thing. Is it mandatory to add entry for GFS2 resources in /etc/fstab. I have got one such link.  Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2 | Ammon Shepherd  Please advise me on this.  Thanks, Vaibhav Kanchan                     Reply With [&#8230;]</p>
+]]></content:encoded>
+		
+			</item>
+	</channel>
+</rss>

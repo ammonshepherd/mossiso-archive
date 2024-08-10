@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>bash code &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/bash-code/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:09:13 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>bash code &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Filling in the missing dates with AWStats</title>
+		<link>https://mossiso.com/2012/04/25/filling-in-the-missing-dates-with-awstats/</link>
+					<comments>https://mossiso.com/2012/04/25/filling-in-the-missing-dates-with-awstats/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 25 Apr 2012 19:23:58 +0000</pubDate>
+				<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[awstats]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[bash code]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1226</guid>
+
+					<description><![CDATA[Doh! Sometimes AWStats will miss some days in calculating stats for your site, and that leaves a big hole in your records. Usually, as in my case, it&#8217;s because I messed up. I reinstalled some software on our AWStats machine, and forgot to reinstall cron. Cron is the absolutely necessary tool for getting the server &#8230; <a href="https://mossiso.com/2012/04/25/filling-in-the-missing-dates-with-awstats/" class="more-link">Continue reading <span class="screen-reader-text">Filling in the missing dates with AWStats</span></a>]]></description>
+										<content:encoded><![CDATA[<h3>Doh!</h3>
+<p>Sometimes AWStats will miss some days in calculating stats for your site, and that leaves a big hole in your records. Usually, as in my case, it&#8217;s because I messed up. I reinstalled some software on our AWStats machine, and forgot to reinstall cron. Cron is the absolutely necessary tool for getting the server to run things on a timed schedule. I didn&#8217;t notice this until several days later, leading to a large gap in the stats for April.</p>
+<h3>What to do?</h3>
+<p>Fortunately, there is a fix. Unfortunately, it&#8217;s a bit labor intensive, and depends on how you rotate your apache logs (if at all, which you should). The <a href="http://awstats.sourceforge.net/docs/awstats_faq.html#OLDLOG">AWStats Documentation</a> (see FAQ-COM350 and FAQ-COM360) has some basic steps to fix the issue, outlined below:</p>
+<ol>
+<li>Move the AWStats data files for months newer to a temporary directory.</li>
+<li>Copy the Apache logs with all of the stats for the month with the missing days to a temporary directory.</li>
+<li>Run the AWStats update tool, using AWStat&#8217;s logresolvemerge tool and other changed paramaters, to re-create the AWStats data file for that month</li>
+<li>Replace the AWStats data files for the following months (undo step 1).</li>
+</ol>
+<h3>The Devil&#8217;s in the Details</h3>
+<p>Again, depending on how you have Apache logs set up, this can be an intensive process. Here&#8217;s how I have Apache set up, and the process I went through to get the missing days back into AWStats.</p>
+<p>We have our Apache logs rotate each day for each domain on the server (or sub-directory that is calculated separately). This means I&#8217;ll have to do this process about 140 times. Looks like I need to write a script&#8230;</p>
+<h3>Step 1. Move the data files of newer months</h3>
+<p>AWStats can&#8217;t run the update on older months if there are more recent months located in the data directory. So we&#8217;ll need to move the more recent month&#8217;s stats to a temporary location out of the way. So, if the missing dates are in June, and it is currently August, you&#8217;ll need to remove the data files for June, July, and August (they look like this <code>awstatsMMYYYY.domain-name.com.txt</code> where MM is the two digit month and YYYY is the four digit year) to a temporary directory so they are out of the way.</p>
+<h3>Step 2. Get the Apache logs for the month.</h3>
+<p>First step is to get all of the logs for each domain for the month. This will work out to about 30 or 31 files (if the month is already past), or however many days have past in the current month. For me, each domain archives the days logs in the following format <code>domain.name.com-access_log-X.gz</code> and <code>domain.name.com-error_log-X.gz</code> where the X is a sequential number. So the first problem is how to get the correct file name without having to look in each file to see if it has the right day? Fortunately for me, nothing touches these files after they are created, so their mtime (the <strong>time</strong> stamp of when they were last <strong>m</strong>odified) is intact and usable. Now, a quick one-liner to grab all of the files within a certain date range and put their content in a new file.</p>
+<p>We&#8217;ll use the find command to find the correct files. Before we construct that command, we&#8217;ll need to create a couple of files to use for our start and end dates.</p>
+<pre class="lang:bash decode:1 " >touch --date YYYY-MM-DD /tmp/start</pre>
+<pre class="lang:bash decode:1 " >touch --date YYYY-MM-DD /tmp/end</pre>
+<p>Now we can use those files in the actual find command. You may need to create the <code>/tmp/apachelogs/</code> directory first.</p>
+<pre class="lang:bash decode:1 " >find /path/to/apache/logs/archive/ -name "domain-name.com-*" -newer /tmp/start -not -newer /tmp/end -exec cp '{}' /tmp/apachelogs/ \;</pre>
+<p>Now unzip those files so they are usable. Move into the <code>/tmp/apachelogs/</code> directory, and run the gunzip command.</p>
+<pre class="lang:bash decode:1 " >gunzip *log*</pre>
+<p>If you are doing the current month, then copy in the current apache log for that domain.</p>
+<pre class="lang:bash decode:1 " >cp /path/to/apache/logs/current/domain-name.com* /tmp/apachelogs/</pre>
+<p>This puts all of the domains log files for the month into a directory that we can use in the AWStats update command</p>
+<p>Things to note: You need to make sure that each of the log files you have just copied use the same format. You also need to make sure they only contain data for one month. You can edit the files by hand or throw some fancy sed commands at the files to remove any extraneous data.</p>
+<h3>Step 3. Run the AWStats logresolvemerge and update tool</h3>
+<p>Now comes the fun part. We first run the logresolvemerge tool on the log files we created in the previous step to create one single log file for the whole month. While in the &lt;code&gt;/tmp/apachelogs/&lt;/code&gt; directory, run:</p>
+<pre class="lang:bash decode:1 " >perl /path/to/logresolvemerger.pl *log* &gt; domain-name.com-YYYY-MM-log</pre>
+<p>Now, we need to run the AWStats update tool with a few parameters to account for the location of the new log file.</p>
+<pre class="lang:bash decode:1 " >perl /path/to/awstats.pl -update -configdir="/path/to/awstats/configs" -config="domain-name.com" -LogFile="/tmp/apachelogs/domain-name.com-YYYY-MM-log"</pre>
+<h3>Step 4. Move back any remaining files</h3>
+<p>If you moved any of the AWStats data files (<code>awstatsMMYYYY.domain-name.com.txt</code> like for July and August in our example) now&#8217;s the time to move them back where they go.</p>
+<p>&nbsp;</p>
+<p>Yeah, that fixed it!</p>
+<p>&nbsp;</p>
+<figure id="attachment_1245" aria-describedby="caption-attachment-1245" style="width: 658px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/04/awstats-fixed.png"><img fetchpriority="high" decoding="async" class="size-full wp-image-1245" title="awstats-fixed" src="http://mossiso.com/wp-content/uploads/2012/04/awstats-fixed.png" alt="" width="658" height="160" srcset="https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed.png 658w, https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed-300x72.png 300w, https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed-250x60.png 250w, https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed-150x36.png 150w, https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed-624x151.png 624w" sizes="(max-width: 658px) 100vw, 658px" /></a><figcaption id="caption-attachment-1245" class="wp-caption-text">Phew! The missing dates are back!</figcaption></figure>
+<p>&nbsp;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/04/25/filling-in-the-missing-dates-with-awstats/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1226</post-id>	</item>
+		<item>
+		<title>Multiple PHP Instances With One Apache</title>
+		<link>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/</link>
+					<comments>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 02 Sep 2009 21:12:02 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[bash code]]></category>
+		<category><![CDATA[CentOS]]></category>
+		<category><![CDATA[httpd]]></category>
+		<category><![CDATA[LAMP]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[tutorial]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=311</guid>
+
+					<description><![CDATA[&#160; Long-winded Introduction It took me a couple of days to figure this out due to lack of decent tutorials and not enough confidence in my Linux skills to build programs from source. I think I have the hang of it now, and write this up with the intent on providing another, or the only, &#8230; <a href="https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/" class="more-link">Continue reading <span class="screen-reader-text">Multiple PHP Instances With One Apache</span></a>]]></description>
+										<content:encoded><![CDATA[<p>&nbsp;</p>
+<h3>Long-winded Introduction</h3>
+<p>It took me a couple of days to figure this out due to lack of decent tutorials and not enough confidence in my Linux skills to build programs from source. I think I have the hang of it now, and write this up with the intent on providing another, or the only, tutorial on setting up CentOS 5 with multiple instances of PHP using one Apache install. That being said, there are a number of good tutorials out there, just none of them explicitly for CentOS and some leave out some details that n00bs like me get confused about.</p>
+<p><a href="http://www.aditus.nu/jpgraph/apache2suse10.php">PHP4 and PHP5 on SuSE 10.1</a> &#8211; This was by far the most helpful of the tutorials. Even though it was written for SuSE, it works almost straight across for CentOS.</p>
+<p>There is also a great list of instructions in the comments on the php.net site under installing PHP for Apache 2.0 on Unix systems (see <a href="http://www.php.net/manual/en/install.unix.apache2.php#90478">http://www.php.net/manual/en/install.unix.apache2.php#90478</a>).</p>
+<p>I found this one after I wrote up this tutorial at <a href="http://cuadradevelopment.com/blog/26/multiple-php-versions-with-apache-using-fastcgi-on-os-x/">http://cuadradevelopment.com</a>. It&#8217;s a bit different, but should work as well.</p>
+<p>There are basically two different ways I could have done this. 1- run a single instance of Apache, and run one instance of PHP as a module, and other installs as CGI. 2- run several instances of Apache, each with it&#8217;s own instance of PHP as a module. I chose to do the first method for no particular reason. <a href="http://blog.dreamhosters.com/kbase/index.cgi?area=2933">Dreamhost</a> has a post about the good and bad with running PHP as CGI.</p>
+<p>So basically, the steps are: 1. Set up Apache and have PHP install as a module. 2. Configure and make another instance of PHP to run as CGI. 3. Add a virtual host to Apache running under a different port to access the PHP as CGI.<br />
+<span id="more-311"></span></p>
+<h3>Set up Apache with PHP module</h3>
+<p>So here&#8217;s what I did to get the basic Apache, PHP and MySQL working. This sets up the first PHP install to run as a module in Apache:</p>
+<p>From a clean install of CentOS 5 (virtually no packages selected during initial install), I installed the following packages:</p>
+<p><code>$ yum install gcc make subversion ImageMagick php php-cli php-common php-ldap php-mysql php-pdo php-pear php-devel bzip2-devel libxml2-devel mysql mysql-server mysql-devel mod_auth_mysql httpd httpd-manual</code></p>
+<p>From there I needed to get PHP 5.2.x, so I did the following to get PHP, Apache, MySQL and PEAR all set up.</p>
+<ol>
+<li><strong>Step 1:</strong> GET PHP 5.2.x<br />
+Check out instructions and packages here: <a href="http://blog.famillecollet.com/pages/Config-en">http://blog.famillecollet.com/pages/Config-en</a></p>
+<pre>$ wget http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-2.noarch.rpm
+$ wget http://rpms.famillecollet.com/el5.i386/remi-release-5-4.el5.remi.noarch.rpm
+$ rpm -Uvh remi-release-5<strong>.rpm epel-release-5</strong>.rpm
+$ yum—enablerepo=remi update php-pear php</pre>
+<p>Copy the /etc/php.ini file from the /etc/php.ini.default:</p>
+<pre>$ cp /etc/php.ini.default /etc/php.ini</pre>
+<p>Change the following lines:</p>
+<ul>
+<li>1. upload_max_filesize = 20M #line 573</li>
+<li>2. mysql.default_socket =/path/to/mysql/mysql.sock #about line 736</li>
+<li>3. mysqli.default_socket =/path/to/mysql/mysql.sock #about line 771</li>
+</ul>
+</li>
+<li><strong>Step 2:</strong>Edit /etc/httpd/conf/httpd.conf by changing the following lines
+<ul>
+<li>1. Listen xxx.xxx.xxx.xxx:80 #line 134</li>
+<li>2. ServerAdmin admin@email.org #line 251</li>
+<li>3. ServerName somesite.org #line 265</li>
+<li>4. DocumentRoot ”/path/to/htdocs” #line 282</li>
+<li>5. &lt;Directory ”/path/to/htdocs”&gt; #line 307</li>
+<li>6. AllowOverride All #line 328</li>
+<li>7. DirectoryIndex index.php index.html index.html.var #line 392</li>
+</ul>
+</li>
+<li><strong>Step 3:</strong> Create the /etc/my.cnf file for MySQL<br />
+[code]</p>
+<pre>[mysqld]
+datadir=/path/to/mysql
+socket=/path/to/mysql/mysql.sock
+user=mysql
+# Default to using old password format for compatibility with mysql 3.x
+# clients (those using the mysqlclient10 compatibility package).
+old_passwords=1
+
+[client]
+socket=/path/to/mysql/mysql.sock
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid</pre>
+<p>[/code]</li>
+<li><strong>Step 4:</strong> Start apache and mysql and set them to start on boot up:<br />
+<blockquote>
+<pre>$ service httpd start
+$ service mysqld start
+$ chkconfig mysqld on
+$ chkconfig httpd on</pre>
+</blockquote>
+</li>
+<li><strong>Step 5:</strong> Set the MySQL password for root<br />
+<blockquote>
+<pre>$ mysqladmin -u root password ‘XXXXXX’</pre>
+</blockquote>
+</li>
+<li><strong>Step 6:</strong> install Phing and other PEAR packages<br />
+<blockquote>
+<pre>$ pear channel-discover pear.phing.info
+$ pear channel-discover pear.phpunit.de
+$ pear install phing/phing
+$ pear install PhpDocumentor
+$ pear install XML_Beautifier
+$ pear install PHPUnit
+$ pecl install Xdebug</pre>
+</blockquote>
+</li>
+</ol>
+<h3>Configure second version of PHP</h3>
+<p>From here we need to install a second version of PHP. Grab the version you want from <a href="http://www.php.net/releases/">http://www.php.net/releases/</a>, and stick that any where you want to (usually your root&#8217;s home directory is fine). I&#8217;m installing PHP 5.2.4, so I&#8217;ll use that in my examples.</p>
+<p>Unpack the tarball and enter the directory it created.</p>
+<pre>$ tar -xjf php-5.2.4.tar.bz2</pre>
+<p>Now, you&#8217;ll need to determine which modules you need to install. For this part I used the steps from the php.net comment under &#8220;my approach for determining required modules&#8221; (copied here, without permission, but with lots of gratitude and full credit going to the author of the comment).</p>
+<pre>my approach for determining required modules
+------------------------------------
+1. get the list of the modules
+     $  php -m | grep -v -e Modules] -e ^$ &gt; php-default-modules
+
+2. create the configure script
+$  for i in $(cat php-default-modules); do echo -n "--with-$i "&gt;&gt; phpconfigure.sh ;done
+
+     2.2 add #!/bin/bash to the top line, and ./configure to the second line.
+          Each of the --with-* need to be on the second line.
+
+3. run the configure script, and iterate through the "Configure script errors"
+    section below until it completes properly
+
+    $ ./phpconfigure.sh
+
+4. at the end of the output, look for a notice of unknown options
+
+     Notice: Following unknown configure options were used:
+     --with-date
+     --with-gum-disease
+
+     Check './configure --help' for available options
+
+5. as suggested, execute '$ ./configure --help' and correct the options. The
+     "for" command above indiscriminately inserts "--with-" for all modules,
+     but bundled modules may require "--enable-" instead, so mostly you'll
+     be changing those. For modules that are enabled by default you'll need
+     to remove the entry.
+
+6. Add anything else you personally want or need. I like to add "--enable-safe-mode".</pre>
+<p>After doing all of that, I had the following in phpconfigure.sh<br />
+[code lang=&#8221;bash&#8221;]<br />
+#!/bin/bash<br />
+./configure &#8211;prefix=/usr/share/ &#8211;datadir=/usr/share/php &#8211;libdir=/usr/share &#8211;includedir=/usr/include &#8211;bindir=/usr/bin &#8211;enable-safe-mode &#8211;with-config-file-path=/etc/php542 &#8211;enable-force-cgi-redirect &#8211;enable-discard-path &#8211;with-bz2 &#8211;enable-calendar &#8211;with-curl &#8211;enable-dbase &#8211;enable-exif &#8211;enable-ftp &#8211;with-gettext &#8211;with-gmp &#8211;with-iconv &#8211;with-ldap &#8211;with-libxml-dir=/usr/lib/ &#8211;enable-mbstring &#8211;with-mime_magic &#8211;with-mysql &#8211;with-mysqli &#8211;with-openssl &#8211;enable-pcntl &#8211;with-pcre-dir=/usr/lib/ &#8211;with-pdo_mysql &#8211;with-pdo_sqlite &#8211;with-readline &#8211;enable-shmop &#8211;enable-sockets &#8211;with-SQLite &#8211;enable-wddx &#8211;with-xsl &#8211;enable-zip &#8211;with-zlib</p>
+<p># Changes from what php -m spits out. You don&#8217;t need the info below in your phpconfigure.sh script<br />
+#&#8211;enable-calendar<br />
+#&#8211;with-ctype # default<br />
+#&#8211;with-date # not found, default?<br />
+#&#8211;enable-dbase<br />
+#&#8211;with-dom # default<br />
+#&#8211;enable-exif<br />
+#&#8211;with-filter #default<br />
+#&#8211;with-ftp<br />
+#&#8211;with-hash #default<br />
+#&#8211;with-json #default<br />
+#&#8211;with-libxml-dir=/usr/lib/<br />
+#&#8211;enable-mbstring<br />
+#&#8211;with-memcache #not found, default?<br />
+#&#8211;enable-pcntl<br />
+#&#8211;with-pcre-dir=/usr/lib/<br />
+#&#8211;with-PDO #taken care of with the pdo_mysql and pdo_sqlite<br />
+#&#8211;with-Reflection #default<br />
+#&#8211;with-session #default<br />
+#&#8211;enable-shmop<br />
+#&#8211;with-SimpleXML #default<br />
+#&#8211;enable-sockets<br />
+#&#8211;with-SPL #default<br />
+#&#8211;with-standard #not found, is it SPL? default?<br />
+#&#8211;with-tokenizer #default<br />
+#&#8211;enable-wddx<br />
+#&#8211;with-xdebug #not found, not needed<br />
+#&#8211;with-xml #default<br />
+#&#8211;with-xmlreader #default<br />
+#&#8211;with-xmlwriter #default<br />
+#&#8211;enable-zip<br />
+#&#8211;with-Xdebug #not found, not needed</p>
+<p>[/code]</p>
+<p><strong>NOTE:</strong> make sure you do not include &#8216;&#8211;with-apxs2=/usr/sbin/apxs&#8217;. This is what installs PHP as an Apache module. Also, since you have the original PHP running, you can theoretically make a phpinfo file (with phpinfo() ) in it, and grab the configure entries from that, making sure to change &#8216;&#8211;with-config-file-path=/etc&#8217; &#8216;&#8211;with-config-file-scan-dir=/etc/php.d&#8217;</p>
+<p>During the configure, you might run into some errors. Again from the php.net comment:</p>
+<pre>Configure script errors
+--------------------------------------------
+In my experience, these errors have been due (with any software, PHP included) mostly to missing
+development packages, which contain the libraries and headers needed to compile support for that
+library's function into the application.
+
+This becomes a process of:
+-executing the ./configure script and looking at the error
+-installing the devel package providing the resource referenced by the error (google using the error
+     as search term as needed)
+-repeat until the ./configure script makes it through without error
+
+Upshot: identify the software referenced by the error, and install it.
+
+Example
+-----------
+Example error:
+     configure: error: Cannot find OpenSSL's
+Example explanation
+     configure is looking for a header (and probably a lot of other stuff) from a missing openssl package.
+Example solution:
+php-5.2.9]$sudo yum install openssl-devel</pre>
+<p>The previous yum command should take care of most of those dependencies.</p>
+<p>After the phpconfigure script runs without errors, then simply run</p>
+<pre>$ make</pre>
+<p>As the JpGraph tutorial explains, there is no need to run &#8220;make install&#8221;. Just simply copy the php-cgi executable to the proper place. We&#8217;ll get to that step shortly.</p>
+<h3>Set up Apache VirtualHost and website directories</h3>
+<p>Now you need to create two directories to handle the PHP as CGI. They can be virtually wherever, but should be in the same directory where you have the main html content. So if you set the path to the website data (in the httpd.conf) to /path/to/htdocs/, then you&#8217;ll need to make a /path/to/php524/ and a /path/to/php524-cgi/</p>
+<pre>$ mkdir /path/to/php524/</pre>
+<p>and</p>
+<pre>$ mkdir /path/to/php524-cgi/</pre>
+<p>After you have those directories, you can add the VirtualHost information to the Apache config (httpd.conf). I like to have a separate file for the VirtualHosts, so I added this to the end of the httpd.conf file.</p>
+<pre>Include conf/XXXXX_vhosts.conf</pre>
+<p>And to allow VirtualHosts, uncomment this line:</p>
+<pre>NameVirtualHost *:80</pre>
+<p>To allow Apache to listen on (or accept requests from) different ports besides the default 80, add another Listen line to the httpd.conf file:</p>
+<pre>Listen XXX.XXX.XXX.XXX:8524</pre>
+<p>I used port 8524 to correspond to version 5.2.4 of PHP</p>
+<p>Now create the XXXXX_vhosts.conf file</p>
+<p>[code lang=&#8221;bash&#8221;]<br />
+#this doesn&#8217;t really seem to be needed, but it&#8217;s there<br />
+NameVirtualHost *:8524</p>
+<p># this is the original and runs the PHP as a module</p>
+<p>DocumentRoot /path/to/htdocs/<br />
+ServerName somesite.org</p>
+<p>####### Add other Virtual Hosts below here #######</p>
+<p># Setup PHP 5.2.4 on port 8524</p>
+<p>DocumentRoot /path/to/php524/<br />
+# We use a separate CGI directory<br />
+ScriptAlias /cgi-bin/ /path/to/php524-cgi/</p>
+<p># These are the two critical statements for this virtual<br />
+# host. This activates PHP 5.2.4 as a CGI module<br />
+Action php524-cgi /cgi-bin/php-cgi<br />
+AddHandler php524-cgi .php5 .php</p>
+<p>#Options None<br />
+Options FollowSymLinks<br />
+#AllowOverride None<br />
+AllowOverride All<br />
+Order allow,deny<br />
+Allow from all<br />
+# For good measure we also add recognition of PHP5 index<br />
+DirectoryIndex index.html index.php index.php5</p>
+<p>[/code]</p>
+<p>Now, you need to copy the php-cgi binary/executable to the /path/to/php524-cgi/ directory. The php-cgi file is located in the file where you ran the configure and make for the new php install. So if you did all that in the /opt/php-5.2.4/ directory, the php-cgi will be located at /opt/php-5.2.4/sapi/cgi/php-cgi.</p>
+<pre>$ cp /opt/php-5.2.4/sapi/cgi/php-cgi /path/to/php524-cgi/</pre>
+<p>Finally, copy the php.ini file to the right place. And configure as needed.</p>
+<pre>$ cp /opt/php-5.2.4/php.ini-dist /path/to/php524-cgi/php.ini</pre>
+<p>Test the apache configs to make sure they work:</p>
+<pre>$ /usr/sbin/apachectl configtest</pre>
+<p>If that returns OK restart Apache.</p>
+<pre>$ /etc/init.d/httpd graceful</pre>
+<p>You can make a phpinfo page to test that it&#8217;s using the new PHP version.<br />
+[code lang=&#8221;php&#8221;]<br />
+&lt; ?php<br />
+phpinfo();<br />
+? &gt;<br />
+[/code]<br />
+Then check out your new site: http://somesite.org:8524/phpinfo.php</p>
+<p>In order to get the different versions of PHP to interact with MySQL, you&#8217;ll have to use the URL on port 80 as the MySQL host. So, for example, in a WordPress install at http://somesite.org:8524/blog, the wp-config.php will have to have the following for the MySQL hostname:</p>
+<pre>define('DB_HOST', 'dev.omeka.org');</pre>
+<p>There is some issue with mod_rewrite on the different versions of PHP. I&#8217;ll replace this paragraph with a fix when I have one.<br />
+UPDATE: 9/9/09 &#8211; I figured out how to get the .htaccess working for the <a href="http://omeka.org">Omeka</a> installs we were working with. I needed to change the AllowOverride lines in the vhost.conf (or httpd.conf) file from None, to All.</p>
+<p>Well, there you go. Hope that&#8217;s enough detail to get you going.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/feed/</wfw:commentRss>
+			<slash:comments>4</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">311</post-id>	</item>
+		<item>
+		<title>Converting WordPress to static html</title>
+		<link>https://mossiso.com/2007/09/10/converting-wordpress-to-static-html/</link>
+					<comments>https://mossiso.com/2007/09/10/converting-wordpress-to-static-html/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Mon, 10 Sep 2007 21:21:33 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[bash code]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/84</guid>
+
+					<description><![CDATA[UPDATE: Check out the new post on a better way to do this here: Convert WP to Static HTML Part 2. Or see the page devoted to the script here: Make WordPress Static. Usually people are wanting to convert their static html pages to some dynamic content management system. I&#8217;ve run into the issue of &#8230; <a href="https://mossiso.com/2007/09/10/converting-wordpress-to-static-html/" class="more-link">Continue reading <span class="screen-reader-text">Converting WordPress to static html</span></a>]]></description>
+										<content:encoded><![CDATA[<p>UPDATE: Check out the new post on a better way to do this here: <a title="Convert WP to static HTML – part 2" href="http://mossiso.com/2009/07/20/convert-wp-to-static-html-part-2.html">Convert WP to Static HTML Part 2</a>. Or see the page devoted to the script here: <a title="Make WordPress static" href="http://mossiso.com/code/make-wordpress-static">Make WordPress Static</a>.</p>
+<p>Usually people are wanting to convert their static html pages to some dynamic content management system. I&#8217;ve run into the issue of needing to go the other way.</p>
+<p>A few professors at GMU love to use WordPress for their classes. It&#8217;s a really great way to get more student participation and involve some of those who aren&#8217;t so talkative in class.</p>
+<p>But these blogs are usually only needed for one semester, and then just sit there.  This can be a security risk if they are not kept up to date, and is cumbersome when trying to update many of them (one professor had over 30 blogs!).</p>
+<p>Sometimes the content should still be viewable, but the need for a whole cms type back-end no longer exists. Sometimes the professor would just like a copy of the pages for their own future research or whatever.</p>
+<p>So, I figured out a way to convert a dynamic WordPress site into static html pages.</p>
+<p>Here are the basic steps I used:</p>
+<ol>
+<li>Change the permalink structure in the WordPress admin section. Alternatively, directly in the database change wp_options.permalink_structure.option_value to &#8220;/%postname%.html&#8221;.<br />
+[code lang=&#8221;SQL&#8221;]<br />
+UPDATE `database`.`prefix_options` SET `option_value` = &#8216;/%year%/%monthnum%/%day%/%postname%/&#8217; WHERE `prefix_options`.`option_name` = &#8216;permalink_structure&#8217; LIMIT 1 ;<br />
+[/code]&nbsp;</p>
+<p><strong class="green">UPDATE (2.12.08):</strong> Reading a <a href="http://www.christopherprice.net/fun-with-wordpress-permalinks-165.html">post from Christopher Price</a> (who linked to this post) about WP permalinks, I&#8217;m thinking using this structure (/archives/%post_id%.html) might afford the best results.  I often found a page that displayed the raw HTML instead of being rendered.  This just might fix that issue.</p>
+<p><strong class="green">UPDATE (3.11.08):</strong> I did some more dynamic to static conversions today, and found out the best permalink structure to use is just the post name. No extra categories and such. So the best structure to use would be this (/%postname%.html).  The benefit is that the every page is unique with a descriptive name for the url (albeit sometime very long), and there are not as many subdirectory issues that arise.</p>
+<p><strong>UPDATE (7.17.09):</strong> This time around, I have found that the following seems to work best for permalink: <code>/%year%/%monthnum%/%day%/%postname%/</code> And cleaned up the SQL statement.</li>
+<li>Add the .htaccess to /path/to/wp/  if not already there (where /path/to/wp/ is from http://somedomain.com/path/to/wp/ ). If there already is a .htaccess file and it is set to have permalinks, then you can probably leave it as it is.<code><br />
+RewriteEngine On<br />
+RewriteBase /path/to/wp/<br />
+RewriteCond %{REQUEST_FILENAME} !-f<br />
+RewriteCond %{REQUEST_FILENAME} !-d<br />
+RewriteRule . /path/to/wp/index.php [L]<br />
+</code></li>
+<li>Use wget to copy all of the files as static html files.<br />
+[code lang=&#8221;bash&#8221;]wget &#8211;mirror &#8211;wait=2 -P blogname-static -nH -np -p -k -E &#8211;cut-dirs=3 http://sitename.com/path/to/blog/[/code]<br />
+*** Change &#8211;cut-dirs to the appropriate number associated with how many directories are after the domain name. The trailing slash plays a part too. ****<br />
+<strong class="green">UPDATE (03.11.08):</strong> I found that the &#8211;cut-dirs doesn&#8217;t really do anything this time around.<br />
+<strong>UPDATE (7.17.09):</strong> This time around, I find the following to work best, even the &#8211;cut-dirs.&nbsp;</p>
+<pre>wget --mirror -P wpsite-static --cut-dirs=3 -nH -p -k -E https://site.com/path/to/wp/</pre>
+<p>This has the bonus of making the directory for you, thus negating the make directory step. Make sure to use two dashes and not an em dash.</li>
+<li>Copy the contents of wp-content to save uploaded files, themes, etc. This way copies a lot of unnecessary php files, which could be potentially dangerous, but is really easy if you&#8217;re just converting to archive.  To remove the security threat, just pick and choose the files you need.<br />
+[code lang=&#8221;bash&#8221;]cp -r /path/to/wp/wp-content/* /path/to/static/wp-content/[/code]</li>
+<li>Sometimes the files are created with folders in the archives folder.  To fix this run the following three commands in the archive folder to fix that up.  To get rid of the feed file in all of the directories:<br />
+[code]rm -f */feed [/code]<br />
+To delete all of the now empty direcotries:<br />
+[code]find . -type d -exec rmdir &#8216;{}&#8217; \;[/code]<br />
+To rename the files ###.1 to ###<br />
+[code]rename .1 &#8221; `find . -type f -name &#8220;*.1&#8243;`[/code] That&#8217;s two single quotes after the first &#8216;.1&#8217;</li>
+<p><strong class="green">UPDATE (03.11.08):</strong> I have found that the old &#8216;<strong>rename</strong>&#8216; command [<strong>rename .1 &#8221; *.1</strong>]only works on the current directory. If you want to do a recursive renaming you have to use the &#8216;<strong>find</strong>&#8216; command.  The above code has changed to reflect this.<br />
+<strong class="green">UPDATE (7.14.09):</strong> When the rename with find doesn’t work, it’s probably because the post has comments, so there is a folder with the same name as the post’s filename. In this case, just move the file (with the .1 extension) into the folder of the same name, but change the name of the file to index.html</p>
+<li>move to wp folder. make a backup of database: [code lang=&#8221;bash&#8221;]mysqldump -u [userfromwp-config.php] -p &#8211;opt databasename &gt; databasename.sql[/code]<br />
+<strong class="green">UPDATE (03.11.08):</strong> I found I needed to backup just a few tables from a database that contained many copies of wordpress.  To do this more easily, I used <a title="MySQL Table Dump" href="http://mossiso.com/?p=83" target="_self">a little script I wrote</a> earlier to dump tables with a common prefix.  This could also work if you just put in the full name of only the tables you wanted to backup.</li>
+<li>move one directory above wp install. make tar backup of old wordpress folder: [code lang=&#8221;bash&#8221;]tar -cf wordpress.tar wordpress/[/code]</li>
+<li>rename the old wordpress folder [code]mv wordpress wordpress-old[/code]</li>
+<li>move the static copy into place [code]mv static/wordpress/ wordpress/[/code]</li>
+<li>test out the site. If it&#8217;s totally broke, just delete the wordpress directory and restore the original from the tar file.</li>
+<li>remove the tar file and wordpress-old directory as needed.</li>
+</ol>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2007/09/10/converting-wordpress-to-static-html/feed/</wfw:commentRss>
+			<slash:comments>35</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">84</post-id>	</item>
+		<item>
+		<title>Tabledump</title>
+		<link>https://mossiso.com/2007/09/05/tabledump/</link>
+					<comments>https://mossiso.com/2007/09/05/tabledump/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 05 Sep 2007 21:55:52 +0000</pubDate>
+				<category><![CDATA[computer history]]></category>
+		<category><![CDATA[bash code]]></category>
+		<category><![CDATA[mysql]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/83</guid>
+
+					<description><![CDATA[I had the need once again to dump only certain tables from a database, instead of all 100+ tables. This was where I had a database with about 5-8 wordpress installs. I wanted to backup all of the tables for only one install. There is a way with mysqldump to do this, by listing out &#8230; <a href="https://mossiso.com/2007/09/05/tabledump/" class="more-link">Continue reading <span class="screen-reader-text">Tabledump</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I had the need once again to dump only certain tables from a database, instead of all 100+ tables. This was where I had a database with about 5-8 wordpress installs. I wanted to backup all of the tables for only one install. There is a way with mysqldump to do this, by listing out all of the tables you want to dump.  So I just wrote a bash script to take care of making the list of tables to dump.</p>
+<p>It has an array of database table names (without the common prefix) in the script. Then it prompts for the mysql user, database, and prefix.  It could be changed to prompt for a file that contains a list or array of table names.</p>
+<p>Anyhow, here it is for anyone&#8217;s use:</p>
+<p>[code lang=&#8221;Bash&#8221;]<br />
+#!/bin/bash</p>
+<p>#&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;#<br />
+#           Ammon Shepherd                #<br />
+#              09.05.07                   #<br />
+#  Dump a database with only the tables   #<br />
+#   containing the prefix given.          #<br />
+#&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;#</p>
+<p>echo &#8220;This will dump just the tables with the specified prefix from the specified database.&#8221;</p>
+<p>echo -n &#8220;Enter the database name: &#8221;<br />
+read dbase</p>
+<p>echo -n &#8220;Enter the table prefix: &#8221;<br />
+read prefix</p>
+<p>echo -n &#8220;The mysql user: &#8221;<br />
+read sqluser<br />
+echo -n &#8220;The mysql pass: &#8221;<br />
+read -s sqlpass</p>
+<p># Get list of tables with the desired prefix<br />
+list=( $(mysql -u$sqluser -p$sqlpass $dbase &#8211;raw &#8211;silent &#8211;silent &#8211;execute=&#8221;SHOW TABLES;&#8221;) )</p>
+<p>for tablename in ${list[@]}<br />
+do<br />
+    if [[ &#8220;$tablename&#8221; =~ $prefix ]]; then<br />
+        tablelist+=&#8221;$tablename &#8221;<br />
+    fi<br />
+done</p>
+<p>`mysqldump -u$sqluser -p$sqlpass &#8211;opt $dbase $tablelist > $dbase.$prefix.bak.sql`</p>
+<p>echo</p>
+<p>exit 0</p>
+<p>[/code]</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2007/09/05/tabledump/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">83</post-id>	</item>
+	</channel>
+</rss>

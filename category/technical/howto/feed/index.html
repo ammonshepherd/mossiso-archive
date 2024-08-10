@@ -1,0 +1,1191 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>HowTo &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/category/technical/howto/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Fri, 13 Nov 2020 21:00:48 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>HowTo &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Docker Development Environment for Everyone</title>
+		<link>https://mossiso.com/2020/11/13/docker-development-environment-for-everyone/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 13 Nov 2020 19:57:44 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[docker]]></category>
+		<category><![CDATA[docker-compose]]></category>
+		<category><![CDATA[flask]]></category>
+		<category><![CDATA[local development]]></category>
+		<category><![CDATA[pgadmin]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[phpMyAdmin]]></category>
+		<category><![CDATA[postgres]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[web development]]></category>
+		<guid isPermaLink="false">https://mossiso.com/?p=1875</guid>
+
+					<description><![CDATA[One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem. Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly. You&#8217;re in for a special &#8230; <a href="https://mossiso.com/2020/11/13/docker-development-environment-for-everyone/" class="more-link">Continue reading <span class="screen-reader-text">Docker Development Environment for Everyone</span></a>]]></description>
+										<content:encoded><![CDATA[
+<p>One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem.</p>
+
+
+
+<p>Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly.</p>
+
+
+
+<p>You&#8217;re in for a special treat, because I&#8217;m going to show you not one (1), but two (2) different development environments; one for PHP, MySQL, Apache and phpMyAdmin, and one for Python (Flask) and PostgreSQL with pgAdmin. Each of these in a Docker container for ease of use.</p>
+
+
+
+<h2 class="wp-block-heading">Pre-requisites</h2>
+
+
+
+<p>For any of this to work, make sure you have <a href="https://www.docker.com/get-started" data-type="URL" data-id="https://www.docker.com/get-              started">Docker Desktop</a> installed and running.</p>
+
+
+
+<p>We&#8217;ll be using a terminal application for running some commands, so you&#8217;ll need some familiarity with that too.</p>
+
+
+
+<p>Git is used to copy the files from the GitHub repo, but you can also download them as a zip file.</p>
+
+
+
+<figure class="wp-block-image size-large"><img fetchpriority="high" decoding="async" width="1024" height="653" src="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png" alt="" class="wp-image-1882" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">PMAMP</h2>
+
+
+
+<p>We&#8217;ll tackle the <strong>P</strong>hp<strong>M</strong>yadmin <strong>A</strong>pache <strong>M</strong>ysql <strong>P</strong>hp (PMAMP) environment first.</p>
+
+
+
+<p>After setting this up, we&#8217;ll have a place to put PHP code, a running Apache web server, a MySQL server and a running instance of phpMyAdmin.</p>
+
+
+
+<p>The quickest way to get this going is to download the files from this GitHub repo <a href="https://github.com/ammonshepherd/pmamp" target="_blank" rel="noreferrer noopener">https://github.com/ammonshepherd/pmamp</a></p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pmamp.git</code></p>
+
+
+
+<p>Change into that directory.</p>
+
+
+
+<p><code class="wp-block-code">cd pmamp</code></p>
+
+
+
+<p>And start the Docker containers</p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You can view the website at <a href="http://lvh.me">http://lvh.me</a>. lvh.me is just a nice service that points back to your local machine (127.0.0.1 or localhost). It makes it look like you are using a real domain name.</p>
+
+
+
+<p>You can view phpMyAdmin at <a href="http://pma.lvh.me">http://pma.lvh.me</a>.</p>
+
+
+
+<p>You can even use a real domain name. Just edit the docker-compose.yml file. There is a line like this: &nbsp;</p>
+
+
+
+<p><code class="wp-block-code">- "traefik.http.routers.php-apache.rule=Host('lvh.me', 'pmamp.lvh.me', 'example.com')"</code></p>
+
+
+
+<p>Just add your domain to the list (or remove the other ones). Each entry must use the backtick, rather than the single quotes. WordPress mangles the backticks, so I am using single quotes here.</p>
+
+
+
+<p>Now you just need to let your computer know to redirect all traffic to that domain name to itself.</p>
+
+
+
+<p>You&#8217;ll need to edit the /etc/hosts file (<a href="https://www.makeuseof.com/tag/modify-manage-hosts-file-linux/">Linux or Mac</a>), or c:\windows\system32\drivers\etc\hosts (<a href="https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/">Windows</a>). Now you can develop for any domain name right on your computer as if it were using the actual domain name.</p>
+
+
+
+<p>Put all of your website files in the &#8216;www&#8217; folder and you&#8217;re ready to develop!</p>
+
+
+
+<p>Check the README at <a href="https://github.com/ammonshepherd/pmamp">https://github.com/ammonshepherd/pmamp</a> for more details on how it works and things to change.</p>
+
+
+
+<p>To stop the services (turn off Apache, MySQL and phpAdmin) run</p>
+
+
+
+<p><code class="wp-block-code">docker-compose down </code></p>
+
+
+
+<p>in the same directory where the docker-compose.yml file lives.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="653" src="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png" alt="" class="wp-image-1883" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">pFp</h2>
+
+
+
+<p>The set up for Python (using a Flask app) and PostgreSQL is exactly the same process.</p>
+
+
+
+<p>Grab the files from <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a>.</p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pfp.git</code></p>
+
+
+
+<p><code class="wp-block-code">cd pfp</code></p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You now have a running Flask app at <a href="http://lvh.me">http://lvh.me</a>, or <a href="http://pfp.lvh.me">http://pfp.lvh.me</a> and a running pgAdmin application at <a href="http://pga.lvh.me">http://pga.lvh.me</a>.</p>
+
+
+
+<p>The same trick for custom domain names applies here too.</p>
+
+
+
+<p>And also check out the README for more details: <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a></p>
+
+
+
+<p>Follow the same commands above to shutdown the Python, PostgreSQL and pgAdmin containers.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1875</post-id>	</item>
+		<item>
+		<title>What is &#8216;tput sgr0&#8217; doin in my Bash prompt?</title>
+		<link>https://mossiso.com/2018/09/18/what-is-tput-sgr0-doin-in-my-bash-prompt/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 18 Sep 2018 14:18:18 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[prompt]]></category>
+		<category><![CDATA[terminal]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1707</guid>
+
+					<description><![CDATA[I have a new work computer, so this time around, I&#8217;m doing everything from scratch, because that&#8217;s the best way to learn. In playing with my Bash prompt, I used this site to generate the prompt: http://bashrcgenerator.com/ Another one that is great is here: http://ezprompt.net/ The prompt that is generated uses a command to clear the text &#8230; <a href="https://mossiso.com/2018/09/18/what-is-tput-sgr0-doin-in-my-bash-prompt/" class="more-link">Continue reading <span class="screen-reader-text">What is &#8216;tput sgr0&#8217; doin in my Bash prompt?</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I have a new work computer, so this time around, I&#8217;m doing everything from scratch, because that&#8217;s the best way to learn.</p>
+<p>In playing with my Bash prompt, I used this site to generate the prompt: <a href="http://bashrcgenerator.com/">http://bashrcgenerator.com/</a></p>
+<p>Another one that is great is here: <a href="http://ezprompt.net/">http://ezprompt.net/</a></p>
+<p>The prompt that is generated uses a command to clear the text color that I hadn&#8217;t seen before: <code>tput sgr0</code></p>
+<p>My prompt (which I put in the ~/.bash_profile file) is:</p>
+<pre><code>#PROMPT
+# To enter an emoji, while in insert mode type Ctrl-v, then enter the UTF8 code
+# for the emoji, ex. U26A1 (note, use capital letters), then type ESC key. You
+# can get a list of UTF8 emoji codes here: http://graphemica.com/
+export PS1="\[\033[38;5;39m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;229m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] [\[$(tput sgr0)\]\[\033[38;5;76m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]]\n\[$(tput sgr0)\]\[\033[38;5;215m\]&#x26a1;\[$(tput sgr0)\] "
+</code></pre>
+<p>So, of course, I spent the next 40 minutes trying to figure out all I could about that command, and more specifically, what &#8216;sgr&#8217; meant.</p>
+<p>I first scoured Google search results. Mostly just information about tput. Then I took to the manual pages: <code>man tput</code> was helpful in learning about what tput does. That led to <code>man terminfo</code> and finally to <code>man ncurses</code>. None of those man pages define &#8216;sgr&#8217;, but &#8216;ncurses&#8217; did give a better clue by stating that &#8220;<span class="s1">The<span class="Apple-converted-space">  </span></span><span class="s2">ncurses</span><span class="s1"><span class="Apple-converted-space">  </span>library can exploit the capabilities of terminals which implement the ISO-6429 </span><span class="s3">SGR</span><span class="s1"> 39 and </span><span class="s3">SGR</span><span class="s1"> 49 controls&#8221;</span></p>
+<p>So a Google search of &#8216;ISO-6429 SGR 39&#8217; turns up an old 1990&#8217;s ECMA standardization for &#8220;Control Functions and Coded Character Sets&#8221;, Standard ECMA-48, <a href="https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf">https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf</a></p>
+<p>(More on ECMA history here: <a href="https://www.ecma-international.org/memento/history.htm">https://www.ecma-international.org/memento/history.htm</a>) [sidenote: ECMA may sound familiar. ECMAScript. Wait isn&#8217;t that Javascript? See here: <a href="https://medium.freecodecamp.org/whats-the-difference-between-javascript-and-ecmascript-cba48c73a2b5">https://medium.freecodecamp.org/whats-the-difference-between-javascript-and-ecmascript-cba48c73a2b5</a>]</p>
+<p>And there we go! Page 75 of the PDF (page 61 internally numbered), section 8.3.117!</p>
+<p><strong>SGR &#8211; SELECT GRAPHIC RENDITION</strong></p>
+<p>And the 0 means = &#8220;default rendition (implementation-defined), cancels the effect of any preceding occurrence of SGR in the data stream regardless of the setting of the GRAPHIC RENDITION COMBINATION MODE (GRCM)&#8221;</p>
+<p>To make things a little more readable, I made the color codes into variables:</p>
+<pre><code>#PROMPT
+# To enter an emoji, while in insert mode type Ctrl-v, then enter the UTF8 code
+# for the emoji, ex. U26A1 (note, use capital letters), then type ESC key. You
+# can get a list of UTF8 emoji codes here: http://graphemica.com/
+BLUE='\[\033[38;5;39m\]'
+PALE_YELLOW='\[\033[38;5;229m\]'
+RESET='\[$(tput sgr0)\]'
+GREEN='\[\033[38;5;76m\]'
+export PS1="${BLUE}\u${RESET}@${PALE_YELLOW}\h${RESET} [${GREEN}\w${RESET}]\n&#x26a1;${RESET} "
+</code></pre>
+<p>And there we go. Much too much time learning stuff! And my prompt looks like this:</p>
+<p><img decoding="async" class="aligncenter wp-image-1711 size-full" src="http://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1.png" alt="" width="621" height="408" srcset="https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1.png 621w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1-300x197.png 300w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1-150x99.png 150w" sizes="(max-width: 621px) 100vw, 621px" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>And all of that to figure out what &#8216;sgr&#8217; means.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1707</post-id>	</item>
+		<item>
+		<title>Quick WP upgrading with WPCLI</title>
+		<link>https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 03 Jan 2018 20:30:59 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[update WP]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1683</guid>
+
+					<description><![CDATA[This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself. Requirements ssh access to your server wp-cli command installed (instructions for installing wp-cli at http://wp-cli.org/) Install/Upgrade WP CLI wp-cli should be upgraded each time a WordPress installation is upgraded. wp cli update Upgrade WP Prep work Change into the &#8230; <a href="https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/" class="more-link">Continue reading <span class="screen-reader-text">Quick WP upgrading with WPCLI</span></a>]]></description>
+										<content:encoded><![CDATA[<p>This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself.</p>
+<h1>Requirements</h1>
+<ul>
+<li>ssh access to your server</li>
+<li>wp-cli command installed (instructions for installing wp-cli at <a href="http://wp-cli.org/">http://wp-cli.org/</a>)</li>
+</ul>
+<h2>Install/Upgrade WP CLI</h2>
+<ul>
+<li><strong>wp-cli should be upgraded each time a WordPress installation is upgraded.</strong></li>
+</ul>
+<pre><code>wp cli update
+</code></pre>
+<h2>Upgrade WP</h2>
+<h3>Prep work</h3>
+<p>Change into the WP directory</p>
+<pre><code>cd /path/to/wordpress/installation/
+</code></pre>
+<p>Make a list of active plugins</p>
+<pre><code>wp plugin list --status=active --format=csv --fields=name | tail -n +2 &gt; ../active-plugins.txt
+</code></pre>
+<h3>Update all plugins</h3>
+<pre><code>wp plugin update --all
+</code></pre>
+<h3>Deactivate all of the plugins</h3>
+<pre><code>wp plugin deactivate --all
+</code></pre>
+<h3>Upgrade WordPress</h3>
+<pre><code>wp core update
+</code></pre>
+<h3>Reactivate all of the previously active plugins.</h3>
+<pre><code>cat ../active-plugins.txt | xargs wp plugin activate
+</code></pre>
+<h1>Check the site in various browsers (make sure cache has been cleared).</h1>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1683</post-id>	</item>
+		<item>
+		<title>Upgrading Omeka and Neatline</title>
+		<link>https://mossiso.com/2014/11/13/upgrading-omeka-and-neatline/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 13 Nov 2014 14:08:42 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Websites]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1618</guid>
+
+					<description><![CDATA[A first project at my new job at the Scholar&#8217;s Lab at UVA was to update some old Omeka/Neatline sites. I wrote a script to take care of the process now and in the future. https://github.com/mossiso/onus I perhaps went a little overboard and made it pretty robust. I was going to take the opportunity to &#8230; <a href="https://mossiso.com/2014/11/13/upgrading-omeka-and-neatline/" class="more-link">Continue reading <span class="screen-reader-text">Upgrading Omeka and Neatline</span></a>]]></description>
+										<content:encoded><![CDATA[<p>A first project at my new job at the Scholar&#8217;s Lab at UVA was to update some old Omeka/Neatline sites.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2014/09/slab-logo-rgb-350px.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1626" src="http://mossiso.com/wp-content/uploads/2014/09/slab-logo-rgb-350px.png" alt="slab-logo-rgb-350px" width="350" height="67" srcset="https://mossiso.com/wp-content/uploads/2014/09/slab-logo-rgb-350px.png 350w, https://mossiso.com/wp-content/uploads/2014/09/slab-logo-rgb-350px-300x57.png 300w, https://mossiso.com/wp-content/uploads/2014/09/slab-logo-rgb-350px-150x28.png 150w" sizes="(max-width: 350px) 100vw, 350px" /></a></p>
+<p>I wrote a script to take care of the process now and in the future.</p>
+<p><a href="https://github.com/mossiso/onus">https://github.com/mossiso/onus</a></p>
+<p>I perhaps went a little overboard and made it pretty robust. I was going to take the opportunity to learn some ruby, but ended up writing it in Bash. One thing I learned is that Bash does not handle comparing floating point numbers. And that was a bit part of the requirement.</p>
+<p>I&#8217;ll run through how to use the script as well as go through some of the logic found in the script.</p>
+<h1>Running the Script</h1>
+<p>Rather than repeat everything on the github page, just take a look there for steps on how to set up and run the script.</p>
+<p>Basically, you just run the script on the command line, it prompts for the path to the omeka install (or you can give it after the command), and automatically upgrades Omeka and Neatline to then next higher version number.</p>
+<pre class="lang:sh decode:true">./onus.sh /path/to/omeka/install</pre>
+<p>You can add some flags/options to the command to upgrade Omeka and Neatline to a specific version, or exclude the upgrading and just make a backup copy of the database and files into a zip file.</p>
+<h1>About the Script</h1>
+<p>The purpose of the script is to upgrade Omeka and Neatline. One big problem arose when upgrading sites that were previous to 2.0.0.</p>
+<p>Omeka and Neatline both go through some significant database (and code) changes from 1.5.x to 2.x.x. The biggest seemed to be that the upgrade script for Neatline didn&#8217;t &#8220;take&#8221; and needed to be done manually. Here are the steps to do that by hand (the script will take care of this if you use it).</p>
+<h2>Upgrading Omeka and Neatline from 1.5.x to 2.x.x</h2>
+<p>The first step is always to make a backup copy of the database and files. That way if anything goes awry, you can easily put things back together.</p>
+<ol>
+<li>To back up the database, simply take a MySQL dump.
+<pre class="marking:false nums:false wrap:true whitespace-before:1 whitespace-after:1 lang:mysql decode:true">mysqldump -uuser -ppassword databasename &gt; databasename.sql</pre>
+<p>Do this in the main directory of Omeka. Then make a zip file of the entire Omeka directory.</p>
+<pre class="nums:false whitespace-before:1 whitespace-after:1 lang:sh decode:true">zip -r omeka-backup.zip /path/to/omeka/</pre>
+</li>
+<li>Next, deactivate any plugins you have installed, including Neatline and NeatlineMaps. One of the big changes with 2.x.x version is that NeatlineMaps is rolled into Neatline.</li>
+<li>Grab a 2.0.x version of OmekaEither do this with github
+<pre class="nums:false whitespace-before:1 whitespace-after:1 lang:sh decode:true">git clone https://github.com/omeka/Omeka NewOmeka</pre>
+<p>or with a zip file</p>
+<pre class="nums:false whitespace-before:1 whitespace-after:1 lang:sh decode:true">wget http://omeka.org/files/omeka-2.0.4.zipunzip omeka-2.0.4.zip</pre>
+</li>
+<li>Add the 2.0.0 version of Neatline plugin into the NewOmeka/plugins directory, along with any other plugins you may need. NeatlineText, NeatlineSimilie and NeatlineWaypoints may be needed if you used that functionality in the previous version.</li>
+<li>Copy the db.ini file from the old installation to the NewOmeka/ directory.</li>
+<li>Now load the admin page for NewOmeka/ in the browser: http://domain/NewOMeka/admin/. Upgrade the database and login to upgrade and reactivate the Neatline plugin and other plugins as needed.</li>
+<li>You may notice things go smoothly, except the existing Neatline exhibits may not transfer. To get them into the new database tables, add the following two lines at line 80 in the NewOmeka/plugins/Neatline/migrations/<span class="s1">2</span>.<span class="s1">0</span>.<span class="s1">0</span>/Neatline_Migration_200.php file:
+<pre class="whitespace-before:1 whitespace-after:1 lang:sh decode:true">$fc = Zend_Registry::get("bootstrap")-&gt;getPluginResource("FrontController")-&gt;getFrontController();
+$fc-&gt;getRouter()-&gt;addDefaultRoutes();</pre>
+</li>
+<li>Run the following database command to allow the background process to run:
+<pre class="nums:false whitespace-before:1 whitespace-after:1 lang:sh decode:true ">mysql -uuser -ppassword database --execute="UPDATE prefix_processes SET status='starting' WHERE id=1;"</pre>
+<p>&nbsp;</li>
+<li>Finally, run the following php command to get the processes started.
+<pre class="lang:sh decode:true ">/path/to/bin/php /path/to/NewOmeka/application/scripts/background.php -p 1</pre>
+<p>&nbsp;</li>
+</ol>
+<h2>Some Script Logic</h2>
+<p>Initially, I used the script to upgrade both Omeka and Neatline to the next higher version, going through every single minor version incrementally. When upgrading from Omeka 1.5.1 and Neatline 1.0.0 to the latest versions (2.2.2 for Omeka and 2.3.0 for Neatline), I had to run the script over 20 times!</p>
+<p>That was way too intensive, so next I added some logic to just skip to the next major release. That dropped the times needed to run the script down to four. But I could do better than that! I added in some command line options/flags that allow you to upgrade to any Omeka or Neatline version you specify. Now you can upgrade from Omeka 1.5.x and Neatline 1.x.x directly to Omeka 2.0.4 and Neatline 2.0.0, then right to Omeka 2.2.2 and Neatline 2.3.0. Two steps!</p>
+<p>Bash and floating points</p>
+<p>As mentioned above, Bash does not work with floating points, so I had to create a function to deal with that. Dealing with version numbers, especially with minor version numbers kind of requires the need to compare floating point numbers&#8230;</p>
+<p>In the script I use two different functions:</p>
+<pre class="lang:sh decode:true"># Compare two floating point numbers.
+#
+# Usage:
+# result=$( compare_floats number1 number 2 )
+# if $result ; then
+# echo 'number1 is greater'
+# else
+# echo 'number2 is greater'
+# fi
+#
+# result : the string 'true' or 'false'
+# number1 : the first number to compare
+# number2 : the second number to compare
+function compare_floats() {
+    echo | awk -v n1=$1 -v n2=$2 '{if (n1&lt;n2) printf ("false"); else printf ("true");}'
+}
+</pre>
+<p>This function basically compares two numbers. It outputs true if the first number is greater than the second number, and false if the first number is less than the second number. Another way to think about it would be, is the second number less than the first number?</p>
+<pre class="lang:sh decode:true"># Pass the current version first, then the array
+# the function echoes the version just greater than the current version,
+# i.e., the next version to upgrade to.
+#
+# Usage:
+# variable=$( get_next_version $num array[@] )
+#
+# variable : the next version greater than $num
+# $num : the current version
+# array[@] : an array of all possible versions
+function get_next_version() {
+    num=$1
+    declare -a ARRAY=("${!2}")
+    for i in ${ARRAY[@]}
+    do
+        if awk -v n1=$num -v n2=$i 'BEGIN{ if (n1&lt;n2) exit 0; exit 1}'; then
+            echo $i
+            break
+        else
+            continue
+        fi
+    done
+}
+</pre>
+<p>For this function, you pass the current version and an array of possible version numbers. The function will compare the number you pass it, compare it with the array, and echo the next highest number.</p>
+<p>Both functions use the same awk command, but in a little different format. They test wether one number is greater than the other, and return &#8216;true&#8217; or &#8216;false&#8217;.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1618</post-id>	</item>
+		<item>
+		<title>Atop &#8211; Apache Top, for keeping tabs on the web servers</title>
+		<link>https://mossiso.com/2014/04/02/atop-apache-top-for-keeping-tabs-on-the-web-servers/</link>
+					<comments>https://mossiso.com/2014/04/02/atop-apache-top-for-keeping-tabs-on-the-web-servers/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 02 Apr 2014 19:40:56 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[atop]]></category>
+		<category><![CDATA[monitoring]]></category>
+		<category><![CDATA[system administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1593</guid>
+
+					<description><![CDATA[When I first became a systems administrator of a large web server, I wanted to know what the current traffic to all of the virtual hosts (vhosts) looked like. I wanted to see which domains were getting the most traffic and where that traffic was coming from. So began my long search for a sufficient &#8230; <a href="https://mossiso.com/2014/04/02/atop-apache-top-for-keeping-tabs-on-the-web-servers/" class="more-link">Continue reading <span class="screen-reader-text">Atop &#8211; Apache Top, for keeping tabs on the web servers</span></a>]]></description>
+										<content:encoded><![CDATA[<p>When I first became a systems administrator of a large web server, I wanted to know what the current traffic to all of the virtual hosts (vhosts) looked like. I wanted to see which domains were getting the most traffic and where that traffic was coming from. So began my long search for a sufficient tool. There are many out there (<a href="https://github.com/fr3nd/apache-top" target="_blank">apache-top</a>, <a href="https://github.com/JeremyJones/Apachetop" target="_blank">Apachetop</a>, <a href="https://github.com/ClockworkNet/wtop" target="_blank">wtop</a>, <a href="http://hisham.hm/htop/">htop</a>, <a href="http://iptraf.seul.org/">IPTraf</a>, etc). But they didn&#8217;t do all of the things I wanted. Basically they were just command line versions of the output of Apache mod_status, or they did complex log analysis.</p>
+<p>I wanted more. The ability to search, or show only a certain domain name, see a list of IP address and how many connections from that IP address (to detect botnet attacks), and more.</p>
+<p>So in true sys admin fashion, I built the tool myself. It is sufficiently stable and usable enough to warrant a blog post and hopefully engender some usage by others, which hopefully will encourage ideas and improvements from the community. Go ahead and grab a copy from the github repo, <a href="https://github.com/mossiso/atop" target="_blank">https://github.com/mossiso/atop </a></p>
+<p>My idea is not much different than some of the tools I linked to. I&#8217;m basically writing a wrapper around the Apache mod_status output, but this tool has the ability to do more. So here&#8217;s a little walk through of what this tool does.</p>
+<h2>Requirements</h2>
+<ul>
+<li><strong>Apache with mod_status</strong>: This tool is built around the Apache mod_status output, so that obviously has to be installed and set up. The ExtendedStatus option has to be enabled in the httpd.conf file.</li>
+<li><strong>links:</strong> This is a command line based web browser of sorts. Using the -dump flag, it just spits out the page to the command line.</li>
+<li><strong>netstat:</strong> This is used for one of the options to display all of the IPs connected to the webserver (via port 80).</li>
+</ul>
+<p>&nbsp;</p>
+<p>This tool is just a BASH script, so once you download the &#8220;atop&#8221; file, just plop it anywhere in your home directory on your web server, change the permissions so it is executable</p>
+<p>[code lang=&#8221;bash&#8221;]chmod 700 atop[/code]</p>
+<p>and run it</p>
+<p>[code lang=&#8221;bash&#8221;]./atop[/code]</p>
+<p>There are now several options you can sort the results by:</p>
+<pre>==============================================================
+a = sort all threads by time
+c = sort by CPU, no GCRK_
+i = list IPs connected to port 80 (uses Apache Server Status)
+k = sort by K (Keep alives)
+l = list IPs connected to all ports (uses netstat)
+n = list IPs connected to port 80 (uses netstat)
+o = sort open connections by CPU
+p = sort only POST threads by time
+r = raw apache status output (good with limit of at least 50)
+s = search for a term, returns raw Apache Server Status results
+w = sort by inactive workers
+q = quit</pre>
+<p>To see the list of options while the command is running, just type any key on the keyboard.</p>
+<p>Getting the BASH script to be responsive to the keyboard was tricky, and took me the longest time to figure out. For a while I could get the results to be displayed and refresh every N seconds, I could even get it to do the sort options, but only if I started the script with that option. So I was super excited to figure out the logic to get the script to respond to input.</p>
+<p>The trick lies in setting the output commands in an infinite while loop. At the end of the loop it does a regular bash prompt using &#8220;read&#8221;. Normally this waits for a response, but the timeout feature allows you to set that to one second, which then goes through the while loop again. If a key is pressed, it breaks the while loop and prints the options message. When an option is selected it goes through that while loop.</p>
+<h2>Features</h2>
+<p>Some of the sort options I use most often are POST (p), CPU (c), IPs according to Apache (i), and IPs according to the server (n). I walk through those one by one.</p>
+<h3>POST</h3>
+<p><a href="http://mossiso.com/wp-content/uploads/2014/04/POST-listing1.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1610" alt="POST-listing" src="http://mossiso.com/wp-content/uploads/2014/04/POST-listing1.png" width="890" height="322" srcset="https://mossiso.com/wp-content/uploads/2014/04/POST-listing1.png 890w, https://mossiso.com/wp-content/uploads/2014/04/POST-listing1-300x108.png 300w, https://mossiso.com/wp-content/uploads/2014/04/POST-listing1-250x90.png 250w, https://mossiso.com/wp-content/uploads/2014/04/POST-listing1-150x54.png 150w, https://mossiso.com/wp-content/uploads/2014/04/POST-listing1-624x225.png 624w" sizes="(max-width: 890px) 100vw, 890px" /></a></p>
+<p>This is probably the most helpful of the options. Usually, when a website is getting hammered, it&#8217;s because it is getting comment spam or login attempts. These all require POST requests. If you see a large number of POST requests for a single vhost, then look at the IP addresses sending the requests; you can bet if all the requests are from the same IP, that it should be blocked.</p>
+<h3>CPU</h3>
+<p><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1607" alt="CPU-list" src="http://mossiso.com/wp-content/uploads/2014/04/CPU-list.png" width="990" height="1046" srcset="https://mossiso.com/wp-content/uploads/2014/04/CPU-list.png 990w, https://mossiso.com/wp-content/uploads/2014/04/CPU-list-283x300.png 283w, https://mossiso.com/wp-content/uploads/2014/04/CPU-list-969x1024.png 969w, https://mossiso.com/wp-content/uploads/2014/04/CPU-list-250x264.png 250w, https://mossiso.com/wp-content/uploads/2014/04/CPU-list-141x150.png 141w, https://mossiso.com/wp-content/uploads/2014/04/CPU-list-624x659.png 624w" sizes="(max-width: 990px) 100vw, 990px" /></p>
+<p>This is a pretty good overview of what Apache traffic your server is handling. It shows GET and POST requests and sorts them with the most heavy CPU usage requests on the bottom. It filters out open processes with no connections, and a few other things like closing connections.</p>
+<h3>IPs (Apache)</h3>
+<p><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1605" alt="IP-Apache-list" src="http://mossiso.com/wp-content/uploads/2014/04/IP-Apache-list.png" width="459" height="504" srcset="https://mossiso.com/wp-content/uploads/2014/04/IP-Apache-list.png 459w, https://mossiso.com/wp-content/uploads/2014/04/IP-Apache-list-273x300.png 273w, https://mossiso.com/wp-content/uploads/2014/04/IP-Apache-list-250x274.png 250w, https://mossiso.com/wp-content/uploads/2014/04/IP-Apache-list-136x150.png 136w" sizes="(max-width: 459px) 100vw, 459px" /></p>
+<p>This one is great, too. It shows the IP addresses that are connected to Apache, and sorts them by how many connections are being made. The IPs with the most connections are at the bottom. If you see an IP address with over 10 connections for a few minutes, you can bet they are up to no good. Double check with the POST option to see if they are spamming.</p>
+<h3>IPs (Netstat)</h3>
+<p><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1608" alt="IP-Netstat-list" src="http://mossiso.com/wp-content/uploads/2014/04/IP-Netstat-list.png" width="440" height="662" srcset="https://mossiso.com/wp-content/uploads/2014/04/IP-Netstat-list.png 440w, https://mossiso.com/wp-content/uploads/2014/04/IP-Netstat-list-199x300.png 199w, https://mossiso.com/wp-content/uploads/2014/04/IP-Netstat-list-250x376.png 250w, https://mossiso.com/wp-content/uploads/2014/04/IP-Netstat-list-99x150.png 99w" sizes="(max-width: 440px) 100vw, 440px" /></p>
+<p>This option gets all traffic to port 80 using netstat. It filters out local traffic (and GMU traffic, but you can edit that out), and then does the sorting and organizing by how many IP addresses are connecting. This gives a little more detail than the other IP option.</p>
+<p>If you find any bugs in the script or have a great idea for other options, feel free to fork or submit patches, or report bugs on the <a href="https://github.com/mossiso/atop">github repo</a>.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2014/04/02/atop-apache-top-for-keeping-tabs-on-the-web-servers/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1593</post-id>	</item>
+		<item>
+		<title>The Mouse, the Screen, and the Vim</title>
+		<link>https://mossiso.com/2014/01/09/the-mouse-the-screen-and-the-vim/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 09 Jan 2014 22:49:31 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[screen]]></category>
+		<category><![CDATA[scrolling]]></category>
+		<category><![CDATA[SIMBL]]></category>
+		<category><![CDATA[vim]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1576</guid>
+
+					<description><![CDATA[A tale many years in the making&#8230; I have been lacking two things for so long, now that I can do it, I wonder if I will ever remember to use it! The Problem I use a MacBook Pro with OS X Mavericks. I log into my Linux servers with SSH. I use GNU screen &#8230; <a href="https://mossiso.com/2014/01/09/the-mouse-the-screen-and-the-vim/" class="more-link">Continue reading <span class="screen-reader-text">The Mouse, the Screen, and the Vim</span></a>]]></description>
+										<content:encoded><![CDATA[<p>A tale many years in the making&#8230;</p>
+<p>I have been lacking two things for so long, now that I can do it, I wonder if I will ever remember to use it!</p>
+<h2>The Problem</h2>
+<p>I use a MacBook Pro with OS X Mavericks. I log into my Linux servers with SSH. I use GNU screen to allow me to save sessions, detach, and come back later without closing running programs and what not. BUT, I can&#8217;t use the mouse scrolling for the terminal output or to scroll through files opened with Vim.</p>
+<h2>The Solution</h2>
+<p>I finally found the pieces missing to make this possible. All with a couple of lines of code and a new SIMBL bundle.</p>
+<p>To get the scroll working in screen, just add this line to your .screenrc</p>
+<p>&nbsp;</p>
+<pre class="lang:sh decode:true ">defscrollback 5000
+termcapinfo * ti@:te@
+</pre>
+<p>&nbsp;</p>
+<p>It&#8217;s not perfect. If you have multiple windows in a screen session, then the history buffers get all meshed together. But I usually just need to see info from a command output that is longer than the screen window, and this will let me see it. Finally! Thanks <a title="Screen and scrolling" href="http://slaptijack.com/system-administration/mac-os-x-terminal-and-gnu-screen-scrollback/" target="_blank">Slapitjack</a>! See <a href="http://stackoverflow.com/questions/359109/using-the-scrollwheel-in-gnu-screen" target="_blank">here</a> for an explanation of the code.</p>
+<p>To get the scroll back in Vim, whether using screen or not. You first need to install <a title="SIMBL" href="http://www.culater.net/software/SIMBL/SIMBL.php" target="_blank">SIMBL</a>. The version for Snow Leopard works with Mavericks. Then grab a copy of <a title="MouseTerm" href="https://bitheap.org/mouseterm/" target="_blank">MouseTerm</a>. The installer didn&#8217;t work, but you just need to copy the MouseTerm.bundle to /Library/Application Support/SIMBL/Plugins folder (or ~/Library/Application Support/SIMBL/Plugins if needed for just your user account). Restart your Terminal and you&#8217;re good to go.</p>
+<p>Viola! Vim and scrolling, GNU screen and scrolling! Live as it was meant to be&#8230;</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1576</post-id>	</item>
+		<item>
+		<title>Four Steps to a Personal Website</title>
+		<link>https://mossiso.com/2013/02/20/four-steps-to-a-personal-website/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 20 Feb 2013 16:56:59 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Websites]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1454</guid>
+
+					<description><![CDATA[There are four basic steps to creating a personal website. 1. Content You may want to start out with a cool design, or fun idea on how to interact with visitors, or what have you. But really, the most important thing a website has going for it is the content. Design is a close second &#8230; <a href="https://mossiso.com/2013/02/20/four-steps-to-a-personal-website/" class="more-link">Continue reading <span class="screen-reader-text">Four Steps to a Personal Website</span></a>]]></description>
+										<content:encoded><![CDATA[<p>There are four basic steps to creating a personal website.</p>
+<h3>1. Content</h3>
+<p>You may want to start out with a cool design, or fun idea on how to interact with visitors, or what have you. But really, the most important thing a website has going for it is the content. Design is a close second (but we&#8217;ll talk about that last), because people tend to shy away from &#8220;ugly&#8221; sites. But they won&#8217;t even go in the first place if the content isn&#8217;t relevant.</p>
+<p>You&#8217;ll need to ask yourself a few questions to get an idea of what kind of website you need. The answers will even help define the design, and determine the platform, or website technology, that you use.</p>
+<ul>
+<li>What information do you want to share?</li>
+<li>Why do you want to make a website?</li>
+<li>Do you want conversations to take place on your website?</li>
+<li>Do you want a blog, a simple website with information about you or a topic, or something else?</li>
+</ul>
+<h3>2. Domain Name</h3>
+<p>All computers on the Internet or World Wide Web have a unique number associated with them, called an IP (Internet Protocol) Address. Kind of like a Social Security Number. In order to get data from a server (a computer that &#8220;serves&#8221; content, either data, websites, videos, pictures, etc), you would need to type in the specific number into your web browser. IP Addresses are in the format XXX.XXX.XXX.XXX. If you connect to the Internet at home, you might see your laptop get an IP Address like 192.168.1.20.</p>
+<p>Since humans remember letters and words better than numbers, there is a system set up to translate words into the IP Address for a server. It is kind of like the old fashioned telephone directory. You can remember the telephone number to a person&#8217;s house, or look up the person in the phone directory to get their number. This also allows for multiple names to be pointed at one IP Address, like multiple people living in one  house, sharing a phone number.</p>
+<p>This set of characters or words is called a domain name. A domain name allows for an almost unlimited number of unique identifiers to point to a limited number of IP Addresses. The domain name plays an important role in search engine rankings. If this is your personal site, try to get your name, or part of it, as the domain name. It can be all you need for &#8220;brand&#8221; identification.</p>
+<p>Shop around before you buy a domain name. There are plenty of options out there, just do a <a href="https://www.google.com/#hl=en&amp;output=search&amp;sclient=psy-ab&amp;q=domain+registra">search for domain registrar</a>. Often a hosting provider will sell domain names as well. As of this writing, you should be able to get a domain name for around $10-$11 a year. Make sure the registrar includes DNS management.</p>
+<p>.org, .net, .com, .info, .us, &#8230; What type of domain name should you buy? There are 19 top level domains (TLDs the very last part of a domain name, the part followed by the last period), and over 250 country code top-level domains (.us, .me, .de, .uk, etc.) That depends on a few things, the most important being, which one is available. Generally, .com and .org are the most sought after. Here is a list of the top-level domains and their intended purposes (from <a href="http://en.wikipedia.org/wiki/List_of_Internet_top-level_domains">Wikipedia</a>).</p>
+<table>
+<tbody>
+<tr valign="top">
+<td><a title=".com" href="http://en.wikipedia.org/wiki/.com">.com</a></td>
+<td>commercial</td>
+<td>This is an open TLD; any person or entity is permitted to register. Though originally intended for use by for-profit business entities, for a number of reasons it became the &#8220;main&#8221; TLD for domain names and is currently used by all types of entities including nonprofits, schools and private individuals. Domain name registrations may be challenged if the holder cannot prove an outside relation justifying reservation of the name, to prevent &#8220;<a title="Cybersquatting" href="http://en.wikipedia.org/wiki/Cybersquatting">squatting</a>&#8220;.</td>
+</tr>
+<tr valign="top">
+<td><a title=".info" href="http://en.wikipedia.org/wiki/.info">.info</a></td>
+<td>information</td>
+<td>This is an open TLD; any person or entity is permitted to register.</td>
+</tr>
+<tr valign="top">
+<td><a title=".name" href="http://en.wikipedia.org/wiki/.name">.name</a></td>
+<td>individuals, by name</td>
+<td>This is an open TLD; any person or entity is permitted to register; however, registrations may be challenged later if they are not by individuals (or the owners of fictional characters) in accordance with the domain&#8217;s charter.</td>
+</tr>
+<tr valign="top">
+<td><a title=".net" href="http://en.wikipedia.org/wiki/.net">.net</a></td>
+<td>network</td>
+<td>This is an open TLD; any person or entity is permitted to register. Originally intended for use by domains pointing to a distributed network of computers, or &#8220;umbrella&#8221; sites that act as the portal to a set of smaller websites.</td>
+</tr>
+<tr valign="top">
+<td><a title=".org" href="http://en.wikipedia.org/wiki/.org">.org</a></td>
+<td>organization</td>
+<td>This is an open TLD; any person or entity is permitted to register. Originally intended for use by non-profit organizations, and still primarily used by some.</td>
+</tr>
+</tbody>
+</table>
+<p>Country code top-level domains can be used as well, often to create <a href="http://en.wikipedia.org/wiki/Domain_hack#Examples_of_domain_hacks_in_different_languages">clever domain names</a> (called domain hacks) like del.icio.us, bit.ly, instagr.am, pep.si, and redd.it.</p>
+<p>&nbsp;</p>
+<p><figure id="attachment_1459" aria-describedby="caption-attachment-1459" style="width: 150px" class="wp-caption alignnone"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-1459 " src="http://mossiso.com/wp-content/uploads/2013/02/4847678335_a92fe09dee-150x150.jpg" alt="source, creative commons search on flickr.com" width="150" height="150" /><figcaption id="caption-attachment-1459" class="wp-caption-text">source, creative commons search on flickr.com</figcaption></figure></p>
+<h3>3. Hosting</h3>
+<p>A hosting provider is the company that owns the servers where your website lives. There are many free options. Look for a hosting provider that offers &#8220;easy&#8221; installations of common software like WordPress, Drupal, etc.</p>
+<ul>
+<li><a href="http://wordpress.com">wordpress.com</a></li>
+<li><a href="http://omeka.net">omeka.net</a></li>
+<li><a href="http://weebly.com">weebly.com</a></li>
+<li>list of 40 free blog hosts: mashable.com/2007/08/06/free-blog-hosts</li>
+<li><a href="http://en.wikipedia.org/wiki/Comparison_of_free_web_hosting_services">Wikipedia: Comparison of free web hosting services</a></li>
+</ul>
+<p>Paid options:</p>
+<p>You can find a hosting provider from anywhere between $5/month to $100/month.</p>
+<ul>
+<li><a href="http://hostgator.com">hostgator.com</a></li>
+<li><a href="http://dreamhost.com/">dreamhost.com</a></li>
+<li><a href="http://mediatemple.net/">mediatemple.net</a></li>
+</ul>
+<p><figure id="attachment_1458" aria-describedby="caption-attachment-1458" style="width: 150px" class="wp-caption alignnone"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-1458" src="http://mossiso.com/wp-content/uploads/2013/02/5818096043_d6e6ba27d5_n-150x150.jpg" alt="source: creative commons search on flickr.com" width="150" height="150" /><figcaption id="caption-attachment-1458" class="wp-caption-text">source: creative commons search on flickr.com</figcaption></figure></p>
+<h3>4. Design</h3>
+<p>Independent on the platform you choose, there are usually thousands of free themes available for easy download and install. When you pick a platform, look on their site for places to find free themes.</p>
+<p>Designing a website takes lots of work to make it look nice. The better the design, the more resources are needed (be they time, or money).</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1454</post-id>	</item>
+		<item>
+		<title>Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2</title>
+		<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/</link>
+					<comments>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 01 Feb 2013 20:12:57 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Setting up a Hosting Environment]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[cluster]]></category>
+		<category><![CDATA[gfs2]]></category>
+		<category><![CDATA[lvm]]></category>
+		<category><![CDATA[redhat]]></category>
+		<category><![CDATA[servers]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1438</guid>
+
+					<description><![CDATA[Previous posts in this series: Part 1: Setting up the servers Part 2: Connecting the Array RedHat Cluster and GFS2 Setup Required reading: https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial Seriously. Don&#8217;t do anything until you read his tutorial a couple of times. Might as well read a bunch of his other tutorials, too. Unless mentioned, the following commands should be &#8230; <a href="https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Previous posts in this series:</p>
+<p><a title="Setting up a Hosting Environment: Part 1 – The servers" href="http://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers.html">Part 1: Setting up the servers</a></p>
+<p><a title="Setting up a Hosting Environment – Part 2: Connecting the Storage Array" href="http://mossiso.com/2012/03/09/setting-up-a-hosting-environment-part-2-connecting-the-storage-array.html">Part 2: Connecting the Array</a></p>
+<h2>RedHat Cluster and GFS2 Setup</h2>
+<ul>
+<li>Required reading: <a href="https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial">https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial</a> Seriously. Don&#8217;t do anything until you read his tutorial a couple of times. Might as well read a bunch of his other tutorials, too.</li>
+<li>Unless mentioned, the following commands should be done on each server.</li>
+</ul>
+<h3>Set date/time to be accurate and within a few minutes of each other.</h3>
+<ul>
+<li>Install the ntp program and update to current time.
+<ul>
+<li><code>yum install ntp</code></li>
+<li><code>ntpdate time.nist.gov</code></li>
+</ul>
+</li>
+<li>Set time servers and start ntpd
+<ul>
+<li><code>service ntpd start</code></li>
+<li>Edit the <code>/etc/ntp.conf</code> file to use the following servers:</li>
+<li>
+<pre>server 0.pool.ntp.org
+server 1.pool.ntp.org
+server 2.pool.ntp.org
+server 3.pool.ntp.org</pre>
+</li>
+</ul>
+</li>
+<li>Restart ntpd
+<ul>
+<li><code>service ntpd restart</code></li>
+<li><code>chkconfig ntpd on</code></li>
+</ul>
+</li>
+</ul>
+<h3>Cluster setup</h3>
+<p>RedHat Cluster must be set up before the GFS2 File systems can be created and mounted.</p>
+<ul>
+<li>Instal the necessary programs
+<ul>
+<li><code>yum install openais cman rgmanager lvm2-cluster gfs2-utils ccs</code></li>
+<li>Create a <code>/etc/cluster/cluster.conf</code> REMEMBER: Always increment the “config_version” parameter in the <code>cluster</code> tag!
+<ul>
+<li>
+<div>
+<pre class="decode-attributes:false lang:xhtml decode:true">&lt;?xml version=“1.0”?&gt;
+    &lt;cluster config_version=“24” name=“web-production”&gt;
+        &lt;cman expected_votes=“1” two_node=“1”/&gt;
+        &lt;fence_daemon clean_start=“1” post_fail_delay=“6” post_join_delay=“3”/&gt;
+        &lt;totem rrp_mode=“none” secauth=“off”/&gt;
+        &lt;clusternodes&gt;
+            &lt;clusternode name=“bill” nodeid="1"&gt;
+                &lt;fence&gt;
+                    &lt;method name="ipmi"&gt;
+                        &lt;device action=“reboot” name=“ipmi_bill”/&gt;
+                    &lt;/method&gt;
+                &lt;/fence&gt;
+            &lt;/clusternode&gt;
+            &lt;clusternode name=“ted” nodeid="2"&gt;
+                &lt;fence&gt;
+                    &lt;method name="ipmi"&gt;
+                        &lt;device action=“reboot” name=“ipmi_ted”/&gt;
+                    &lt;/method&gt;
+                &lt;/fence&gt;
+            &lt;/clusternode&gt;
+        &lt;/clusternodes&gt;
+        &lt;fencedevices&gt;
+            &lt;fencedevice agent=“fence_ipmilan” ipaddr=“billsp” login=“root” name=“ipmi_bill” passwd=“PASSWORD-HERE”/&gt;
+            &lt;fencedevice agent=“fence_ipmilan” ipaddr=“tedsp” login=“root” name=“ipmi_ted” passwd=“PASSWORD-HERE”/&gt;
+        &lt;/fencedevices&gt;
+        &lt;rm log_level="5"&gt;
+            &lt;resources&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-sites” fstype=“gfs2” mountpoint=“/sites” name=“sites”/&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-databases” fstype=“gfs2” mountpoint=“/databases” name=“databases”/&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-logs” fstype=“gfs2” mountpoint=“/logs” name=“logs”/&gt;
+            &lt;/resources&gt;
+            &lt;failoverdomains&gt;
+                &lt;failoverdomain name=“bill-only” nofailback=“1” ordered=“0” restricted="1"&gt;
+                    &lt;failoverdomainnode name=“bill”/&gt;
+                &lt;/failoverdomain&gt;
+                &lt;failoverdomain name=“ted-only” nofailback=“1” ordered=“0” restricted="1"&gt;
+                    &lt;failoverdomainnode name=“ted”/&gt;
+                &lt;/failoverdomain&gt;
+            &lt;/failoverdomains&gt;
+        &lt;/rm&gt;
+    &lt;/cluster&gt;</pre>
+</div>
+</li>
+</ul>
+</li>
+<li>We’ll be adding more to this later, but this will work for now.</li>
+<li>Validate the config file
+<ul>
+<li><code>ccs_config_validate</code></li>
+</ul>
+</li>
+<li>Set a password for the ricci user
+<ul>
+<li><code>passwd ricci</code></li>
+</ul>
+</li>
+<li>Start ricci, and set to start on boot
+<ul>
+<li><code>service ricci start</code></li>
+<li><code>chkconfig ricci on</code></li>
+</ul>
+</li>
+<li>Start modclusterd and set to start on boot
+<ul>
+<li><code>service modclusterd start</code></li>
+<li><code>chkconfig modclusterd on</code></li>
+</ul>
+</li>
+<li>Sync the cluster.conf file to other node
+<ul>
+<li><code>ccs -f /etc/cluster/cluster.conf -h ted --setconf</code></li>
+</ul>
+</li>
+<li>Start cman on both servers at the same time
+<ul>
+<li><code>service cman start</code></li>
+</ul>
+</li>
+<li>Set cman to start on boot
+<ul>
+<li><code>chkconfig cman on</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Check the tutorial on testing the fencing
+<ul>
+<li><a href="https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial#Testing_Fencing">https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial#Testing_Fencing</a></li>
+</ul>
+</li>
+</ul>
+<h3>Create GFS2 partitions</h3>
+<p>Create a partition on the new scsi device /dev/mapper/mpatha using parted. NOTE: This part only needs to be done once on one server</p>
+<ul>
+<li><code>parted /dev/mapper/mpatha</code></li>
+<li><code>mklabel gpt</code></li>
+<li><code>mkpart primary 1 -1</code></li>
+<li><code>set 1 lvm on</code></li>
+<li><code>quit</code></li>
+<li>Now you can see a partition for the storage array.
+<ul>
+<li><code>parted -l</code></li>
+</ul>
+</li>
+</ul>
+<p>Edit the <code>/etc/lvm/lvm.conf file</code> and set the value for <code>locking_type = 3</code> to allow for cluster locking.</p>
+<p>In order to enable the LVM volumes you are creating in a cluster, the cluster infrastructure must be running and the cluster must be quorate.</p>
+<ul>
+<li><code>service clvmd start</code></li>
+<li><code>chkconfig clvmd on</code></li>
+<li><code>chkconfig gfs2 on</code></li>
+</ul>
+<p>Create LVM partitions on the raw drive available from the StorageTek. NOTE: This part only needs to be done once on one server.</p>
+<ul>
+<li><code>pvcreate /dev/mapper/mpatha1</code></li>
+<li><code>vgcreate -c y StorageTek2530 /dev/mapper/mpatha1</code></li>
+</ul>
+<p>Now create the different partitions for the system: sites, databases, logs, home, root</p>
+<ul>
+<li><code>lvcreate --name sites --size 350GB StorageTek2530</code></li>
+<li><code>lvcreate --name databases --size 100GB StorageTek2530</code></li>
+<li><code>lvcreate --name logs --size 50GB StorageTek2530</code></li>
+<li><code>lvcreate --name root --size 50GB StorageTek2530</code></li>
+</ul>
+<p>Make a temporary directory <code>/root-b</code> and copy everything from root’s home directory to there, because it will be erased when we make the GFS2 file system.</p>
+<p>Copy /root/.ssh/known_hosts to /etc/ssh/root_known_hosts so the file is different for both servers.</p>
+<p>Before doing the home directory, we have to remove it from the local LVM.</p>
+<ul>
+<li><code>unmount /home</code></li>
+<li><code>lvremove bill_local/home</code> and on ted <code>lvremove ted_local/home</code></li>
+<li>Remove the line from <code>/etc/fstab</code> referring to the /home directory on the local LVM</li>
+<li>Then add the clustered LV.
+<ul>
+<li><code>lvcreate --name home --size 50GB StorageTek2530</code></li>
+</ul>
+</li>
+</ul>
+<p>Create GFS2 files systems on the LVM partitions created on the StorageTek. Make sure they are unmounted, first. NOTE: This part only needs to be done once on one server.</p>
+<ul>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:sites /dev/mapper/StorageTek2530-sites</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:databases /dev/mapper/StorageTek2530-databases</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:logs /dev/mapper/StorageTek2530-logs</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:root /dev/mapper/StorageTek2530-root</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:home /dev/mapper/StorageTek2530-home</code></li>
+</ul>
+<p>Mount the GFS2 partitions</p>
+<ul>
+<li>NOTE: GFS2 file systems that have been mounted manually rather than automatically through an entry in the fstab file will not be known to the system when file systems are unmounted at system shutdown. As a result, the GFS2 script will not unmount the GFS2 file system. After the GFS2 shutdown script is run, the standard shutdown process kills off all remaining user processes, including the cluster infrastructure, and tries to unmount the file system. This unmount will fail without the cluster infrastructure and the system will hang.</li>
+<li>To prevent the system from hanging when the GFS2 file systems are unmounted, you should do one of the following:
+<ul>
+<li>Always use an entry in the fstab file to mount the GFS2 file system.</li>
+<li>If a GFS2 file system has been mounted manually with the mount command, be sure to unmount the file system manually with the umount command before rebooting or shutting down the system.</li>
+</ul>
+</li>
+<li>If your file system hangs while it is being unmounted during system shutdown under these circumstances, perform a hardware reboot. It is unlikely that any data will be lost since the file system is synced earlier in the shutdown process.</li>
+</ul>
+<p>Make the appropriate folders on each node (/home is already there).</p>
+<ul>
+<li><code>mkdir /sites /logs /databases</code></li>
+</ul>
+<p>Make sure the appropriate lines are in /etc/fstab</p>
+<pre class="">#GFS2 partitions shared in the cluster
+/dev/mapper/StorageTek2530-root        /root        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-home        /home        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-databases      /databases      gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-logs        /logs        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-sites    /sites    gfs2   defaults,acl    0 0</pre>
+<p>Once the GFS2 partitions are set up and in <code>/etc/fstab</code>, rgmanager can be started. This will mount the GFS2 partions.</p>
+<ul>
+<li><code>service rgmanager start</code></li>
+<li><code>chkconfig rgmanager on</code></li>
+</ul>
+<h3>Starting Cluster Software</h3>
+<p>To start the cluster software on a node, type the following commands in this order:</p>
+<ul>
+<li><code>service cman start</code></li>
+<li><code>service clvmd start</code></li>
+<li><code>service gfs2 start</code></li>
+<li><code>service rgmanager start</code></li>
+</ul>
+<h3>Stopping Cluster Software</h3>
+<p>To stop the cluster software on a node, type the following commands in this order:</p>
+<ul>
+<li><code>service ossec-hids stop</code>
+<ul>
+<li>(ossec monitors the apache log files, so the /logs partition will not be unmounted unless ossec is stopped first.)</li>
+</ul>
+</li>
+<li><code>service rgmanager stop</code></li>
+<li><code>service gfs2 stop</code></li>
+<li><code>umount -at gfs2</code></li>
+<li><code>service clvmd stop</code></li>
+<li><code>service cman stop</code></li>
+</ul>
+<h3>Cluster tips</h3>
+<p>If a service shows as ‘failed’ when checking on services with <code>clustat</code></p>
+<ul>
+<li>Disable the service first: <code>clusvcadm -d service-name</code></li>
+<li>Then re-enable it: <code>clusvcadm -e service-name</code></li>
+</ul>
+<p>Have Shorewall start sooner in the boot process.</p>
+<ul>
+<li>It was necessary to move shorewall up in the boot process, otherwise cman had no open connection to detect the other nodes.</li>
+<li>Edit the <code>/etc/init.d/shorewall</code> and change the line near the top from <code># chkconfig: - 28 90</code> to
+<ul>
+<li><code># chkconfig: - 18 90</code></li>
+</ul>
+</li>
+<li>Then use chkconfig to turn off shorewall and then back on.
+<ul>
+<li><code>chkconfig shorewall off</code></li>
+<li><code>chkconfig shorewall on</code></li>
+</ul>
+</li>
+</ul>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/feed/</wfw:commentRss>
+			<slash:comments>5</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1438</post-id>	</item>
+		<item>
+		<title>If at first you don&#8217;t succeed</title>
+		<link>https://mossiso.com/2012/10/11/if-at-first-you-dont-succeed/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 11 Oct 2012 23:07:40 +0000</pubDate>
+				<category><![CDATA[Academic]]></category>
+		<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Dissertation]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[exhibit]]></category>
+		<category><![CDATA[json]]></category>
+		<category><![CDATA[maps]]></category>
+		<category><![CDATA[spreadsheets]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1356</guid>
+
+					<description><![CDATA[&#8230;copy somebody&#8217;s code. Or at least your own from the past that works. I finally got the map to work for my Exhibit exhibit. See. &#160; First I copied the tutorial here. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken. So next &#8230; <a href="https://mossiso.com/2012/10/11/if-at-first-you-dont-succeed/" class="more-link">Continue reading <span class="screen-reader-text">If at first you don&#8217;t succeed</span></a>]]></description>
+										<content:encoded><![CDATA[<p>&#8230;copy somebody&#8217;s code. Or at least your own from the past that works.</p>
+<p>I finally got the map to work for my Exhibit exhibit. <a href="http://chnm.gmu.edu/staff/ammon/clio3/tunnels.php">See</a>.</p>
+<p>&nbsp;</p>
+<p>First I copied the tutorial <a href="http://simile.mit.edu/wiki/Exhibit/2.0/Map_View_Tutorial">here</a>. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken.</p>
+<p>So next I commented out all extraneous stuff, and finally got it to work. Now came the fun part of tracking down what code was making my awesome map look like nothing. I narrowed it down to something within the &lt;header&gt; tag. So line by line I uncommented and tested until I tracked the issue down to the bootstrap.css file I was using.</p>
+<p>Then came the same process within the bootstrap.css file. It was easily 1000 lines long, so a line by line process wasn&#8217;t going to work. Instead I commented out the first have of the file. Bing, the map displayed, so it was somewhere within that first 500 lines. Then I commented out the first 250 lines. Bing again. I kept dividing the culprits in half until I narrowed it down to styles for the img tag. Commented those out and I was in business.</p>
+<p>Through that grueling process I lost the images of the documents on the first page. Now I have to figure out how to get those back, apply some styling and we&#8217;re all set.</p>
+<p>Unfortunately I wasn&#8217;t ever able to get it to pull in the data from a spreadsheet, so the JSON file will have to do. The process for making a JSON file from a spreadsheet is simple:</p>
+<p>1. Make the spreadsheet file so that the headers are encapsulated with curly braces &#8216;{ }&#8217;</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1361" title="Screen Shot 2012-10-11 at 6.44.16 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png" alt="" width="800" height="76" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png 800w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-300x28.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-250x23.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-150x14.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-624x59.png 624w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>2. If you&#8217;re using Google spreadsheets, export it as an Excel file. You&#8217;ll have to open it in Excel and save it as an older file format, because the next step doesn&#8217;t like .xlsx.</p>
+<p>3. Next, use <a href="http://service.simile-widgets.org/babel/">Similie&#8217;s Babel tool</a> to convert the spreadsheet to JSON.</p>
+<p>4. Select &#8220;Excel&#8221; as the &#8220;from format&#8221; and &#8220;Exhibit JSON&#8221; as the &#8220;to format&#8221; and then browse to find the xls file you just made.</p>
+<p>5. Click the &#8220;Upload and Convert&#8221; button.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-1360" title="Screen Shot 2012-10-11 at 6.50.19 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png" alt="" width="550" height="254" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-300x139.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-250x115.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-150x69.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-624x289.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png 1294w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>6. The next screen is all of your spreadsheet data output into a nice JSON format.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1359" title="Screen Shot 2012-10-11 at 6.50.27 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png" alt="" width="527" height="860" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png 527w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-183x300.png 183w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-250x407.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-91x150.png 91w" sizes="(max-width: 527px) 100vw, 527px" /></a></p>
+<p>7. Now you can use this JSON file for any number of things. But it&#8217;s especially nice to use it in an Exhibit to display your data.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-1357" title="Screen Shot 2012-10-11 at 6.52.53 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png" alt="" width="550" height="422" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-300x230.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-250x192.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-150x115.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-624x479.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png 1110w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>This is cross posted at the class blog <a href="http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/">http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/</a></p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1356</post-id>	</item>
+		<item>
+		<title>Making Multiple MySQL Instances on One Server</title>
+		<link>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/</link>
+					<comments>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 31 Jul 2012 19:15:08 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[database admin]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[servers]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1275</guid>
+
+					<description><![CDATA[I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Replicating a MySQL server is a &#8230; <a href="https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/" class="more-link">Continue reading <span class="screen-reader-text">Making Multiple MySQL Instances on One Server</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Replicating a MySQL server is a good way to ensure High Availability in case of a failure. The backup server acts as a slave to the master (production) server. Basically, the slave is an exact copy of the master. They are two separate instances of MySQL server running on two physical servers. Whatever queries run on the master are sent to the slave so it can do the same. This way they are kept completely in sync. You could also have the slave take over for the master, should the master server happen to fail.</p>
+<p><figure id="attachment_1279" aria-describedby="caption-attachment-1279" style="width: 300px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png"><img loading="lazy" decoding="async" class="size-medium wp-image-1279 " title="master-and-slave" src="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png" alt="" width="300" height="125" srcset="https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png 300w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-250x104.png 250w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-150x62.png 150w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png 503w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1279" class="wp-caption-text">The slave is an ever updating duplicate of the master.</figcaption></figure></p>
+<p>The only problem I face with this set up, though, is that I have multiple production servers out there. So this only works if this backup server could be a slave for multiple machines.</p>
+<p><figure id="attachment_1283" aria-describedby="caption-attachment-1283" style="width: 248px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/no-2-masters.png"><img loading="lazy" decoding="async" class="size-medium wp-image-1283" title="no-2-masters" src="http://mossiso.com/wp-content/uploads/2012/07/no-2-masters-248x300.png" alt="" width="248" height="300" srcset="https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-248x300.png 248w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-250x301.png 250w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-124x150.png 124w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters.png 496w" sizes="(max-width: 248px) 100vw, 248px" /></a><figcaption id="caption-attachment-1283" class="wp-caption-text">No slave can serve two masters.</figcaption></figure></p>
+<p>This is not possible, though, because, of course, <a href="https://www.lds.org/scriptures/nt/matt/6.24?lang=eng#23" target="_blank">no slave can serve two masters</a>. Fortunately, a server can have multiple instances of MySQL running on it! So, in a sense, we have a server with multiple MySQL instances, to which a master can replicate. More about that set up in an upcoming post.</p>
+<p><figure id="attachment_1281" aria-describedby="caption-attachment-1281" style="width: 242px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/mm-slave.png"><img loading="lazy" decoding="async" class="size-medium wp-image-1281" title="mm-slave" src="http://mossiso.com/wp-content/uploads/2012/07/mm-slave-242x300.png" alt="" width="242" height="300" srcset="https://mossiso.com/wp-content/uploads/2012/07/mm-slave-242x300.png 242w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave-250x309.png 250w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave-121x150.png 121w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave.png 493w" sizes="(max-width: 242px) 100vw, 242px" /></a><figcaption id="caption-attachment-1281" class="wp-caption-text">The slave has multiple instances of MySQL running.</figcaption></figure></p>
+<p>A how to on <a href="http://blog.mydream.com.hk/howto/linux/mysql-multiple-instance-on-centos-howto" target="_blank">this blog</a>, shows how this can be done. I&#8217;ll replicate the process below.</p>
+<h2>STEPS TO MULTIPLE MYSQL MADNESS</h2>
+<h3>On the slave server</h3>
+<h4>Step 1. Install MySQL</h4>
+<p>We&#8217;ll be working with CentOS 5.8, but this could really apply for any OS. First we&#8217;ll need to install MySQL like normal.</p>
+<pre class="lang:bash decode:1 " >yum install mysql mysql-server</pre>
+<p>There are plenty of good tutorials out there on how to install the specific version of MySQL you want on the specific OS you&#8217;re running.</p>
+<h4>Step 2. Set up the data area.</h4>
+<p>You&#8217;ll need to have a different folder for each of the MySQL instances, say <code>/dbases/master-a/</code>, <code>/dbases/master-b/</code>, and <code>/dbases/master-c/</code>.</p>
+<pre class="lang:bash decode:1 " >mkdir -p /dbases/{master-a,master-b,master-c}</pre>
+<h4>Step 3. Copy the default my.cnf file</h4>
+<p>This is the default MySQL config file, it may be named differently on other OSes.</p>
+<pre class="lang:bash decode:1 " >cp /etc/my.cnf /etc/master-a.cnf; cp /etc/my.cnf /etc/master-b.cnf; cp /etc/my.cnf /etc/master-c.cnf</pre>
+<h4>Step 4. Edit the new MySQL config files.</h4>
+<p>For each new config file, you&#8217;ll need to specify some unique variables.</p>
+<pre class="lang:bash decode:1 " >
+[mysqld]
+port=3307
+datadir=/dbases/master-a
+socket=/dbases/master-a/mysql.sock
+user=mysql
+server_id=3307
+log-bin=/dbases/master/mysql-bin.log
+
+# Disabling symbolic-links is recommended to prevent assorted security risks;
+# to do so, uncomment this line:
+symbolic-links=0
+
+[mysqld_safe]
+log-error=/dbases/master-a/mysqld.log
+pid-file=/dbases/master-a/mysqld.pid
+</pre>
+<p>The <code>port</code> option sets this MySQL instance on a different port than the default 3306. The <code>datadir</code>, <code>socket</code>, <code>log-bin</code>, <code>log-error</code>, and <code>pid-file</code> options make sure the necessary files are not using the default files.</p>
+<h4>Step 5. Create new init scripts.</h4>
+<p>The init script allows the server to start and stop the service at boot time, and allows for easy start up and shutdown (on CentOS/RedHat, at least &#8211; with an easy <code>service mysqld start</code>).</p>
+<pre class="lang:bash decode:1 " >cp /etc/init.d/mysqld /etc/init.d/mysqld-master-a</pre>
+<p>Just do one for now. We&#8217;ll copy the new one to create the others, then just do a quick search and replace in those files to change the master-a to master-b and master-c.</p>
+<h4>Step 6. Edit the init script</h4>
+<div style="border: 1px solid #ddd; margin: 10px; padding: 10px;">
+<pre>#!/bin/bash
+#
+# mysqld        This shell script takes care of starting and stopping
+#               the MySQL subsystem (mysqld).
+#
+# chkconfig: - 64 36
+# description:  MySQL database server.
+# processname: mysqld
+# config: <span style="color: #3366ff;">/etc/master-a.cnf</span>
+# pidfile: <span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+prog="MySQL"
+
+# extract value of a MySQL option from config files
+# Usage: get_mysql_option SECTION VARNAME DEFAULT
+# result is returned in $result
+# We use my_print_defaults which prints all options from multiple files,
+# with the more specific ones later; hence take the last match.
+get_mysql_option(){
+        result=<code>/usr/bin/my_print_defaults "$1" | sed -n "s/^--$2=//p" | tail -n 1</code>
+        if [ -z "$result" ]; then
+            # not found, use default
+            result="$3"
+        fi
+}
+
+get_mysql_option mysqld datadir "<span style="color: #3366ff;">/dbases/master-a</span>"
+datadir="<span style="color: #3366ff;">/dbases/master-a</span>"
+get_mysql_option mysqld socket "<span style="color: #3366ff;">/dbases/master-a/mysql.sock</span>"
+socketfile="<span style="color: #3366ff;">/dbases/master-a/mysql.sock</span>"
+get_mysql_option mysqld_safe log-error "<span style="color: #3366ff;">/dbases/master-a/mysqld.log</span>"
+errlogfile="<span style="color: #3366ff;">/dbases/master-a/mysqld.log</span>"
+get_mysql_option mysqld_safe pid-file "<span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>"
+mypidfile="<span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>"
+
+<span style="color: #3366ff;">defaultfile="/etc/master-a.cnf"</span>
+
+start(){
+        touch "$errlogfile"
+        chown mysql:mysql "$errlogfile"
+        chmod 0640 "$errlogfile"
+        [ -x /sbin/restorecon ] &amp;&amp; /sbin/restorecon "$errlogfile"
+        if [ ! -d "$datadir/mysql" ] ; then
+            action $"Initializing MySQL database: " /usr/bin/mysql_install_db --datadir="$datadir" --user=mysql
+            ret=$?
+            chown -R mysql:mysql "$datadir"
+            if [ $ret -ne 0 ] ; then
+                return $ret
+            fi
+        fi
+        chown mysql:mysql "$datadir"
+        chmod 0755 "$datadir"
+        # Pass all the options determined above, to ensure consistent behavior.
+        # In many cases mysqld_safe would arrive at the same conclusions anyway
+        # but we need to be sure.
+        /usr/bin/mysqld_safe  <span style="color: #3366ff;">--defaults-file="$defaultfile"</span> --datadir="$datadir" --socket="$socketfile" \
+                --log-error="$errlogfile" --pid-file="$mypidfile" \
+                --user=mysql &gt;/dev/null 2&gt;&amp;1 &amp;
+        ret=$?
+        # Spin for a maximum of N seconds waiting for the server to come up.
+        # Rather than assuming we know a valid username, accept an "access
+        # denied" response as meaning the server is functioning.        
+        if [ $ret -eq 0 ]; then
+            STARTTIMEOUT=30
+            while [ $STARTTIMEOUT -gt 0 ]; do
+                RESPONSE=<code>/usr/bin/mysqladmin --socket="$socketfile" --user=UNKNOWN_MYSQL_USER ping 2&gt;&amp;1</code> &amp;&amp; break
+                echo "$RESPONSE" | grep -q "Access denied for user" &amp;&amp; break
+                sleep 1
+                let STARTTIMEOUT=${STARTTIMEOUT}-1
+            done
+            if [ $STARTTIMEOUT -eq 0 ]; then
+                    echo "Timeout error occurred trying to start MySQL Daemon."
+                    action $"Starting $prog: " /bin/false
+                    ret=1
+            else
+                    action $"Starting $prog: " /bin/true
+            fi
+        else
+            action $"Starting $prog: " /bin/false
+        fi
+        [ $ret -eq 0 ] &amp;&amp; touch <span style="color: #3366ff;">/dbases/master-a/mysqld</span>
+        return $ret
+}
+
+stop(){ 
+        MYSQLPID=<code>cat "$mypidfile"  2&gt;/dev/null </code>
+        if [ -n "$MYSQLPID" ]; then
+            /bin/kill "$MYSQLPID" &gt;/dev/null 2&gt;&amp;1
+            ret=$?
+            if [ $ret -eq 0 ]; then
+                STOPTIMEOUT=60
+                while [ $STOPTIMEOUT -gt 0 ]; do
+                    /bin/kill -0 "$MYSQLPID" &gt;/dev/null 2&gt;&amp;1 || break
+                    sleep 1
+                    let STOPTIMEOUT=${STOPTIMEOUT}-1
+                done
+                if [ $STOPTIMEOUT -eq 0 ]; then
+                    echo "Timeout error occurred trying to stop MySQL Daemon."
+                    ret=1
+                    action $"Stopping $prog: " /bin/false
+                else
+                    rm -f <span style="color: #3366ff;">/dbases/master-a/mysqld</span>
+                    rm -f "$socketfile"
+                    action $"Stopping $prog: " /bin/true
+                fi
+            else
+                action $"Stopping $prog: " /bin/false
+            fi
+        else
+            ret=1
+            action $"Stopping $prog: " /bin/false
+        fi
+        return $ret
+}
+
+restart(){
+    stop
+    start
+}
+
+condrestart(){
+    [ -e <span style="color: #3366ff;">/dbases/master-a/mysqld</span> ] &amp;&amp; restart || :
+}
+
+# See how we were called.
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status mysqld
+    ;;
+  restart)
+    restart
+    ;;
+  condrestart)
+    condrestart
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop|status|condrestart|restart}"
+    exit 1
+esac
+
+exit $?</pre>
+</div>
+<h4>Step 7. Start each MySQL instance.</h4>
+<p>Now you can start each instance with the handy <code>service</code> command.</p>
+<pre class="lang:bash decode:1 " >service mysqld-master-a start</pre>
+<h4>Step 8. Connect to MySQL instances.</h4>
+<p>Now, to connect to each MySQL instance, you&#8217;ll need to specify the port and/or socket file.</p>
+<pre class="lang:bash decode:1 " >mysql -P3307 --socket="/dbases/mysql-master-a/mysql.sock"</pre>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/feed/</wfw:commentRss>
+			<slash:comments>3</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1275</post-id>	</item>
+	</channel>
+</rss>

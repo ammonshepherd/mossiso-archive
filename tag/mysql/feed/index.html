@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>mysql &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/mysql/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:09:13 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>mysql &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Making Multiple MySQL Instances on One Server</title>
+		<link>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/</link>
+					<comments>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 31 Jul 2012 19:15:08 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[database admin]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[servers]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1275</guid>
+
+					<description><![CDATA[I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Replicating a MySQL server is a &#8230; <a href="https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/" class="more-link">Continue reading <span class="screen-reader-text">Making Multiple MySQL Instances on One Server</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Replicating a MySQL server is a good way to ensure High Availability in case of a failure. The backup server acts as a slave to the master (production) server. Basically, the slave is an exact copy of the master. They are two separate instances of MySQL server running on two physical servers. Whatever queries run on the master are sent to the slave so it can do the same. This way they are kept completely in sync. You could also have the slave take over for the master, should the master server happen to fail.</p>
+<figure id="attachment_1279" aria-describedby="caption-attachment-1279" style="width: 300px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png"><img decoding="async" class="size-medium wp-image-1279 " title="master-and-slave" src="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png" alt="" width="300" height="125" srcset="https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png 300w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-250x104.png 250w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-150x62.png 150w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png 503w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1279" class="wp-caption-text">The slave is an ever updating duplicate of the master.</figcaption></figure>
+<p>The only problem I face with this set up, though, is that I have multiple production servers out there. So this only works if this backup server could be a slave for multiple machines.</p>
+<figure id="attachment_1283" aria-describedby="caption-attachment-1283" style="width: 248px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/no-2-masters.png"><img fetchpriority="high" decoding="async" class="size-medium wp-image-1283" title="no-2-masters" src="http://mossiso.com/wp-content/uploads/2012/07/no-2-masters-248x300.png" alt="" width="248" height="300" srcset="https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-248x300.png 248w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-250x301.png 250w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-124x150.png 124w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters.png 496w" sizes="(max-width: 248px) 100vw, 248px" /></a><figcaption id="caption-attachment-1283" class="wp-caption-text">No slave can serve two masters.</figcaption></figure>
+<p>This is not possible, though, because, of course, <a href="https://www.lds.org/scriptures/nt/matt/6.24?lang=eng#23" target="_blank">no slave can serve two masters</a>. Fortunately, a server can have multiple instances of MySQL running on it! So, in a sense, we have a server with multiple MySQL instances, to which a master can replicate. More about that set up in an upcoming post.</p>
+<figure id="attachment_1281" aria-describedby="caption-attachment-1281" style="width: 242px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/mm-slave.png"><img decoding="async" class="size-medium wp-image-1281" title="mm-slave" src="http://mossiso.com/wp-content/uploads/2012/07/mm-slave-242x300.png" alt="" width="242" height="300" srcset="https://mossiso.com/wp-content/uploads/2012/07/mm-slave-242x300.png 242w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave-250x309.png 250w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave-121x150.png 121w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave.png 493w" sizes="(max-width: 242px) 100vw, 242px" /></a><figcaption id="caption-attachment-1281" class="wp-caption-text">The slave has multiple instances of MySQL running.</figcaption></figure>
+<p>A how to on <a href="http://blog.mydream.com.hk/howto/linux/mysql-multiple-instance-on-centos-howto" target="_blank">this blog</a>, shows how this can be done. I&#8217;ll replicate the process below.</p>
+<h2>STEPS TO MULTIPLE MYSQL MADNESS</h2>
+<h3>On the slave server</h3>
+<h4>Step 1. Install MySQL</h4>
+<p>We&#8217;ll be working with CentOS 5.8, but this could really apply for any OS. First we&#8217;ll need to install MySQL like normal.</p>
+<pre class="lang:bash decode:1 " >yum install mysql mysql-server</pre>
+<p>There are plenty of good tutorials out there on how to install the specific version of MySQL you want on the specific OS you&#8217;re running.</p>
+<h4>Step 2. Set up the data area.</h4>
+<p>You&#8217;ll need to have a different folder for each of the MySQL instances, say <code>/dbases/master-a/</code>, <code>/dbases/master-b/</code>, and <code>/dbases/master-c/</code>.</p>
+<pre class="lang:bash decode:1 " >mkdir -p /dbases/{master-a,master-b,master-c}</pre>
+<h4>Step 3. Copy the default my.cnf file</h4>
+<p>This is the default MySQL config file, it may be named differently on other OSes.</p>
+<pre class="lang:bash decode:1 " >cp /etc/my.cnf /etc/master-a.cnf; cp /etc/my.cnf /etc/master-b.cnf; cp /etc/my.cnf /etc/master-c.cnf</pre>
+<h4>Step 4. Edit the new MySQL config files.</h4>
+<p>For each new config file, you&#8217;ll need to specify some unique variables.</p>
+<pre class="lang:bash decode:1 " >
+[mysqld]
+port=3307
+datadir=/dbases/master-a
+socket=/dbases/master-a/mysql.sock
+user=mysql
+server_id=3307
+log-bin=/dbases/master/mysql-bin.log
+
+# Disabling symbolic-links is recommended to prevent assorted security risks;
+# to do so, uncomment this line:
+symbolic-links=0
+
+[mysqld_safe]
+log-error=/dbases/master-a/mysqld.log
+pid-file=/dbases/master-a/mysqld.pid
+</pre>
+<p>The <code>port</code> option sets this MySQL instance on a different port than the default 3306. The <code>datadir</code>, <code>socket</code>, <code>log-bin</code>, <code>log-error</code>, and <code>pid-file</code> options make sure the necessary files are not using the default files.</p>
+<h4>Step 5. Create new init scripts.</h4>
+<p>The init script allows the server to start and stop the service at boot time, and allows for easy start up and shutdown (on CentOS/RedHat, at least &#8211; with an easy <code>service mysqld start</code>).</p>
+<pre class="lang:bash decode:1 " >cp /etc/init.d/mysqld /etc/init.d/mysqld-master-a</pre>
+<p>Just do one for now. We&#8217;ll copy the new one to create the others, then just do a quick search and replace in those files to change the master-a to master-b and master-c.</p>
+<h4>Step 6. Edit the init script</h4>
+<div style="border: 1px solid #ddd; margin: 10px; padding: 10px;">
+<pre>#!/bin/bash
+#
+# mysqld        This shell script takes care of starting and stopping
+#               the MySQL subsystem (mysqld).
+#
+# chkconfig: - 64 36
+# description:  MySQL database server.
+# processname: mysqld
+# config: <span style="color: #3366ff;">/etc/master-a.cnf</span>
+# pidfile: <span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+prog="MySQL"
+
+# extract value of a MySQL option from config files
+# Usage: get_mysql_option SECTION VARNAME DEFAULT
+# result is returned in $result
+# We use my_print_defaults which prints all options from multiple files,
+# with the more specific ones later; hence take the last match.
+get_mysql_option(){
+        result=<code>/usr/bin/my_print_defaults "$1" | sed -n "s/^--$2=//p" | tail -n 1</code>
+        if [ -z "$result" ]; then
+            # not found, use default
+            result="$3"
+        fi
+}
+
+get_mysql_option mysqld datadir "<span style="color: #3366ff;">/dbases/master-a</span>"
+datadir="<span style="color: #3366ff;">/dbases/master-a</span>"
+get_mysql_option mysqld socket "<span style="color: #3366ff;">/dbases/master-a/mysql.sock</span>"
+socketfile="<span style="color: #3366ff;">/dbases/master-a/mysql.sock</span>"
+get_mysql_option mysqld_safe log-error "<span style="color: #3366ff;">/dbases/master-a/mysqld.log</span>"
+errlogfile="<span style="color: #3366ff;">/dbases/master-a/mysqld.log</span>"
+get_mysql_option mysqld_safe pid-file "<span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>"
+mypidfile="<span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>"
+
+<span style="color: #3366ff;">defaultfile="/etc/master-a.cnf"</span>
+
+start(){
+        touch "$errlogfile"
+        chown mysql:mysql "$errlogfile"
+        chmod 0640 "$errlogfile"
+        [ -x /sbin/restorecon ] &amp;&amp; /sbin/restorecon "$errlogfile"
+        if [ ! -d "$datadir/mysql" ] ; then
+            action $"Initializing MySQL database: " /usr/bin/mysql_install_db --datadir="$datadir" --user=mysql
+            ret=$?
+            chown -R mysql:mysql "$datadir"
+            if [ $ret -ne 0 ] ; then
+                return $ret
+            fi
+        fi
+        chown mysql:mysql "$datadir"
+        chmod 0755 "$datadir"
+        # Pass all the options determined above, to ensure consistent behavior.
+        # In many cases mysqld_safe would arrive at the same conclusions anyway
+        # but we need to be sure.
+        /usr/bin/mysqld_safe  <span style="color: #3366ff;">--defaults-file="$defaultfile"</span> --datadir="$datadir" --socket="$socketfile" \
+                --log-error="$errlogfile" --pid-file="$mypidfile" \
+                --user=mysql &gt;/dev/null 2&gt;&amp;1 &amp;
+        ret=$?
+        # Spin for a maximum of N seconds waiting for the server to come up.
+        # Rather than assuming we know a valid username, accept an "access
+        # denied" response as meaning the server is functioning.        
+        if [ $ret -eq 0 ]; then
+            STARTTIMEOUT=30
+            while [ $STARTTIMEOUT -gt 0 ]; do
+                RESPONSE=<code>/usr/bin/mysqladmin --socket="$socketfile" --user=UNKNOWN_MYSQL_USER ping 2&gt;&amp;1</code> &amp;&amp; break
+                echo "$RESPONSE" | grep -q "Access denied for user" &amp;&amp; break
+                sleep 1
+                let STARTTIMEOUT=${STARTTIMEOUT}-1
+            done
+            if [ $STARTTIMEOUT -eq 0 ]; then
+                    echo "Timeout error occurred trying to start MySQL Daemon."
+                    action $"Starting $prog: " /bin/false
+                    ret=1
+            else
+                    action $"Starting $prog: " /bin/true
+            fi
+        else
+            action $"Starting $prog: " /bin/false
+        fi
+        [ $ret -eq 0 ] &amp;&amp; touch <span style="color: #3366ff;">/dbases/master-a/mysqld</span>
+        return $ret
+}
+
+stop(){ 
+        MYSQLPID=<code>cat "$mypidfile"  2&gt;/dev/null </code>
+        if [ -n "$MYSQLPID" ]; then
+            /bin/kill "$MYSQLPID" &gt;/dev/null 2&gt;&amp;1
+            ret=$?
+            if [ $ret -eq 0 ]; then
+                STOPTIMEOUT=60
+                while [ $STOPTIMEOUT -gt 0 ]; do
+                    /bin/kill -0 "$MYSQLPID" &gt;/dev/null 2&gt;&amp;1 || break
+                    sleep 1
+                    let STOPTIMEOUT=${STOPTIMEOUT}-1
+                done
+                if [ $STOPTIMEOUT -eq 0 ]; then
+                    echo "Timeout error occurred trying to stop MySQL Daemon."
+                    ret=1
+                    action $"Stopping $prog: " /bin/false
+                else
+                    rm -f <span style="color: #3366ff;">/dbases/master-a/mysqld</span>
+                    rm -f "$socketfile"
+                    action $"Stopping $prog: " /bin/true
+                fi
+            else
+                action $"Stopping $prog: " /bin/false
+            fi
+        else
+            ret=1
+            action $"Stopping $prog: " /bin/false
+        fi
+        return $ret
+}
+
+restart(){
+    stop
+    start
+}
+
+condrestart(){
+    [ -e <span style="color: #3366ff;">/dbases/master-a/mysqld</span> ] &amp;&amp; restart || :
+}
+
+# See how we were called.
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status mysqld
+    ;;
+  restart)
+    restart
+    ;;
+  condrestart)
+    condrestart
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop|status|condrestart|restart}"
+    exit 1
+esac
+
+exit $?</pre>
+</div>
+<h4>Step 7. Start each MySQL instance.</h4>
+<p>Now you can start each instance with the handy <code>service</code> command.</p>
+<pre class="lang:bash decode:1 " >service mysqld-master-a start</pre>
+<h4>Step 8. Connect to MySQL instances.</h4>
+<p>Now, to connect to each MySQL instance, you&#8217;ll need to specify the port and/or socket file.</p>
+<pre class="lang:bash decode:1 " >mysql -P3307 --socket="/dbases/mysql-master-a/mysql.sock"</pre>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/feed/</wfw:commentRss>
+			<slash:comments>3</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1275</post-id>	</item>
+		<item>
+		<title>Backing up MySQL with Replication and Incremental Files &#8211; Part 1</title>
+		<link>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/</link>
+					<comments>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 24 Jul 2012 19:49:38 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[database admin]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[server admin]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1277</guid>
+
+					<description><![CDATA[I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to &#8230; <a href="https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/" class="more-link">Continue reading <span class="screen-reader-text">Backing up MySQL with Replication and Incremental Files &#8211; Part 1</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to backup. You can&#8217;t just copy the data files and then expect to copy them back over and have them just work. Especially if your databases have a mixture of InnoDB and MyISAM tables. In order to do a clean and accurate database backup, you need to stop the MySQL server, then copy the files, then restart MySQL.</p>
+<p>If you have a live production MySQL server, stopping it to make a backup is not really an option. Fortunately there are a few options. Before you decide on which option to choose, here is a list of things to keep in mind when choosing a backup solution (from the MySQL gurus at Percona):</p>
+<h3>WHAT TO LOOK FOR</h3>
+<p><a href="http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/" target="_blank">http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/</a></p>
+<ol>
+<li>Does the backup require shutting down MySQL? If not, what is the impact on the running server? Blocking, I/O load, cache pollution, etc?</li>
+<li>What technique is used for the backup? Is it mysqldump or a custom product that does something similar? Is it a filesystem copy?</li>
+<li>Does the backup system understand that <em>you cannot back up InnoDB by simply copying its files</em>?</li>
+<li>Does the backup use FLUSH TABLES, LOCK TABLES, or FLUSH TABLES WITH READ LOCK? These all interrupt processing.</li>
+<li>What other effects are there on MySQL? I’ve seen systems that do a RESET MASTER, which immediately breaks replication. Are there any FLUSH commands at all, like FLUSH LOGS?</li>
+<li>How does the system guarantee that you can perform point-in-time recovery?</li>
+<li>How does the system guarantee consistency with the binary log, InnoDB logs, and replication?</li>
+<li>Can you use the system to set up new MySQL replication slaves? How?</li>
+<li>Does the system verify that the backup is restorable, e.g. does it run InnoDB recovery before declaring success?</li>
+<li>Does anyone stand behind it with support, and guarantee working, recoverable backups? How strong is the legal guarantee of this and how much insurance do they have?</li>
+</ol>
+<p>&nbsp;</p>
+<h3>BACKUP PROGRAMS</h3>
+<p>There are a few MySQL backup products out there as well. I have used the first two on this list.</p>
+<ul>
+<li><a href="http://sourceforge.net/projects/automysqlbackup/" target="_blank">AutoMySQLBackup</a> script (handy for making a rotating incremental backup of your MySQL databases).</li>
+<li><a href="http://www.percona.com/software/percona-xtrabackup/" target="_blank">Percona XtraBackup</a> (nice way to ensure InnoDB and MyISAM tables are backed up properly, also does it incrementally)</li>
+<li><a href="https://zmanda.com/backup-mysql.html" target="_blank">Zmanda</a> (seems to be similar to Percona&#8217;s set up)</li>
+</ul>
+<p>There&#8217;s probably a gazillion more out there. Google&#8217;s your friend in finding things you need.</p>
+<h3>HOW TO DO IT</h3>
+<figure id="attachment_1279" aria-describedby="caption-attachment-1279" style="width: 300px" class="wp-caption alignright"><a href="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png"><img loading="lazy" decoding="async" class="size-medium wp-image-1279" title="master-and-slave" alt="" src="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png" width="300" height="125" srcset="https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png 300w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-250x104.png 250w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-150x62.png 150w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png 503w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1279" class="wp-caption-text">How to get a copy of the master to the slave?</figcaption></figure>
+<p>There are several options. You could use a script above, or create a slave of the database (basically an exact copy of the production MySQL server &#8211; all changes that occur in the master are sent to the slave), or some combination. I&#8217;ll use a combination. I&#8217;ll replicate the production server onto the backup server, then run the incremental backups from there. This first part will walk through the process of setting up MySQL replication.</p>
+<p>To give proper credit, here are several other how to&#8217;s I found helpful.</p>
+<ul>
+<li><a href="http://www.badllama.com/content/mysql-backups-using-lvm-snapshots" target="_blank">http://www.badllama.com/content/mysql-backups-using-lvm-snapshots</a></li>
+<li><a href="http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/" target="_blank">http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/</a></li>
+<li><a href="http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html" target="_blank">http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html</a></li>
+<li><a href="http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/" target="_blank">http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/</a></li>
+</ul>
+<h3>On the master server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=1
+innodb_flush_log_at_trx_commit=1
+log_bin=mysql-bin.log
+sync_binlog=1
+</pre>
+</div>
+<p><strong>Step 2.</strong> Make a MySQL user for the slave to use.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">In a MySQL session on the terminal, type in the command:</p>
+<pre class="lang:sql decode:1 " >GRANT REPLICATION SLAVE ON *.* TO 'rep_user'@'localhost' IDENTIFIED BY 'passwordhere';</pre>
+</div>
+<p><strong>Step 3.</strong> Open a terminal session and log in to a MySQL prompt. Type the following command and hit enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >FLUSH TABLES WITH READ LOCK</pre>
+<p>Note: This will lock your database so that no changes can be made from any web applications or other programs. This session should remain open, and the database locked for the next few steps.</p>
+</div>
+<p><strong>Step 4.</strong> After the FLUSH TABLES command finishes, run the following command and press enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >SHOW MASTER STATUS</pre>
+<p>Record the information under &#8220;File Name&#8221; and &#8220;Position&#8221;.</p>
+</div>
+<p><strong>Step 5. </strong> Make a copy of the database files.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<p><strong>5.1 LVM Snapshot:</strong></p>
+<p>In another terminal session, run the following command to make an LVM snapshot of the database.</p>
+<pre class="lang:bash decode:1 " >lvcreate -L10G -s -n mysql-backup /dev/mapper/dbases</pre>
+<p>This creates a snapshot of the database files very quickly. We can use the snapshot later to copy the data to the backup server without interfering with the original database files.</p>
+<p>After this command finishes, you can unlock the database as shown in the next step. Then you can mount the new LVM partition and copy the files to the backup server.</p>
+<pre class="lang:bash decode:1 " >mkdir -p /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >mount -o nouuid /dev/mapper/mysql-backup /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /mnt/mysql-backup user@remote.host:/backup/location</pre>
+<p><strong>5.2 RSYNC:</strong></p>
+<p>If you don&#8217;t have your database files on an LVM partition, you can just copy the files to the backup server now using rsync, scp or what have you. This will take significantly longer (depending on the size of your database), leaving the database in a locked state.</p>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /dbases/mysql user@remote.host:/backup/location</pre>
+<p><strong>5.3 MySQL Dump:</strong></p>
+<p>You could also take a mysqldump of the database and copy that SQL file to the other server.</p>
+<pre class="lang:bash decode:1 " >mysqldump -uuser -p --all-databases &gt; mysql-backup.sql</pre>
+<pre class="lang:bash decode:1 " >scp mysql-backup.sql user@remote.host:/backup/location</pre>
+</div>
+<p><strong>Step 6.</strong> Once the lvcreate command has finished, you can unlock the database.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >UNLOCK TABLES</pre>
+</div>
+<p><strong>Step 7.</strong> If you haven&#8217;t already, copy the copy of the database files to the backup server.</p>
+<h3>On the slave server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=2
+</pre>
+</div>
+<p><strong>Step 2.</strong> Start MySQL and run the following commands in a mysql session to start the MySQL slave.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >
+CHANGE MASTER TO
+MASTER_HOST = "master.server.com",
+MASTER_USER = "rep_user",
+MASTER_PASSWORD = "passwordhere",
+MASTER_LOG_FILE = "mysql-bin.log",
+MASTER_LOG_POS = 2341234;
+</pre>
+<p>The MASTER_HOST is the domain name or IP address of the master server. MASTER_USER, MASTER_PASSWORD were created on the master server in <strong>Step 2</strong>. MASTER_LOG_FILE and MASTER_LOG_POS were gathered in <strong>Step 4</strong>.Then, finally, to start the slave, issue the following command in mysql.</p>
+<pre class="lang:sql decode:1 " >START SLAVE;</pre>
+</div>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1277</post-id>	</item>
+		<item>
+		<title>Multiple PHP Instances With One Apache</title>
+		<link>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/</link>
+					<comments>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 02 Sep 2009 21:12:02 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[bash code]]></category>
+		<category><![CDATA[CentOS]]></category>
+		<category><![CDATA[httpd]]></category>
+		<category><![CDATA[LAMP]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[tutorial]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=311</guid>
+
+					<description><![CDATA[&#160; Long-winded Introduction It took me a couple of days to figure this out due to lack of decent tutorials and not enough confidence in my Linux skills to build programs from source. I think I have the hang of it now, and write this up with the intent on providing another, or the only, &#8230; <a href="https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/" class="more-link">Continue reading <span class="screen-reader-text">Multiple PHP Instances With One Apache</span></a>]]></description>
+										<content:encoded><![CDATA[<p>&nbsp;</p>
+<h3>Long-winded Introduction</h3>
+<p>It took me a couple of days to figure this out due to lack of decent tutorials and not enough confidence in my Linux skills to build programs from source. I think I have the hang of it now, and write this up with the intent on providing another, or the only, tutorial on setting up CentOS 5 with multiple instances of PHP using one Apache install. That being said, there are a number of good tutorials out there, just none of them explicitly for CentOS and some leave out some details that n00bs like me get confused about.</p>
+<p><a href="http://www.aditus.nu/jpgraph/apache2suse10.php">PHP4 and PHP5 on SuSE 10.1</a> &#8211; This was by far the most helpful of the tutorials. Even though it was written for SuSE, it works almost straight across for CentOS.</p>
+<p>There is also a great list of instructions in the comments on the php.net site under installing PHP for Apache 2.0 on Unix systems (see <a href="http://www.php.net/manual/en/install.unix.apache2.php#90478">http://www.php.net/manual/en/install.unix.apache2.php#90478</a>).</p>
+<p>I found this one after I wrote up this tutorial at <a href="http://cuadradevelopment.com/blog/26/multiple-php-versions-with-apache-using-fastcgi-on-os-x/">http://cuadradevelopment.com</a>. It&#8217;s a bit different, but should work as well.</p>
+<p>There are basically two different ways I could have done this. 1- run a single instance of Apache, and run one instance of PHP as a module, and other installs as CGI. 2- run several instances of Apache, each with it&#8217;s own instance of PHP as a module. I chose to do the first method for no particular reason. <a href="http://blog.dreamhosters.com/kbase/index.cgi?area=2933">Dreamhost</a> has a post about the good and bad with running PHP as CGI.</p>
+<p>So basically, the steps are: 1. Set up Apache and have PHP install as a module. 2. Configure and make another instance of PHP to run as CGI. 3. Add a virtual host to Apache running under a different port to access the PHP as CGI.<br />
+<span id="more-311"></span></p>
+<h3>Set up Apache with PHP module</h3>
+<p>So here&#8217;s what I did to get the basic Apache, PHP and MySQL working. This sets up the first PHP install to run as a module in Apache:</p>
+<p>From a clean install of CentOS 5 (virtually no packages selected during initial install), I installed the following packages:</p>
+<p><code>$ yum install gcc make subversion ImageMagick php php-cli php-common php-ldap php-mysql php-pdo php-pear php-devel bzip2-devel libxml2-devel mysql mysql-server mysql-devel mod_auth_mysql httpd httpd-manual</code></p>
+<p>From there I needed to get PHP 5.2.x, so I did the following to get PHP, Apache, MySQL and PEAR all set up.</p>
+<ol>
+<li><strong>Step 1:</strong> GET PHP 5.2.x<br />
+Check out instructions and packages here: <a href="http://blog.famillecollet.com/pages/Config-en">http://blog.famillecollet.com/pages/Config-en</a></p>
+<pre>$ wget http://download.fedora.redhat.com/pub/epel/5/i386/epel-release-5-2.noarch.rpm
+$ wget http://rpms.famillecollet.com/el5.i386/remi-release-5-4.el5.remi.noarch.rpm
+$ rpm -Uvh remi-release-5<strong>.rpm epel-release-5</strong>.rpm
+$ yum—enablerepo=remi update php-pear php</pre>
+<p>Copy the /etc/php.ini file from the /etc/php.ini.default:</p>
+<pre>$ cp /etc/php.ini.default /etc/php.ini</pre>
+<p>Change the following lines:</p>
+<ul>
+<li>1. upload_max_filesize = 20M #line 573</li>
+<li>2. mysql.default_socket =/path/to/mysql/mysql.sock #about line 736</li>
+<li>3. mysqli.default_socket =/path/to/mysql/mysql.sock #about line 771</li>
+</ul>
+</li>
+<li><strong>Step 2:</strong>Edit /etc/httpd/conf/httpd.conf by changing the following lines
+<ul>
+<li>1. Listen xxx.xxx.xxx.xxx:80 #line 134</li>
+<li>2. ServerAdmin admin@email.org #line 251</li>
+<li>3. ServerName somesite.org #line 265</li>
+<li>4. DocumentRoot ”/path/to/htdocs” #line 282</li>
+<li>5. &lt;Directory ”/path/to/htdocs”&gt; #line 307</li>
+<li>6. AllowOverride All #line 328</li>
+<li>7. DirectoryIndex index.php index.html index.html.var #line 392</li>
+</ul>
+</li>
+<li><strong>Step 3:</strong> Create the /etc/my.cnf file for MySQL<br />
+[code]</p>
+<pre>[mysqld]
+datadir=/path/to/mysql
+socket=/path/to/mysql/mysql.sock
+user=mysql
+# Default to using old password format for compatibility with mysql 3.x
+# clients (those using the mysqlclient10 compatibility package).
+old_passwords=1
+
+[client]
+socket=/path/to/mysql/mysql.sock
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid</pre>
+<p>[/code]</li>
+<li><strong>Step 4:</strong> Start apache and mysql and set them to start on boot up:<br />
+<blockquote>
+<pre>$ service httpd start
+$ service mysqld start
+$ chkconfig mysqld on
+$ chkconfig httpd on</pre>
+</blockquote>
+</li>
+<li><strong>Step 5:</strong> Set the MySQL password for root<br />
+<blockquote>
+<pre>$ mysqladmin -u root password ‘XXXXXX’</pre>
+</blockquote>
+</li>
+<li><strong>Step 6:</strong> install Phing and other PEAR packages<br />
+<blockquote>
+<pre>$ pear channel-discover pear.phing.info
+$ pear channel-discover pear.phpunit.de
+$ pear install phing/phing
+$ pear install PhpDocumentor
+$ pear install XML_Beautifier
+$ pear install PHPUnit
+$ pecl install Xdebug</pre>
+</blockquote>
+</li>
+</ol>
+<h3>Configure second version of PHP</h3>
+<p>From here we need to install a second version of PHP. Grab the version you want from <a href="http://www.php.net/releases/">http://www.php.net/releases/</a>, and stick that any where you want to (usually your root&#8217;s home directory is fine). I&#8217;m installing PHP 5.2.4, so I&#8217;ll use that in my examples.</p>
+<p>Unpack the tarball and enter the directory it created.</p>
+<pre>$ tar -xjf php-5.2.4.tar.bz2</pre>
+<p>Now, you&#8217;ll need to determine which modules you need to install. For this part I used the steps from the php.net comment under &#8220;my approach for determining required modules&#8221; (copied here, without permission, but with lots of gratitude and full credit going to the author of the comment).</p>
+<pre>my approach for determining required modules
+------------------------------------
+1. get the list of the modules
+     $  php -m | grep -v -e Modules] -e ^$ &gt; php-default-modules
+
+2. create the configure script
+$  for i in $(cat php-default-modules); do echo -n "--with-$i "&gt;&gt; phpconfigure.sh ;done
+
+     2.2 add #!/bin/bash to the top line, and ./configure to the second line.
+          Each of the --with-* need to be on the second line.
+
+3. run the configure script, and iterate through the "Configure script errors"
+    section below until it completes properly
+
+    $ ./phpconfigure.sh
+
+4. at the end of the output, look for a notice of unknown options
+
+     Notice: Following unknown configure options were used:
+     --with-date
+     --with-gum-disease
+
+     Check './configure --help' for available options
+
+5. as suggested, execute '$ ./configure --help' and correct the options. The
+     "for" command above indiscriminately inserts "--with-" for all modules,
+     but bundled modules may require "--enable-" instead, so mostly you'll
+     be changing those. For modules that are enabled by default you'll need
+     to remove the entry.
+
+6. Add anything else you personally want or need. I like to add "--enable-safe-mode".</pre>
+<p>After doing all of that, I had the following in phpconfigure.sh<br />
+[code lang=&#8221;bash&#8221;]<br />
+#!/bin/bash<br />
+./configure &#8211;prefix=/usr/share/ &#8211;datadir=/usr/share/php &#8211;libdir=/usr/share &#8211;includedir=/usr/include &#8211;bindir=/usr/bin &#8211;enable-safe-mode &#8211;with-config-file-path=/etc/php542 &#8211;enable-force-cgi-redirect &#8211;enable-discard-path &#8211;with-bz2 &#8211;enable-calendar &#8211;with-curl &#8211;enable-dbase &#8211;enable-exif &#8211;enable-ftp &#8211;with-gettext &#8211;with-gmp &#8211;with-iconv &#8211;with-ldap &#8211;with-libxml-dir=/usr/lib/ &#8211;enable-mbstring &#8211;with-mime_magic &#8211;with-mysql &#8211;with-mysqli &#8211;with-openssl &#8211;enable-pcntl &#8211;with-pcre-dir=/usr/lib/ &#8211;with-pdo_mysql &#8211;with-pdo_sqlite &#8211;with-readline &#8211;enable-shmop &#8211;enable-sockets &#8211;with-SQLite &#8211;enable-wddx &#8211;with-xsl &#8211;enable-zip &#8211;with-zlib</p>
+<p># Changes from what php -m spits out. You don&#8217;t need the info below in your phpconfigure.sh script<br />
+#&#8211;enable-calendar<br />
+#&#8211;with-ctype # default<br />
+#&#8211;with-date # not found, default?<br />
+#&#8211;enable-dbase<br />
+#&#8211;with-dom # default<br />
+#&#8211;enable-exif<br />
+#&#8211;with-filter #default<br />
+#&#8211;with-ftp<br />
+#&#8211;with-hash #default<br />
+#&#8211;with-json #default<br />
+#&#8211;with-libxml-dir=/usr/lib/<br />
+#&#8211;enable-mbstring<br />
+#&#8211;with-memcache #not found, default?<br />
+#&#8211;enable-pcntl<br />
+#&#8211;with-pcre-dir=/usr/lib/<br />
+#&#8211;with-PDO #taken care of with the pdo_mysql and pdo_sqlite<br />
+#&#8211;with-Reflection #default<br />
+#&#8211;with-session #default<br />
+#&#8211;enable-shmop<br />
+#&#8211;with-SimpleXML #default<br />
+#&#8211;enable-sockets<br />
+#&#8211;with-SPL #default<br />
+#&#8211;with-standard #not found, is it SPL? default?<br />
+#&#8211;with-tokenizer #default<br />
+#&#8211;enable-wddx<br />
+#&#8211;with-xdebug #not found, not needed<br />
+#&#8211;with-xml #default<br />
+#&#8211;with-xmlreader #default<br />
+#&#8211;with-xmlwriter #default<br />
+#&#8211;enable-zip<br />
+#&#8211;with-Xdebug #not found, not needed</p>
+<p>[/code]</p>
+<p><strong>NOTE:</strong> make sure you do not include &#8216;&#8211;with-apxs2=/usr/sbin/apxs&#8217;. This is what installs PHP as an Apache module. Also, since you have the original PHP running, you can theoretically make a phpinfo file (with phpinfo() ) in it, and grab the configure entries from that, making sure to change &#8216;&#8211;with-config-file-path=/etc&#8217; &#8216;&#8211;with-config-file-scan-dir=/etc/php.d&#8217;</p>
+<p>During the configure, you might run into some errors. Again from the php.net comment:</p>
+<pre>Configure script errors
+--------------------------------------------
+In my experience, these errors have been due (with any software, PHP included) mostly to missing
+development packages, which contain the libraries and headers needed to compile support for that
+library's function into the application.
+
+This becomes a process of:
+-executing the ./configure script and looking at the error
+-installing the devel package providing the resource referenced by the error (google using the error
+     as search term as needed)
+-repeat until the ./configure script makes it through without error
+
+Upshot: identify the software referenced by the error, and install it.
+
+Example
+-----------
+Example error:
+     configure: error: Cannot find OpenSSL's
+Example explanation
+     configure is looking for a header (and probably a lot of other stuff) from a missing openssl package.
+Example solution:
+php-5.2.9]$sudo yum install openssl-devel</pre>
+<p>The previous yum command should take care of most of those dependencies.</p>
+<p>After the phpconfigure script runs without errors, then simply run</p>
+<pre>$ make</pre>
+<p>As the JpGraph tutorial explains, there is no need to run &#8220;make install&#8221;. Just simply copy the php-cgi executable to the proper place. We&#8217;ll get to that step shortly.</p>
+<h3>Set up Apache VirtualHost and website directories</h3>
+<p>Now you need to create two directories to handle the PHP as CGI. They can be virtually wherever, but should be in the same directory where you have the main html content. So if you set the path to the website data (in the httpd.conf) to /path/to/htdocs/, then you&#8217;ll need to make a /path/to/php524/ and a /path/to/php524-cgi/</p>
+<pre>$ mkdir /path/to/php524/</pre>
+<p>and</p>
+<pre>$ mkdir /path/to/php524-cgi/</pre>
+<p>After you have those directories, you can add the VirtualHost information to the Apache config (httpd.conf). I like to have a separate file for the VirtualHosts, so I added this to the end of the httpd.conf file.</p>
+<pre>Include conf/XXXXX_vhosts.conf</pre>
+<p>And to allow VirtualHosts, uncomment this line:</p>
+<pre>NameVirtualHost *:80</pre>
+<p>To allow Apache to listen on (or accept requests from) different ports besides the default 80, add another Listen line to the httpd.conf file:</p>
+<pre>Listen XXX.XXX.XXX.XXX:8524</pre>
+<p>I used port 8524 to correspond to version 5.2.4 of PHP</p>
+<p>Now create the XXXXX_vhosts.conf file</p>
+<p>[code lang=&#8221;bash&#8221;]<br />
+#this doesn&#8217;t really seem to be needed, but it&#8217;s there<br />
+NameVirtualHost *:8524</p>
+<p># this is the original and runs the PHP as a module</p>
+<p>DocumentRoot /path/to/htdocs/<br />
+ServerName somesite.org</p>
+<p>####### Add other Virtual Hosts below here #######</p>
+<p># Setup PHP 5.2.4 on port 8524</p>
+<p>DocumentRoot /path/to/php524/<br />
+# We use a separate CGI directory<br />
+ScriptAlias /cgi-bin/ /path/to/php524-cgi/</p>
+<p># These are the two critical statements for this virtual<br />
+# host. This activates PHP 5.2.4 as a CGI module<br />
+Action php524-cgi /cgi-bin/php-cgi<br />
+AddHandler php524-cgi .php5 .php</p>
+<p>#Options None<br />
+Options FollowSymLinks<br />
+#AllowOverride None<br />
+AllowOverride All<br />
+Order allow,deny<br />
+Allow from all<br />
+# For good measure we also add recognition of PHP5 index<br />
+DirectoryIndex index.html index.php index.php5</p>
+<p>[/code]</p>
+<p>Now, you need to copy the php-cgi binary/executable to the /path/to/php524-cgi/ directory. The php-cgi file is located in the file where you ran the configure and make for the new php install. So if you did all that in the /opt/php-5.2.4/ directory, the php-cgi will be located at /opt/php-5.2.4/sapi/cgi/php-cgi.</p>
+<pre>$ cp /opt/php-5.2.4/sapi/cgi/php-cgi /path/to/php524-cgi/</pre>
+<p>Finally, copy the php.ini file to the right place. And configure as needed.</p>
+<pre>$ cp /opt/php-5.2.4/php.ini-dist /path/to/php524-cgi/php.ini</pre>
+<p>Test the apache configs to make sure they work:</p>
+<pre>$ /usr/sbin/apachectl configtest</pre>
+<p>If that returns OK restart Apache.</p>
+<pre>$ /etc/init.d/httpd graceful</pre>
+<p>You can make a phpinfo page to test that it&#8217;s using the new PHP version.<br />
+[code lang=&#8221;php&#8221;]<br />
+&lt; ?php<br />
+phpinfo();<br />
+? &gt;<br />
+[/code]<br />
+Then check out your new site: http://somesite.org:8524/phpinfo.php</p>
+<p>In order to get the different versions of PHP to interact with MySQL, you&#8217;ll have to use the URL on port 80 as the MySQL host. So, for example, in a WordPress install at http://somesite.org:8524/blog, the wp-config.php will have to have the following for the MySQL hostname:</p>
+<pre>define('DB_HOST', 'dev.omeka.org');</pre>
+<p>There is some issue with mod_rewrite on the different versions of PHP. I&#8217;ll replace this paragraph with a fix when I have one.<br />
+UPDATE: 9/9/09 &#8211; I figured out how to get the .htaccess working for the <a href="http://omeka.org">Omeka</a> installs we were working with. I needed to change the AllowOverride lines in the vhost.conf (or httpd.conf) file from None, to All.</p>
+<p>Well, there you go. Hope that&#8217;s enough detail to get you going.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2009/09/02/multiple-php-instances-with-one-apache/feed/</wfw:commentRss>
+			<slash:comments>4</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">311</post-id>	</item>
+		<item>
+		<title>Tabledump</title>
+		<link>https://mossiso.com/2007/09/05/tabledump/</link>
+					<comments>https://mossiso.com/2007/09/05/tabledump/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 05 Sep 2007 21:55:52 +0000</pubDate>
+				<category><![CDATA[computer history]]></category>
+		<category><![CDATA[bash code]]></category>
+		<category><![CDATA[mysql]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/83</guid>
+
+					<description><![CDATA[I had the need once again to dump only certain tables from a database, instead of all 100+ tables. This was where I had a database with about 5-8 wordpress installs. I wanted to backup all of the tables for only one install. There is a way with mysqldump to do this, by listing out &#8230; <a href="https://mossiso.com/2007/09/05/tabledump/" class="more-link">Continue reading <span class="screen-reader-text">Tabledump</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I had the need once again to dump only certain tables from a database, instead of all 100+ tables. This was where I had a database with about 5-8 wordpress installs. I wanted to backup all of the tables for only one install. There is a way with mysqldump to do this, by listing out all of the tables you want to dump.  So I just wrote a bash script to take care of making the list of tables to dump.</p>
+<p>It has an array of database table names (without the common prefix) in the script. Then it prompts for the mysql user, database, and prefix.  It could be changed to prompt for a file that contains a list or array of table names.</p>
+<p>Anyhow, here it is for anyone&#8217;s use:</p>
+<p>[code lang=&#8221;Bash&#8221;]<br />
+#!/bin/bash</p>
+<p>#&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;#<br />
+#           Ammon Shepherd                #<br />
+#              09.05.07                   #<br />
+#  Dump a database with only the tables   #<br />
+#   containing the prefix given.          #<br />
+#&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;#</p>
+<p>echo &#8220;This will dump just the tables with the specified prefix from the specified database.&#8221;</p>
+<p>echo -n &#8220;Enter the database name: &#8221;<br />
+read dbase</p>
+<p>echo -n &#8220;Enter the table prefix: &#8221;<br />
+read prefix</p>
+<p>echo -n &#8220;The mysql user: &#8221;<br />
+read sqluser<br />
+echo -n &#8220;The mysql pass: &#8221;<br />
+read -s sqlpass</p>
+<p># Get list of tables with the desired prefix<br />
+list=( $(mysql -u$sqluser -p$sqlpass $dbase &#8211;raw &#8211;silent &#8211;silent &#8211;execute=&#8221;SHOW TABLES;&#8221;) )</p>
+<p>for tablename in ${list[@]}<br />
+do<br />
+    if [[ &#8220;$tablename&#8221; =~ $prefix ]]; then<br />
+        tablelist+=&#8221;$tablename &#8221;<br />
+    fi<br />
+done</p>
+<p>`mysqldump -u$sqluser -p$sqlpass &#8211;opt $dbase $tablelist > $dbase.$prefix.bak.sql`</p>
+<p>echo</p>
+<p>exit 0</p>
+<p>[/code]</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2007/09/05/tabledump/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">83</post-id>	</item>
+	</channel>
+</rss>

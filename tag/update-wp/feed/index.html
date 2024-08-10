@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>update WP &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/update-wp/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Wed, 03 Jan 2018 20:30:59 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>update WP &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Quick WP upgrading with WPCLI</title>
+		<link>https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 03 Jan 2018 20:30:59 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[update WP]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1683</guid>
+
+					<description><![CDATA[This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself. Requirements ssh access to your server wp-cli command installed (instructions for installing wp-cli at http://wp-cli.org/) Install/Upgrade WP CLI wp-cli should be upgraded each time a WordPress installation is upgraded. wp cli update Upgrade WP Prep work Change into the &#8230; <a href="https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/" class="more-link">Continue reading <span class="screen-reader-text">Quick WP upgrading with WPCLI</span></a>]]></description>
+										<content:encoded><![CDATA[<p>This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself.</p>
+<h1>Requirements</h1>
+<ul>
+<li>ssh access to your server</li>
+<li>wp-cli command installed (instructions for installing wp-cli at <a href="http://wp-cli.org/">http://wp-cli.org/</a>)</li>
+</ul>
+<h2>Install/Upgrade WP CLI</h2>
+<ul>
+<li><strong>wp-cli should be upgraded each time a WordPress installation is upgraded.</strong></li>
+</ul>
+<pre><code>wp cli update
+</code></pre>
+<h2>Upgrade WP</h2>
+<h3>Prep work</h3>
+<p>Change into the WP directory</p>
+<pre><code>cd /path/to/wordpress/installation/
+</code></pre>
+<p>Make a list of active plugins</p>
+<pre><code>wp plugin list --status=active --format=csv --fields=name | tail -n +2 &gt; ../active-plugins.txt
+</code></pre>
+<h3>Update all plugins</h3>
+<pre><code>wp plugin update --all
+</code></pre>
+<h3>Deactivate all of the plugins</h3>
+<pre><code>wp plugin deactivate --all
+</code></pre>
+<h3>Upgrade WordPress</h3>
+<pre><code>wp core update
+</code></pre>
+<h3>Reactivate all of the previously active plugins.</h3>
+<pre><code>cat ../active-plugins.txt | xargs wp plugin activate
+</code></pre>
+<h1>Check the site in various browsers (make sure cache has been cleared).</h1>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1683</post-id>	</item>
+	</channel>
+</rss>

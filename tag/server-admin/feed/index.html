@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>server admin &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/server-admin/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:09:13 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>server admin &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>When  your OS updates break your CAM</title>
+		<link>https://mossiso.com/2012/10/11/when-your-os-updates-break-your-cam/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 11 Oct 2012 19:01:50 +0000</pubDate>
+				<category><![CDATA[Technical]]></category>
+		<category><![CDATA[server admin]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1342</guid>
+
+					<description><![CDATA[As I&#8217;m sure many people have run into this before, and from personal experience, found nothing roaming the Interwebs on how to fix it, and seeings how I just fixed it, I&#8217;ll write up a little how to fix it post. &#160; The set up: Two SunFire X2100 M2 servers connected to a StorageTek 2530 &#8230; <a href="https://mossiso.com/2012/10/11/when-your-os-updates-break-your-cam/" class="more-link">Continue reading <span class="screen-reader-text">When  your OS updates break your CAM</span></a>]]></description>
+										<content:encoded><![CDATA[<p>As I&#8217;m sure many people have run into this before, and from personal experience, found nothing roaming the Interwebs on how to fix it, and seeings how I just fixed it, I&#8217;ll write up a little how to fix it post.</p>
+<p>&nbsp;</p>
+<h3>The set up:</h3>
+<p>Two SunFire X2100 M2 servers connected to a StorageTek 2530 via iscsi. The two nodes are running CentOS 6.2 with RedHat cluster software. I have a server running Nagios for monitoring and it checks for failed disks on the StorageTek by running a script on either node that returns the number of &#8220;optimal&#8221; and &#8220;failed&#8221; disks.</p>
+<p>&nbsp;</p>
+<figure id="attachment_1343" aria-describedby="caption-attachment-1343" style="width: 490px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-1.45.03-PM.png"><img fetchpriority="high" decoding="async" class="size-full wp-image-1343" title="server set up" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-1.45.03-PM.png" alt="" width="490" height="237" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-1.45.03-PM.png 490w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-1.45.03-PM-300x145.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-1.45.03-PM-250x120.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-1.45.03-PM-150x72.png 150w" sizes="(max-width: 490px) 100vw, 490px" /></a><figcaption id="caption-attachment-1343" class="wp-caption-text">Two nodes connected to an array via iscsi (Ethernet)</figcaption></figure>
+<h3>The problem:</h3>
+<p>Updating system software is important. Keeping packages up to date protects from security vulnerabilities. Unfortunately, sometimes it breaks things. In this case, updating the suggested packages broke my set up, making it so that the Sun Storage CAM (Common Array Manager) software did not work anymore.</p>
+<p>I first became alerted to this when Nagios sent me errors from the script checking the StorageTek disks. I checked the command that runs in the script to see what was up, and it returned several errors. Here they are for future googlers:</p>
+<pre class="lang:bash decode:1 " >sscs list -i 192.168.128.101 device</pre>
+<p> returned &#8220;Command failed due to an exception. null&#8221; and</p>
+<pre class="lang:bash decode:1 " >sscs list -a arrayname host</pre>
+<p> returned &#8220;arrayname : The resource was not found.&#8221;</p>
+<p>Not particularly helpful messages.</p>
+<p>Fortunately the nodes could still mount the array partitions, which allowed them to continue running as web and mysql servers. I just couldn&#8217;t run management commands on the array.</p>
+<p>Since some of the required software for CAM was updated, I supposed that was causing the issue. The required software is listed below:</p>
+<ul>
+<li>libXtst-1.0.99.2-3.el6.i686.rpm and its dependent rpm (InstallShield requirement)</li>
+<li>libselinux-2.0.94-2.el6.i686.rpm</li>
+<li>audit-libs-2.0.4-1.el6.i686.rpm</li>
+<li>cracklib-2.8.16-2.el6.i686.rpm</li>
+<li>db4-4.7.25-16.el6.i686.rpm</li>
+<li>pam-1.1.1-4.el6.i686.rpm</li>
+<li>libstdc++-4.4.4-13.el6.i686.rpm</li>
+<li>zlib-1.2.3-25.el6.i686.rpm</li>
+<li>ksh-20100621-2.el6.x86_64.rpm</li>
+</ul>
+<p>&nbsp;</p>
+<h3>The solution:</h3>
+<p>I couldn&#8217;t figure out on my own exactly what was wrong, so I contacted Oracle support, and they finally tipped me off to the solution. Completely remove the CAM software and reinstall it. Those steps are outlined below:</p>
+<ul>
+<li>Go to the CAM software folder in <code>/var/opt/CommonArrayManager/Host_Software_6.9.0.16/bin/</code>and run</li>
+</ul>
+<pre class="lang:bash decode:1 " >./uninstall -f</pre>
+<ul>
+<li>Here is a good spot to run <code>yum update</code> and restart the server if needed.</li>
+<li>Change directories to where you have the CAM software install CD. There should be a folder called <code>components</code> in there. Change into that directory and install the jdk available there:</li>
+</ul>
+<pre class="lang:bash decode:1 " >rpm -Uvh jdk-6u20-linux-i586.rpm</pre>
+<ul>
+<li>Next run the <code>RunMe.bin</code> file in the CAM Software CD folder.</li>
+</ul>
+<pre class="lang:bash decode:1 " >./RunMe.bin -c</pre>
+<ul>
+<li>Install the RAID Proxy Agent package located in the Add_On/RaidArrayProxy directory of the latest CAM software distribution.</li>
+</ul>
+<pre class="lang:bash decode:1 " >rpm -ivh SMruntime.xx.xx.xx.xx-xxxx.rpm</pre>
+<pre class="lang:bash decode:1 " >rpm -ivh SMagent-LINUX-xx.xx.xx.xx-xxxx.rpm</pre>
+<ul>
+<li>Register the array with the host/node. This process can take several minutes.</li>
+</ul>
+<pre class="lang:bash decode:1 " >sscs register -d storage-system</pre>
+<p>One additional issue I ran into, was that some update or other process shutdown the NIC connecting the node to the array. I had to make sure that was running before I ran the register -d storage-system command above.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1342</post-id>	</item>
+		<item>
+		<title>Backing up MySQL with Replication and Incremental Files &#8211; Part 1</title>
+		<link>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/</link>
+					<comments>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 24 Jul 2012 19:49:38 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[database admin]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[server admin]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1277</guid>
+
+					<description><![CDATA[I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to &#8230; <a href="https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/" class="more-link">Continue reading <span class="screen-reader-text">Backing up MySQL with Replication and Incremental Files &#8211; Part 1</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to backup. You can&#8217;t just copy the data files and then expect to copy them back over and have them just work. Especially if your databases have a mixture of InnoDB and MyISAM tables. In order to do a clean and accurate database backup, you need to stop the MySQL server, then copy the files, then restart MySQL.</p>
+<p>If you have a live production MySQL server, stopping it to make a backup is not really an option. Fortunately there are a few options. Before you decide on which option to choose, here is a list of things to keep in mind when choosing a backup solution (from the MySQL gurus at Percona):</p>
+<h3>WHAT TO LOOK FOR</h3>
+<p><a href="http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/" target="_blank">http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/</a></p>
+<ol>
+<li>Does the backup require shutting down MySQL? If not, what is the impact on the running server? Blocking, I/O load, cache pollution, etc?</li>
+<li>What technique is used for the backup? Is it mysqldump or a custom product that does something similar? Is it a filesystem copy?</li>
+<li>Does the backup system understand that <em>you cannot back up InnoDB by simply copying its files</em>?</li>
+<li>Does the backup use FLUSH TABLES, LOCK TABLES, or FLUSH TABLES WITH READ LOCK? These all interrupt processing.</li>
+<li>What other effects are there on MySQL? I’ve seen systems that do a RESET MASTER, which immediately breaks replication. Are there any FLUSH commands at all, like FLUSH LOGS?</li>
+<li>How does the system guarantee that you can perform point-in-time recovery?</li>
+<li>How does the system guarantee consistency with the binary log, InnoDB logs, and replication?</li>
+<li>Can you use the system to set up new MySQL replication slaves? How?</li>
+<li>Does the system verify that the backup is restorable, e.g. does it run InnoDB recovery before declaring success?</li>
+<li>Does anyone stand behind it with support, and guarantee working, recoverable backups? How strong is the legal guarantee of this and how much insurance do they have?</li>
+</ol>
+<p>&nbsp;</p>
+<h3>BACKUP PROGRAMS</h3>
+<p>There are a few MySQL backup products out there as well. I have used the first two on this list.</p>
+<ul>
+<li><a href="http://sourceforge.net/projects/automysqlbackup/" target="_blank">AutoMySQLBackup</a> script (handy for making a rotating incremental backup of your MySQL databases).</li>
+<li><a href="http://www.percona.com/software/percona-xtrabackup/" target="_blank">Percona XtraBackup</a> (nice way to ensure InnoDB and MyISAM tables are backed up properly, also does it incrementally)</li>
+<li><a href="https://zmanda.com/backup-mysql.html" target="_blank">Zmanda</a> (seems to be similar to Percona&#8217;s set up)</li>
+</ul>
+<p>There&#8217;s probably a gazillion more out there. Google&#8217;s your friend in finding things you need.</p>
+<h3>HOW TO DO IT</h3>
+<figure id="attachment_1279" aria-describedby="caption-attachment-1279" style="width: 300px" class="wp-caption alignright"><a href="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png"><img decoding="async" class="size-medium wp-image-1279" title="master-and-slave" alt="" src="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png" width="300" height="125" srcset="https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png 300w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-250x104.png 250w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-150x62.png 150w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png 503w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1279" class="wp-caption-text">How to get a copy of the master to the slave?</figcaption></figure>
+<p>There are several options. You could use a script above, or create a slave of the database (basically an exact copy of the production MySQL server &#8211; all changes that occur in the master are sent to the slave), or some combination. I&#8217;ll use a combination. I&#8217;ll replicate the production server onto the backup server, then run the incremental backups from there. This first part will walk through the process of setting up MySQL replication.</p>
+<p>To give proper credit, here are several other how to&#8217;s I found helpful.</p>
+<ul>
+<li><a href="http://www.badllama.com/content/mysql-backups-using-lvm-snapshots" target="_blank">http://www.badllama.com/content/mysql-backups-using-lvm-snapshots</a></li>
+<li><a href="http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/" target="_blank">http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/</a></li>
+<li><a href="http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html" target="_blank">http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html</a></li>
+<li><a href="http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/" target="_blank">http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/</a></li>
+</ul>
+<h3>On the master server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=1
+innodb_flush_log_at_trx_commit=1
+log_bin=mysql-bin.log
+sync_binlog=1
+</pre>
+</div>
+<p><strong>Step 2.</strong> Make a MySQL user for the slave to use.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">In a MySQL session on the terminal, type in the command:</p>
+<pre class="lang:sql decode:1 " >GRANT REPLICATION SLAVE ON *.* TO 'rep_user'@'localhost' IDENTIFIED BY 'passwordhere';</pre>
+</div>
+<p><strong>Step 3.</strong> Open a terminal session and log in to a MySQL prompt. Type the following command and hit enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >FLUSH TABLES WITH READ LOCK</pre>
+<p>Note: This will lock your database so that no changes can be made from any web applications or other programs. This session should remain open, and the database locked for the next few steps.</p>
+</div>
+<p><strong>Step 4.</strong> After the FLUSH TABLES command finishes, run the following command and press enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >SHOW MASTER STATUS</pre>
+<p>Record the information under &#8220;File Name&#8221; and &#8220;Position&#8221;.</p>
+</div>
+<p><strong>Step 5. </strong> Make a copy of the database files.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<p><strong>5.1 LVM Snapshot:</strong></p>
+<p>In another terminal session, run the following command to make an LVM snapshot of the database.</p>
+<pre class="lang:bash decode:1 " >lvcreate -L10G -s -n mysql-backup /dev/mapper/dbases</pre>
+<p>This creates a snapshot of the database files very quickly. We can use the snapshot later to copy the data to the backup server without interfering with the original database files.</p>
+<p>After this command finishes, you can unlock the database as shown in the next step. Then you can mount the new LVM partition and copy the files to the backup server.</p>
+<pre class="lang:bash decode:1 " >mkdir -p /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >mount -o nouuid /dev/mapper/mysql-backup /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /mnt/mysql-backup user@remote.host:/backup/location</pre>
+<p><strong>5.2 RSYNC:</strong></p>
+<p>If you don&#8217;t have your database files on an LVM partition, you can just copy the files to the backup server now using rsync, scp or what have you. This will take significantly longer (depending on the size of your database), leaving the database in a locked state.</p>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /dbases/mysql user@remote.host:/backup/location</pre>
+<p><strong>5.3 MySQL Dump:</strong></p>
+<p>You could also take a mysqldump of the database and copy that SQL file to the other server.</p>
+<pre class="lang:bash decode:1 " >mysqldump -uuser -p --all-databases &gt; mysql-backup.sql</pre>
+<pre class="lang:bash decode:1 " >scp mysql-backup.sql user@remote.host:/backup/location</pre>
+</div>
+<p><strong>Step 6.</strong> Once the lvcreate command has finished, you can unlock the database.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >UNLOCK TABLES</pre>
+</div>
+<p><strong>Step 7.</strong> If you haven&#8217;t already, copy the copy of the database files to the backup server.</p>
+<h3>On the slave server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=2
+</pre>
+</div>
+<p><strong>Step 2.</strong> Start MySQL and run the following commands in a mysql session to start the MySQL slave.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >
+CHANGE MASTER TO
+MASTER_HOST = "master.server.com",
+MASTER_USER = "rep_user",
+MASTER_PASSWORD = "passwordhere",
+MASTER_LOG_FILE = "mysql-bin.log",
+MASTER_LOG_POS = 2341234;
+</pre>
+<p>The MASTER_HOST is the domain name or IP address of the master server. MASTER_USER, MASTER_PASSWORD were created on the master server in <strong>Step 2</strong>. MASTER_LOG_FILE and MASTER_LOG_POS were gathered in <strong>Step 4</strong>.Then, finally, to start the slave, issue the following command in mysql.</p>
+<pre class="lang:sql decode:1 " >START SLAVE;</pre>
+</div>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1277</post-id>	</item>
+	</channel>
+</rss>

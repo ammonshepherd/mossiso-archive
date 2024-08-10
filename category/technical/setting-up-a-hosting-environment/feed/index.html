@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Setting up a Hosting Environment &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/category/technical/setting-up-a-hosting-environment/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:38:05 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>Setting up a Hosting Environment &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Setting up a Hosting Environment, Part 5: Apache and PHP</title>
+		<link>https://mossiso.com/2014/09/22/setting-up-a-hosting-environment-part-5-apache-and-php/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Mon, 22 Sep 2014 18:13:28 +0000</pubDate>
+				<category><![CDATA[Setting up a Hosting Environment]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[apache.worker]]></category>
+		<category><![CDATA[apc]]></category>
+		<category><![CDATA[CentOS]]></category>
+		<category><![CDATA[mod_fastcti]]></category>
+		<category><![CDATA[mod_fcgi]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[php-fpm]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1426</guid>
+
+					<description><![CDATA[Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one &#8230; <a href="https://mossiso.com/2014/09/22/setting-up-a-hosting-environment-part-5-apache-and-php/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment, Part 5: Apache and PHP</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one point Mr. Knox exclaims:<br />
+&#8220;I can&#8217;t blab such blibber blubber!<br />
+My tongue isn&#8217;t make of rubber.&#8221;</p>
+<p>That&#8217;s what my brain felt like after trying to figure all of the options for Apache and PHP. To combat my rubber brain, I created this flow-chart to help me keep track of the options, the pros and cons for each, and the path I finally chose.</p>
+<p>First off, a list of requirements and goals:</p>
+<ol>
+<li>Chroot each vhost to it&#8217;s own directory, and have Apache and PHP run on that vhost&#8217;s server account</li>
+<li>Speed, run Apache and PHP at their most effective and efficient levels</li>
+<li>Utilize an opcode cache, APC, to speed up PHP pages</li>
+<li>Use trusted repositories to make installation and upgrading easier</li>
+</ol>
+<p>Here&#8217;s what I eventually figured out about Apache and PHP:</p>
+<figure id="attachment_1427" aria-describedby="caption-attachment-1427" style="width: 625px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-1427" src="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png" alt="ApachePHP" width="625" height="1017" srcset="https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png 629w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-184x300.png 184w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-250x406.png 250w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-92x150.png 92w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-624x1015.png 624w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png 1087w" sizes="(max-width: 625px) 100vw, 625px" /></a><figcaption id="caption-attachment-1427" class="wp-caption-text">Click on the image to see a larger view</figcaption></figure>
+<p>These sites were helpful for the initial set up of PHP as CGI with mod_fcgi and Apache in chroot (mod_fcgi sends one request to each PHP process regardless if PHP children are available to handle more, and no sharing of APC opcode cache across PHP processes):</p>
+<ul>
+<li><a href="http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2">http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2</a></li>
+<li><a href="http://forum.linode.com/viewtopic.php?t=2982">http://forum.linode.com/viewtopic.php?t=2982</a></li>
+</ul>
+<p>This site was helpful for setting up PHP as CGI with mod_fastcgi and Apache in chroot (mod_fastcgi sends multiple requests to a PHP process, so the process can send them to children processes, and having one PHP process for each site allows for APC opcode cache to be usable.)</p>
+<ul>
+<li><a href="http://www.brandonturner.net/blog/2009/07/fastcgi_with_php_opcode_cache/">http://www.brandonturner.net/blog/2009/07/fastcgi_with_php_opcode_cache/</a></li>
+</ul>
+<p>These sites helped me learn about php-fpm and how it is not quite ready for what I have in mind:</p>
+<ul>
+<li><a href="http://www.makina-corpus.org/blog/install-drupal-php-fpm-fastcgi-apache-and-chroot-php-fpm">http://www.makina-corpus.org/blog/install-drupal-php-fpm-fastcgi-apache-and-chroot-php-fpm</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups=#!topic/highload-php-en/Uq2MDrudMQ4">https://groups.google.com/forum/?fromgroups=#!topic/highload-php-en/Uq2MDrudMQ4</a></li>
+</ul>
+<p>I ended up going with Apache&#8217;s mod_fastcgi for using PHP as a CGI, and NOT using PHP-FPM, while running Apache in threaded mode with apache.worker enabled.</p>
+<p>To get this set up is pretty easy. I already had Apache and PHP installed and running (with PHP as CGI using mod_fcgi), so here are the steps I used to convert it to run mod_fastcgi and apache.worker. I&#8217;m running CentOS 6.3.</p>
+<h4>Install the RPMForge repo for installing mod_fastcgi.</h4>
+<ul>
+<li>Get latest from <a href="http://repoforge.org/use/">http://repoforge.org/use/</a> : <code>rpm -Uvh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm</code></li>
+<li><code>yum --enablerepo=rpmforge install mod_fastcgi</code></li>
+</ul>
+<h4>Edit the <code>/etc/httpd/conf/httpd.conf</code> file</h4>
+<ul>
+<li><code>ServerTokens Prod</code></li>
+<li><code>KeepAlive On</code></li>
+<li>Edit the worker section. I still need to do some testing to figure out the best configuration
+<pre class="decode-attributes:false lang:apache decode:true ">&lt;IfModule worker.c&gt;
+    StartServers         8
+    MaxClients         300
+    MinSpareThreads     25
+    MaxSpareThreads     75
+    ThreadsPerChild     25
+    MaxRequestsPerChild  0
+&lt;/IfModule&gt;</pre>
+</li>
+<li>If there, make sure to comment out, or delete the lines for mod_php: <code>LoadModule php5_module modules/libphp5.so</code></li>
+<li>this line also: <code>AddType application/x-httpd-php .php</code></li>
+<li>The last line should be: <code>Include conf/virtual_hosts.conf</code></li>
+</ul>
+<p>&nbsp;</p>
+<h4>Create a <code>/etc/httpd/conf/virtual_hosts.conf</code> file</h4>
+<p>Each virtual host needs to have an entry similar to this in the httpd.conf file, or I like to create a separate virtual_host.conf and include that in the main httpd.conf.</p>
+<pre class="decode-attributes:false lang:apache decode:true"># Name-based virtual hosts
+#
+
+# Default
+NameVirtualHost *:80
+
+# Begin domain-name.com section
+&lt;VirtualHost *:80&gt;
+    DocumentRoot /var/domain-name/home/html/
+    ServerName domain-name.com
+    ServerAlias www.domain-name.com
+
+    # Rewrite domain name to not use the 'www'
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST}    !^domain-name\.com$ [NC]
+    RewriteRule ^/(.*)  http://domain-name.com/$1 [R=301]
+
+    # Specify where the error logs go for each domain
+    ErrorLog /var/logs/httpd/current/domain-name.com-error_log
+    CustomLog /var/logs/httpd/current/domain-name.com-access_log combined
+
+    &lt;IfModule mod_fastcgi.c&gt;
+        SuexecUserGroup domain-name domain-name
+        ScriptAlias /cgi-bin/ "/var/www/cgi-bin/domain-name/"
+        &lt;Directory "/var/domain-name/home/html"&gt;
+            Options -Indexes FollowSymLinks +ExecCGI
+            AddHandler php5-fastcgi .php
+            Action php5-fastcgi /cgi-bin/php-fastcgi
+            Order allow,deny
+            Allow from all
+        &lt;/Directory&gt;
+    &lt;/IfModule&gt;
+&lt;/VirtualHost&gt;
+# End domain-name.com section</pre>
+<p>Things to note:</p>
+<ul>
+<li>The line with <code>SuexecUserGroup</code> should have the user/group for the project.</li>
+</ul>
+<h4>Create the php-fastcgi file</h4>
+<p>Add a <code>/var/www/cgi-bin/projectname/php-fastcgi</code> file for each project. This allows php to run as FastCGI, and use suEXEC. The php-fastcgi file needs to be under suexec’s default directory path <code>/var/www/cgi-bin/</code>.</p>
+<ul>
+<li>
+<div>
+<pre class="">#!/bin/bash
+#  Set PHPRC to the path for the php.ini file. Change this to
+#  /var/projectname/home/ to let projects have their own php.ini file
+PHPRC=/var/domain-name/home/
+export PHPRC
+export PHP_FCGI_MAX_REQUESTS=5000
+export PHP_FCGI_CHILDREN=5
+exec /usr/bin/php-cgi</pre>
+</div>
+</li>
+</ul>
+<p>Things to note:</p>
+<ul>
+<li>The directory and file created above must be have user/group of the project (the same as the user/group of the /var/projectname/ directory)</li>
+<li>The directory and file must be executable and writable by the owner ONLY.</li>
+<li>If you get Apache Internal Server errors, check <code>/var/log/httpd/suexec.log</code></li>
+<li>For each site, you can specify how much RAM the APC module can use. For large, busy sites, you set this higher. Not setting this defaults to 64MB, which is a bit more than needed for the average WP site. Change the last line in the <code>/var/www/cgi-bin/projectname/php-fastcgi</code> file:
+<ul>
+<li><code>exec /usr/bin/php-cgi -d apc.shm_size=128M</code></li>
+</ul>
+</li>
+</ul>
+<h4>Change php.conf</h4>
+<p>Comment out everything in the <code>/etc/httpd/conf.d/php.conf</code> file so php is not loaded as a module when Apache starts.</p>
+<h4>Apache multi-threaded</h4>
+<p>Edit the <code>/etc/sysconfig/httpd</code> file to allow Apache to use multi-threaded mode (httpd.worker) which handles basic HTML files much nicer (less RAM). Uncomment the line with <code>HTTPD=/usr/sbin/httpd.worker</code></p>
+<h4>Config Check</h4>
+<p>Check the Apache configuration files to see if there are any errors.</p>
+<ul>
+<li><code>service httpd configtest</code></li>
+</ul>
+<p>If all good, restart Apache</p>
+<ul>
+<li><code>service httpd restart</code> This will stop the running httpd service, and then start it again. Use this command after installing or removing a dynamically loaded module such as PHP. OR</li>
+<li><code>service httpd reload</code> This will cause the running httpd service to reload the configuration file. Note that any requests being currently processed will be interrupted, which may cause a client browser to display an error message or render a partial page. OR</li>
+<li><code>service httpd graceful</code> This will cause the running httpd service to reload the configuration file. Note that any requests being currently processed will use the old configuration.</li>
+</ul>
+<h3>Install APC</h3>
+<ul>
+<li><code>pecl install apc</code></li>
+</ul>
+<p>Set up log rotation for Apache</p>
+<ul>
+<li>Add a file <code>/etc/logrotate.d/httpd.monti</code></li>
+<li>
+<div>
+<pre class="decode-attributes:false lang:apache decode:true">/var/logs/httpd/*log {
+    daily
+    rotate 365
+    compress
+    missingok
+    notifempty
+    copytruncate
+    olddir /var/logs/httpd/archives/
+    sharedscripts
+    postrotate
+        /bin/kill -HUP `cat /var/run/httpd/httpd.pid 2&gt;/dev/null` 2&gt; /dev/null || true
+    endscript
+}</pre>
+</div>
+</li>
+</ul>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1426</post-id>	</item>
+		<item>
+		<title>Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2</title>
+		<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/</link>
+					<comments>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 01 Feb 2013 20:12:57 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Setting up a Hosting Environment]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[cluster]]></category>
+		<category><![CDATA[gfs2]]></category>
+		<category><![CDATA[lvm]]></category>
+		<category><![CDATA[redhat]]></category>
+		<category><![CDATA[servers]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1438</guid>
+
+					<description><![CDATA[Previous posts in this series: Part 1: Setting up the servers Part 2: Connecting the Array RedHat Cluster and GFS2 Setup Required reading: https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial Seriously. Don&#8217;t do anything until you read his tutorial a couple of times. Might as well read a bunch of his other tutorials, too. Unless mentioned, the following commands should be &#8230; <a href="https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Previous posts in this series:</p>
+<p><a title="Setting up a Hosting Environment: Part 1 – The servers" href="http://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers.html">Part 1: Setting up the servers</a></p>
+<p><a title="Setting up a Hosting Environment – Part 2: Connecting the Storage Array" href="http://mossiso.com/2012/03/09/setting-up-a-hosting-environment-part-2-connecting-the-storage-array.html">Part 2: Connecting the Array</a></p>
+<h2>RedHat Cluster and GFS2 Setup</h2>
+<ul>
+<li>Required reading: <a href="https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial">https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial</a> Seriously. Don&#8217;t do anything until you read his tutorial a couple of times. Might as well read a bunch of his other tutorials, too.</li>
+<li>Unless mentioned, the following commands should be done on each server.</li>
+</ul>
+<h3>Set date/time to be accurate and within a few minutes of each other.</h3>
+<ul>
+<li>Install the ntp program and update to current time.
+<ul>
+<li><code>yum install ntp</code></li>
+<li><code>ntpdate time.nist.gov</code></li>
+</ul>
+</li>
+<li>Set time servers and start ntpd
+<ul>
+<li><code>service ntpd start</code></li>
+<li>Edit the <code>/etc/ntp.conf</code> file to use the following servers:</li>
+<li>
+<pre>server 0.pool.ntp.org
+server 1.pool.ntp.org
+server 2.pool.ntp.org
+server 3.pool.ntp.org</pre>
+</li>
+</ul>
+</li>
+<li>Restart ntpd
+<ul>
+<li><code>service ntpd restart</code></li>
+<li><code>chkconfig ntpd on</code></li>
+</ul>
+</li>
+</ul>
+<h3>Cluster setup</h3>
+<p>RedHat Cluster must be set up before the GFS2 File systems can be created and mounted.</p>
+<ul>
+<li>Instal the necessary programs
+<ul>
+<li><code>yum install openais cman rgmanager lvm2-cluster gfs2-utils ccs</code></li>
+<li>Create a <code>/etc/cluster/cluster.conf</code> REMEMBER: Always increment the “config_version” parameter in the <code>cluster</code> tag!
+<ul>
+<li>
+<div>
+<pre class="decode-attributes:false lang:xhtml decode:true">&lt;?xml version=“1.0”?&gt;
+    &lt;cluster config_version=“24” name=“web-production”&gt;
+        &lt;cman expected_votes=“1” two_node=“1”/&gt;
+        &lt;fence_daemon clean_start=“1” post_fail_delay=“6” post_join_delay=“3”/&gt;
+        &lt;totem rrp_mode=“none” secauth=“off”/&gt;
+        &lt;clusternodes&gt;
+            &lt;clusternode name=“bill” nodeid="1"&gt;
+                &lt;fence&gt;
+                    &lt;method name="ipmi"&gt;
+                        &lt;device action=“reboot” name=“ipmi_bill”/&gt;
+                    &lt;/method&gt;
+                &lt;/fence&gt;
+            &lt;/clusternode&gt;
+            &lt;clusternode name=“ted” nodeid="2"&gt;
+                &lt;fence&gt;
+                    &lt;method name="ipmi"&gt;
+                        &lt;device action=“reboot” name=“ipmi_ted”/&gt;
+                    &lt;/method&gt;
+                &lt;/fence&gt;
+            &lt;/clusternode&gt;
+        &lt;/clusternodes&gt;
+        &lt;fencedevices&gt;
+            &lt;fencedevice agent=“fence_ipmilan” ipaddr=“billsp” login=“root” name=“ipmi_bill” passwd=“PASSWORD-HERE”/&gt;
+            &lt;fencedevice agent=“fence_ipmilan” ipaddr=“tedsp” login=“root” name=“ipmi_ted” passwd=“PASSWORD-HERE”/&gt;
+        &lt;/fencedevices&gt;
+        &lt;rm log_level="5"&gt;
+            &lt;resources&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-sites” fstype=“gfs2” mountpoint=“/sites” name=“sites”/&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-databases” fstype=“gfs2” mountpoint=“/databases” name=“databases”/&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-logs” fstype=“gfs2” mountpoint=“/logs” name=“logs”/&gt;
+            &lt;/resources&gt;
+            &lt;failoverdomains&gt;
+                &lt;failoverdomain name=“bill-only” nofailback=“1” ordered=“0” restricted="1"&gt;
+                    &lt;failoverdomainnode name=“bill”/&gt;
+                &lt;/failoverdomain&gt;
+                &lt;failoverdomain name=“ted-only” nofailback=“1” ordered=“0” restricted="1"&gt;
+                    &lt;failoverdomainnode name=“ted”/&gt;
+                &lt;/failoverdomain&gt;
+            &lt;/failoverdomains&gt;
+        &lt;/rm&gt;
+    &lt;/cluster&gt;</pre>
+</div>
+</li>
+</ul>
+</li>
+<li>We’ll be adding more to this later, but this will work for now.</li>
+<li>Validate the config file
+<ul>
+<li><code>ccs_config_validate</code></li>
+</ul>
+</li>
+<li>Set a password for the ricci user
+<ul>
+<li><code>passwd ricci</code></li>
+</ul>
+</li>
+<li>Start ricci, and set to start on boot
+<ul>
+<li><code>service ricci start</code></li>
+<li><code>chkconfig ricci on</code></li>
+</ul>
+</li>
+<li>Start modclusterd and set to start on boot
+<ul>
+<li><code>service modclusterd start</code></li>
+<li><code>chkconfig modclusterd on</code></li>
+</ul>
+</li>
+<li>Sync the cluster.conf file to other node
+<ul>
+<li><code>ccs -f /etc/cluster/cluster.conf -h ted --setconf</code></li>
+</ul>
+</li>
+<li>Start cman on both servers at the same time
+<ul>
+<li><code>service cman start</code></li>
+</ul>
+</li>
+<li>Set cman to start on boot
+<ul>
+<li><code>chkconfig cman on</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Check the tutorial on testing the fencing
+<ul>
+<li><a href="https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial#Testing_Fencing">https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial#Testing_Fencing</a></li>
+</ul>
+</li>
+</ul>
+<h3>Create GFS2 partitions</h3>
+<p>Create a partition on the new scsi device /dev/mapper/mpatha using parted. NOTE: This part only needs to be done once on one server</p>
+<ul>
+<li><code>parted /dev/mapper/mpatha</code></li>
+<li><code>mklabel gpt</code></li>
+<li><code>mkpart primary 1 -1</code></li>
+<li><code>set 1 lvm on</code></li>
+<li><code>quit</code></li>
+<li>Now you can see a partition for the storage array.
+<ul>
+<li><code>parted -l</code></li>
+</ul>
+</li>
+</ul>
+<p>Edit the <code>/etc/lvm/lvm.conf file</code> and set the value for <code>locking_type = 3</code> to allow for cluster locking.</p>
+<p>In order to enable the LVM volumes you are creating in a cluster, the cluster infrastructure must be running and the cluster must be quorate.</p>
+<ul>
+<li><code>service clvmd start</code></li>
+<li><code>chkconfig clvmd on</code></li>
+<li><code>chkconfig gfs2 on</code></li>
+</ul>
+<p>Create LVM partitions on the raw drive available from the StorageTek. NOTE: This part only needs to be done once on one server.</p>
+<ul>
+<li><code>pvcreate /dev/mapper/mpatha1</code></li>
+<li><code>vgcreate -c y StorageTek2530 /dev/mapper/mpatha1</code></li>
+</ul>
+<p>Now create the different partitions for the system: sites, databases, logs, home, root</p>
+<ul>
+<li><code>lvcreate --name sites --size 350GB StorageTek2530</code></li>
+<li><code>lvcreate --name databases --size 100GB StorageTek2530</code></li>
+<li><code>lvcreate --name logs --size 50GB StorageTek2530</code></li>
+<li><code>lvcreate --name root --size 50GB StorageTek2530</code></li>
+</ul>
+<p>Make a temporary directory <code>/root-b</code> and copy everything from root’s home directory to there, because it will be erased when we make the GFS2 file system.</p>
+<p>Copy /root/.ssh/known_hosts to /etc/ssh/root_known_hosts so the file is different for both servers.</p>
+<p>Before doing the home directory, we have to remove it from the local LVM.</p>
+<ul>
+<li><code>unmount /home</code></li>
+<li><code>lvremove bill_local/home</code> and on ted <code>lvremove ted_local/home</code></li>
+<li>Remove the line from <code>/etc/fstab</code> referring to the /home directory on the local LVM</li>
+<li>Then add the clustered LV.
+<ul>
+<li><code>lvcreate --name home --size 50GB StorageTek2530</code></li>
+</ul>
+</li>
+</ul>
+<p>Create GFS2 files systems on the LVM partitions created on the StorageTek. Make sure they are unmounted, first. NOTE: This part only needs to be done once on one server.</p>
+<ul>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:sites /dev/mapper/StorageTek2530-sites</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:databases /dev/mapper/StorageTek2530-databases</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:logs /dev/mapper/StorageTek2530-logs</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:root /dev/mapper/StorageTek2530-root</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:home /dev/mapper/StorageTek2530-home</code></li>
+</ul>
+<p>Mount the GFS2 partitions</p>
+<ul>
+<li>NOTE: GFS2 file systems that have been mounted manually rather than automatically through an entry in the fstab file will not be known to the system when file systems are unmounted at system shutdown. As a result, the GFS2 script will not unmount the GFS2 file system. After the GFS2 shutdown script is run, the standard shutdown process kills off all remaining user processes, including the cluster infrastructure, and tries to unmount the file system. This unmount will fail without the cluster infrastructure and the system will hang.</li>
+<li>To prevent the system from hanging when the GFS2 file systems are unmounted, you should do one of the following:
+<ul>
+<li>Always use an entry in the fstab file to mount the GFS2 file system.</li>
+<li>If a GFS2 file system has been mounted manually with the mount command, be sure to unmount the file system manually with the umount command before rebooting or shutting down the system.</li>
+</ul>
+</li>
+<li>If your file system hangs while it is being unmounted during system shutdown under these circumstances, perform a hardware reboot. It is unlikely that any data will be lost since the file system is synced earlier in the shutdown process.</li>
+</ul>
+<p>Make the appropriate folders on each node (/home is already there).</p>
+<ul>
+<li><code>mkdir /sites /logs /databases</code></li>
+</ul>
+<p>Make sure the appropriate lines are in /etc/fstab</p>
+<pre class="">#GFS2 partitions shared in the cluster
+/dev/mapper/StorageTek2530-root        /root        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-home        /home        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-databases      /databases      gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-logs        /logs        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-sites    /sites    gfs2   defaults,acl    0 0</pre>
+<p>Once the GFS2 partitions are set up and in <code>/etc/fstab</code>, rgmanager can be started. This will mount the GFS2 partions.</p>
+<ul>
+<li><code>service rgmanager start</code></li>
+<li><code>chkconfig rgmanager on</code></li>
+</ul>
+<h3>Starting Cluster Software</h3>
+<p>To start the cluster software on a node, type the following commands in this order:</p>
+<ul>
+<li><code>service cman start</code></li>
+<li><code>service clvmd start</code></li>
+<li><code>service gfs2 start</code></li>
+<li><code>service rgmanager start</code></li>
+</ul>
+<h3>Stopping Cluster Software</h3>
+<p>To stop the cluster software on a node, type the following commands in this order:</p>
+<ul>
+<li><code>service ossec-hids stop</code>
+<ul>
+<li>(ossec monitors the apache log files, so the /logs partition will not be unmounted unless ossec is stopped first.)</li>
+</ul>
+</li>
+<li><code>service rgmanager stop</code></li>
+<li><code>service gfs2 stop</code></li>
+<li><code>umount -at gfs2</code></li>
+<li><code>service clvmd stop</code></li>
+<li><code>service cman stop</code></li>
+</ul>
+<h3>Cluster tips</h3>
+<p>If a service shows as ‘failed’ when checking on services with <code>clustat</code></p>
+<ul>
+<li>Disable the service first: <code>clusvcadm -d service-name</code></li>
+<li>Then re-enable it: <code>clusvcadm -e service-name</code></li>
+</ul>
+<p>Have Shorewall start sooner in the boot process.</p>
+<ul>
+<li>It was necessary to move shorewall up in the boot process, otherwise cman had no open connection to detect the other nodes.</li>
+<li>Edit the <code>/etc/init.d/shorewall</code> and change the line near the top from <code># chkconfig: - 28 90</code> to
+<ul>
+<li><code># chkconfig: - 18 90</code></li>
+</ul>
+</li>
+<li>Then use chkconfig to turn off shorewall and then back on.
+<ul>
+<li><code>chkconfig shorewall off</code></li>
+<li><code>chkconfig shorewall on</code></li>
+</ul>
+</li>
+</ul>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/feed/</wfw:commentRss>
+			<slash:comments>5</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1438</post-id>	</item>
+		<item>
+		<title>Setting up a Hosting Environment &#8211; Part 2: Connecting the Storage Array</title>
+		<link>https://mossiso.com/2012/03/09/setting-up-a-hosting-environment-part-2-connecting-the-storage-array/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 09 Mar 2012 21:56:00 +0000</pubDate>
+				<category><![CDATA[Setting up a Hosting Environment]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[servers]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1170</guid>
+
+					<description><![CDATA[[See Part 1: The Servers] One of the most frustrating parts of this set up was getting the storage array talking to the servers. I finally got it figured out. I&#8217;m using a StorageTek 2530 to connect to two SunFire X2100 M2&#8217;s via SAS (Serial Attached SCSI) cables. I put in a dual port SAS &#8230; <a href="https://mossiso.com/2012/03/09/setting-up-a-hosting-environment-part-2-connecting-the-storage-array/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment &#8211; Part 2: Connecting the Storage Array</span></a>]]></description>
+										<content:encoded><![CDATA[<p>[<a title="Setting up a Hosting Environment: Part 1 – The servers" href="http://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers.html">See Part 1: The Servers</a>]</p>
+<p>One of the most frustrating parts of this set up was getting the storage array talking to the servers. I finally got it figured out. I&#8217;m using a StorageTek 2530 to connect to two SunFire X2100 M2&#8217;s via SAS (Serial Attached SCSI) cables. I put in a dual port SAS HBA (Host Bus Adapter) in the X2100 M2&#8217;s, but for real redundancy, I should have used two single port HBA&#8217;s. The Sun/Oracle documentation is pretty good about how to physically set up the servers and storage array, but are pretty lacking from there on.</p>
+
+<a href='https://mossiso.com/wp-content/uploads/2012/03/images-1.jpg'><img decoding="async" width="150" height="150" src="https://mossiso.com/wp-content/uploads/2012/03/images-1-150x150.jpg" class="attachment-thumbnail size-thumbnail" alt="" srcset="https://mossiso.com/wp-content/uploads/2012/03/images-1-150x150.jpg 150w, https://mossiso.com/wp-content/uploads/2012/03/images-1.jpg 225w" sizes="(max-width: 150px) 100vw, 150px" /></a>
+<a href='https://mossiso.com/wp-content/uploads/2012/03/images.jpg'><img decoding="async" width="150" height="150" src="https://mossiso.com/wp-content/uploads/2012/03/images-150x150.jpg" class="attachment-thumbnail size-thumbnail" alt="" /></a>
+
+<h2>StorageTek 2530 Set Up</h2>
+<p><span style="color: #339966;"><strong>Replace the parts in squares brackets below with whatever you want.</strong></span></p>
+<ul>
+<li>Install the Sun CAM software.
+<ul>
+<li>Grab the latest version from <a href="http://support.oracle.com/">http://support.oracle.com</a>
+<ul>
+<li>You&#8217;ll need an active support contract and have an account.</li>
+<li>Go to the ‘Patches and Updates’ tab.</li>
+<li>Click on the ‘Product or Family (Advanced)’ link</li>
+<li>In the ‘Product is’ section start typing in ‘Sun Storage Common Array Manager (CAM)’ and select it from the list</li>
+<li>In the ‘Release is’ section select the most recent version</li>
+<li>For the last section, select ‘Platform’ and then select ‘Linux x86-64’</li>
+<li>Click ‘Search’</li>
+<li>Click the ‘Download’ link for the software.</li>
+<li>Upload the tar file to the server.</li>
+</ul>
+</li>
+<li>Pre-requisite software that needs to be installed.
+<ul>
+<li><code>yum install ksh bc /lib/ld-linux.so.2 libgcc.i686 libstdc++.i686 libzip.i686 gettext</code></li>
+</ul>
+</li>
+<li>Once CAM software is downloaded, un-zipped, un-tarred or what have you, change directories to HostSoftwareCD_6.9.0.16/components and install the jdk available there:
+<ul>
+<li><code>rpm -Uvh jdk-6u20-linux-i586.rpm</code></li>
+</ul>
+</li>
+<li>Next run the RunMe.bin file in the HostSoftwareCD_6.9.0.16 folder
+<ul>
+<li><code>./RunMe.bin -c</code></li>
+</ul>
+</li>
+<li>Agree to all License Agreement stuffs</li>
+<li>Select the Typical install.</li>
+</ul>
+</li>
+<li>Add the <code>/opt/sun/cam/bin</code>folder to path
+<ul>
+<li>With root using tcsh add this to .tcshrc
+<ul>
+<li><code>setenv PATH ${PATH}:/opt/sun/cam/bin</code></li>
+</ul>
+</li>
+<li>Then do <code>source .tcshrc</code></li>
+</ul>
+</li>
+<li>Make sure there is an IP on the same subnet as the array (192.168.128.xxx)
+<ul>
+<li>Make a <code>/etc/sysconfig/network-scripts/ifcfg-eth1:1</code>file and put this in there
+<ul>
+<li>
+<div>DEVICE=“eth1:1”<br />
+BOOTPROTO=static<br />
+HWADDR=“xx:xx:xx:xx:xx:xx:xx”<br />
+IPADDR=192.168.128.xxx<br />
+NM_CONTROLLED=“no”<br />
+ONBOOT=“yes”</div>
+</li>
+</ul>
+</li>
+<li>Install the RAID Proxy Agent package located in the Add_On/RaidArrayProxy directory of the latest CAM software distribution. (I found this to be optional.)
+<ul>
+<li><code>rpm -ivh SMruntime.xx.xx.xx.xx-xxxx.rpm</code></li>
+<li><code>rpm -ivh SMagent-LINUX-xx.xx.xx.xx-xxxx.rpm</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Register the StorageTek with the host. Process can take several minutes.
+<ul>
+<li><code>sscs register -d storage-system</code></li>
+</ul>
+</li>
+<li>Once registered, you can name the array anything you want. Note what the array is named from the previous step.</li>
+</ul>
+<ul>
+<li><code>sscs modify -T [Array-Name] array ARRAY1</code></li>
+</ul>
+<li>Set up the storage profile, pool, disk, volume, mapping. Use the command line commands below, or set it up via the web interface. NOTE: This part only needs to be done on one of the hosts.
+<ul>
+<li>If using the web interface, you have to use a windows laptop hooked up to the local network (192.168.128.xxx), or perhaps a server in the same local network that is not running CentOS 6, which has a known issue where the web interface does not work. For the web interface connect to https://localhost:6789 using the laptop or server Administrator/root account information.</li>
+<li><code>sscs create -a knox pool [Pool-Name]<br />
+</code></li>
+<li><code>sscs create -a knox -p [Pool-Name] -n 11 vdisk [Vdisk-Name]<br />
+</code></li>
+<li><code>sscs create -a knox -p [Pool-Name] -s max -v [Vdisk-Name] volume [Volume-Name]</code></li>
+</ul>
+</li>
+<li>Create the host group and apply to host.
+<ul>
+<li><code>sscs create -a knox hostgroup [ApacheHosts]</code></li>
+</ul>
+</li>
+<li>Create hosts and assign to hostgroup
+<ul>
+<li><code>sscs create -a knox -g [ApacheHosts] host [Host-Name]</code> and repeat for other hosts.</li>
+</ul>
+</li>
+<li>Map volume to host group
+<ul>
+<li><code>sscs map -a knox -g ApacheHosts volume Volume-Name<br />
+</code></li>
+</ul>
+</li>
+<li>The array volume should now be available as /dev/sdb and /dev/sdc because the hosts are connected by two SAS cables each.</li>
+<p>It took me a while to grasp the meaning for the different terms: pool, volume, volume groups, disks, etc. I drew up a chart with the appropriate commands to create the different aspects.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/03/StorageTek2530-DiskSetup.jpg"><img loading="lazy" decoding="async" class="aligncenter size-large wp-image-1171" title="StorageTek2530-DiskSetup" src="http://mossiso.com/wp-content/uploads/2012/03/StorageTek2530-DiskSetup-1024x441.jpg" alt="" width="620" height="267" srcset="https://mossiso.com/wp-content/uploads/2012/03/StorageTek2530-DiskSetup-1024x441.jpg 1024w, https://mossiso.com/wp-content/uploads/2012/03/StorageTek2530-DiskSetup-300x129.jpg 300w, https://mossiso.com/wp-content/uploads/2012/03/StorageTek2530-DiskSetup-250x107.jpg 250w, https://mossiso.com/wp-content/uploads/2012/03/StorageTek2530-DiskSetup-150x64.jpg 150w, https://mossiso.com/wp-content/uploads/2012/03/StorageTek2530-DiskSetup-624x268.jpg 624w, https://mossiso.com/wp-content/uploads/2012/03/StorageTek2530-DiskSetup.jpg 1290w" sizes="(max-width: 620px) 100vw, 620px" /></a></p>
+<p>To utilize both cables connecting the server to the storage array, the OS needs to use multi-pathing. I had lots of troubles trying to set this up after the OS was installed, so I just let it be done by the installer. Here&#8217;s what should happen if you find the OS already installed and need to set up multi-paths.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/03/multipath-server3.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1183" title="multipath-server3" src="http://mossiso.com/wp-content/uploads/2012/03/multipath-server3.png" alt="" width="306" height="323" srcset="https://mossiso.com/wp-content/uploads/2012/03/multipath-server3.png 306w, https://mossiso.com/wp-content/uploads/2012/03/multipath-server3-284x300.png 284w, https://mossiso.com/wp-content/uploads/2012/03/multipath-server3-250x263.png 250w, https://mossiso.com/wp-content/uploads/2012/03/multipath-server3-142x150.png 142w" sizes="(max-width: 306px) 100vw, 306px" /></a></p>
+<ul>
+<li>Set up DM-Multipath
+<ul>
+<li>NOTE: This is taken care of during the OS installation.</li>
+<li>Multipath allows both SAS connections to the storage array to appear as one connection to the server. This allows for data to pass through even if one cable suddenly stops working, it seamlessly fails to the other path. For example, taken the image above, if the connection between hba1-&gt;cntrlr1 goes down, you still have connection hba2-&gt;cntrlr2. The OS sees one connection, and just uses whichever path is working.</li>
+<li>After Multipath is set up, the storage array will be available as a device at <code>/dev/mapper/mpatha</code>. This will be the device to partition, format, and throw LVM on.</li>
+<li>Install the multipath program and dependents
+<ul>
+<li><code>yum install device-mapper-multipath</code></li>
+</ul>
+</li>
+<li>Run <code>mpathconf --enable</code> to create a default <code>/etc/multipath.conf</code>file or create one using the following:
+<ul>
+<li>
+<div>#  multipath.conf written by anacondadefaults {<br />
+user_friendly_names yes<br />
+}<br />
+blacklist {<br />
+devnode “^(ram|raw|loop|fd|md|dm-|sr|scd|st)[0-9]*”<br />
+devnode “^hd[a-z]”<br />
+devnode “^dcssblk[0-9]*”<br />
+device {<br />
+vendor “DGC”<br />
+product “LUNZ”<br />
+}<br />
+device {<br />
+vendor “IBM”<br />
+product “S/390.*”<br />
+}<br />
+# don’t count normal SATA devices as multipaths<br />
+device {<br />
+vendor “ATA”<br />
+}<br />
+# don’t count 3ware devices as multipaths<br />
+device {<br />
+vendor “3ware”<br />
+}<br />
+device {<br />
+vendor “AMCC”<br />
+}<br />
+# nor highpoint devices<br />
+device {<br />
+vendor “HPT”<br />
+}<br />
+wwid “3600508e000000000c9c1189277b84b05”<br />
+device {<br />
+vendor TEAC<br />
+product DV-28E-V<br />
+}<br />
+wwid “*”<br />
+}<br />
+blacklist_exceptions {<br />
+wwid “3600a0b80003abca4000007284f33c167”<br />
+}<br />
+multipaths {<br />
+multipath {<br />
+uid 0<br />
+gid 0<br />
+wwid “3600a0b80003abca4000007284f33c167”<br />
+mode 0600<br />
+}<br />
+}</div>
+</li>
+</ul>
+</li>
+<li>Set multipathd to start on boot, and if not on, turn it on
+<ul>
+<li><code>chkconfig multipathd on</code></li>
+<li><code>service multipathd start</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1170</post-id>	</item>
+		<item>
+		<title>Setting up a Hosting Environment: Part 1 &#8211; The servers</title>
+		<link>https://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 01 Mar 2012 21:00:57 +0000</pubDate>
+				<category><![CDATA[Setting up a Hosting Environment]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[servers]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1158</guid>
+
+					<description><![CDATA[I&#8217;ve spent a lot of time at work setting up a few servers to be our new production environment. Much of it was accomplished by reading the documentation over and over again. Not much out there on the Net, so I&#8217;m hoping this series of posts benefits someone else out there. First of all, I&#8217;ll &#8230; <a href="https://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment: Part 1 &#8211; The servers</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;ve spent a lot of time at work setting up a few servers to be our new production environment. Much of it was accomplished by reading the documentation over and over again. Not much out there on the Net, so I&#8217;m hoping this series of posts benefits someone else out there.</p>
+<p>First of all, I&#8217;ll cover what set up I would like to achieve and why.</p>
+<h4>Hardware</h4>
+<p>I&#8217;m using two Sun SunFire X2100 M2 connected to a StorageTek 2530 with 4.5TB of drive space. The servers attach to the storage array via SCSI cables for quick data transfer speeds. The array also has the ability to handle iSCSI connections. This will give me a decent base set up, with room to grow.</p>
+<h4>Set up</h4>
+<p>I&#8217;ll put the two servers in a cluster and make the services available over the cluster. They will share the storage using GFS2. In the future, I&#8217;ll add a couple of load balancer/proxy machines to farm out the Web traffic, and add a couple more SunFire X2100 M2&#8217;s to take that load. One of the main reasons to set up a new configuration with new servers is to provide a clean environment for the many WordPress and Omeka installations we host. We&#8217;ve had to hang on to some legacy services to support some older projects, so this will allow us to keep up to date. It will also allow me to set up Apache and PHP to run as a server user, locked down to it&#8217;s own directory. That way each of the 100+ sites won&#8217;t be able to access any other site&#8217;s content. I picked CentOS as the OS because it has cluster and GFS2 options of RedHat, but without the cost.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/03/CHNMproduction.png"><img loading="lazy" decoding="async" class="size-full wp-image-1159 alignnone" title="CHNMproduction" src="http://mossiso.com/wp-content/uploads/2012/03/CHNMproduction.png" alt="" width="525" height="647" srcset="https://mossiso.com/wp-content/uploads/2012/03/CHNMproduction.png 525w, https://mossiso.com/wp-content/uploads/2012/03/CHNMproduction-243x300.png 243w, https://mossiso.com/wp-content/uploads/2012/03/CHNMproduction-250x308.png 250w, https://mossiso.com/wp-content/uploads/2012/03/CHNMproduction-121x150.png 121w" sizes="(max-width: 525px) 100vw, 525px" /></a></p>
+<h2>Sun X2100 M2 OS Install steps</h2>
+<ol>
+<li>Boot up with CentOS 6.x Minimal Install CD for x86_64</li>
+<li>Select the option to ‘Install or upgrade an existing system’, then hit the Enter key</li>
+<li>Skip the media test.</li>
+<li>You are now in graphic install mode.</li>
+<li>Hit Enter for ‘OK’ for ’English as the language.</li>
+<li>Hit Enter for ‘OK’ to US keyboard.</li>
+<li>Select the option to do a “Specialized Storage Devices” install</li>
+<li>Enter the computer name ‘bill.com’ or ‘ted.com’, etc</li>
+<li>Click the button to ‘Configure Network’.
+<ol>
+<li>Eth2 seems to be the one associated with port 0 on the servers, so select that one and then ‘Add’</li>
+<li>Select ‘Connect Automatically’.</li>
+<li>Click the ‘IPv4 Settings’ tab.</li>
+<li>Choose ‘Manual’ for the ‘Method’.</li>
+<li>Enter the following for the info in ‘Addresses’.
+<ol>
+<li>Address: 192.168.1.1</li>
+<li>Netmask: 255.255.255.0</li>
+<li>Gateway: 192.168.1.1</li>
+</ol>
+</li>
+<li>For ‘DNS servers’, enter 192.168.1.100</li>
+<li>Then ‘Apply’</li>
+</ol>
+</li>
+<li>Select ‘Next’ to keep the defaults for time zone and system clock.</li>
+<li>Enter a root password</li>
+<li><strong>DRIVE PARTITION SETUP</strong>
+<ol>
+<li>On the ‘Basic Devices’ tab, select the local drive and on the ‘Multipath Devices’ tab, select the storage array, and click ‘Next’.</li>
+<li>Select the ‘Fresh Installation’ option for a fresh install, or ‘Upgrade an Existing Installation’ to upgrade. Hit ‘Next’.</li>
+<li>Select ‘Create custom layout.’ and ‘Next’</li>
+<li>Delete all of the current LVM and other partitions.</li>
+<li>Select the free remaining drive for the local drive (should be /dev/sda). Click ‘Create’</li>
+<li><strong>BOOT PARTITION</strong>
+<ol>
+<li>Select ‘Standard Partition’ and click ‘Create’</li>
+<li>Set the Mount Point as <code>/boot</code>, the File System Type as ‘ext4’ and the Size (MB) as 500, then click ‘OK’</li>
+</ol>
+</li>
+<li>Select the free space and click ‘Create’</li>
+<li><strong>LVM PARTITION</strong>(NOTE: The sizes are different based on the size of the hard drives.)
+<ol>
+<li>Select ‘LVM Physical Volume’ and click ‘Create’</li>
+<li>Select ‘Fill to maximum allowable size’ and click ‘OK’</li>
+<li>Select the new LVM partition and click ‘Create’</li>
+<li>Select ‘LVM Volume Group’ and click ‘Create’</li>
+<li>Set the ‘Volume Group Name’ as ‘Local’  then click the ‘Add’ button</li>
+<li>Set the ‘File System Type’ as swap, the ‘Logical Volume Name’ as ‘swap’ and the ‘Size(MB)’ as ‘12288’, then click ‘OK’.</li>
+<li>Click the ‘Add’ button again. Set the ‘Mount Point’ to ‘/’, the ‘File System Type’ to ext4, the ‘Logical Volume Name’ to ‘root’, and the ‘Size(MB)’ to ‘51200’. Then click ‘OK’.</li>
+<li>Click the ‘Add’ button again. Set the ‘Mount Point’ to ‘/home’, the ‘File System Type’ to ext4, the ‘Logical Volume Name’ to ‘home’, and the ‘Size(MB)’ to ‘500’. Then click ‘OK’.</li>
+<li>Click the ‘Add’ button again. Set the ‘Mount Point’ to ‘/var’, the ‘File System Type’ to ext4, the ‘Logical Volume Name’ to ‘var’, and the ‘Size(MB)’ to the remaining space available. Then click ‘OK’.</li>
+<li>Click ‘OK’</li>
+</ol>
+</li>
+<li>Click ‘Next’ and ‘Write changes to disk’ to finish the partition creation.</li>
+</ol>
+</li>
+<li>Leave the boot loader settings as is, and click ‘Next’</li>
+<li>Select the ‘Minimal’ option and click ‘Next’</li>
+</ol>
+<p>One of the most important things to have with servers is some form of remote management. That way you don&#8217;t need to trek down to the data center each time the server hangs while testing (and it happens a lot). For Sun systems, that means setting up the ELOM (Embedded Lights Out Manager).</p>
+<h2>Steps to set up the Remote Console (Embedded Lights Out Manager – ELOM) for SunFire X2100 M2</h2>
+<h3>Set the SP serial port rate to 115200.</h3>
+<ul>
+<li>Log into the web based console, or through ssh via a computer on the same subnet (https://192.168.1.10) The IP is whatever the IP is set for the ELOM device. Check in BIOS for the IP.
+<ul>
+<li>Go to the Configuration tab, then the Serial Port tab.</li>
+<li>Change the Baud Rate to 115200.</li>
+</ul>
+</li>
+</ul>
+<h3>Set BIOS</h3>
+<pre>IPMI Config
+   Set LAN Config
+   Set PEF Config
+     PEF Support ........ [Enabled]
+     PEF Action Global
+        All of them ..... [Enabled]
+     Alert Startup Discover ..... [Disabled]
+     Startup Delay .............. [Disabled]
+     Event Message For PEF ...... [Disabled]
+   BMC Watch Dog Timer Action ... [Disabled]
+   External Com Port ............ [BMC]
+Remote Access
+   Remote Access ................ [Serial]
+   Serial Port Number ........... [Com2]
+   Serial Port Mode ............. [115200 8,n,1]
+   Flow Control ................. [Hardware]
+   Post-Boot Support ............ [Always]
+   Terminal Type ................ [VT100]
+   VT-UTF8 Combo Key ............ [Enabled]</pre>
+<ul>
+<li>Other options for the Serial Port Mode are 9600, 19200, 38400, and 57600</li>
+</ul>
+<h3>Edit Linux Config Files</h3>
+<h4>Add a /etc/init/serial-ttyS1.conf file</h4>
+<p>RedHat in EL 6, and thereby CentOS, moved to Upstart instead of Sysv, so we create a new serial-ttyS1.conf file instead of editing the /etc/inittab file.</p>
+<pre style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#  This service maintains a getty on /dev/ttyS1.
+stop on runlevel [016]
+
+respawn
+instance $TTY
+exec /sbin/mingetty $TTY</pre>
+<h4>Change grub.conf</h4>
+<pre style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;"># grub.conf generated by anaconda
+#
+# Note that you do not have to rerun grub after making changes to this file
+# NOTICE:  You have a /boot partition.  This means that
+#          all kernel and initrd paths are relative to /boot/, eg.
+#          root (hd0,0)
+#          kernel /vmlinuz-version ro root=/dev/Logical/root
+#          initrd /initrd-version.img
+#boot=/dev/sda
+default=0
+timeout=5
+#splashimage=(hd0,0)/grub/splash.xpm.gz
+#hiddenmenu
+serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
+terminal --timeout=10 serial console
+
+title CentOS Linux (2.6.32-71.29.1.el6.x86_64)
+        root (hd0,0)
+        kernel /vmlinuz-2.6.32-71.el6.x86_64 ro root=/dev/mapper/Local-root \
+rd_LVM_LV=Local/root rd_LVM_LV=Local/swap rd_NO_LUKS rd_NO_MD rd_NO_DM \
+console=tty1 console=ttyS1,115200n8
+          initrd /initramfs-2.6.32-71.29.1.el6.x86_64.img</pre>
+<h4>Add line to securetty</h4>
+<pre style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">console
+vc/1
+vc/2
+vc/3
+vc/4
+vc/5
+vc/6
+vc/7
+vc/8
+vc/9
+vc/10
+vc/11
+tty1
+tty2
+tty3
+tty4
+tty5
+tty6
+tty7
+tty8
+tty9
+tty10
+tty11
+ttyS1</pre>
+<hr />
+<h3>SUN SP Commands</h3>
+<p>Connect to the ELOM by ssh into the IP address.<br />
+<code>ssh root@192.168.xxx.xxx</code></p>
+<ul>
+<li>To power on the host, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo PowerCtrl=on</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To power off the host gracefully, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo PowerCtrl=gracefuloff</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To power off the host forcefully, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo PowerCtrl=forceoff</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To reset the host, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo PowerCtrl=reset</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To reboot and enter the BIOS automatically, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo BootCtrl=BIOSSetup</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To change the IP address for the ELOM, enter:
+<ul>
+<li><code>set /SP/AgentInfo IpAddress=xxx.xxx.xxx.xxx </code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The default user name is <code>root</code>, and the default password is <code>changeme</code>.
+<ul>
+<li><code>set /SP/User/[username] Password=[password]</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To start a session on the server console, enter this command:
+<ul>
+<li><code>start /SP/AgentInfo/console</code></li>
+<li>To revert to CLI once the console has been started, press <code>Esc-Shift-9</code> keys.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li> To terminate a server console session started by another user, enter this command:
+<ul>
+<li><code>stop /SP/AgentInfo/console</code></li>
+</ul>
+</li>
+</ul>
+<p>Next we secure the new servers with some software updates and a firewall.</p>
+<h2>Software Updates and installs:</h2>
+<ol>
+<li>Edit <code>/etc/resolve.conf</code></li>
+<li>
+<div>nameserver 192.168.1.100<br />
+options single-request-reopen</p>
+<ul>
+<li>The last line <code>options single-request-reopen</code> takes care of slow SSH logins. See here <a href="https://stomp.colorado.edu/blog/blog/2011/06/29/on-rhel-6-ssh-dns-firewalls-and-slow-logins/">https://stomp.colorado.edu/blog/blog/2011/06/29/on-rhel-6-ssh-dns-firewalls-and-slow-logins/</a> and here <a href="http://www.linuxquestions.org/questions/showthread.php?p=4399340#post4399340">http://www.linuxquestions.org/questions/showthread.php?p=4399340#post4399340</a> for more info.</li>
+</ul>
+</div>
+</li>
+<li><code>yum install openssh-clients tcsh ksh bc rpm-build gcc gcc-c++ redhat-rpm-config acl gcc gnupg make vim-enhanced man wget which mlocate bzip2-devel libxml2-devel screen sudo parted gd-devel pam_passwdqc.x86_64 rsync zip xorg-x11-server-utils gettext</code></li>
+<li>disable SELinux. Edit the <code>/etc/sysconfig/selinux</code> file and set <code>SELINUX=disabled</code>.
+<ul>
+<li>Change takes affect on next reboot.</li>
+</ul>
+</li>
+<li>Add the following lines to the <code>/etc/vimrc</code>file:
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">set autoindent &#8221; auto indent after {<br />
+set smartindent &#8221; same<br />
+set shiftwidth=4 &#8221; number of space characters inserted for indentation<br />
+set expandtab &#8221; inserts spaces instead of tabs<br />
+set tabstop=4 &#8221; number of spaces the tab is.<br />
+set pastetoggle=&lt;C-P&gt; &#8221; Ctrl-P toggles paste mode</div>
+</li>
+<li>Switch root shell to <code>tcsh</code>
+<ul>
+<li>Edit the <code>/etc/passwd</code>file to have root use tcsh<code>root:x:0:0:root:/root:/bin/tcsh</code></li>
+<li>Edit the <code>.tcshrc</code>file in root’s home.
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#  .tcshrc#  User specific aliases and functionsalias rm &#8216;rm -i&#8217;<br />
+alias cp &#8216;cp -i&#8217;<br />
+alias mv &#8216;mv -i&#8217;set prompt='[%n@%m %c]# &#8216;</p>
+<p>setenv PATH ${PATH}:/opt/sun/cam/bin</p>
+<p>#  Make command completion (TAB key) cycle through all possible choices<br />
+#  (The default is to simply display a list of all choices when more than one<br />
+#  match is available.)<br />
+bindkey &#8220;^I&#8221; complete-word-fwd</p>
+</div>
+</li>
+<li>Logout and back in for it to take affect.</li>
+</ul>
+</li>
+<li>Edit <code>/etc/hosts</code>. Add a line with IP and domain name.
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#  Do not remove the following line, or various programs<br />
+#  that require network functionality will fail.<br />
+127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4<br />
+::1 localhost localhost.localdomain localhost6 localhost6.localdomain6#  External IPs<br />
+192.168.1.1 bill.com<br />
+192.168.1.2 ted.com192.168.1.3 domain.com # this needs to be an IP that the cluster server can manage#  Internal IPs<br />
+192.168.1.11 bill.localdomain bill # notice the .localdomain, this is necessary for mysql later<br />
+192.168.1.12 ted.localdomain ted othernode # this is bill&#8217;s hosts file. othernode would be on the bill line for ted&#8217;s hosts file.<br />
+#  ServicePort IPs<br />
+192.168.1.21 billsp # I like to have a short name to use to connect to the service port (ELOM)<br />
+192.168.1.22 tedsp</p>
+<p>#  Internal Services<br />
+192.168.1.100 http.localdomain httpd.localdomain<br />
+192.168.1.101 mysql.localdomain<br />
+192.168.1.102 memcached.localdomain</p>
+</div>
+</li>
+<li>Run <code>updatedb</code> to set up the <code>locate</code> database.</li>
+<li>Edit password settings to allow for stricter control over passwords. This requires strong passwords or the use of passphrases.
+<ul>
+<li>Check here for updated info: <a href="http://www.nsa.gov/ia/guidance/security_configuration_guides/operating_systems.shtml#linux2">http://www.nsa.gov/ia/guidance/security_configuration_guides/operating_systems.shtml#linux2</a></li>
+<li>Edit the <code>/etc/pam.d/system-auth</code>file. Change the line<code>password requisite pam_cracklib.so try_first_pass retry=3</code>to this<code>password requisite pam_passwdqc.so min=disabled,disabled,16,12,8</code></li>
+</ul>
+</li>
+<li>[Optional] Firefox: <code>yum update</code>, and then a<code>yum install firefox xorg-x11-xauth xorg-x11-fonts-Type1</code>There will be more you’ll need too.
+<ul>
+<li>If you get this error: <code>process 702: D-Bus library appears to be incorrectly set up; failed to read machine uuid: Failed to open "/var/lib/dbus/machine-id": No such file or directory</code>. Then run the following command as root.
+<ul>
+<li><code>dbus-uuidgen &gt; /var/lib/dbus/machine-id</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Set up ssh keys
+<ul>
+<li><code>ssh-keygen</code></li>
+<li>Copy the id_rsa.pub file to the other node</li>
+<li>Copy the contents of id_rsa.pub to <code>cat id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</code></li>
+<li>Double check permission on <code>authorized_keys</code> and <code>id_rsa</code> both set to <code>rw-------</code></li>
+<li>You should now be able to log in from bill to ted (and vice versa) without a password.</li>
+</ul>
+</li>
+</ol>
+<pre></pre>
+<h2>Shorewall</h2>
+<ul>
+<li>Yum Install:
+<ul>
+<li>Get EPEL repository. Visit <a href="http://fedoraproject.org/wiki/EPEL">http://fedoraproject.org/wiki/EPEL</a> to get the URL for the correct rpm. Something like: epel-release-6-5.noarch.rpm.</li>
+<li>Copy that URL and run<code>rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-5.noarch.rpm</code>on the machine.</li>
+<li>Edit the <code>/etc/yum.repos.d/epel.repo</code> file and set the first “enabled” line to equal 0. That disables yum from using the EPEL repo by default.</li>
+<li>Install shorewall with yum.<code>yum --enablerepo=epel install shorewall</code></li>
+</ul>
+</li>
+<li>Enable program to run by editing the <code>/etc/shorewall/shorewall.conf</code> file. Change the <code>STARTUP_ENABLED=NO</code>to<code>STARTUP_ENABLED=Yes</code></li>
+<li>Edit the shorewall config files.</li>
+<li>Edit the <code>/etc/shorewall/zones</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#<br />
+#  Shorewall version 4 – Zones File<br />
+#<br />
+#  For information about this file, type “man shorewall-zones”<br />
+#<br />
+#  The manpage is also online at<br />
+#  http://www.shorewall.net/manpages/shorewall-zones.html<br />
+#<br />
+###############################################################################<br />
+#ZONE TYPE OPTIONS IN OUT<br />
+#  OPTIONS OPTIONSnet ipv4 # The big bad Internet<br />
+loc ipv4 # Internal LAN<br />
+fw firewall#LAST LINE – ADD YOUR ENTRIES ABOVE THIS ONE – DO NOT REMOVE#LAST LINE – ADD YOUR ENTRIES ABOVE THIS ONE – DO NOT REMOVE</div>
+</li>
+</ul>
+</li>
+<li>Edit the <code>/etc/shorewall/interfaces</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#<br />
+#  Shorewall version 4 – Interfaces File<br />
+#<br />
+#  For information about entries in this file, type “man shorewall-interfaces”<br />
+#<br />
+#  The manpage is also online at<br />
+#  http://www.shorewall.net/manpages/shorewall-interfaces.html<br />
+#<br />
+###############################################################################<br />
+#ZONE INTERFACE BROADCAST OPTIONS<br />
+net eth2<br />
+loc eth1</div>
+</li>
+</ul>
+</li>
+<li>Edit the <code>/etc/shorewall/policy</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">###############################################################################<br />
+#SOURCE DEST POLICY LOG LIMIT: CONNLIMIT:<br />
+#  LEVEL BURST MASK<br />
+#  To/from internal lan<br />
+fw loc ACCEPT<br />
+loc fw ACCEPT<br />
+#  To/from net<br />
+fw net ACCEPT<br />
+net all DROP info<br />
+#<br />
+#  THE FOLLOWING POLICY MUST BE LAST<br />
+#<br />
+all all REJECT info<br />
+#LAST LINE — DO NOT REMOVE</div>
+</li>
+</ul>
+</li>
+<li>Edit the <code>/etc/shorewall/rules</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">######################################################################################<br />
+#ACTION SOURCE DEST PROTO DEST SOURCE ORIGINAL<br />
+#  PORT <acronym title="S">PORT</acronym> DEST<br />
+#SECTION ESTABLISHED<br />
+#SECTION RELATED<br />
+SECTION NEWSECTION NEW#  Standard services<br />
+#<br />
+ACCEPT  net      fw      tcp     ssh<br />
+ACCEPT  net      fw      tcp     80,443Ping/ACCEPT      net      fw</p>
+<p>#LAST LINE — ADD YOUR ENTRIES BEFORE THIS ONE — DO NOT REMOVE</p>
+</div>
+</li>
+</ul>
+</li>
+<li>Edit the <code>/etc/shorewall/routestopped</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#<br />
+#  Shorewall version 4 – Routestopped File<br />
+#<br />
+#  For information about entries in this file, type “man shorewall-routestopped”<br />
+#<br />
+#  The manpage is also online at<br />
+#  http://www.shorewall.net/manpages/shorewall-routestopped.html<br />
+#<br />
+#  See http://shorewall.net/starting_and_stopping_shorewall.htm for additional<br />
+#  information.<br />
+#<br />
+###############################################################################<br />
+#INTERFACE <acronym title="S">HOST</acronym> OPTIONS PROTO DEST SOURCE<br />
+#  <acronym title="S">PORT</acronym> <acronym title="S">PORT</acronym><br />
+eth1     &#8211;<br />
+eth2     &#8211;</div>
+</li>
+</ul>
+</li>
+<li>Set shorewall to start on reboots.<code>chkconfig shorewall on</code></li>
+<li>Start shorewall:<code>service shorewall start</code></li>
+</ul>
+<p>The next part will be <a title="Setting up a Hosting Environment: Part 1 – The servers" href="http://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers.html">connecting the servers to the storage array</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1158</post-id>	</item>
+	</channel>
+</rss>

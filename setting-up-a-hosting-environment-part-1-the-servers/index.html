@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://mossiso.com/xmlrpc.php">
+	<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<title>Setting up a Hosting Environment: Part 1 &#8211; The servers &#8211; Ammon Shepherd</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='https://stats.wp.com/' />
+<link rel='dns-prefetch' href='https://v0.wordpress.com/' />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Feed" href="../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Comments Feed" href="../comments/feed/index.html" />
+<script>
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/mossiso.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.6.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+</script>
+<link rel='stylesheet' id='twentyfifteen-jetpack-css' href='../wp-content/plugins/jetpack/modules/theme-tools/compat/twentyfifteen.css%3Fver=13.1.3.css' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='../wp-includes/css/dist/block-library/style.min.css%3Fver=6.6.1.css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<style id='wp-block-library-theme-inline-css'>
+.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote.has-text-align-right{border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote.has-text-align-center{border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote.is-style-plain{border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}
+</style>
+<link rel='stylesheet' id='mediaelement-css' href='../wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css%3Fver=4.2.17.css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css' href='../wp-includes/js/mediaelement/wp-mediaelement.min.css%3Fver=6.6.1.css' media='all' />
+<style id='jetpack-sharing-buttons-style-inline-css'>
+.jetpack-sharing-buttons__services-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:0;list-style-type:none;margin:5px;padding:0}.jetpack-sharing-buttons__services-list.has-small-icon-size{font-size:12px}.jetpack-sharing-buttons__services-list.has-normal-icon-size{font-size:16px}.jetpack-sharing-buttons__services-list.has-large-icon-size{font-size:24px}.jetpack-sharing-buttons__services-list.has-huge-icon-size{font-size:36px}@media print{.jetpack-sharing-buttons__services-list{display:none!important}}ul.jetpack-sharing-buttons__services-list.has-background{padding:1.25em 2.375em}
+</style>
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #fff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--dark-gray: #111;--wp--preset--color--light-gray: #f1f1f1;--wp--preset--color--yellow: #f4ca16;--wp--preset--color--dark-brown: #352712;--wp--preset--color--medium-pink: #e53b51;--wp--preset--color--light-pink: #ffe5d1;--wp--preset--color--dark-purple: #2e2256;--wp--preset--color--purple: #674970;--wp--preset--color--blue-gray: #22313f;--wp--preset--color--bright-blue: #55c3dc;--wp--preset--color--light-blue: #e9f2f9;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--gradient--dark-gray-gradient-gradient: linear-gradient(90deg, rgba(17,17,17,1) 0%, rgba(42,42,42,1) 100%);--wp--preset--gradient--light-gray-gradient: linear-gradient(90deg, rgba(241,241,241,1) 0%, rgba(215,215,215,1) 100%);--wp--preset--gradient--white-gradient: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(230,230,230,1) 100%);--wp--preset--gradient--yellow-gradient: linear-gradient(90deg, rgba(244,202,22,1) 0%, rgba(205,168,10,1) 100%);--wp--preset--gradient--dark-brown-gradient: linear-gradient(90deg, rgba(53,39,18,1) 0%, rgba(91,67,31,1) 100%);--wp--preset--gradient--medium-pink-gradient: linear-gradient(90deg, rgba(229,59,81,1) 0%, rgba(209,28,51,1) 100%);--wp--preset--gradient--light-pink-gradient: linear-gradient(90deg, rgba(255,229,209,1) 0%, rgba(255,200,158,1) 100%);--wp--preset--gradient--dark-purple-gradient: linear-gradient(90deg, rgba(46,34,86,1) 0%, rgba(66,48,123,1) 100%);--wp--preset--gradient--purple-gradient: linear-gradient(90deg, rgba(103,73,112,1) 0%, rgba(131,93,143,1) 100%);--wp--preset--gradient--blue-gray-gradient: linear-gradient(90deg, rgba(34,49,63,1) 0%, rgba(52,75,96,1) 100%);--wp--preset--gradient--bright-blue-gradient: linear-gradient(90deg, rgba(85,195,220,1) 0%, rgba(43,180,211,1) 100%);--wp--preset--gradient--light-blue-gradient: linear-gradient(90deg, rgba(233,242,249,1) 0%, rgba(193,218,238,1) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='twentyfifteen-fonts-css' href='../wp-content/themes/twentyfifteen/assets/fonts/noto-sans-plus-noto-serif-plus-inconsolata.css%3Fver=20230328.css' media='all' />
+<link rel='stylesheet' id='genericons-css' href='../wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css%3Fver=3.1.css' media='all' />
+<link rel='stylesheet' id='twentyfifteen-style-css' href='../wp-content/themes/twentyfifteen/style.css%3Fver=20231107.css' media='all' />
+<style id='twentyfifteen-style-inline-css'>
+
+			.post-navigation .nav-previous { background-image: url(../wp-content/uploads/2012/02/1754283860_564840933e_z-624x243.jpg); }
+			.post-navigation .nav-previous .post-title, .post-navigation .nav-previous a:hover .post-title, .post-navigation .nav-previous .meta-nav { color: #fff; }
+			.post-navigation .nav-previous a:before { background-color: rgba(0, 0, 0, 0.4); }
+		
+			.post-navigation .nav-next { background-image: url(../wp-content/uploads/2012/03/StorageTek2530-DiskSetup-624x268.jpg); border-top: 0; }
+			.post-navigation .nav-next .post-title, .post-navigation .nav-next a:hover .post-title, .post-navigation .nav-next .meta-nav { color: #fff; }
+			.post-navigation .nav-next a:before { background-color: rgba(0, 0, 0, 0.4); }
+		
+</style>
+<link rel='stylesheet' id='twentyfifteen-block-style-css' href='../wp-content/themes/twentyfifteen/css/blocks.css%3Fver=20230623.css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css' href='../wp-content/plugins/jetpack/css/jetpack.css%3Fver=13.1.3.css' media='all' />
+<link rel='stylesheet' id='sociable3-css' href='../wp-content/plugins/sociable-30/sociable.css%3Fver=5.13.css' media='all' />
+<script src="../wp-includes/js/jquery/jquery.min.js%3Fver=3.7.1" id="jquery-core-js"></script>
+<script src="../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=3.4.1" id="jquery-migrate-js"></script>
+<script id="twentyfifteen-script-js-extra">
+var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
+</script>
+<script src="../wp-content/themes/twentyfifteen/js/functions.js%3Fver=20221101" id="twentyfifteen-script-js" defer data-wp-strategy="defer"></script>
+<link rel="https://api.w.org/" href="../wp-json/index.html" /><link rel="alternate" title="JSON" type="application/json" href="../wp-json/wp/v2/posts/1158" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://mossiso.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.6.1" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='https://wp.me/p9wosP-iG' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fmossiso.com%252F2012%252F03%252F01%252Fsetting-up-a-hosting-environment-part-1-the-servers%252F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="../wp-json/oembed/1.0/embed%3Furl=https:%252F%252Fmossiso.com%252F2012%252F03%252F01%252Fsetting-up-a-hosting-environment-part-1-the-servers%252F&amp;format=xml" />
+	<style>img#wpstats{display:none}</style>
+		
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Setting up a Hosting Environment: Part 1 &#8211; The servers" />
+<meta property="og:url" content="https://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers/" />
+<meta property="og:description" content="I&#8217;ve spent a lot of time at work setting up a few servers to be our new production environment. Much of it was accomplished by reading the documentation over and over again. Not much out ther…" />
+<meta property="article:published_time" content="2012-03-01T21:00:57+00:00" />
+<meta property="article:modified_time" content="2013-02-01T17:45:19+00:00" />
+<meta property="og:site_name" content="Ammon Shepherd" />
+<meta property="og:image" content="https://mossiso.com/wp-content/uploads/2012/03/DSCN7152-copy.jpg" />
+<meta property="og:image:width" content="1281" />
+<meta property="og:image:height" content="501" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:text:title" content="Setting up a Hosting Environment: Part 1 &#8211; The servers" />
+<meta name="twitter:image" content="https://mossiso.com/wp-content/uploads/2012/03/DSCN7152-copy.jpg?w=640" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="icon" href="../wp-content/uploads/2018/12/favicon-96x96.png" sizes="32x32" />
+<link rel="icon" href="../wp-content/uploads/2018/12/favicon-96x96.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../wp-content/uploads/2018/12/favicon-96x96.png" />
+<meta name="msapplication-TileImage" content="https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png" />
+<style type="text/css" id="wp-custom-css">a {
+	color:#BE1E23;
+}</style></head>
+
+<body class="post-template-default single single-post postid-1158 single-format-standard wp-custom-logo wp-embed-responsive">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="index.html#content">
+		Skip to content	</a>
+
+	<div id="sidebar" class="sidebar">
+		<header id="masthead" class="site-header">
+			<div class="site-branding">
+				<a href="../index.html" class="custom-logo-link" rel="home"><img width="192" height="192" src="../wp-content/uploads/2018/12/android-icon-192x192.png" class="custom-logo" alt="Ammon Shepherd" decoding="async" srcset="https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192.png 192w, https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192-150x150.png 150w" sizes="(max-width: 192px) 100vw, 192px" /></a>						<p class="site-title"><a href="../index.html" rel="home">Ammon Shepherd</a></p>
+												<p class="site-description">mossiso = more better</p>
+										<button class="secondary-toggle">Menu and widgets</button>
+			</div><!-- .site-branding -->
+		</header><!-- .site-header -->
+
+			<div id="secondary" class="secondary">
+
+					<nav id="site-navigation" class="main-navigation">
+				<div class="menu-newmain-container"><ul id="menu-newmain" class="nav-menu"><li id="menu-item-1768" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1768"><a href="../about/index.html">About</a></li>
+<li id="menu-item-1766" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1766"><a href="../digital-projects/index.html">Digital Projects</a></li>
+<li id="menu-item-1767" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1767"><a href="../courses/index.html">Courses</a></li>
+<li id="menu-item-1769" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1769"><a href="https://github.com/ammonshepherd">Code</a></li>
+<li id="menu-item-1770" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1770"><a href="../resume/index.html">CV</a></li>
+</ul></div>			</nav><!-- .main-navigation -->
+		
+		
+		
+	</div><!-- .secondary -->
+
+	</div><!-- .sidebar -->
+
+	<div id="content" class="site-content">
+
+	<div id="primary" class="content-area">
+		<main id="main" class="site-main">
+
+		
+<article id="post-1158" class="post-1158 post type-post status-publish format-standard has-post-thumbnail hentry category-setting-up-a-hosting-environment category-technical tag-servers">
+	
+		<div class="post-thumbnail">
+			<img width="624" height="244" src="../wp-content/uploads/2012/03/DSCN7152-copy-624x244.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="" decoding="async" fetchpriority="high" srcset="https://mossiso.com/wp-content/uploads/2012/03/DSCN7152-copy-624x244.jpg 624w, https://mossiso.com/wp-content/uploads/2012/03/DSCN7152-copy-300x117.jpg 300w, https://mossiso.com/wp-content/uploads/2012/03/DSCN7152-copy-1024x400.jpg 1024w, https://mossiso.com/wp-content/uploads/2012/03/DSCN7152-copy-250x97.jpg 250w, https://mossiso.com/wp-content/uploads/2012/03/DSCN7152-copy-150x58.jpg 150w, https://mossiso.com/wp-content/uploads/2012/03/DSCN7152-copy.jpg 1281w" sizes="(max-width: 624px) 100vw, 624px" />	</div><!-- .post-thumbnail -->
+
+	
+	<header class="entry-header">
+		<h1 class="entry-title">Setting up a Hosting Environment: Part 1 &#8211; The servers</h1>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I&#8217;ve spent a lot of time at work setting up a few servers to be our new production environment. Much of it was accomplished by reading the documentation over and over again. Not much out there on the Net, so I&#8217;m hoping this series of posts benefits someone else out there.</p>
+<p>First of all, I&#8217;ll cover what set up I would like to achieve and why.</p>
+<h4>Hardware</h4>
+<p>I&#8217;m using two Sun SunFire X2100 M2 connected to a StorageTek 2530 with 4.5TB of drive space. The servers attach to the storage array via SCSI cables for quick data transfer speeds. The array also has the ability to handle iSCSI connections. This will give me a decent base set up, with room to grow.</p>
+<h4>Set up</h4>
+<p>I&#8217;ll put the two servers in a cluster and make the services available over the cluster. They will share the storage using GFS2. In the future, I&#8217;ll add a couple of load balancer/proxy machines to farm out the Web traffic, and add a couple more SunFire X2100 M2&#8217;s to take that load. One of the main reasons to set up a new configuration with new servers is to provide a clean environment for the many WordPress and Omeka installations we host. We&#8217;ve had to hang on to some legacy services to support some older projects, so this will allow us to keep up to date. It will also allow me to set up Apache and PHP to run as a server user, locked down to it&#8217;s own directory. That way each of the 100+ sites won&#8217;t be able to access any other site&#8217;s content. I picked CentOS as the OS because it has cluster and GFS2 options of RedHat, but without the cost.</p>
+<p><a href="../wp-content/uploads/2012/03/CHNMproduction.png"><img decoding="async" class="size-full wp-image-1159 alignnone" title="CHNMproduction" src="../wp-content/uploads/2012/03/CHNMproduction.png" alt="" width="525" height="647" srcset="https://mossiso.com/wp-content/uploads/2012/03/CHNMproduction.png 525w, https://mossiso.com/wp-content/uploads/2012/03/CHNMproduction-243x300.png 243w, https://mossiso.com/wp-content/uploads/2012/03/CHNMproduction-250x308.png 250w, https://mossiso.com/wp-content/uploads/2012/03/CHNMproduction-121x150.png 121w" sizes="(max-width: 525px) 100vw, 525px" /></a></p>
+<h2>Sun X2100 M2 OS Install steps</h2>
+<ol>
+<li>Boot up with CentOS 6.x Minimal Install CD for x86_64</li>
+<li>Select the option to ‘Install or upgrade an existing system’, then hit the Enter key</li>
+<li>Skip the media test.</li>
+<li>You are now in graphic install mode.</li>
+<li>Hit Enter for ‘OK’ for ’English as the language.</li>
+<li>Hit Enter for ‘OK’ to US keyboard.</li>
+<li>Select the option to do a “Specialized Storage Devices” install</li>
+<li>Enter the computer name ‘bill.com’ or ‘ted.com’, etc</li>
+<li>Click the button to ‘Configure Network’.
+<ol>
+<li>Eth2 seems to be the one associated with port 0 on the servers, so select that one and then ‘Add’</li>
+<li>Select ‘Connect Automatically’.</li>
+<li>Click the ‘IPv4 Settings’ tab.</li>
+<li>Choose ‘Manual’ for the ‘Method’.</li>
+<li>Enter the following for the info in ‘Addresses’.
+<ol>
+<li>Address: 192.168.1.1</li>
+<li>Netmask: 255.255.255.0</li>
+<li>Gateway: 192.168.1.1</li>
+</ol>
+</li>
+<li>For ‘DNS servers’, enter 192.168.1.100</li>
+<li>Then ‘Apply’</li>
+</ol>
+</li>
+<li>Select ‘Next’ to keep the defaults for time zone and system clock.</li>
+<li>Enter a root password</li>
+<li><strong>DRIVE PARTITION SETUP</strong>
+<ol>
+<li>On the ‘Basic Devices’ tab, select the local drive and on the ‘Multipath Devices’ tab, select the storage array, and click ‘Next’.</li>
+<li>Select the ‘Fresh Installation’ option for a fresh install, or ‘Upgrade an Existing Installation’ to upgrade. Hit ‘Next’.</li>
+<li>Select ‘Create custom layout.’ and ‘Next’</li>
+<li>Delete all of the current LVM and other partitions.</li>
+<li>Select the free remaining drive for the local drive (should be /dev/sda). Click ‘Create’</li>
+<li><strong>BOOT PARTITION</strong>
+<ol>
+<li>Select ‘Standard Partition’ and click ‘Create’</li>
+<li>Set the Mount Point as <code>/boot</code>, the File System Type as ‘ext4’ and the Size (MB) as 500, then click ‘OK’</li>
+</ol>
+</li>
+<li>Select the free space and click ‘Create’</li>
+<li><strong>LVM PARTITION</strong>(NOTE: The sizes are different based on the size of the hard drives.)
+<ol>
+<li>Select ‘LVM Physical Volume’ and click ‘Create’</li>
+<li>Select ‘Fill to maximum allowable size’ and click ‘OK’</li>
+<li>Select the new LVM partition and click ‘Create’</li>
+<li>Select ‘LVM Volume Group’ and click ‘Create’</li>
+<li>Set the ‘Volume Group Name’ as ‘Local’  then click the ‘Add’ button</li>
+<li>Set the ‘File System Type’ as swap, the ‘Logical Volume Name’ as ‘swap’ and the ‘Size(MB)’ as ‘12288’, then click ‘OK’.</li>
+<li>Click the ‘Add’ button again. Set the ‘Mount Point’ to ‘/’, the ‘File System Type’ to ext4, the ‘Logical Volume Name’ to ‘root’, and the ‘Size(MB)’ to ‘51200’. Then click ‘OK’.</li>
+<li>Click the ‘Add’ button again. Set the ‘Mount Point’ to ‘/home’, the ‘File System Type’ to ext4, the ‘Logical Volume Name’ to ‘home’, and the ‘Size(MB)’ to ‘500’. Then click ‘OK’.</li>
+<li>Click the ‘Add’ button again. Set the ‘Mount Point’ to ‘/var’, the ‘File System Type’ to ext4, the ‘Logical Volume Name’ to ‘var’, and the ‘Size(MB)’ to the remaining space available. Then click ‘OK’.</li>
+<li>Click ‘OK’</li>
+</ol>
+</li>
+<li>Click ‘Next’ and ‘Write changes to disk’ to finish the partition creation.</li>
+</ol>
+</li>
+<li>Leave the boot loader settings as is, and click ‘Next’</li>
+<li>Select the ‘Minimal’ option and click ‘Next’</li>
+</ol>
+<p>One of the most important things to have with servers is some form of remote management. That way you don&#8217;t need to trek down to the data center each time the server hangs while testing (and it happens a lot). For Sun systems, that means setting up the ELOM (Embedded Lights Out Manager).</p>
+<h2>Steps to set up the Remote Console (Embedded Lights Out Manager – ELOM) for SunFire X2100 M2</h2>
+<h3>Set the SP serial port rate to 115200.</h3>
+<ul>
+<li>Log into the web based console, or through ssh via a computer on the same subnet (https://192.168.1.10) The IP is whatever the IP is set for the ELOM device. Check in BIOS for the IP.
+<ul>
+<li>Go to the Configuration tab, then the Serial Port tab.</li>
+<li>Change the Baud Rate to 115200.</li>
+</ul>
+</li>
+</ul>
+<h3>Set BIOS</h3>
+<pre>IPMI Config
+   Set LAN Config
+   Set PEF Config
+     PEF Support ........ [Enabled]
+     PEF Action Global
+        All of them ..... [Enabled]
+     Alert Startup Discover ..... [Disabled]
+     Startup Delay .............. [Disabled]
+     Event Message For PEF ...... [Disabled]
+   BMC Watch Dog Timer Action ... [Disabled]
+   External Com Port ............ [BMC]
+Remote Access
+   Remote Access ................ [Serial]
+   Serial Port Number ........... [Com2]
+   Serial Port Mode ............. [115200 8,n,1]
+   Flow Control ................. [Hardware]
+   Post-Boot Support ............ [Always]
+   Terminal Type ................ [VT100]
+   VT-UTF8 Combo Key ............ [Enabled]</pre>
+<ul>
+<li>Other options for the Serial Port Mode are 9600, 19200, 38400, and 57600</li>
+</ul>
+<h3>Edit Linux Config Files</h3>
+<h4>Add a /etc/init/serial-ttyS1.conf file</h4>
+<p>RedHat in EL 6, and thereby CentOS, moved to Upstart instead of Sysv, so we create a new serial-ttyS1.conf file instead of editing the /etc/inittab file.</p>
+<pre style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#  This service maintains a getty on /dev/ttyS1.
+stop on runlevel [016]
+
+respawn
+instance $TTY
+exec /sbin/mingetty $TTY</pre>
+<h4>Change grub.conf</h4>
+<pre style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;"># grub.conf generated by anaconda
+#
+# Note that you do not have to rerun grub after making changes to this file
+# NOTICE:  You have a /boot partition.  This means that
+#          all kernel and initrd paths are relative to /boot/, eg.
+#          root (hd0,0)
+#          kernel /vmlinuz-version ro root=/dev/Logical/root
+#          initrd /initrd-version.img
+#boot=/dev/sda
+default=0
+timeout=5
+#splashimage=(hd0,0)/grub/splash.xpm.gz
+#hiddenmenu
+serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
+terminal --timeout=10 serial console
+
+title CentOS Linux (2.6.32-71.29.1.el6.x86_64)
+        root (hd0,0)
+        kernel /vmlinuz-2.6.32-71.el6.x86_64 ro root=/dev/mapper/Local-root \
+rd_LVM_LV=Local/root rd_LVM_LV=Local/swap rd_NO_LUKS rd_NO_MD rd_NO_DM \
+console=tty1 console=ttyS1,115200n8
+          initrd /initramfs-2.6.32-71.29.1.el6.x86_64.img</pre>
+<h4>Add line to securetty</h4>
+<pre style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">console
+vc/1
+vc/2
+vc/3
+vc/4
+vc/5
+vc/6
+vc/7
+vc/8
+vc/9
+vc/10
+vc/11
+tty1
+tty2
+tty3
+tty4
+tty5
+tty6
+tty7
+tty8
+tty9
+tty10
+tty11
+ttyS1</pre>
+<hr />
+<h3>SUN SP Commands</h3>
+<p>Connect to the ELOM by ssh into the IP address.<br />
+<code>ssh root@192.168.xxx.xxx</code></p>
+<ul>
+<li>To power on the host, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo PowerCtrl=on</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To power off the host gracefully, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo PowerCtrl=gracefuloff</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To power off the host forcefully, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo PowerCtrl=forceoff</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To reset the host, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo PowerCtrl=reset</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To reboot and enter the BIOS automatically, enter the following command:
+<ul>
+<li><code>set /SP/SystemInfo/CtrlInfo BootCtrl=BIOSSetup</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To change the IP address for the ELOM, enter:
+<ul>
+<li><code>set /SP/AgentInfo IpAddress=xxx.xxx.xxx.xxx </code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>The default user name is <code>root</code>, and the default password is <code>changeme</code>.
+<ul>
+<li><code>set /SP/User/[username] Password=[password]</code></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>To start a session on the server console, enter this command:
+<ul>
+<li><code>start /SP/AgentInfo/console</code></li>
+<li>To revert to CLI once the console has been started, press <code>Esc-Shift-9</code> keys.</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li> To terminate a server console session started by another user, enter this command:
+<ul>
+<li><code>stop /SP/AgentInfo/console</code></li>
+</ul>
+</li>
+</ul>
+<p>Next we secure the new servers with some software updates and a firewall.</p>
+<h2>Software Updates and installs:</h2>
+<ol>
+<li>Edit <code>/etc/resolve.conf</code></li>
+<li>
+<div>nameserver 192.168.1.100<br />
+options single-request-reopen</p>
+<ul>
+<li>The last line <code>options single-request-reopen</code> takes care of slow SSH logins. See here <a href="https://stomp.colorado.edu/blog/blog/2011/06/29/on-rhel-6-ssh-dns-firewalls-and-slow-logins/">https://stomp.colorado.edu/blog/blog/2011/06/29/on-rhel-6-ssh-dns-firewalls-and-slow-logins/</a> and here <a href="http://www.linuxquestions.org/questions/showthread.php?p=4399340#post4399340">http://www.linuxquestions.org/questions/showthread.php?p=4399340#post4399340</a> for more info.</li>
+</ul>
+</div>
+</li>
+<li><code>yum install openssh-clients tcsh ksh bc rpm-build gcc gcc-c++ redhat-rpm-config acl gcc gnupg make vim-enhanced man wget which mlocate bzip2-devel libxml2-devel screen sudo parted gd-devel pam_passwdqc.x86_64 rsync zip xorg-x11-server-utils gettext</code></li>
+<li>disable SELinux. Edit the <code>/etc/sysconfig/selinux</code> file and set <code>SELINUX=disabled</code>.
+<ul>
+<li>Change takes affect on next reboot.</li>
+</ul>
+</li>
+<li>Add the following lines to the <code>/etc/vimrc</code>file:
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">set autoindent &#8221; auto indent after {<br />
+set smartindent &#8221; same<br />
+set shiftwidth=4 &#8221; number of space characters inserted for indentation<br />
+set expandtab &#8221; inserts spaces instead of tabs<br />
+set tabstop=4 &#8221; number of spaces the tab is.<br />
+set pastetoggle=&lt;C-P&gt; &#8221; Ctrl-P toggles paste mode</div>
+</li>
+<li>Switch root shell to <code>tcsh</code>
+<ul>
+<li>Edit the <code>/etc/passwd</code>file to have root use tcsh<code>root:x:0:0:root:/root:/bin/tcsh</code></li>
+<li>Edit the <code>.tcshrc</code>file in root’s home.
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#  .tcshrc#  User specific aliases and functionsalias rm &#8216;rm -i&#8217;<br />
+alias cp &#8216;cp -i&#8217;<br />
+alias mv &#8216;mv -i&#8217;set prompt='[%n@%m %c]# &#8216;</p>
+<p>setenv PATH ${PATH}:/opt/sun/cam/bin</p>
+<p>#  Make command completion (TAB key) cycle through all possible choices<br />
+#  (The default is to simply display a list of all choices when more than one<br />
+#  match is available.)<br />
+bindkey &#8220;^I&#8221; complete-word-fwd</p>
+</div>
+</li>
+<li>Logout and back in for it to take affect.</li>
+</ul>
+</li>
+<li>Edit <code>/etc/hosts</code>. Add a line with IP and domain name.
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#  Do not remove the following line, or various programs<br />
+#  that require network functionality will fail.<br />
+127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4<br />
+::1 localhost localhost.localdomain localhost6 localhost6.localdomain6#  External IPs<br />
+192.168.1.1 bill.com<br />
+192.168.1.2 ted.com192.168.1.3 domain.com # this needs to be an IP that the cluster server can manage#  Internal IPs<br />
+192.168.1.11 bill.localdomain bill # notice the .localdomain, this is necessary for mysql later<br />
+192.168.1.12 ted.localdomain ted othernode # this is bill&#8217;s hosts file. othernode would be on the bill line for ted&#8217;s hosts file.<br />
+#  ServicePort IPs<br />
+192.168.1.21 billsp # I like to have a short name to use to connect to the service port (ELOM)<br />
+192.168.1.22 tedsp</p>
+<p>#  Internal Services<br />
+192.168.1.100 http.localdomain httpd.localdomain<br />
+192.168.1.101 mysql.localdomain<br />
+192.168.1.102 memcached.localdomain</p>
+</div>
+</li>
+<li>Run <code>updatedb</code> to set up the <code>locate</code> database.</li>
+<li>Edit password settings to allow for stricter control over passwords. This requires strong passwords or the use of passphrases.
+<ul>
+<li>Check here for updated info: <a href="http://www.nsa.gov/ia/guidance/security_configuration_guides/operating_systems.shtml#linux2">http://www.nsa.gov/ia/guidance/security_configuration_guides/operating_systems.shtml#linux2</a></li>
+<li>Edit the <code>/etc/pam.d/system-auth</code>file. Change the line<code>password requisite pam_cracklib.so try_first_pass retry=3</code>to this<code>password requisite pam_passwdqc.so min=disabled,disabled,16,12,8</code></li>
+</ul>
+</li>
+<li>[Optional] Firefox: <code>yum update</code>, and then a<code>yum install firefox xorg-x11-xauth xorg-x11-fonts-Type1</code>There will be more you’ll need too.
+<ul>
+<li>If you get this error: <code>process 702: D-Bus library appears to be incorrectly set up; failed to read machine uuid: Failed to open "/var/lib/dbus/machine-id": No such file or directory</code>. Then run the following command as root.
+<ul>
+<li><code>dbus-uuidgen &gt; /var/lib/dbus/machine-id</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Set up ssh keys
+<ul>
+<li><code>ssh-keygen</code></li>
+<li>Copy the id_rsa.pub file to the other node</li>
+<li>Copy the contents of id_rsa.pub to <code>cat id_rsa.pub &gt;&gt; ~/.ssh/authorized_keys</code></li>
+<li>Double check permission on <code>authorized_keys</code> and <code>id_rsa</code> both set to <code>rw-------</code></li>
+<li>You should now be able to log in from bill to ted (and vice versa) without a password.</li>
+</ul>
+</li>
+</ol>
+<pre></pre>
+<h2>Shorewall</h2>
+<ul>
+<li>Yum Install:
+<ul>
+<li>Get EPEL repository. Visit <a href="http://fedoraproject.org/wiki/EPEL">http://fedoraproject.org/wiki/EPEL</a> to get the URL for the correct rpm. Something like: epel-release-6-5.noarch.rpm.</li>
+<li>Copy that URL and run<code>rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-5.noarch.rpm</code>on the machine.</li>
+<li>Edit the <code>/etc/yum.repos.d/epel.repo</code> file and set the first “enabled” line to equal 0. That disables yum from using the EPEL repo by default.</li>
+<li>Install shorewall with yum.<code>yum --enablerepo=epel install shorewall</code></li>
+</ul>
+</li>
+<li>Enable program to run by editing the <code>/etc/shorewall/shorewall.conf</code> file. Change the <code>STARTUP_ENABLED=NO</code>to<code>STARTUP_ENABLED=Yes</code></li>
+<li>Edit the shorewall config files.</li>
+<li>Edit the <code>/etc/shorewall/zones</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#<br />
+#  Shorewall version 4 – Zones File<br />
+#<br />
+#  For information about this file, type “man shorewall-zones”<br />
+#<br />
+#  The manpage is also online at<br />
+#  http://www.shorewall.net/manpages/shorewall-zones.html<br />
+#<br />
+###############################################################################<br />
+#ZONE TYPE OPTIONS IN OUT<br />
+#  OPTIONS OPTIONSnet ipv4 # The big bad Internet<br />
+loc ipv4 # Internal LAN<br />
+fw firewall#LAST LINE – ADD YOUR ENTRIES ABOVE THIS ONE – DO NOT REMOVE#LAST LINE – ADD YOUR ENTRIES ABOVE THIS ONE – DO NOT REMOVE</div>
+</li>
+</ul>
+</li>
+<li>Edit the <code>/etc/shorewall/interfaces</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#<br />
+#  Shorewall version 4 – Interfaces File<br />
+#<br />
+#  For information about entries in this file, type “man shorewall-interfaces”<br />
+#<br />
+#  The manpage is also online at<br />
+#  http://www.shorewall.net/manpages/shorewall-interfaces.html<br />
+#<br />
+###############################################################################<br />
+#ZONE INTERFACE BROADCAST OPTIONS<br />
+net eth2<br />
+loc eth1</div>
+</li>
+</ul>
+</li>
+<li>Edit the <code>/etc/shorewall/policy</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">###############################################################################<br />
+#SOURCE DEST POLICY LOG LIMIT: CONNLIMIT:<br />
+#  LEVEL BURST MASK<br />
+#  To/from internal lan<br />
+fw loc ACCEPT<br />
+loc fw ACCEPT<br />
+#  To/from net<br />
+fw net ACCEPT<br />
+net all DROP info<br />
+#<br />
+#  THE FOLLOWING POLICY MUST BE LAST<br />
+#<br />
+all all REJECT info<br />
+#LAST LINE — DO NOT REMOVE</div>
+</li>
+</ul>
+</li>
+<li>Edit the <code>/etc/shorewall/rules</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">######################################################################################<br />
+#ACTION SOURCE DEST PROTO DEST SOURCE ORIGINAL<br />
+#  PORT <acronym title="S">PORT</acronym> DEST<br />
+#SECTION ESTABLISHED<br />
+#SECTION RELATED<br />
+SECTION NEWSECTION NEW#  Standard services<br />
+#<br />
+ACCEPT  net      fw      tcp     ssh<br />
+ACCEPT  net      fw      tcp     80,443Ping/ACCEPT      net      fw</p>
+<p>#LAST LINE — ADD YOUR ENTRIES BEFORE THIS ONE — DO NOT REMOVE</p>
+</div>
+</li>
+</ul>
+</li>
+<li>Edit the <code>/etc/shorewall/routestopped</code>file:
+<ul>
+<li>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#<br />
+#  Shorewall version 4 – Routestopped File<br />
+#<br />
+#  For information about entries in this file, type “man shorewall-routestopped”<br />
+#<br />
+#  The manpage is also online at<br />
+#  http://www.shorewall.net/manpages/shorewall-routestopped.html<br />
+#<br />
+#  See http://shorewall.net/starting_and_stopping_shorewall.htm for additional<br />
+#  information.<br />
+#<br />
+###############################################################################<br />
+#INTERFACE <acronym title="S">HOST</acronym> OPTIONS PROTO DEST SOURCE<br />
+#  <acronym title="S">PORT</acronym> <acronym title="S">PORT</acronym><br />
+eth1     &#8211;<br />
+eth2     &#8211;</div>
+</li>
+</ul>
+</li>
+<li>Set shorewall to start on reboots.<code>chkconfig shorewall on</code></li>
+<li>Start shorewall:<code>service shorewall start</code></li>
+</ul>
+<p>The next part will be <a title="Setting up a Hosting Environment: Part 1 – The servers" href="http://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers.html">connecting the servers to the storage array</a>.</p>
+<div class='sociable'><div><span class='sociable-tagline'>Share and Enjoy:</span></div><ul><li><a rel="nofollow"   href="http://www.printfriendly.com/print/new?url=https%3A%2F%2Fmossiso.com%2F2012%2F03%2F01%2Fsetting-up-a-hosting-environment-part-1-the-servers%2F" ><img decoding="async" src="../wp-content/plugins/sociable-30/images/default/16/printfriendly.png" class="sociable-img sociable-hovers" title="Print" alt="Print" /></a></li><li><a rel="nofollow"   href="http://www.printfriendly.com/print/new?url=https%3A%2F%2Fmossiso.com%2F2012%2F03%2F01%2Fsetting-up-a-hosting-environment-part-1-the-servers%2F" ><img decoding="async" src="../wp-content/plugins/sociable-30/images/default/16/pdf.png" class="sociable-img sociable-hovers" title="PDF" alt="PDF" /></a></li><li><a rel="nofollow"   href="../feed/index.html" ><img decoding="async" src="../wp-content/plugins/sociable-30/images/default/16/rss.png" class="sociable-img sociable-hovers" title="RSS" alt="RSS" /></a></li></ul></div><h3 class='related_post_title'>Related Posts:</h3><ul class='related_post'><li><a href="../setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/index.html" title="Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2">Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2</a></li><li><a href="../making-multiple-mysql-instances-on-one-server/index.html" title="Making Multiple MySQL Instances on One Server">Making Multiple MySQL Instances on One Server</a></li><li><a href="../setting-up-a-hosting-environment-part-2-connecting-the-storage-array/index.html" title="Setting up a Hosting Environment &#8211; Part 2: Connecting the Storage Array">Setting up a Hosting Environment &#8211; Part 2: Connecting the Storage Array</a></li><li><a href="../centos-6-idrac6-and-poweredge-r510/index.html" title="CentOS 6, iDrac6 and PowerEdge R510">CentOS 6, iDrac6 and PowerEdge R510</a></li><li><a href="../making-smf-static/index.html" title="Making SMF static">Making SMF static</a></li></ul>	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="index.html" rel="bookmark"><time class="entry-date published" datetime="2012-03-01T16:00:57-05:00">1 March, 2012</time><time class="updated" datetime="2013-02-01T12:45:19-05:00">1 February, 2013</time></a></span><span class="byline"><span class="author vcard"><span class="screen-reader-text">Author </span><a class="url fn n" href="../author/ammon/index.html">ammon</a></span></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="../category/technical/setting-up-a-hosting-environment/index.html" rel="category tag">Setting up a Hosting Environment</a>, <a href="../category/technical/index.html" rel="category tag">Technical</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../tag/servers/index.html" rel="tag">servers</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1158 -->
+
+	<nav class="navigation post-navigation" aria-label="Posts">
+		<h2 class="screen-reader-text">Post navigation</h2>
+		<div class="nav-links"><div class="nav-previous"><a href="../writing-is-like-carving-in-stone/index.html" rel="prev"><span class="meta-nav" aria-hidden="true">Previous</span> <span class="screen-reader-text">Previous post:</span> <span class="post-title">Writing is like carving in stone</span></a></div><div class="nav-next"><a href="../setting-up-a-hosting-environment-part-2-connecting-the-storage-array/index.html" rel="next"><span class="meta-nav" aria-hidden="true">Next</span> <span class="screen-reader-text">Next post:</span> <span class="post-title">Setting up a Hosting Environment &#8211; Part 2: Connecting the Storage Array</span></a></div></div>
+	</nav>
+		</main><!-- .site-main -->
+	</div><!-- .content-area -->
+
+
+	</div><!-- .site-content -->
+
+	<footer id="colophon" class="site-footer">
+		<div class="site-info">
+									<a href="https://wordpress.org/" class="imprint">
+				Proudly powered by WordPress			</a>
+		</div><!-- .site-info -->
+	</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+<script src="https://stats.wp.com/e-202432.js" id="jetpack-stats-js" data-wp-strategy="defer"></script>
+<script id="jetpack-stats-js-after">
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"140707563\",\"post\":\"1158\",\"tz\":\"-4\",\"srv\":\"mossiso.com\",\"j\":\"1:13.1.3\"}") ]);
+_stq.push([ "clickTrackerInit", "140707563", "1158" ]);
+</script>
+
+</body>
+</html>

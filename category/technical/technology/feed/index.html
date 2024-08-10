@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Technology &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/category/technical/technology/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Fri, 13 Nov 2020 21:00:48 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>Technology &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Docker Development Environment for Everyone</title>
+		<link>https://mossiso.com/2020/11/13/docker-development-environment-for-everyone/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 13 Nov 2020 19:57:44 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[docker]]></category>
+		<category><![CDATA[docker-compose]]></category>
+		<category><![CDATA[flask]]></category>
+		<category><![CDATA[local development]]></category>
+		<category><![CDATA[pgadmin]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[phpMyAdmin]]></category>
+		<category><![CDATA[postgres]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[web development]]></category>
+		<guid isPermaLink="false">https://mossiso.com/?p=1875</guid>
+
+					<description><![CDATA[One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem. Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly. You&#8217;re in for a special &#8230; <a href="https://mossiso.com/2020/11/13/docker-development-environment-for-everyone/" class="more-link">Continue reading <span class="screen-reader-text">Docker Development Environment for Everyone</span></a>]]></description>
+										<content:encoded><![CDATA[
+<p>One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem.</p>
+
+
+
+<p>Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly.</p>
+
+
+
+<p>You&#8217;re in for a special treat, because I&#8217;m going to show you not one (1), but two (2) different development environments; one for PHP, MySQL, Apache and phpMyAdmin, and one for Python (Flask) and PostgreSQL with pgAdmin. Each of these in a Docker container for ease of use.</p>
+
+
+
+<h2 class="wp-block-heading">Pre-requisites</h2>
+
+
+
+<p>For any of this to work, make sure you have <a href="https://www.docker.com/get-started" data-type="URL" data-id="https://www.docker.com/get-              started">Docker Desktop</a> installed and running.</p>
+
+
+
+<p>We&#8217;ll be using a terminal application for running some commands, so you&#8217;ll need some familiarity with that too.</p>
+
+
+
+<p>Git is used to copy the files from the GitHub repo, but you can also download them as a zip file.</p>
+
+
+
+<figure class="wp-block-image size-large"><img fetchpriority="high" decoding="async" width="1024" height="653" src="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png" alt="" class="wp-image-1882" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">PMAMP</h2>
+
+
+
+<p>We&#8217;ll tackle the <strong>P</strong>hp<strong>M</strong>yadmin <strong>A</strong>pache <strong>M</strong>ysql <strong>P</strong>hp (PMAMP) environment first.</p>
+
+
+
+<p>After setting this up, we&#8217;ll have a place to put PHP code, a running Apache web server, a MySQL server and a running instance of phpMyAdmin.</p>
+
+
+
+<p>The quickest way to get this going is to download the files from this GitHub repo <a href="https://github.com/ammonshepherd/pmamp" target="_blank" rel="noreferrer noopener">https://github.com/ammonshepherd/pmamp</a></p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pmamp.git</code></p>
+
+
+
+<p>Change into that directory.</p>
+
+
+
+<p><code class="wp-block-code">cd pmamp</code></p>
+
+
+
+<p>And start the Docker containers</p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You can view the website at <a href="http://lvh.me">http://lvh.me</a>. lvh.me is just a nice service that points back to your local machine (127.0.0.1 or localhost). It makes it look like you are using a real domain name.</p>
+
+
+
+<p>You can view phpMyAdmin at <a href="http://pma.lvh.me">http://pma.lvh.me</a>.</p>
+
+
+
+<p>You can even use a real domain name. Just edit the docker-compose.yml file. There is a line like this: &nbsp;</p>
+
+
+
+<p><code class="wp-block-code">- "traefik.http.routers.php-apache.rule=Host('lvh.me', 'pmamp.lvh.me', 'example.com')"</code></p>
+
+
+
+<p>Just add your domain to the list (or remove the other ones). Each entry must use the backtick, rather than the single quotes. WordPress mangles the backticks, so I am using single quotes here.</p>
+
+
+
+<p>Now you just need to let your computer know to redirect all traffic to that domain name to itself.</p>
+
+
+
+<p>You&#8217;ll need to edit the /etc/hosts file (<a href="https://www.makeuseof.com/tag/modify-manage-hosts-file-linux/">Linux or Mac</a>), or c:\windows\system32\drivers\etc\hosts (<a href="https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/">Windows</a>). Now you can develop for any domain name right on your computer as if it were using the actual domain name.</p>
+
+
+
+<p>Put all of your website files in the &#8216;www&#8217; folder and you&#8217;re ready to develop!</p>
+
+
+
+<p>Check the README at <a href="https://github.com/ammonshepherd/pmamp">https://github.com/ammonshepherd/pmamp</a> for more details on how it works and things to change.</p>
+
+
+
+<p>To stop the services (turn off Apache, MySQL and phpAdmin) run</p>
+
+
+
+<p><code class="wp-block-code">docker-compose down </code></p>
+
+
+
+<p>in the same directory where the docker-compose.yml file lives.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="653" src="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png" alt="" class="wp-image-1883" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">pFp</h2>
+
+
+
+<p>The set up for Python (using a Flask app) and PostgreSQL is exactly the same process.</p>
+
+
+
+<p>Grab the files from <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a>.</p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pfp.git</code></p>
+
+
+
+<p><code class="wp-block-code">cd pfp</code></p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You now have a running Flask app at <a href="http://lvh.me">http://lvh.me</a>, or <a href="http://pfp.lvh.me">http://pfp.lvh.me</a> and a running pgAdmin application at <a href="http://pga.lvh.me">http://pga.lvh.me</a>.</p>
+
+
+
+<p>The same trick for custom domain names applies here too.</p>
+
+
+
+<p>And also check out the README for more details: <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a></p>
+
+
+
+<p>Follow the same commands above to shutdown the Python, PostgreSQL and pgAdmin containers.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1875</post-id>	</item>
+		<item>
+		<title>Quick WP upgrading with WPCLI</title>
+		<link>https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 03 Jan 2018 20:30:59 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[update WP]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1683</guid>
+
+					<description><![CDATA[This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself. Requirements ssh access to your server wp-cli command installed (instructions for installing wp-cli at http://wp-cli.org/) Install/Upgrade WP CLI wp-cli should be upgraded each time a WordPress installation is upgraded. wp cli update Upgrade WP Prep work Change into the &#8230; <a href="https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/" class="more-link">Continue reading <span class="screen-reader-text">Quick WP upgrading with WPCLI</span></a>]]></description>
+										<content:encoded><![CDATA[<p>This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself.</p>
+<h1>Requirements</h1>
+<ul>
+<li>ssh access to your server</li>
+<li>wp-cli command installed (instructions for installing wp-cli at <a href="http://wp-cli.org/">http://wp-cli.org/</a>)</li>
+</ul>
+<h2>Install/Upgrade WP CLI</h2>
+<ul>
+<li><strong>wp-cli should be upgraded each time a WordPress installation is upgraded.</strong></li>
+</ul>
+<pre><code>wp cli update
+</code></pre>
+<h2>Upgrade WP</h2>
+<h3>Prep work</h3>
+<p>Change into the WP directory</p>
+<pre><code>cd /path/to/wordpress/installation/
+</code></pre>
+<p>Make a list of active plugins</p>
+<pre><code>wp plugin list --status=active --format=csv --fields=name | tail -n +2 &gt; ../active-plugins.txt
+</code></pre>
+<h3>Update all plugins</h3>
+<pre><code>wp plugin update --all
+</code></pre>
+<h3>Deactivate all of the plugins</h3>
+<pre><code>wp plugin deactivate --all
+</code></pre>
+<h3>Upgrade WordPress</h3>
+<pre><code>wp core update
+</code></pre>
+<h3>Reactivate all of the previously active plugins.</h3>
+<pre><code>cat ../active-plugins.txt | xargs wp plugin activate
+</code></pre>
+<h1>Check the site in various browsers (make sure cache has been cleared).</h1>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1683</post-id>	</item>
+		<item>
+		<title>Setting up a Hosting Environment, Part 5: Apache and PHP</title>
+		<link>https://mossiso.com/2014/09/22/setting-up-a-hosting-environment-part-5-apache-and-php/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Mon, 22 Sep 2014 18:13:28 +0000</pubDate>
+				<category><![CDATA[Setting up a Hosting Environment]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[apache.worker]]></category>
+		<category><![CDATA[apc]]></category>
+		<category><![CDATA[CentOS]]></category>
+		<category><![CDATA[mod_fastcti]]></category>
+		<category><![CDATA[mod_fcgi]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[php-fpm]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1426</guid>
+
+					<description><![CDATA[Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one &#8230; <a href="https://mossiso.com/2014/09/22/setting-up-a-hosting-environment-part-5-apache-and-php/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment, Part 5: Apache and PHP</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one point Mr. Knox exclaims:<br />
+&#8220;I can&#8217;t blab such blibber blubber!<br />
+My tongue isn&#8217;t make of rubber.&#8221;</p>
+<p>That&#8217;s what my brain felt like after trying to figure all of the options for Apache and PHP. To combat my rubber brain, I created this flow-chart to help me keep track of the options, the pros and cons for each, and the path I finally chose.</p>
+<p>First off, a list of requirements and goals:</p>
+<ol>
+<li>Chroot each vhost to it&#8217;s own directory, and have Apache and PHP run on that vhost&#8217;s server account</li>
+<li>Speed, run Apache and PHP at their most effective and efficient levels</li>
+<li>Utilize an opcode cache, APC, to speed up PHP pages</li>
+<li>Use trusted repositories to make installation and upgrading easier</li>
+</ol>
+<p>Here&#8217;s what I eventually figured out about Apache and PHP:</p>
+<p><figure id="attachment_1427" aria-describedby="caption-attachment-1427" style="width: 625px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png"><img decoding="async" class="size-large wp-image-1427" src="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png" alt="ApachePHP" width="625" height="1017" srcset="https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png 629w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-184x300.png 184w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-250x406.png 250w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-92x150.png 92w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-624x1015.png 624w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png 1087w" sizes="(max-width: 625px) 100vw, 625px" /></a><figcaption id="caption-attachment-1427" class="wp-caption-text">Click on the image to see a larger view</figcaption></figure></p>
+<p>These sites were helpful for the initial set up of PHP as CGI with mod_fcgi and Apache in chroot (mod_fcgi sends one request to each PHP process regardless if PHP children are available to handle more, and no sharing of APC opcode cache across PHP processes):</p>
+<ul>
+<li><a href="http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2">http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2</a></li>
+<li><a href="http://forum.linode.com/viewtopic.php?t=2982">http://forum.linode.com/viewtopic.php?t=2982</a></li>
+</ul>
+<p>This site was helpful for setting up PHP as CGI with mod_fastcgi and Apache in chroot (mod_fastcgi sends multiple requests to a PHP process, so the process can send them to children processes, and having one PHP process for each site allows for APC opcode cache to be usable.)</p>
+<ul>
+<li><a href="http://www.brandonturner.net/blog/2009/07/fastcgi_with_php_opcode_cache/">http://www.brandonturner.net/blog/2009/07/fastcgi_with_php_opcode_cache/</a></li>
+</ul>
+<p>These sites helped me learn about php-fpm and how it is not quite ready for what I have in mind:</p>
+<ul>
+<li><a href="http://www.makina-corpus.org/blog/install-drupal-php-fpm-fastcgi-apache-and-chroot-php-fpm">http://www.makina-corpus.org/blog/install-drupal-php-fpm-fastcgi-apache-and-chroot-php-fpm</a></li>
+<li><a href="https://groups.google.com/forum/?fromgroups=#!topic/highload-php-en/Uq2MDrudMQ4">https://groups.google.com/forum/?fromgroups=#!topic/highload-php-en/Uq2MDrudMQ4</a></li>
+</ul>
+<p>I ended up going with Apache&#8217;s mod_fastcgi for using PHP as a CGI, and NOT using PHP-FPM, while running Apache in threaded mode with apache.worker enabled.</p>
+<p>To get this set up is pretty easy. I already had Apache and PHP installed and running (with PHP as CGI using mod_fcgi), so here are the steps I used to convert it to run mod_fastcgi and apache.worker. I&#8217;m running CentOS 6.3.</p>
+<h4>Install the RPMForge repo for installing mod_fastcgi.</h4>
+<ul>
+<li>Get latest from <a href="http://repoforge.org/use/">http://repoforge.org/use/</a> : <code>rpm -Uvh http://pkgs.repoforge.org/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm</code></li>
+<li><code>yum --enablerepo=rpmforge install mod_fastcgi</code></li>
+</ul>
+<h4>Edit the <code>/etc/httpd/conf/httpd.conf</code> file</h4>
+<ul>
+<li><code>ServerTokens Prod</code></li>
+<li><code>KeepAlive On</code></li>
+<li>Edit the worker section. I still need to do some testing to figure out the best configuration
+<pre class="decode-attributes:false lang:apache decode:true ">&lt;IfModule worker.c&gt;
+    StartServers         8
+    MaxClients         300
+    MinSpareThreads     25
+    MaxSpareThreads     75
+    ThreadsPerChild     25
+    MaxRequestsPerChild  0
+&lt;/IfModule&gt;</pre>
+</li>
+<li>If there, make sure to comment out, or delete the lines for mod_php: <code>LoadModule php5_module modules/libphp5.so</code></li>
+<li>this line also: <code>AddType application/x-httpd-php .php</code></li>
+<li>The last line should be: <code>Include conf/virtual_hosts.conf</code></li>
+</ul>
+<p>&nbsp;</p>
+<h4>Create a <code>/etc/httpd/conf/virtual_hosts.conf</code> file</h4>
+<p>Each virtual host needs to have an entry similar to this in the httpd.conf file, or I like to create a separate virtual_host.conf and include that in the main httpd.conf.</p>
+<pre class="decode-attributes:false lang:apache decode:true"># Name-based virtual hosts
+#
+
+# Default
+NameVirtualHost *:80
+
+# Begin domain-name.com section
+&lt;VirtualHost *:80&gt;
+    DocumentRoot /var/domain-name/home/html/
+    ServerName domain-name.com
+    ServerAlias www.domain-name.com
+
+    # Rewrite domain name to not use the 'www'
+    RewriteEngine On
+    RewriteCond %{HTTP_HOST}    !^domain-name\.com$ [NC]
+    RewriteRule ^/(.*)  http://domain-name.com/$1 [R=301]
+
+    # Specify where the error logs go for each domain
+    ErrorLog /var/logs/httpd/current/domain-name.com-error_log
+    CustomLog /var/logs/httpd/current/domain-name.com-access_log combined
+
+    &lt;IfModule mod_fastcgi.c&gt;
+        SuexecUserGroup domain-name domain-name
+        ScriptAlias /cgi-bin/ "/var/www/cgi-bin/domain-name/"
+        &lt;Directory "/var/domain-name/home/html"&gt;
+            Options -Indexes FollowSymLinks +ExecCGI
+            AddHandler php5-fastcgi .php
+            Action php5-fastcgi /cgi-bin/php-fastcgi
+            Order allow,deny
+            Allow from all
+        &lt;/Directory&gt;
+    &lt;/IfModule&gt;
+&lt;/VirtualHost&gt;
+# End domain-name.com section</pre>
+<p>Things to note:</p>
+<ul>
+<li>The line with <code>SuexecUserGroup</code> should have the user/group for the project.</li>
+</ul>
+<h4>Create the php-fastcgi file</h4>
+<p>Add a <code>/var/www/cgi-bin/projectname/php-fastcgi</code> file for each project. This allows php to run as FastCGI, and use suEXEC. The php-fastcgi file needs to be under suexec’s default directory path <code>/var/www/cgi-bin/</code>.</p>
+<ul>
+<li>
+<div>
+<pre class="">#!/bin/bash
+#  Set PHPRC to the path for the php.ini file. Change this to
+#  /var/projectname/home/ to let projects have their own php.ini file
+PHPRC=/var/domain-name/home/
+export PHPRC
+export PHP_FCGI_MAX_REQUESTS=5000
+export PHP_FCGI_CHILDREN=5
+exec /usr/bin/php-cgi</pre>
+</div>
+</li>
+</ul>
+<p>Things to note:</p>
+<ul>
+<li>The directory and file created above must be have user/group of the project (the same as the user/group of the /var/projectname/ directory)</li>
+<li>The directory and file must be executable and writable by the owner ONLY.</li>
+<li>If you get Apache Internal Server errors, check <code>/var/log/httpd/suexec.log</code></li>
+<li>For each site, you can specify how much RAM the APC module can use. For large, busy sites, you set this higher. Not setting this defaults to 64MB, which is a bit more than needed for the average WP site. Change the last line in the <code>/var/www/cgi-bin/projectname/php-fastcgi</code> file:
+<ul>
+<li><code>exec /usr/bin/php-cgi -d apc.shm_size=128M</code></li>
+</ul>
+</li>
+</ul>
+<h4>Change php.conf</h4>
+<p>Comment out everything in the <code>/etc/httpd/conf.d/php.conf</code> file so php is not loaded as a module when Apache starts.</p>
+<h4>Apache multi-threaded</h4>
+<p>Edit the <code>/etc/sysconfig/httpd</code> file to allow Apache to use multi-threaded mode (httpd.worker) which handles basic HTML files much nicer (less RAM). Uncomment the line with <code>HTTPD=/usr/sbin/httpd.worker</code></p>
+<h4>Config Check</h4>
+<p>Check the Apache configuration files to see if there are any errors.</p>
+<ul>
+<li><code>service httpd configtest</code></li>
+</ul>
+<p>If all good, restart Apache</p>
+<ul>
+<li><code>service httpd restart</code> This will stop the running httpd service, and then start it again. Use this command after installing or removing a dynamically loaded module such as PHP. OR</li>
+<li><code>service httpd reload</code> This will cause the running httpd service to reload the configuration file. Note that any requests being currently processed will be interrupted, which may cause a client browser to display an error message or render a partial page. OR</li>
+<li><code>service httpd graceful</code> This will cause the running httpd service to reload the configuration file. Note that any requests being currently processed will use the old configuration.</li>
+</ul>
+<h3>Install APC</h3>
+<ul>
+<li><code>pecl install apc</code></li>
+</ul>
+<p>Set up log rotation for Apache</p>
+<ul>
+<li>Add a file <code>/etc/logrotate.d/httpd.monti</code></li>
+<li>
+<div>
+<pre class="decode-attributes:false lang:apache decode:true">/var/logs/httpd/*log {
+    daily
+    rotate 365
+    compress
+    missingok
+    notifempty
+    copytruncate
+    olddir /var/logs/httpd/archives/
+    sharedscripts
+    postrotate
+        /bin/kill -HUP `cat /var/run/httpd/httpd.pid 2&gt;/dev/null` 2&gt; /dev/null || true
+    endscript
+}</pre>
+</div>
+</li>
+</ul>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1426</post-id>	</item>
+		<item>
+		<title>3D printing in the field of history</title>
+		<link>https://mossiso.com/2013/08/27/3d-printing-in-the-field-of-history/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 27 Aug 2013 19:27:30 +0000</pubDate>
+				<category><![CDATA[Academic]]></category>
+		<category><![CDATA[History]]></category>
+		<category><![CDATA[humanities]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[3d printing]]></category>
+		<category><![CDATA[stem]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1518</guid>
+
+					<description><![CDATA[I was asked to lead a discussion on the current status of 3D printing in the humanities, particularly the field of history with a great group of fellow PhD students here at GMU during one of their classes. Here is what we came up with. First of all, 3D printing (in general, but specifically for &#8230; <a href="https://mossiso.com/2013/08/27/3d-printing-in-the-field-of-history/" class="more-link">Continue reading <span class="screen-reader-text">3D printing in the field of history</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I was asked to lead a discussion on the current status of 3D printing in the humanities, particularly the field of history with a great group of fellow PhD students here at GMU during one of their <a href="http://edchnm.gmu.edu/courses/readings804/">classes</a>.</p>
+<p>Here is what we came up with.</p>
+<p>First of all, 3D printing (in general, but specifically for history) can be summarized by the following formula.</p>
+<pre>3D printing for history now = HTML for history in the early 1990's</pre>
+<p><figure id="attachment_1522" aria-describedby="caption-attachment-1522" style="width: 225px" class="wp-caption alignleft"><a href="http://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.13.jpg"><img loading="lazy" decoding="async" class="size-medium wp-image-1522" alt="2013-08-27 14.01.13" src="http://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.13-225x300.jpg" width="225" height="300" srcset="https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.13-225x300.jpg 225w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.13-768x1024.jpg 768w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.13-250x333.jpg 250w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.13-112x150.jpg 112w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.13-624x832.jpg 624w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.13.jpg 1536w" sizes="(max-width: 225px) 100vw, 225px" /></a><figcaption id="caption-attachment-1522" class="wp-caption-text">A replica of the Antikythera Machine, a 1 BCE clockwork device discovered on a shipwreck near Greece in the early 1900&#8217;s.</figcaption></figure></p>
+<p>There is much that can be done, but using a 3D printer for historical research, study, learning, etc, is still very much in a nascent stage. So the question are, what can be done with 3D printing and how does it help us learn about history? We came up with a few ideas.</p>
+<p>First, what can we print with a 3D printer? The limits are just about endless, as long as then are condensed to a 5-inch x 11-inch x 12-inch box.</p>
+<p>The bigger question is what do 3D printed objects help us learn about history? Here we had some good ideas. Printing buildings to scale, along with figurines, can help us determine the scale of real life objects. Determining scale can help us analyze why some things are larger than others, for instance monuments. Why would the Lincoln monument be larger than the Jefferson, and what does that say about our views (or the creators views) about the subject? Life size objects can show true size that are often distorted or masked when never seen in person, like the Mona Lisa, for example, which is remarkably small.</p>
+<p>Preserving rare, fragile, or expensive artifacts has obvious benefits in that it keeps things from getting lost, broken or stolen. 3D historical prints also put physical objects in the hands of students, especially those who might never have the opportunity to handle a real <a href="http://www.gettysburgaddress.com/HTMLS/Souvenirs-civil-war-relic.html">civil war cannonball</a>, a <a href="http://en.wikipedia.org/wiki/Gladius">Roman sword</a>, a model of the <a href="http://en.wikipedia.org/wiki/Antikythera_mechanism">Antikythera Mechanism</a>, or a <a href="http://www.aurorahistoryboutique.com/Titanic-Museum-Quality-Replica-Ship~GA00028.cfm">scale model of the Titanic</a>. A physical object also offers the additional learning opportunity of tactile feedback over images in a book or on screen.</p>
+<p><figure id="attachment_1519" aria-describedby="caption-attachment-1519" style="width: 300px" class="wp-caption alignright"><a href="http://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.01.jpg"><img loading="lazy" decoding="async" class="size-medium wp-image-1519 " alt="2013-08-27 14.01.01" src="http://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.01-300x215.jpg" width="300" height="215" srcset="https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.01-300x215.jpg 300w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.01-1024x734.jpg 1024w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.01-250x179.jpg 250w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.01-150x107.jpg 150w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.01-624x447.jpg 624w, https://mossiso.com/wp-content/uploads/2013/08/2013-08-27-14.01.01.jpg 1332w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1519" class="wp-caption-text">Chopstick holder.</figcaption></figure></p>
+<p>3D printing also offers the opportunity to create inventions that may never have made it into production, such as those from <a href="http://patent-able.tumblr.com/">old patents</a>. We even got to look at one, a chop-stick holder from 1967.</p>
+<p>Using a 3D printer and associated hardware and software in a history classroom provides yet another opportunity to combine multiple disciplines in an educational atmosphere. Everybody benefits when science, engineering, math, technology and the humanities combine (as was noted about a high school class that built a <a href="http://eric.ed.gov/?id=EJ1002124">trebuchet</a>).</p>
+<p>We also talked about the ramifications of 3D printing on the future. Interestingly, similar issues that have voiced throughout history to the introduction of new technology, were also raised during the discussion. What happens when we move production of items back to the individual and away from factories? How do we cope with the replacement of humans by technology?</p>
+<p>At present, the cost to own a printer in your home is still a bit much, but definitely within reach. Three different printers range from $800 (the do-it-yourself RepRap) to $2500 (Makerbot Replicator 2), with a middle priced option by Cubify at $1500. Filament, the plastic line used to create objects, costs around $50 a spool.</p>
+<p>Items printed:</p>
+<p>http://www.thingiverse.com/thing:22849 &#8211; chopstick holder</p>
+<p>http://www.thingiverse.com/thing:32413 &#8211; Antikythera machine</p>
+<p>Have an idea how 3D printers can be used in education? Add a comment below.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1518</post-id>	</item>
+		<item>
+		<title>Backing up MySQL with Replication and Incremental Files &#8211; Part 1</title>
+		<link>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/</link>
+					<comments>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 24 Jul 2012 19:49:38 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[database admin]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[server admin]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1277</guid>
+
+					<description><![CDATA[I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to &#8230; <a href="https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/" class="more-link">Continue reading <span class="screen-reader-text">Backing up MySQL with Replication and Incremental Files &#8211; Part 1</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to backup. You can&#8217;t just copy the data files and then expect to copy them back over and have them just work. Especially if your databases have a mixture of InnoDB and MyISAM tables. In order to do a clean and accurate database backup, you need to stop the MySQL server, then copy the files, then restart MySQL.</p>
+<p>If you have a live production MySQL server, stopping it to make a backup is not really an option. Fortunately there are a few options. Before you decide on which option to choose, here is a list of things to keep in mind when choosing a backup solution (from the MySQL gurus at Percona):</p>
+<h3>WHAT TO LOOK FOR</h3>
+<p><a href="http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/" target="_blank">http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/</a></p>
+<ol>
+<li>Does the backup require shutting down MySQL? If not, what is the impact on the running server? Blocking, I/O load, cache pollution, etc?</li>
+<li>What technique is used for the backup? Is it mysqldump or a custom product that does something similar? Is it a filesystem copy?</li>
+<li>Does the backup system understand that <em>you cannot back up InnoDB by simply copying its files</em>?</li>
+<li>Does the backup use FLUSH TABLES, LOCK TABLES, or FLUSH TABLES WITH READ LOCK? These all interrupt processing.</li>
+<li>What other effects are there on MySQL? I’ve seen systems that do a RESET MASTER, which immediately breaks replication. Are there any FLUSH commands at all, like FLUSH LOGS?</li>
+<li>How does the system guarantee that you can perform point-in-time recovery?</li>
+<li>How does the system guarantee consistency with the binary log, InnoDB logs, and replication?</li>
+<li>Can you use the system to set up new MySQL replication slaves? How?</li>
+<li>Does the system verify that the backup is restorable, e.g. does it run InnoDB recovery before declaring success?</li>
+<li>Does anyone stand behind it with support, and guarantee working, recoverable backups? How strong is the legal guarantee of this and how much insurance do they have?</li>
+</ol>
+<p>&nbsp;</p>
+<h3>BACKUP PROGRAMS</h3>
+<p>There are a few MySQL backup products out there as well. I have used the first two on this list.</p>
+<ul>
+<li><a href="http://sourceforge.net/projects/automysqlbackup/" target="_blank">AutoMySQLBackup</a> script (handy for making a rotating incremental backup of your MySQL databases).</li>
+<li><a href="http://www.percona.com/software/percona-xtrabackup/" target="_blank">Percona XtraBackup</a> (nice way to ensure InnoDB and MyISAM tables are backed up properly, also does it incrementally)</li>
+<li><a href="https://zmanda.com/backup-mysql.html" target="_blank">Zmanda</a> (seems to be similar to Percona&#8217;s set up)</li>
+</ul>
+<p>There&#8217;s probably a gazillion more out there. Google&#8217;s your friend in finding things you need.</p>
+<h3>HOW TO DO IT</h3>
+<p><figure id="attachment_1279" aria-describedby="caption-attachment-1279" style="width: 300px" class="wp-caption alignright"><a href="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png"><img loading="lazy" decoding="async" class="size-medium wp-image-1279" title="master-and-slave" alt="" src="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png" width="300" height="125" srcset="https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png 300w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-250x104.png 250w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-150x62.png 150w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png 503w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1279" class="wp-caption-text">How to get a copy of the master to the slave?</figcaption></figure></p>
+<p>There are several options. You could use a script above, or create a slave of the database (basically an exact copy of the production MySQL server &#8211; all changes that occur in the master are sent to the slave), or some combination. I&#8217;ll use a combination. I&#8217;ll replicate the production server onto the backup server, then run the incremental backups from there. This first part will walk through the process of setting up MySQL replication.</p>
+<p>To give proper credit, here are several other how to&#8217;s I found helpful.</p>
+<ul>
+<li><a href="http://www.badllama.com/content/mysql-backups-using-lvm-snapshots" target="_blank">http://www.badllama.com/content/mysql-backups-using-lvm-snapshots</a></li>
+<li><a href="http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/" target="_blank">http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/</a></li>
+<li><a href="http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html" target="_blank">http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html</a></li>
+<li><a href="http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/" target="_blank">http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/</a></li>
+</ul>
+<h3>On the master server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=1
+innodb_flush_log_at_trx_commit=1
+log_bin=mysql-bin.log
+sync_binlog=1
+</pre>
+</div>
+<p><strong>Step 2.</strong> Make a MySQL user for the slave to use.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">In a MySQL session on the terminal, type in the command:</p>
+<pre class="lang:sql decode:1 " >GRANT REPLICATION SLAVE ON *.* TO 'rep_user'@'localhost' IDENTIFIED BY 'passwordhere';</pre>
+</div>
+<p><strong>Step 3.</strong> Open a terminal session and log in to a MySQL prompt. Type the following command and hit enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >FLUSH TABLES WITH READ LOCK</pre>
+<p>Note: This will lock your database so that no changes can be made from any web applications or other programs. This session should remain open, and the database locked for the next few steps.</p>
+</div>
+<p><strong>Step 4.</strong> After the FLUSH TABLES command finishes, run the following command and press enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >SHOW MASTER STATUS</pre>
+<p>Record the information under &#8220;File Name&#8221; and &#8220;Position&#8221;.</p>
+</div>
+<p><strong>Step 5. </strong> Make a copy of the database files.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<p><strong>5.1 LVM Snapshot:</strong></p>
+<p>In another terminal session, run the following command to make an LVM snapshot of the database.</p>
+<pre class="lang:bash decode:1 " >lvcreate -L10G -s -n mysql-backup /dev/mapper/dbases</pre>
+<p>This creates a snapshot of the database files very quickly. We can use the snapshot later to copy the data to the backup server without interfering with the original database files.</p>
+<p>After this command finishes, you can unlock the database as shown in the next step. Then you can mount the new LVM partition and copy the files to the backup server.</p>
+<pre class="lang:bash decode:1 " >mkdir -p /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >mount -o nouuid /dev/mapper/mysql-backup /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /mnt/mysql-backup user@remote.host:/backup/location</pre>
+<p><strong>5.2 RSYNC:</strong></p>
+<p>If you don&#8217;t have your database files on an LVM partition, you can just copy the files to the backup server now using rsync, scp or what have you. This will take significantly longer (depending on the size of your database), leaving the database in a locked state.</p>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /dbases/mysql user@remote.host:/backup/location</pre>
+<p><strong>5.3 MySQL Dump:</strong></p>
+<p>You could also take a mysqldump of the database and copy that SQL file to the other server.</p>
+<pre class="lang:bash decode:1 " >mysqldump -uuser -p --all-databases &gt; mysql-backup.sql</pre>
+<pre class="lang:bash decode:1 " >scp mysql-backup.sql user@remote.host:/backup/location</pre>
+</div>
+<p><strong>Step 6.</strong> Once the lvcreate command has finished, you can unlock the database.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >UNLOCK TABLES</pre>
+</div>
+<p><strong>Step 7.</strong> If you haven&#8217;t already, copy the copy of the database files to the backup server.</p>
+<h3>On the slave server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=2
+</pre>
+</div>
+<p><strong>Step 2.</strong> Start MySQL and run the following commands in a mysql session to start the MySQL slave.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >
+CHANGE MASTER TO
+MASTER_HOST = "master.server.com",
+MASTER_USER = "rep_user",
+MASTER_PASSWORD = "passwordhere",
+MASTER_LOG_FILE = "mysql-bin.log",
+MASTER_LOG_POS = 2341234;
+</pre>
+<p>The MASTER_HOST is the domain name or IP address of the master server. MASTER_USER, MASTER_PASSWORD were created on the master server in <strong>Step 2</strong>. MASTER_LOG_FILE and MASTER_LOG_POS were gathered in <strong>Step 4</strong>.Then, finally, to start the slave, issue the following command in mysql.</p>
+<pre class="lang:sql decode:1 " >START SLAVE;</pre>
+</div>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1277</post-id>	</item>
+		<item>
+		<title>Many Mechanical Machines</title>
+		<link>https://mossiso.com/2010/09/24/many-mechanical-machines/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 24 Sep 2010 16:09:22 +0000</pubDate>
+				<category><![CDATA[computer history]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[archives]]></category>
+		<category><![CDATA[design]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=462</guid>
+
+					<description><![CDATA[Back again with another roundup of websites promoting some history. This weeks focus is on the computers and other machines. Technologizer has come through in the past year or so with some really fun looks at technology of the past. Here are three: It&#8217;s amazing how ugly and non-functional computers were in the early stages. &#8230; <a href="https://mossiso.com/2010/09/24/many-mechanical-machines/" class="more-link">Continue reading <span class="screen-reader-text">Many Mechanical Machines</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Back again with another roundup of websites promoting some history. This weeks focus is on the computers and other machines.</p>
+<p><a href="http://technologizer.com">Technologizer</a> has come through in the past year or so with some really fun looks at technology of the past. Here are three:</p>
+<div>
+<p><figure id="attachment_463" aria-describedby="caption-attachment-463" style="width: 140px" class="wp-caption alignleft"><a href="http://technologizer.com/2009/06/14/fifteen-classic-pc-design-mistakes/"><img loading="lazy" decoding="async" class="size-full wp-image-463     " style="margin-right: 2px;" title="designmistakes1" src="http://mossiso.com/wp-content/uploads/2010/09/designmistakes1.png" alt="" width="140" height="140" /></a><figcaption id="caption-attachment-463" class="wp-caption-text">15 Classic PC Design Mistakes</figcaption></figure></p>
+<p><figure id="attachment_464" aria-describedby="caption-attachment-464" style="width: 140px" class="wp-caption alignleft"><a href="http://technologizer.com/2009/09/07/weird-laptops/"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-464   " style="margin-right: 2px;" title="laptopia" src="http://mossiso.com/wp-content/uploads/2010/09/laptopia-150x150.png" alt="" width="140" height="140" /></a><figcaption id="caption-attachment-464" class="wp-caption-text">Weird Laptop Designs</figcaption></figure></p>
+<p><figure id="attachment_468" aria-describedby="caption-attachment-468" style="width: 140px" class="wp-caption alignleft"><a href="http://technologizer.com/2010/06/14/videophones/"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-468     " title="videophone-splash1" src="http://mossiso.com/wp-content/uploads/2010/09/videophone-splash1-150x150.jpg" alt="" width="140" height="140" /></a><figcaption id="caption-attachment-468" class="wp-caption-text">132 Years of the videophone</figcaption></figure></p>
+</div>
+<p>It&#8217;s amazing how ugly and non-functional computers were in the early stages. They don&#8217;t seem to be anything like cars. Old cars, some of them anyways, become classics. They were made to look good. Somehow, I guess, computer manufacturers didn&#8217;t think computers would need any style. Sure they were made for businesses, but beige&#8230;. for everything? One of Apple&#8217;s biggest successes has been to transform the look of personal computers. No matter what you think about Apple as a company and Steve Jobs as a person, at least their stuff has some style (which has it&#8217;s own interesting history in that many styles come from old <a href="http://gizmodo.com/343641/1960s-braun-products-hold-the-secrets-to-apples-future">Braun</a> products by <a href="http://kevinrose.com/blogg/2010/8/19/where-does-apple-draw-its-design-inspiration-meet-dieter-ram.html">Dieter Rams</a>).</p>
+<div>
+<p><figure id="attachment_467" aria-describedby="caption-attachment-467" style="width: 150px" class="wp-caption alignleft"><a href="http://oldcomputers.net/"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-467" style="margin-left: 4px; margin-right: 4px;" title="trs80iii" src="http://mossiso.com/wp-content/uploads/2010/09/trs80iii-150x150.gif" alt="" width="150" height="150" /></a><figcaption id="caption-attachment-467" class="wp-caption-text">Old Computer Database</figcaption></figure></p>
+<p><figure id="attachment_466" aria-describedby="caption-attachment-466" style="width: 150px" class="wp-caption alignleft"><a href="http://www.newscientist.com/gallery/dn17805-computer-museums-of-the-world/1"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-466" title="oldcomputer01" src="http://mossiso.com/wp-content/uploads/2010/09/oldcomputer01-150x150.jpg" alt="" width="150" height="150" /></a><figcaption id="caption-attachment-466" class="wp-caption-text">Small Gallery of Old Computers</figcaption></figure></p>
+</div>
+<p>Speaking of old computers&#8230; The <a href="http://oldcomputers.net">Obsolete Technology Website</a> has a plethora of information, a veritable archive, of old technology. It&#8217;s good to see someone is keeping the history of our tech junk. <a href="http://www.newscientist.com">Newscientist</a> also steps in with a small gallery of ancient (read older than 30 years) technology.</p>
+<div>
+<p><figure id="attachment_465" aria-describedby="caption-attachment-465" style="width: 150px" class="wp-caption alignnone"><a href="http://www.geekology.co.za/blog/2009/07/macintosh-startup-chimes-over-the-years/"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-465" title="mac-startup-chimes-osx-startupsound-preference-pane" src="http://mossiso.com/wp-content/uploads/2010/09/mac-startup-chimes-osx-startupsound-preference-pane-150x128.jpg" alt="" width="150" height="128" /></a><figcaption id="caption-attachment-465" class="wp-caption-text">Macintosh Startup Chimes</figcaption></figure></p>
+</div>
+<p>Finally, a trip down memory lane with all of the old Macintosh start up sounds at <a href="http://www.geekology.co.za/">Geekology</a>.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">462</post-id>	</item>
+		<item>
+		<title>40th anniversary of the moon landing</title>
+		<link>https://mossiso.com/2009/07/22/40th-anniversary-of-the-moon-landing/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 22 Jul 2009 20:29:42 +0000</pubDate>
+				<category><![CDATA[aerospace]]></category>
+		<category><![CDATA[computer history]]></category>
+		<category><![CDATA[History]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[digital archives]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[games]]></category>
+		<category><![CDATA[historical artifacts]]></category>
+		<category><![CDATA[maps]]></category>
+		<category><![CDATA[space]]></category>
+		<category><![CDATA[timelines]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=279</guid>
+
+					<description><![CDATA[What space junky, almost historian, geek would I be without posting a little bit about some of the best type of history in existence. I refer, of course, to the history of man&#8217;s endeavors to explore space. On July 20, 1969, Neil Armstrong and Buzz Aldrin became the first humans to step on a celestial &#8230; <a href="https://mossiso.com/2009/07/22/40th-anniversary-of-the-moon-landing/" class="more-link">Continue reading <span class="screen-reader-text">40th anniversary of the moon landing</span></a>]]></description>
+										<content:encoded><![CDATA[<p>What space junky, almost historian, geek would I be without posting a little bit about some of the best type of history in existence. I refer, of course, to the history of man&#8217;s endeavors to explore space. On July 20, 1969, Neil Armstrong and Buzz Aldrin became the first humans to step on a celestial body other than Earth. Michael Collins waited in the Command capsule as the two American astronauts made human history.</p>
+<p>So here are a number of resources and articles describing some cool things about space flight.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-21.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-281" title="Apollo missions poster" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-21.png" alt="Apollo missions poster" width="150" height="100" /></a><a href="http://historicspacecraft.com/index.html">Historic Spacecraft</a> is an archive of space vehicles and other things space related. They have a lot of photos of vehicles, suits, and such. They also have posters and such for sell, if you&#8217;re inclined to have something on your wall. They also have stats and dates for all of the rockets and vehicles listed. A great source for photos for all your space history needs. Also really cool is a list of all completed <a href="http://historicspacecraft.com/Space_Shuttle.html#LIST">Space Shuttle</a> missions. Space Shuttle Discovery has flown the most missions, 36, so far (June 2009) with a total of 126 missions. The Space Shuttle Enterprise never made it to space, but you can see it at the <a href="http://www.nasm.si.edu/UdvarHazy/">Udvar-Hazy National Air and Space Museum</a> in Dulles, VA. I&#8217;ve been there a couple of times, and it is extremely awesome.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-6.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-285" title="Apollo 11 interactive guide" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-6.png" alt="Apollo 11 interactive guide" width="150" height="60" /></a>Next up from <a href="http://www.flightglobal.com/page/Apollo-40th-Anniversary/">Flightglobal</a> is an interactive timeline of sorts, with lots of information about the missions, flights, computers, physics and people who made it possible to put man on the moon. Most amazing about the whole flight, is that everything was based on theory. There was no way to test the actual theoretical physics without flying to the moon and back. &#8220;Although the theoretical physics of travelling to the Moon had been laid down before the advent of the Apollo missions, this was the first time a series of manned missions had put the theory into practice.&#8221;</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-41.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-283" title="apollo 11 software" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-41.png" alt="apollo 11 software" width="150" height="61" /></a>Speaking of computers, <a href="http://linux.com/news/software/developer/29068-apollo-11-story">Linux.com</a> has a neat write up about the software used to guide the Apollo 11 spacecraft to the moon and back. It&#8217;s incredible to think that they were able to do such an amazing thing with technology comparable to today&#8217;s calculators. All of the code used punch cards and took hours to see if it was written properly. Jerry Bostick described the process in the Linux.com article:</p>
+<blockquote><p>&#8220;We would give instructions to the programs by punching cards,&#8221; Bostick said. &#8220;You had to wait at least 12 hours to see if it would work right.&#8221; The early programming was done in the real-time computing complex in Houston using IBM 7094 computers with 64K of memory. There were no hard disks. All the data was stored on magnetic tape, with each computer having about eight tape drives. Most programs used for the mission were written in Fortran, Bostick said. &#8220;After Apollo 1, we upgraded to the biggest and the best equipment that government money could buy, the IBM 360 with an unheard of 1MB of memory. We went all the way from 64K to 1MB.&#8221;</p></blockquote>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-5.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-284" title="lunar lander games" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-5.png" alt="lunar lander games" width="150" height="63" /></a>Moving from space computers to space computer games, the <a href="http://technologizer.com/2009/07/19/lunar-lander/">Technologizer</a> has a great piece about a well loved space game, Lunar Lander. This game started out as a text-based game written by a high school student. It became popular and was later turned into countless graphical spin offs. I&#8217;m playing one on the iPod Touch a bit too much at the moment. You can see I made the top 20 players for a while!</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-10.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-289" title="19th place" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-10.png" alt="19th place" width="300" height="403" srcset="https://mossiso.com/wp-content/uploads/2009/07/Picture-10.png 300w, https://mossiso.com/wp-content/uploads/2009/07/Picture-10-223x300.png 223w, https://mossiso.com/wp-content/uploads/2009/07/Picture-10-250x335.png 250w, https://mossiso.com/wp-content/uploads/2009/07/Picture-10-111x150.png 111w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+<div style="height: 410px;"></div>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-7.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-286" title="museum moon" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-7.png" alt="museum moon" width="150" height="91" /></a>Finally, New Scientist has a number of interesting articles relating to the 40th anniversary of the moon landing. <a href="http://www.newscientist.com/article/mg20327162.500-apollo-special-the-loneliest-museum.html?full=true">One article</a> addresses with the ethics and issues with the moon being a historic spot. Wherever there is a piece of human debris or footstep, it&#8217;s historically valuable. Should all of these sites and artifacts and footprints be protected? What happens when/if tourists are able to visit the moon? Who&#8217;s going to be the museum curator and the tourist guides? I&#8217;ll take that job!</p>
+<p><a href="http://www.newscientist.com/special/apollo-11">Another New Scientist</a> article lists several reasons why the moon is still relevant to science, for government, commercial enterprise and the normal guy.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-9.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-288" title="interactive moon map" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-9.png" alt="interactive moon map" width="150" height="90" /></a>Lastly, <a href="http://www.newscientist.com/embedded/apollo-11-interactive-lunar-map">New Scientist has a neat interactive map</a> showing the many multi-national places on the moon where humans have left their mark and made exploration.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">279</post-id>	</item>
+		<item>
+		<title>Blast from the past</title>
+		<link>https://mossiso.com/2009/05/22/blast-from-the-past/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 22 May 2009 21:39:24 +0000</pubDate>
+				<category><![CDATA[History]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[digital archives]]></category>
+		<category><![CDATA[historical artifacts]]></category>
+		<category><![CDATA[timelines]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=189</guid>
+
+					<description><![CDATA[What I have for you this week are just a few websites that give us access to the past, an historical artifact that uncovers a mystery, and some new ways to do timelines. A great resource, hopefully, for scholars. From their website&#8230;. &#8220;The World Digital Library (WDL) makes available on the Internet, free of charge &#8230; <a href="https://mossiso.com/2009/05/22/blast-from-the-past/" class="more-link">Continue reading <span class="screen-reader-text">Blast from the past</span></a>]]></description>
+										<content:encoded><![CDATA[<p>What I have for you this week are just a few websites that give us access to the past, an historical artifact that uncovers a mystery, and some new ways to do timelines.</p>
+<p><figure id="attachment_188" aria-describedby="caption-attachment-188" style="width: 150px" class="wp-caption alignleft"><a title="wdl" href="http://www.wdl.org/en/" target="_blank"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-188" title="world digital library" src="http://mossiso.com/wp-content/uploads/2009/05/picture-1-150x69.png" alt="World Digital Library" width="150" height="69" /></a><figcaption id="caption-attachment-188" class="wp-caption-text">World Digital Library</figcaption></figure></p>
+<p>A great resource, hopefully, for scholars. From their website&#8230;.</p>
+<p>&#8220;The World Digital Library (WDL) makes available on the Internet, free of charge and in multilingual format, significant primary materials from countries and cultures around the world.</p>
+<p>The principal objectives of the WDL are to:</p>
+<ul>
+<li>Promote international and intercultural understanding;</li>
+<li>Expand the volume and variety of cultural content on the Internet;</li>
+<li>Provide resources for educators, scholars, and general audiences;</li>
+<li>Build capacity in partner institutions to narrow the digital divide within and between countries.&#8221;</li>
+</ul>
+<p><figure id="attachment_190" aria-describedby="caption-attachment-190" style="width: 150px" class="wp-caption alignleft"><a title="cdli" href="http://cdli.ucla.edu/" target="_blank"><img loading="lazy" decoding="async" class="size-thumbnail wp-image-190" title="cdli" src="http://mossiso.com/wp-content/uploads/2009/05/picture-2-150x53.png" alt="cuneform digital library initiative" width="150" height="53" /></a><figcaption id="caption-attachment-190" class="wp-caption-text">cuneform digital library initiative</figcaption></figure></p>
+<p>Related to the WDL, is the CDLI. From their website&#8230;.</p>
+<p><strong>&#8220;The Cuneiform Digital Library Initiative</strong> (CDLI) represents the efforts of an international group of Assyriologists, museum curators and historians of science to make available through the internet the form and content of cuneiform tablets dating from the beginning of writing, ca. 3350 BC, until the end of the pre-Christian era. We estimate the number of these documents currently kept in public and private collections to exceed 500,000 exemplars, of which now nearly 225,000 have been catalogued in electronic form by the CDLI.&#8221;</p>
+<p><figure id="attachment_191" aria-describedby="caption-attachment-191" style="width: 150px" class="wp-caption alignleft"><a title="harrison's sea clock" href="http://www.newscientist.com/article/dn17119-lone-longitude-genius-may-have-had-help.html?DCMP=OTC-rss&amp;nsref=online-news" target="_blank"><img loading="lazy" decoding="async" class="size-full wp-image-191" title="sea clock" src="http://mossiso.com/wp-content/uploads/2009/05/dn17119-1_300.jpg" alt="John Harrison sea clock" width="150" height="112" /></a><figcaption id="caption-attachment-191" class="wp-caption-text">John Harrison sea clock</figcaption></figure></p>
+<p>And here&#8217;s a short read on an interesting historical topic. It seems the history of the longitude will need a small rewrite. What&#8217;s most amazing, though, is the skill and craftsmanship of the compass at the heart of this historical debate.  Created over 270 years ago, the original parts show no sign of wear and tear, while replacement parts broke down after 80 years. A remarkable piece of history.</p>
+<p>The controversy surrounding this clock comes from recent work to replace broken parts from the initial attempt at restoration. It was originally believed that John Harrison created this clock all by himself. He being originally a carpenter, some scholars are a bit skeptic that he could create the intricate brass work needed to create the piece.  The most recent repairs have lead people to believe Harrison had help, and probably commissioned out certain pieces. Comprising over 2000 pieces, this sea clock is a marvel of itself, regardless of who made it.</p>
+<p><strong>Now it&#8217;s time for some timelines!</strong></p>
+<p>It was a <a href="http://news.slashdot.org/article.pl?sid=09/05/20/2337230" target="_blank">shameless publicity post to slashdot</a>, but the timelines got me thinking of other timelines, especially as I&#8217;m creating one of <a href="http://ammica.us/ammon/apostles" target="_blank">my own</a> using <a href="http://www.simile-widgets.org/exhibit/" target="_blank">MIT&#8217;s Exhibit builder</a>, and have created <a href="http://gmu.mossiso.com/689/" target="_blank">one for a course</a>. So, here are a few timeline tools mentioned in the article.</p>
+<div style="margin:60px;"><a href="http://www.simile-widgets.org/timeline/" target="_blank"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-195" title="simile-timeline" src="http://mossiso.com/wp-content/uploads/2009/05/simile-timeline.png" alt="simile-timeline" width="228" height="52" srcset="https://mossiso.com/wp-content/uploads/2009/05/simile-timeline.png 380w, https://mossiso.com/wp-content/uploads/2009/05/simile-timeline-300x68.png 300w, https://mossiso.com/wp-content/uploads/2009/05/simile-timeline-250x57.png 250w, https://mossiso.com/wp-content/uploads/2009/05/simile-timeline-150x34.png 150w" sizes="(max-width: 228px) 100vw, 228px" /></a> SIMILE&#8217;s Timeline: easy to use, just point it to a data file (which is the most dificult part)</div>
+<div style="margin:60px;"><a href="http://timeglider.com/" target="_blank"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-196" title="timeglider" src="http://mossiso.com/wp-content/uploads/2009/05/timeglider.png" alt="timeglider" width="241" height="36" srcset="https://mossiso.com/wp-content/uploads/2009/05/timeglider.png 668w, https://mossiso.com/wp-content/uploads/2009/05/timeglider-300x44.png 300w, https://mossiso.com/wp-content/uploads/2009/05/timeglider-250x37.png 250w, https://mossiso.com/wp-content/uploads/2009/05/timeglider-150x22.png 150w, https://mossiso.com/wp-content/uploads/2009/05/timeglider-624x93.png 624w" sizes="(max-width: 241px) 100vw, 241px" /></a> TimeGlider: Looks like a flashed based version of SIMILE&#8217;s product. A few different features. Here&#8217;s one in action, <a href="http://www.wilsoncenter.org/cwihp/rosenberg/" target="_blank">Rosenberg Cold War trials</a>.</div>
+<div style="margin:60px;"><a href="http://newstimeline.googlelabs.com/" target="_blank"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-194" style="vertical-align: middle;" title="googlenews" src="http://mossiso.com/wp-content/uploads/2009/05/googlenews.png" alt="googlenews" width="155" height="64" srcset="https://mossiso.com/wp-content/uploads/2009/05/googlenews.png 155w, https://mossiso.com/wp-content/uploads/2009/05/googlenews-150x61.png 150w" sizes="(max-width: 155px) 100vw, 155px" /></a> Google&#8217;s News timeline: you can do searches on other things as well. Kind of like a modern timeline.</div>
+<div style="margin:60px;"><a href="http://timerime.com/" target="_blank"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-197" style="vertical-align: middle;" title="timerime" src="http://mossiso.com/wp-content/uploads/2009/05/timerime.png" alt="timerime" width="129" height="108" /></a>TimeRime: They&#8217;re in this for the money, and it doesn&#8217;t look all that great, but I didn&#8217;t spend but more than a couple seconds looking around.</div>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">189</post-id>	</item>
+		<item>
+		<title>Lego History and the Rosetta Stone of the future?</title>
+		<link>https://mossiso.com/2008/08/25/lego-history-rosetta-stone-of-future/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Mon, 25 Aug 2008 22:32:55 +0000</pubDate>
+				<category><![CDATA[History]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[legos]]></category>
+		<category><![CDATA[toys]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=117</guid>
+
+					<description><![CDATA[LEGOS The lego minifig (the little human figure) is celebrating its 30 year birthday today. Yeah Lego! Gizmodo is running a contest for best picture or short film using the minifig. The first and second prizes are the best Lego sets of all time! My brothers and I got these sets as kids. So many &#8230; <a href="https://mossiso.com/2008/08/25/lego-history-rosetta-stone-of-future/" class="more-link">Continue reading <span class="screen-reader-text">Lego History and the Rosetta Stone of the future?</span></a>]]></description>
+										<content:encoded><![CDATA[<p><strong>LEGOS</strong></p>
+<p>The l<a title="Lego B-day" href="http://club.lego.com/en-us/news/NewsDetails.aspx?id=83067" target="_blank">ego minifig</a> (the little human figure) is celebrating its 30 year birthday today. Yeah Lego! <a title="Gizmodo contest" href="http://gizmodo.com/5040808/gizs-lego-minifig-contest-win-the-best-vintage-sets-ever" target="_blank">Gizmodo</a> is running a contest for best picture or short film using the minifig. The first and second prizes are the best Lego sets of all time! My brothers and I got these sets as kids. So many memories</p>
+<p><figure id="attachment_120" aria-describedby="caption-attachment-120" style="width: 234px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2008/08/lego_yellow_castle.jpg"><img loading="lazy" decoding="async" class="size-medium wp-image-120" title="lego_yellow_castle" src="http://mossiso.com/wp-content/uploads/2008/08/lego_yellow_castle-292x300.jpg" alt="" width="234" height="240" srcset="https://mossiso.com/wp-content/uploads/2008/08/lego_yellow_castle-292x300.jpg 292w, https://mossiso.com/wp-content/uploads/2008/08/lego_yellow_castle-250x256.jpg 250w, https://mossiso.com/wp-content/uploads/2008/08/lego_yellow_castle-146x150.jpg 146w, https://mossiso.com/wp-content/uploads/2008/08/lego_yellow_castle.jpg 449w" sizes="(max-width: 234px) 100vw, 234px" /></a><figcaption id="caption-attachment-120" class="wp-caption-text">Yellow Castle Set</figcaption></figure></p>
+<p><figure id="attachment_119" aria-describedby="caption-attachment-119" style="width: 240px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2008/08/lego_galaxy_explorer.jpg"><img loading="lazy" decoding="async" class="size-medium wp-image-119" title="lego_galaxy_explorer" src="http://mossiso.com/wp-content/uploads/2008/08/lego_galaxy_explorer-300x209.jpg" alt="" width="240" height="167" srcset="https://mossiso.com/wp-content/uploads/2008/08/lego_galaxy_explorer-300x209.jpg 300w, https://mossiso.com/wp-content/uploads/2008/08/lego_galaxy_explorer-250x174.jpg 250w, https://mossiso.com/wp-content/uploads/2008/08/lego_galaxy_explorer-150x104.jpg 150w, https://mossiso.com/wp-content/uploads/2008/08/lego_galaxy_explorer.jpg 494w" sizes="(max-width: 240px) 100vw, 240px" /></a><figcaption id="caption-attachment-119" class="wp-caption-text">Galaxy Explorer Set</figcaption></figure></p>
+<p>So many, many meomories come flooding back when I see these pictures. Most of the pieces of these sets are still at my parents&#8217; house.  Check out the videos on Gizmodo for a quick history of the world, told by Legos.</p>
+<p><strong>ROSETTA STONE</strong></p>
+<p>I heard through Slashdot about a project to create the ultimate <a title="Rosettaproject.org" href="http://www.rosettaproject.org/about-us/disk/technology" target="_blank">Rosetta Stone</a> of the future.</p>
+<p><figure id="attachment_121" aria-describedby="caption-attachment-121" style="width: 175px" class="wp-caption alignleft"><a href="http://mossiso.com/wp-content/uploads/2008/08/rosettafront.jpg"><img loading="lazy" decoding="async" class="size-medium wp-image-121" title="rosettafront" src="http://mossiso.com/wp-content/uploads/2008/08/rosettafront-292x300.jpg" alt="" width="175" height="180" srcset="https://mossiso.com/wp-content/uploads/2008/08/rosettafront-292x300.jpg 292w, https://mossiso.com/wp-content/uploads/2008/08/rosettafront-250x256.jpg 250w, https://mossiso.com/wp-content/uploads/2008/08/rosettafront-146x150.jpg 146w, https://mossiso.com/wp-content/uploads/2008/08/rosettafront.jpg 400w" sizes="(max-width: 175px) 100vw, 175px" /></a><figcaption id="caption-attachment-121" class="wp-caption-text">Rosetta Front</figcaption></figure></p>
+<p>The disk will contain text inscribed in nickel, making it impervious to water and all but physical destruction. Written in eight languages, the disk contains over 15,000 documents. The only technology needed to view and decode this disk is a magnifying glass&#8230; with a magnification of at least 1000x. From the website&#8230;</p>
+<blockquote><p>The Disk surface shown here, meant to be a guide to the contents, is etched with a central image of the earth and a message written in eight major world languages: “Languages of the World: This is an archive of over 1,000 human languages assembled in the year 02002 C.E. Magnify 1,000 times to find over 15,000 pages of language documentation.” The text begins at eye-readable scale and spirals down to nano-scale. This tapered ring of languages is intended to maximize the number of people that will be able to read something immediately upon picking up the Disk, as well as implying the directions for using it—‘get a magnifier and there is more.’</p>
+<p><figure id="attachment_122" aria-describedby="caption-attachment-122" style="width: 178px" class="wp-caption alignright"><a href="http://mossiso.com/wp-content/uploads/2008/08/rosettatop.jpg"><img loading="lazy" decoding="async" class="size-medium wp-image-122" title="rosettatop" src="http://mossiso.com/wp-content/uploads/2008/08/rosettatop-297x300.jpg" alt="Rosetta Top" width="178" height="180" srcset="https://mossiso.com/wp-content/uploads/2008/08/rosettatop-297x300.jpg 297w, https://mossiso.com/wp-content/uploads/2008/08/rosettatop-250x251.jpg 250w, https://mossiso.com/wp-content/uploads/2008/08/rosettatop-148x150.jpg 148w, https://mossiso.com/wp-content/uploads/2008/08/rosettatop.jpg 400w" sizes="(max-width: 178px) 100vw, 178px" /></a><figcaption id="caption-attachment-122" class="wp-caption-text">Rosetta Top</figcaption></figure></p>
+<p>On the reverse side of the disk from the globe graphic are 15,000 microetched pages of language documentation. Since each page is a physical rather than digital image, there is no platform or format dependency. Reading the Disk requires only optical magnification. Each page is .019 inches, or half a millimeter, across. This is about equal in width to 5 human hairs, and can be read with a 500X microscope (individual pages are clearly visible with 100X magnification).</p></blockquote>
+<p>The idea is to replicate this disk as many times as possible and distribute it to as many places as possible to ensure survival of knowledge if modern civilization were to be destroyed. You can put yourself on the waiting list to own one of these disks, for the relatively low price of $25,000.</p>
+<p>I like to imagine if the civilization of today were to disapear and the people of the future were to grab hold of this disk, they would be able to learn how the world was at this time. I wonder, though, if the prevalence of information makes such a disk necessary. It&#8217;s hard for me to imagine that all of the data in the plethora of different formats (print, digital, textile, etc) will be destroyed. I do, however, wonder how digital media (text, image, video, etc) will be available in the future. We can already see the trouble of getting data from older media formats like laser disk and 5-inch floppy disks. If the data is properly brought forward with technology (ie. nowadays the best storage media is hard drives, particularly external drives attachable via USB or FireWire) it should always be accessible.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">117</post-id>	</item>
+		<item>
+		<title>THAT podcast</title>
+		<link>https://mossiso.com/2008/01/24/that-podcast/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 25 Jan 2008 03:44:22 +0000</pubDate>
+				<category><![CDATA[humanities]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[chnm]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/93</guid>
+
+					<description><![CDATA[Check out THAT podcast (THAT = The Humanities And Technology). It&#8217;s a new video pod cast put on by a couple of co-workers at CHNM. They interview someone in the technical field about software that helps those of us in the humanities. The first episode includes an interview with Matt Mullenweg, creator of WordPress (the &#8230; <a href="https://mossiso.com/2008/01/24/that-podcast/" class="more-link">Continue reading <span class="screen-reader-text">THAT podcast</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Check out <a href="http://thatpodcast.org">THAT podcast</a> (THAT = The Humanities And Technology).  It&#8217;s a new video pod cast put on by a couple of co-workers at CHNM.  They interview someone in the technical field about software that helps those of us in the humanities.</p>
+<p>The first episode includes an interview with Matt Mullenweg, creator of WordPress (the software running this site!) and shows you how to install and configure ScholarPress (a plug-in to WordPress written by Jeremy Boggs).</p>
+<p>It&#8217;s great stuff, check it out!</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">93</post-id>	</item>
+	</channel>
+</rss>

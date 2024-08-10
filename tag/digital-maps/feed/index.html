@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>digital maps &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/digital-maps/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Thu, 11 Oct 2012 23:07:54 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>digital maps &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>If at first you don&#8217;t succeed</title>
+		<link>https://mossiso.com/2012/10/11/if-at-first-you-dont-succeed/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 11 Oct 2012 23:07:40 +0000</pubDate>
+				<category><![CDATA[Academic]]></category>
+		<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Dissertation]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[exhibit]]></category>
+		<category><![CDATA[json]]></category>
+		<category><![CDATA[maps]]></category>
+		<category><![CDATA[spreadsheets]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1356</guid>
+
+					<description><![CDATA[&#8230;copy somebody&#8217;s code. Or at least your own from the past that works. I finally got the map to work for my Exhibit exhibit. See. &#160; First I copied the tutorial here. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken. So next &#8230; <a href="https://mossiso.com/2012/10/11/if-at-first-you-dont-succeed/" class="more-link">Continue reading <span class="screen-reader-text">If at first you don&#8217;t succeed</span></a>]]></description>
+										<content:encoded><![CDATA[<p>&#8230;copy somebody&#8217;s code. Or at least your own from the past that works.</p>
+<p>I finally got the map to work for my Exhibit exhibit. <a href="http://chnm.gmu.edu/staff/ammon/clio3/tunnels.php">See</a>.</p>
+<p>&nbsp;</p>
+<p>First I copied the tutorial <a href="http://simile.mit.edu/wiki/Exhibit/2.0/Map_View_Tutorial">here</a>. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken.</p>
+<p>So next I commented out all extraneous stuff, and finally got it to work. Now came the fun part of tracking down what code was making my awesome map look like nothing. I narrowed it down to something within the &lt;header&gt; tag. So line by line I uncommented and tested until I tracked the issue down to the bootstrap.css file I was using.</p>
+<p>Then came the same process within the bootstrap.css file. It was easily 1000 lines long, so a line by line process wasn&#8217;t going to work. Instead I commented out the first have of the file. Bing, the map displayed, so it was somewhere within that first 500 lines. Then I commented out the first 250 lines. Bing again. I kept dividing the culprits in half until I narrowed it down to styles for the img tag. Commented those out and I was in business.</p>
+<p>Through that grueling process I lost the images of the documents on the first page. Now I have to figure out how to get those back, apply some styling and we&#8217;re all set.</p>
+<p>Unfortunately I wasn&#8217;t ever able to get it to pull in the data from a spreadsheet, so the JSON file will have to do. The process for making a JSON file from a spreadsheet is simple:</p>
+<p>1. Make the spreadsheet file so that the headers are encapsulated with curly braces &#8216;{ }&#8217;</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png"><img fetchpriority="high" decoding="async" class="alignnone size-full wp-image-1361" title="Screen Shot 2012-10-11 at 6.44.16 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png" alt="" width="800" height="76" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png 800w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-300x28.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-250x23.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-150x14.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-624x59.png 624w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>2. If you&#8217;re using Google spreadsheets, export it as an Excel file. You&#8217;ll have to open it in Excel and save it as an older file format, because the next step doesn&#8217;t like .xlsx.</p>
+<p>3. Next, use <a href="http://service.simile-widgets.org/babel/">Similie&#8217;s Babel tool</a> to convert the spreadsheet to JSON.</p>
+<p>4. Select &#8220;Excel&#8221; as the &#8220;from format&#8221; and &#8220;Exhibit JSON&#8221; as the &#8220;to format&#8221; and then browse to find the xls file you just made.</p>
+<p>5. Click the &#8220;Upload and Convert&#8221; button.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png"><img decoding="async" class="alignnone size-large wp-image-1360" title="Screen Shot 2012-10-11 at 6.50.19 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png" alt="" width="550" height="254" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-300x139.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-250x115.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-150x69.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-624x289.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png 1294w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>6. The next screen is all of your spreadsheet data output into a nice JSON format.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png"><img decoding="async" class="alignnone size-full wp-image-1359" title="Screen Shot 2012-10-11 at 6.50.27 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png" alt="" width="527" height="860" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png 527w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-183x300.png 183w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-250x407.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-91x150.png 91w" sizes="(max-width: 527px) 100vw, 527px" /></a></p>
+<p>7. Now you can use this JSON file for any number of things. But it&#8217;s especially nice to use it in an Exhibit to display your data.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-1357" title="Screen Shot 2012-10-11 at 6.52.53 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png" alt="" width="550" height="422" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-300x230.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-250x192.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-150x115.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-624x479.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png 1110w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>This is cross posted at the class blog <a href="http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/">http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/</a></p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1356</post-id>	</item>
+		<item>
+		<title>Poster Session at the History of Ed</title>
+		<link>https://mossiso.com/2009/11/18/poster-session-at-the-history-of-ed/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 18 Nov 2009 22:02:39 +0000</pubDate>
+				<category><![CDATA[History]]></category>
+		<category><![CDATA[humanities]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[conferences]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[digital tools]]></category>
+		<category><![CDATA[geography]]></category>
+		<category><![CDATA[maps]]></category>
+		<category><![CDATA[presentation]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=345</guid>
+
+					<description><![CDATA[At the beginning of the year I was asked to participate in a poster session for the History of Education Society&#8217;s Annual Meeting. I have done a few things with maps, so I was asked to share resources and ideas for using maps with teaching history. Not too many people came by, so I only &#8230; <a href="https://mossiso.com/2009/11/18/poster-session-at-the-history-of-ed/" class="more-link">Continue reading <span class="screen-reader-text">Poster Session at the History of Ed</span></a>]]></description>
+										<content:encoded><![CDATA[<p>At the beginning of the year I was asked to participate in a poster session for the <a href="http://www.historyofeducation.org/annual_meeting.html">History of Education Society&#8217;s Annual Meeting</a>. I have done a few things with maps, so I was asked to share resources and ideas for using maps with teaching history.</p>
+<p>Not too many people came by, so I only spoke with two people. I had this list of resources for working with and teaching with maps:</p>
+<div id="mapflier">
+<h3>History and Maps</h3>
+<h4>Selected Websites</h4>
+<p><a href="http://chnm.gmu.edu/worldhistorysources/unpacking/mapsmain.html">http://chnm.gmu.edu/worldhistorysources/unpacking/mapsmain.html</a> (CHNM’s site on using maps in the classroom)<br />
+<a href="http://echo.gmu.edu/search/node/map">http://echo.gmu.edu/search/node/map</a> (A list of map resources on the web, collected by GMU’s Echo project)<br />
+<a href="http://memory.loc.gov/ammem/gmdhtml/">http://memory.loc.gov/ammem/gmdhtml/</a> (Library of Congress Map Collections)<br />
+<a href="http://www.besthistorysites.net/Maps.shtml">http://www.besthistorysites.net/Maps.shtml</a> (A long list of map related websites for teaching history)<br />
+<a href="http://explorethemed.com/Default.asp">http://explorethemed.com/Default.asp</a> (Historical Atlas of the Mediterranean)<br />
+<a href="http://www.lib.utexas.edu/maps/">http://www.lib.utexas.edu/maps/</a> (Tons of maps sponsored by University of Texas at Austin)<br />
+<a href="http://www.flu.gov/whereyoulive/healthmap/">http://www.flu.gov/whereyoulive/healthmap/</a> (US Gov. Flu Map)<br />
+<a href="http://www.unc.edu/awmc/index.html">http://www.unc.edu/awmc/index.html</a> (Ancient World Mapping Center)<br />
+<a href="http://strangemaps.wordpress.com/">http://strangemaps.wordpress.com/</a> (Hundreds of posts about strange maps. Very good discussion starters.)</p>
+<h4>Selected Bibliography</h4>
+<p>Brown, Lloyd Arnold. The Story of Maps. New York: Dover Publications, 1979.<br />
+Bruckner, Martin. The Geographic Revolution in Early America: Maps, Literacy, and National Identity. Chapel Hill: Published for the Omohundro Institute of Early American History and Culture by University of North Carolina Press, 2006.<br />
+Field Museum of Natural History, and Newberry Library. Maps: Finding Our Place in the World. Chicago: University of Chicago Press, 2007.<br />
+Knowles, Anne Kelly, and Amy Hillier. Placing History: How Maps, Spatial Data, and GIS Are Changing Historical Scholarship. Pap/Cdr. ESRI Press, 2008.<br />
+Pickles, John. A History of Spaces: Cartographic Reason, Mapping, and the Geo-Coded World. London: Routledge, 2004.<br />
+Turnbull, David, and Deakin University. Maps Are Territories: Science Is an Atlas: A Portfolio of Exhibits. University of Chicago Press ed. Chicago: University of Chicago Press, 1993.<br />
+Virga, Vincent, and Library of Congress. Cartographia: Mapping Civilizations. Little, Brown and Company, 2007.</p></div>
+<p>And this Keynote playing on my laptop:</p>
+<p><object classid='clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B' width="530" height="465" codebase='http://www.apple.com/qtactivex/qtplugin.cab'><param name='src' value="http://mossiso.com/wp-content/uploads/2009/11/MapsKeynote1.mov"></param><param name='autoplay' value="false"></param><param name='controller' value="true"></param><param name='loop' value="false"></param></object></p>
+]]></content:encoded>
+					
+		
+		<enclosure url="http://historicalwebber.mossiso.com/site/wp-content/uploads/2009/11/MapsKeynote1.mov" length="229741" type="video/quicktime" />
+<enclosure url="http://historicalwebber.mossiso.com/site/wp-content/uploads/2009/11/MapsKeynote1.mov" length="229741" type="video/quicktime" />
+
+		<post-id xmlns="com-wordpress:feed-additions:1">345</post-id>	</item>
+		<item>
+		<title>40th anniversary of the moon landing</title>
+		<link>https://mossiso.com/2009/07/22/40th-anniversary-of-the-moon-landing/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 22 Jul 2009 20:29:42 +0000</pubDate>
+				<category><![CDATA[aerospace]]></category>
+		<category><![CDATA[computer history]]></category>
+		<category><![CDATA[History]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[digital archives]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[games]]></category>
+		<category><![CDATA[historical artifacts]]></category>
+		<category><![CDATA[maps]]></category>
+		<category><![CDATA[space]]></category>
+		<category><![CDATA[timelines]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/?p=279</guid>
+
+					<description><![CDATA[What space junky, almost historian, geek would I be without posting a little bit about some of the best type of history in existence. I refer, of course, to the history of man&#8217;s endeavors to explore space. On July 20, 1969, Neil Armstrong and Buzz Aldrin became the first humans to step on a celestial &#8230; <a href="https://mossiso.com/2009/07/22/40th-anniversary-of-the-moon-landing/" class="more-link">Continue reading <span class="screen-reader-text">40th anniversary of the moon landing</span></a>]]></description>
+										<content:encoded><![CDATA[<p>What space junky, almost historian, geek would I be without posting a little bit about some of the best type of history in existence. I refer, of course, to the history of man&#8217;s endeavors to explore space. On July 20, 1969, Neil Armstrong and Buzz Aldrin became the first humans to step on a celestial body other than Earth. Michael Collins waited in the Command capsule as the two American astronauts made human history.</p>
+<p>So here are a number of resources and articles describing some cool things about space flight.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-21.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-281" title="Apollo missions poster" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-21.png" alt="Apollo missions poster" width="150" height="100" /></a><a href="http://historicspacecraft.com/index.html">Historic Spacecraft</a> is an archive of space vehicles and other things space related. They have a lot of photos of vehicles, suits, and such. They also have posters and such for sell, if you&#8217;re inclined to have something on your wall. They also have stats and dates for all of the rockets and vehicles listed. A great source for photos for all your space history needs. Also really cool is a list of all completed <a href="http://historicspacecraft.com/Space_Shuttle.html#LIST">Space Shuttle</a> missions. Space Shuttle Discovery has flown the most missions, 36, so far (June 2009) with a total of 126 missions. The Space Shuttle Enterprise never made it to space, but you can see it at the <a href="http://www.nasm.si.edu/UdvarHazy/">Udvar-Hazy National Air and Space Museum</a> in Dulles, VA. I&#8217;ve been there a couple of times, and it is extremely awesome.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-6.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-285" title="Apollo 11 interactive guide" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-6.png" alt="Apollo 11 interactive guide" width="150" height="60" /></a>Next up from <a href="http://www.flightglobal.com/page/Apollo-40th-Anniversary/">Flightglobal</a> is an interactive timeline of sorts, with lots of information about the missions, flights, computers, physics and people who made it possible to put man on the moon. Most amazing about the whole flight, is that everything was based on theory. There was no way to test the actual theoretical physics without flying to the moon and back. &#8220;Although the theoretical physics of travelling to the Moon had been laid down before the advent of the Apollo missions, this was the first time a series of manned missions had put the theory into practice.&#8221;</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-41.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-283" title="apollo 11 software" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-41.png" alt="apollo 11 software" width="150" height="61" /></a>Speaking of computers, <a href="http://linux.com/news/software/developer/29068-apollo-11-story">Linux.com</a> has a neat write up about the software used to guide the Apollo 11 spacecraft to the moon and back. It&#8217;s incredible to think that they were able to do such an amazing thing with technology comparable to today&#8217;s calculators. All of the code used punch cards and took hours to see if it was written properly. Jerry Bostick described the process in the Linux.com article:</p>
+<blockquote><p>&#8220;We would give instructions to the programs by punching cards,&#8221; Bostick said. &#8220;You had to wait at least 12 hours to see if it would work right.&#8221; The early programming was done in the real-time computing complex in Houston using IBM 7094 computers with 64K of memory. There were no hard disks. All the data was stored on magnetic tape, with each computer having about eight tape drives. Most programs used for the mission were written in Fortran, Bostick said. &#8220;After Apollo 1, we upgraded to the biggest and the best equipment that government money could buy, the IBM 360 with an unheard of 1MB of memory. We went all the way from 64K to 1MB.&#8221;</p></blockquote>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-5.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-284" title="lunar lander games" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-5.png" alt="lunar lander games" width="150" height="63" /></a>Moving from space computers to space computer games, the <a href="http://technologizer.com/2009/07/19/lunar-lander/">Technologizer</a> has a great piece about a well loved space game, Lunar Lander. This game started out as a text-based game written by a high school student. It became popular and was later turned into countless graphical spin offs. I&#8217;m playing one on the iPod Touch a bit too much at the moment. You can see I made the top 20 players for a while!</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-10.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-289" title="19th place" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-10.png" alt="19th place" width="300" height="403" srcset="https://mossiso.com/wp-content/uploads/2009/07/Picture-10.png 300w, https://mossiso.com/wp-content/uploads/2009/07/Picture-10-223x300.png 223w, https://mossiso.com/wp-content/uploads/2009/07/Picture-10-250x335.png 250w, https://mossiso.com/wp-content/uploads/2009/07/Picture-10-111x150.png 111w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+<div style="height: 410px;"></div>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-7.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-286" title="museum moon" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-7.png" alt="museum moon" width="150" height="91" /></a>Finally, New Scientist has a number of interesting articles relating to the 40th anniversary of the moon landing. <a href="http://www.newscientist.com/article/mg20327162.500-apollo-special-the-loneliest-museum.html?full=true">One article</a> addresses with the ethics and issues with the moon being a historic spot. Wherever there is a piece of human debris or footstep, it&#8217;s historically valuable. Should all of these sites and artifacts and footprints be protected? What happens when/if tourists are able to visit the moon? Who&#8217;s going to be the museum curator and the tourist guides? I&#8217;ll take that job!</p>
+<p><a href="http://www.newscientist.com/special/apollo-11">Another New Scientist</a> article lists several reasons why the moon is still relevant to science, for government, commercial enterprise and the normal guy.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2009/07/Picture-9.png"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-288" title="interactive moon map" src="http://mossiso.com/wp-content/uploads/2009/07/Picture-9.png" alt="interactive moon map" width="150" height="90" /></a>Lastly, <a href="http://www.newscientist.com/embedded/apollo-11-interactive-lunar-map">New Scientist has a neat interactive map</a> showing the many multi-national places on the moon where humans have left their mark and made exploration.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">279</post-id>	</item>
+		<item>
+		<title>Finished 1989 Flash Map</title>
+		<link>https://mossiso.com/2009/02/10/finished-1989-flash-map/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 10 Feb 2009 22:43:31 +0000</pubDate>
+				<category><![CDATA[History]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[digital tools]]></category>
+		<category><![CDATA[geography]]></category>
+		<category><![CDATA[history of 1989]]></category>
+		<category><![CDATA[timelines]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/finished-1989-flash-map-156.html</guid>
+
+					<description><![CDATA[I had to dig this out of the depths of my computer today, and a quick search showed that I never posted the final version. So here it is in all it&#8217;s glory. 1989 Events [kml_flashembed fversion=&#8221;8.0.0&#8243; movie=&#8221;http://chnm.gmu.edu/staff/ammon/1989/1989events.swf&#8221; targetclass=&#8221;flashmovie&#8221; publishmethod=&#8221;static&#8221; width=&#8221;540&#8243; height=&#8221;360&#8243;] [/kml_flashembed]]]></description>
+										<content:encoded><![CDATA[<p>I had to dig this out of the depths of my computer today, and a quick search showed that I never posted the final version. So here it is in all it&#8217;s glory. <a href="http://chnm.gmu.edu/staff/ammon/1989/1989events.html">1989 Events</a></p>
+<p>[kml_flashembed fversion=&#8221;8.0.0&#8243; movie=&#8221;http://chnm.gmu.edu/staff/ammon/1989/1989events.swf&#8221; targetclass=&#8221;flashmovie&#8221; publishmethod=&#8221;static&#8221; width=&#8221;540&#8243; height=&#8221;360&#8243;]<a href="http://adobe.com/go/getflashplayer"><img decoding="async" src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player" /></a></p>
+<p>[/kml_flashembed]</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">156</post-id>	</item>
+		<item>
+		<title>Graphical representations of genealogy</title>
+		<link>https://mossiso.com/2008/03/05/graphical-representations-of-genealogy/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 05 Mar 2008 18:23:15 +0000</pubDate>
+				<category><![CDATA[computer history]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[genealogy]]></category>
+		<category><![CDATA[maps]]></category>
+		<category><![CDATA[personal history]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/graphical-representations-of-genealogy-99.html</guid>
+
+					<description><![CDATA[I have this thought, and it was brought to mind again by an article on Wired which linked to this artists (Jason Salavon) work with the US census data. Basically, he took the US census data over 200 years and created an image with a ribbon of color representing each county. My idea is similar, &#8230; <a href="https://mossiso.com/2008/03/05/graphical-representations-of-genealogy/" class="more-link">Continue reading <span class="screen-reader-text">Graphical representations of genealogy</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I have this thought, and it was brought to mind again by an article on Wired which linked to this artists (<a href="http://salavon.com/AmVar/AmVarStudy_Stills.php">Jason Salavon</a>) work with the US census data.  Basically, he took the US census data over 200 years and created an image with a ribbon of color representing each county.</p>
+<p>My idea is similar, kind of.  While thinking about projects to do for my history and maps class this semester, and while talking with a colleague, I wondered how one could graphically represent ones genealogy.  Most of us in the United States have ancestors that came from somewhere else. Many of us have ancestors that came from multiple somewhere elses. Looking at my ancestry alone I claim Arizona, Colorado, Utah, England, Sweeden, Germany and I&#8217;m sure several other places I don&#8217;t yet know of. One thought as to how to do this would be with a world map and lines and dots representing locations and familial connections.  The lines and dots would be in gradients of color, each color representing a date. I tried doing a mock up in Photoshop quickly, but it wasn&#8217;t working right. I&#8217;ll have to do it in Flash, since that behaves like I expect.  Flash might be a better platform anyways, because the map is then dynamic and can be dragged, zoomed, and dots and lines can be given data associated with them.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">99</post-id>	</item>
+		<item>
+		<title>New face, new forum</title>
+		<link>https://mossiso.com/2008/02/11/new-face-new-forum/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 12 Feb 2008 04:11:23 +0000</pubDate>
+				<category><![CDATA[computer history]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/95</guid>
+
+					<description><![CDATA[For the one or two besides me who actually visit the site, you&#8217;ll notice a change in looks. I stumbled upon this theme a few days ago, and thought to give it a try. Historically speaking, well actually it&#8217;s very forward thinking, this theme employs a cool idea. The theme is funded by a couple &#8230; <a href="https://mossiso.com/2008/02/11/new-face-new-forum/" class="more-link">Continue reading <span class="screen-reader-text">New face, new forum</span></a>]]></description>
+										<content:encoded><![CDATA[<p>For the one or two besides me who actually visit the site, you&#8217;ll notice a change in looks.  I stumbled upon this <a href="http://wpthemesplugin.com/vestique-2-column-widget-and-125x125-ads-ready-theme/">theme</a> a few days ago, and thought to give it a try.  Historically speaking, well actually it&#8217;s very forward thinking, this theme employs a cool idea.  The theme is funded by a couple of sites, and all they require is to have their links un-obtrusively available in the footer at all times.  So, you can use the theme free if you become a billboard for the funders.  They are not inappropriate sites, so I don&#8217;t mind using the theme.</p>
+<p>You might also notice a new page tab towards the top called <a href="http://historicalwebber.mossiso.com/digitalmaps/">DigitalMaps</a>. This links to a forum I set up for my Hist 798 class at GMU this semester.  We&#8217;re going to make an atlas. Check out the forum for our class ideas and progress.  We&#8217;re going to present our work at THATCamp (mentioned in the previous post).  Should be lots of fun.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">95</post-id>	</item>
+		<item>
+		<title>Soviet music</title>
+		<link>https://mossiso.com/2007/05/22/soviet-music/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 23 May 2007 02:14:24 +0000</pubDate>
+				<category><![CDATA[Academic]]></category>
+		<category><![CDATA[History]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[history of 1989]]></category>
+		<category><![CDATA[maps]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/75</guid>
+
+					<description><![CDATA[I&#8217;m looking for some good soviet music to use as a light background music to the flash timeline. Here are two good sites that catalog and preserve the history of the former USSR in music. http://www.sovmusic.ru/english/index.php http://www.hymn.ru/index-en.html]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;m looking for some good soviet music to use as a light background music to the flash timeline. Here are two good sites that catalog and preserve the history of the former USSR in music.<br />
+<a href="http://www.sovmusic.ru/english/index.php">http://www.sovmusic.ru/english/index.php</a></p>
+<p><a href="http://www.hymn.ru/index-en.html">http://www.hymn.ru/index-en.html</a></p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">75</post-id>	</item>
+		<item>
+		<title>The MA is done, but the map is not….</title>
+		<link>https://mossiso.com/2007/05/16/the-ma-is-done-but-the-map-is-not/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 16 May 2007 22:30:56 +0000</pubDate>
+				<category><![CDATA[Academic]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[history of 1989]]></category>
+		<category><![CDATA[maps]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/74</guid>
+
+					<description><![CDATA[I just turned in my last thing for the MA! I&#8217;m a Master! I do the commencement and walking and stuff tomorrow night. Well, I showed the Yahoo Map and the Flash movie to the 1989 group. They really liked it, but as is always the case, there are some very good suggestions for improvement. &#8230; <a href="https://mossiso.com/2007/05/16/the-ma-is-done-but-the-map-is-not/" class="more-link">Continue reading <span class="screen-reader-text">The MA is done, but the map is not….</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I just turned in my last thing for the MA! I&#8217;m a Master! I do the commencement and walking and stuff tomorrow night.</p>
+<p>Well, I showed the Yahoo Map and the Flash movie to the 1989 group. They really liked it, but as is always the case, there are some very good suggestions for improvement.  And since I have a vested interest in the project (my academic research interests are all about this topic), and since I&#8217;m pretty much the only one at work who can do this stuff, I will be continuing the project until it&#8217;s completion.</p>
+<p>Some suggestions and modifications are:</p>
+<ul>
+<li>Move the text out of the Flash and into the html. This makes it available to search engines and styling.</li>
+<li>Have the timeline only be for 1989, and put tick marks, or some other designator for months on the bar.</li>
+<li>Change the fading of countries. Russia, Latvia, Estonia, Lithuania, and Yugoslavia should not fade out.</li>
+<li>Change Soviet Union to Russia, and outline or shade the Yugoslavia and Soviet Union groups to show they are a group.</li>
+<li>Take out the events for China.</li>
+<li>For the yahoo Map: recenter the map on marker click, and take out the word wrapping.</li>
+</ul>
+<p>So here&#8217;s the latest version of the Flash movie. <a href="http://historicalwebber.mossiso.com/media/1989events_05152007.html">1989events</a></p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">74</post-id>	</item>
+		<item>
+		<title>Making progress</title>
+		<link>https://mossiso.com/2007/05/11/making-progress/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Sat, 12 May 2007 00:48:53 +0000</pubDate>
+				<category><![CDATA[Academic]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[history of 1989]]></category>
+		<category><![CDATA[maps]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/73</guid>
+
+					<description><![CDATA[I took out the audio from the intro because it just wasn&#8217;t working. Perhaps a voice recording about the fall of communism would be better. I worked on the timeline a lot the past couple of days. It took many, many attempts to finally get the dot that represents an event to look nice. Fifteenth &#8230; <a href="https://mossiso.com/2007/05/11/making-progress/" class="more-link">Continue reading <span class="screen-reader-text">Making progress</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I took out the audio from the intro because it just wasn&#8217;t working. Perhaps a voice recording about the fall of communism would be better.</p>
+<p>I worked on the timeline a lot the past couple of days. It took many, many attempts to finally get the dot that represents an event to look nice. Fifteenth times a charm, they say! I also have the events coming in by year, month, and day. There&#8217;s probably an easy way to do that with actionscript, but I couldn&#8217;t think of it. So instead I have a layer for the years, divided into the three years (1987-1989). Then another layer for the months. Each of the three years gets it&#8217;s own set of months. Then a third layer for days (1-31, depending on how many days in the month). The days layer only has frames for November and March of 1989, when most of the events happened. So, on each section of frames I wrote a variable like theYear, theMonth, and theDay in the actionscript. This variable is then checked for in the main actionscript, and matched against the events day, month, year before it is allowed to be displayed.</p>
+<p>It works pretty well, except for the 1989 events for December. The all show up at the same time. So, now I have to fix that, and add another 40+ coordinates to the xml file by deciding where it is located, finding the x, y coords, then typing it into the xml file.</p>
+<p>Anyhow, here&#8217;s the latest and greatest <a href="http://historicalwebber.mossiso.com/media/1989events_05112007.html">Intro_Timeline</a></p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">73</post-id>	</item>
+		<item>
+		<title>How does the yahoo/flash map work…</title>
+		<link>https://mossiso.com/2007/05/11/how-does-the-yahooflash-map-work/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 11 May 2007 15:06:29 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[history of 1989]]></category>
+		<category><![CDATA[maps]]></category>
+		<guid isPermaLink="false">http://historicalwebber.mossiso.com/archives/72</guid>
+
+					<description><![CDATA[There&#8217;s a lot of tutorials out there, but here&#8217;s how I got it to work. The Plan Got what? Oh, well, basically it&#8217;s being able to use yahoo maps, flash, xml, php, mysql, and data to display a bunch of markers on a map. Each marker contains data pulled from the database, and has a &#8230; <a href="https://mossiso.com/2007/05/11/how-does-the-yahooflash-map-work/" class="more-link">Continue reading <span class="screen-reader-text">How does the yahoo/flash map work…</span></a>]]></description>
+										<content:encoded><![CDATA[<p>There&#8217;s a lot of tutorials out there, but here&#8217;s how I got it to work.</p>
+<h2>The Plan</h2>
+<p>Got what? Oh, well, basically it&#8217;s being able to use yahoo maps, flash, xml, php, mysql, and data to display a bunch of markers on a map. Each marker contains data pulled from the database, and has a link to a page that displays the full information. For now, I just made a display page. But sometime latter, it will be implemented into the fine <a title="Omeka" target="_blank" href="http://omeka.org">Omeka</a> install that the 1989 project will use.</p>
+<h2>The Steps</h2>
+<p>Here&#8217;s an outline of what I did.</p>
+<ol>
+<li>Create a flash file using the yahoo flash map api component. Available at <a title="Yahoo Maps AS-Flash API Components" target="_blank" href="http://developer.yahoo.com/maps/flash/componentEULA.html">Yahoo</a>.</li>
+<li>Add some ActionScript to the first frame that will import data from an xml file.</li>
+<li>Create a php page that pulls in data from a MySQL database and displays as an xml file.</li>
+</ol>
+<h2>Create the swf</h2>
+<p>In order to make Yahoo and flash play nicely, you need to install the component linked above. Follow directions there. This will add a new component to your Flash program, available in your components window (Window->Components->Yahoo->com.yahoo.maps.api.flash.YahooMap).</p>
+<p>Once that&#8217;s installed, create a new empty fla.  Make a keframe in the first frame on layer one. Drag the yahooMap component onto your stage.</p>
+<p>Next, add another layer for your actionscript.</p>
+<h2>the ActionScript</h2>
+<p>Here&#8217;s the tricky part.  Here&#8217;s the code I used, heavily commented:</p>
+<p>[code lang=&#8221;Actionscript&#8221;]<br />
+/*********************************<br />
+*  File: yahoomap.as<br />
+*  Author: Ammon Shepherd<br />
+*  based off of many tutorials and code snippets, mostly from Yahoo! documentation.<br />
+********************************/<br />
+//Set the URL where the xml file is.<br />
+var xmlURL = &#8220;http://chnm.gmu.edu/1989/maps/xml.php&#8221;;</p>
+<p>//Import Yahoo map tools<br />
+import com.yahoo.maps.LatLon;<br />
+import com.yahoo.maps.markers.CustomPOIMarker;<br />
+import com.yahoo.maps.tools.PanTool;<br />
+import com.yahoo.maps.widgets.*;</p>
+<p>//Create a listener associated with the instance of the Yahoo map component.<br />
+//  Set the map to pull down the yahoo map and get the setting/changes from<br />
+//  the onMap function.<br />
+euroMap.addEventListener(com.yahoo.maps.api.flash.YahooMap.EVENT_INITIALIZE, onMap);</p>
+<p>//This will add a zoom tool and set it as closed by default<br />
+var zoomer:NavigatorWidget = new NavigatorWidget(&#8220;closed&#8221;);</p>
+<p>//The onMap function adds the tools, settings, and markers to the map.<br />
+function onMap(eventData) {<br />
+    //create a new PanTool and name it pantool<br />
+    var pantool:PanTool = new PanTool();</p>
+<p>    //tell the instance of the map to use the new PanTool called pantool<br />
+    euroMap.addTool(pantool, true);</p>
+<p>    //Add the Navigator widget<br />
+    euroMap.addWidget(zoomer);</p>
+<p>    //Create a variable called xmlData of the type XML<br />
+    var locations_xml:XML = new XML();</p>
+<p>    //igore white space<br />
+    locations_xml.ignoreWhite = true;</p>
+<p>    //when the xml file is loaded, do the fuction within<br />
+    locations_xml.onLoad = function(success){<br />
+        //if the xml file loaded successfully run the function addMarkers<br />
+        if (success) addMarkers(this);<br />
+    };</p>
+<p>    //then actually load the xml file.<br />
+    locations_xml.load(xmlURL);</p>
+<p>    /*******************************************<br />
+    * Used this for testing, you don&#8217;t really need it. I was thinking of using<br />
+    *   this in the future to display the lat and long to the user.<br />
+    //Get the center of the map and store them in the variable called points.<br />
+    var points = euroMap.getCenter();<br />
+    //trace(&#8220;before convert&#8221; + points);<br />
+    //swap the points, so long->long and lat->lat<br />
+    convert(points);<br />
+    //trace(points);<br />
+    ******************************************/</p>
+<p>}</p>
+<p>//This is the function that adds the markers to the map.<br />
+function addMarkers(xml:XML):Void {<br />
+    //the addresses variable holds the path to the right xml element.<br />
+    //firstChild is the <locations> and childNodes is an array of the <location /> tags<br />
+    var addresses = xml.firstChild.childNodes;</p>
+<p>    for(var i=0; i<addresses .length; i++){ //loop through the xml data
+        //address grabs the next child. so as the for loop reiterates, it grabs the
+        //  first <location /> then the second and so on for all of them.<br />
+        address = addresses[i];</p>
+<p>        /***************************************************************<br />
+        * MarkerData is the object that holds the info for each marker.<br />
+        *   index: is the text that shows up on the marker (usually just A or<br />
+        *       what have you. you could use the variable i to show an<br />
+        *       incremented number (each marker has it&#8217;s own number).<br />
+        *   title: sets the title of the marker and corresponds to the title<br />
+        *       parameter in the location tags in the xml file.<br />
+        *   description: is the larger text. It corresponds with the description<br />
+        *       parameter in the location tag in the xml field.<br />
+        *   markerColor: sets the color of the marker, duh <img src="https://s.w.org/images/core/emoji/15.0.3/72x72/1f642.png" alt="🙂" class="wp-smiley" style="height: 1em; max-height: 1em;" /> It&#8217;s the border<br />
+        *       color, and the color when not expanded.<br />
+        *   strokeColor: is the background.<br />
+        ***************************************************************/<br />
+        var MarkerData:Object = {index: &#8216;\&#8217;89&#8217;, title:address.attributes.info, description:address.attributes.description, markerColor:0xcc0000, strokeColor:0xceccc7};</p>
+<p>        /****************************************************************<br />
+        *   This actually adds the address to the map using the custom point of<br />
+        *       interest style of marker (you can use your own style if you like.<br />
+        *       the address.attributes.loc grabs the latitude and longitude from<br />
+        *       the loc=&#8221;&#8221; part of the location tag in the xml file. MarkerData<br />
+        *       is the stuff we just set above.<br />
+        ****************************************************************/<br />
+        euroMap.addMarkerByAddress(CustomPOIMarker, address.attributes.loc, MarkerData);<br />
+    }<br />
+}<br />
+[/code]<br />
+<a href="http://historicalwebber.mossiso.com/code/yahoomap.as">Download yahoomap.as</a></p>
+<p>(Special thanks to <a href="http://blog.hackerforhire.org/2007/03/16/code-snippet-20/">CodeSnippet</a> for providing a way to show code. This was the 5th one I tried that finally worked.)</p>
+<h2>The PHP/XML</h2>
+<p>Next we need an xml file. I need to pull the data from a database, so I used a php script which pretends to be an xml file. The basics of that is to put this in the php file:<br />
+[code lang=&#8221;php&#8221;]<br />
+// Date in the past<br />
+header(&#8220;Expires: Mon, 26 Jul 1997 05:00:00 GMT&#8221;);<br />
+// always modified<br />
+header(&#8220;Last-Modified: &#8221; . gmdate(&#8220;D, d M Y H:i:s&#8221;) . &#8221; GMT&#8221;);<br />
+// HTTP/1.1<br />
+header(&#8220;Cache-Control: no-store, no-cache, must-revalidate&#8221;);<br />
+header(&#8220;Cache-Control: post-check=0, pre-check=0&#8221;, false);<br />
+// HTTP/1.0<br />
+header(&#8220;Pragma: no-cache&#8221;);<br />
+//XML Header<br />
+header(&#8220;content-type:text/xml&#8221;);<br />
+[/code]</p>
+<p>Then, because our database doesn&#8217;t store the geocodes by default yet, nor do the items have any type of specific address or what not associated with them, I created an array with specific places and their lat, long. Each of the items in the database have tags associated with them. The array corresponds to tags that have countries names on them. This poses a problem if the tag name is changed, but for now it works OK.</p>
+<p>[code lang=&#8221;php&#8221;]<br />
+$countries = array(<br />
+    array(&#8220;Poland&#8221;, &#8220;52.1874047455997&#8221;, &#8220;19.072265625&#8221;),<br />
+    array(&#8220;East Germany&#8221;, &#8220;52.517474393230245&#8221;, &#8220;13.41156005859375&#8221;),<br />
+    array(&#8220;Czechoslovakia&#8221;, &#8220;49.210420445650286&#8221;, &#8220;17.490234375&#8221;),<br />
+    array(&#8220;Hungary&#8221;, &#8220;47.45780853075031&#8221;, &#8220;19.05029296875&#8221;),<br />
+    array(&#8220;romania&#8221;, &#8220;45.98169518512228&#8221;, &#8220;25.07080078125&#8221;),<br />
+    array(&#8220;Yugoslavia&#8221;, &#8220;44.26093725039923&#8221;, &#8220;18.96240234375&#8221;),<br />
+    array(&#8220;Bulgaria&#8221;, &#8220;42.601619944327965&#8221;, &#8220;25.24658203125&#8221;),<br />
+    array(&#8220;Soviet Union&#8221;, &#8220;55.70235509327093&#8221;, &#8220;37.79296875&#8221;)<br />
+);<br />
+[/code]</p>
+<p>The problem I ran into next was that there were over 15 markers that would share the same lat an long. This makes it hard to click on a marker when it&#8217;s buried under 20 other markers. So at first I tried just adding a couple of digits to the lat and long as it looped through the array. This led to a long line of markers, and didn&#8217;t look very good. Random numbers to the rescue! To create a clustering affect I generated two random numbers, one for the lat and one for the long. This number was added  giving the markers a clustered appearance. Here&#8217;s that part of the code:</p>
+<p>[code lang=&#8221;php&#8221;]<br />
+echo &#8220;< ?xml version='1.0' ?><br />
+            </locations><locations><br />
+            &#8220;;</p>
+<p>for($g=0; $g<count ($countries); $g++){
+    $query = mysql_query("SELECT i.item_id, i.item_title, i.item_description FROM items i JOIN items_tags it WHERE i.item_id=it.item_id AND it.tag_id = (SELECT tag_id FROM tags WHERE tag_name = '".$countries[$g][0]."') LIMIT $limit");
+    while($result = mysql_fetch_array($query)){
+        $x = rand(10,100)/100;
+        $y = rand(20,100)/100;
+        $lat = $countries[$g][1]+($x);
+        $lon = $countries[$g][2]+($y);
+        echo '
+                <location loc="'.$lat.', '.$lon.'" info="'.htmlentities($result['item_title'], ENT_QUOTES).'" description="'.description($result['item_id'], $result['item_description']).'" />&#8216;;</p>
+<p>    }<br />
+}</p>
+<p>echo &#8216;<br />
+            </locations>&#8216;;<br />
+[/code]</p>
+<p>You may notice my call to the description function (which, in turn, calls a function called truncate, but you wouldn&#8217;t know that yet). This simply turns all HTML characters into their HTML entity characters. HTML in an XML file will break the XML file&#8230; more specifically the < and " ' characters. The truncate function I grabbed from php.net's comments for <a href="http://us.php.net/manual/ro/function.substr-replace.php#74024">substr_replace.  The truncate function shortens long text to a set number of words, and adds an ellipse at the end to signify more text. Here are those two functions:</p>
+<p>[code lang=&#8221;php&#8221;]<br />
+function description($id,$text){<br />
+    $description = wordwrap(htmlentities(truncate($text,200), ENT_QUOTES),30);</p>
+<p>    $fulltext = $description.&#8221;\n&lt;a target=&#8217;_blank&#8217; href=&#8217;http://chnm.gmu.edu/1989/maps/results.php?id=$id&#8217;>Show item&lt;/a>&#8221;;</p>
+<p>    return $fulltext;<br />
+}</p>
+<p>function truncate($text,$numb) {<br />
+    // source: www.kigoobe.com, please keep this if you are using the function<br />
+    //$text = html_entity_decode($text, ENT_QUOTES);<br />
+    if (strlen($text) > $numb) {<br />
+        $text = substr($text, 0, $numb);<br />
+        $text = substr($text,0,strrpos($text,&#8221; &#8220;));<br />
+        $etc = &#8221; &#8230;&#8221;;<br />
+        $text = $text.$etc;<br />
+    }<br />
+    //$text = htmlentities($text, ENT_QUOTES);<br />
+    return $text;<br />
+}<br />
+[/code]</p>
+<p>Here&#8217;s the <a href="http://historicalwebber.mossiso.com/code/xml.phps">whole php file</a>.<br />
+That basically does it.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">72</post-id>	</item>
+	</channel>
+</rss>

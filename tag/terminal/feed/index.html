@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>terminal &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/terminal/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Tue, 18 Sep 2018 14:23:28 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>terminal &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>What is &#8216;tput sgr0&#8217; doin in my Bash prompt?</title>
+		<link>https://mossiso.com/2018/09/18/what-is-tput-sgr0-doin-in-my-bash-prompt/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 18 Sep 2018 14:18:18 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[prompt]]></category>
+		<category><![CDATA[terminal]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1707</guid>
+
+					<description><![CDATA[I have a new work computer, so this time around, I&#8217;m doing everything from scratch, because that&#8217;s the best way to learn. In playing with my Bash prompt, I used this site to generate the prompt: http://bashrcgenerator.com/ Another one that is great is here: http://ezprompt.net/ The prompt that is generated uses a command to clear the text &#8230; <a href="https://mossiso.com/2018/09/18/what-is-tput-sgr0-doin-in-my-bash-prompt/" class="more-link">Continue reading <span class="screen-reader-text">What is &#8216;tput sgr0&#8217; doin in my Bash prompt?</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I have a new work computer, so this time around, I&#8217;m doing everything from scratch, because that&#8217;s the best way to learn.</p>
+<p>In playing with my Bash prompt, I used this site to generate the prompt: <a href="http://bashrcgenerator.com/">http://bashrcgenerator.com/</a></p>
+<p>Another one that is great is here: <a href="http://ezprompt.net/">http://ezprompt.net/</a></p>
+<p>The prompt that is generated uses a command to clear the text color that I hadn&#8217;t seen before: <code>tput sgr0</code></p>
+<p>My prompt (which I put in the ~/.bash_profile file) is:</p>
+<pre><code>#PROMPT
+# To enter an emoji, while in insert mode type Ctrl-v, then enter the UTF8 code
+# for the emoji, ex. U26A1 (note, use capital letters), then type ESC key. You
+# can get a list of UTF8 emoji codes here: http://graphemica.com/
+export PS1="\[\033[38;5;39m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;229m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] [\[$(tput sgr0)\]\[\033[38;5;76m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]]\n\[$(tput sgr0)\]\[\033[38;5;215m\]&#x26a1;\[$(tput sgr0)\] "
+</code></pre>
+<p>So, of course, I spent the next 40 minutes trying to figure out all I could about that command, and more specifically, what &#8216;sgr&#8217; meant.</p>
+<p>I first scoured Google search results. Mostly just information about tput. Then I took to the manual pages: <code>man tput</code> was helpful in learning about what tput does. That led to <code>man terminfo</code> and finally to <code>man ncurses</code>. None of those man pages define &#8216;sgr&#8217;, but &#8216;ncurses&#8217; did give a better clue by stating that &#8220;<span class="s1">The<span class="Apple-converted-space">  </span></span><span class="s2">ncurses</span><span class="s1"><span class="Apple-converted-space">  </span>library can exploit the capabilities of terminals which implement the ISO-6429 </span><span class="s3">SGR</span><span class="s1"> 39 and </span><span class="s3">SGR</span><span class="s1"> 49 controls&#8221;</span></p>
+<p>So a Google search of &#8216;ISO-6429 SGR 39&#8217; turns up an old 1990&#8217;s ECMA standardization for &#8220;Control Functions and Coded Character Sets&#8221;, Standard ECMA-48, <a href="https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf">https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf</a></p>
+<p>(More on ECMA history here: <a href="https://www.ecma-international.org/memento/history.htm">https://www.ecma-international.org/memento/history.htm</a>) [sidenote: ECMA may sound familiar. ECMAScript. Wait isn&#8217;t that Javascript? See here: <a href="https://medium.freecodecamp.org/whats-the-difference-between-javascript-and-ecmascript-cba48c73a2b5">https://medium.freecodecamp.org/whats-the-difference-between-javascript-and-ecmascript-cba48c73a2b5</a>]</p>
+<p>And there we go! Page 75 of the PDF (page 61 internally numbered), section 8.3.117!</p>
+<p><strong>SGR &#8211; SELECT GRAPHIC RENDITION</strong></p>
+<p>And the 0 means = &#8220;default rendition (implementation-defined), cancels the effect of any preceding occurrence of SGR in the data stream regardless of the setting of the GRAPHIC RENDITION COMBINATION MODE (GRCM)&#8221;</p>
+<p>To make things a little more readable, I made the color codes into variables:</p>
+<pre><code>#PROMPT
+# To enter an emoji, while in insert mode type Ctrl-v, then enter the UTF8 code
+# for the emoji, ex. U26A1 (note, use capital letters), then type ESC key. You
+# can get a list of UTF8 emoji codes here: http://graphemica.com/
+BLUE='\[\033[38;5;39m\]'
+PALE_YELLOW='\[\033[38;5;229m\]'
+RESET='\[$(tput sgr0)\]'
+GREEN='\[\033[38;5;76m\]'
+export PS1="${BLUE}\u${RESET}@${PALE_YELLOW}\h${RESET} [${GREEN}\w${RESET}]\n&#x26a1;${RESET} "
+</code></pre>
+<p>And there we go. Much too much time learning stuff! And my prompt looks like this:</p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-1711 size-full" src="http://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1.png" alt="" width="621" height="408" srcset="https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1.png 621w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1-300x197.png 300w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1-150x99.png 150w" sizes="(max-width: 621px) 100vw, 621px" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>And all of that to figure out what &#8216;sgr&#8217; means.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1707</post-id>	</item>
+	</channel>
+</rss>

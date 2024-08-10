@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>trac &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/trac/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 19:16:51 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>trac &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Python, Trac, virtualenv and CentOS</title>
+		<link>https://mossiso.com/2011/04/05/python-trac-virtualenv-and-centos/</link>
+					<comments>https://mossiso.com/2011/04/05/python-trac-virtualenv-and-centos/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 05 Apr 2011 18:05:37 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[subversion]]></category>
+		<category><![CDATA[system administration]]></category>
+		<category><![CDATA[trac]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1041</guid>
+
+					<description><![CDATA[I&#8217;ve just spent too much time figuring this out. I&#8217;ve had to piece it together from many other sites. I need to set up Trac .12 on CentOS 5, but want to do that without interfering with the current setup of Trac and Subversion on the system. So in comes virtualenv. This allows you to &#8230; <a href="https://mossiso.com/2011/04/05/python-trac-virtualenv-and-centos/" class="more-link">Continue reading <span class="screen-reader-text">Python, Trac, virtualenv and CentOS</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;ve just spent too much time figuring this out. I&#8217;ve had to piece it together from many other sites.</p>
+<p>I need to set up Trac .12 on CentOS 5, but want to do that without interfering with the current setup of Trac and Subversion on the system.</p>
+<p>So in comes <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>. This allows you to create a virtual environment for python. Like a separate install. The beauty is, once this is set up you can install different versions of python packages (like Trac and Subversion) that don&#8217;t have to interact with each other.</p>
+<p>To install virtualenv was pretty simple. With root permissions do</p>
+<pre class="lang:sh decode:true ">easy_install virtualenv</pre>
+<p>Now, as your normal user, you can install a virtual environment.</p>
+<pre class="lang:sh decode:true">virtualenv --no-site-packages foo</pre>
+<p>This will create a new folder called foo with a virtual environment for python. It won&#8217;t reference any of the other installed python packages (like the old Trac version).</p>
+<p>Now upgrade the Genshi package with</p>
+<pre class="lang:sh decode:true">easy_install --upgrade Genshi</pre>
+<p>Then, to install Trac do</p>
+<pre class="lang:sh decode:true  ">easy_install Trac==0.12</pre>
+<p>That&#8217;s the part that always hung me up. I would just do <span class="lang:sh decode:true  crayon-inline ">easy_install Trac</span>  which would cough up this ugly error:</p>
+<pre class="lang:sh decode:true">Searching for trac
+Reading http://pypi.python.org/simple/trac/
+Reading http://trac.edgewall.org/
+Reading http://trac.edgewall.org/wiki/TracDownload
+Reading http://trac.edgewall.com/
+Reading http://projects.edgewall.com/trac
+Reading http://projects.edgewall.com/trac/wiki/TracDownload
+Best match: Trac 0.12.2
+Downloading ftp://ftp.edgewall.com/pub/trac/Trac-0.12.2.zip
+Processing Trac-0.12.2.zip
+Running setup.py -q bdist_egg --dist-dir trac-dir/trac/egg-dist-tmp-JmdQXW
+Traceback (most recent call last):
+File "/home/ammon/foo/bin/easy_install", line 7, in ?
+sys.exit(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1712, in main
+with_ei_usage(lambda:
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1700, in with_ei_u
+sage
+return f()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1716, in &lt;lambda&gt;
+distclass=DistributionWithoutHelpCommands, **kw
+File "/usr/lib64/python2.4/distutils/core.py", line 149, in setup
+dist.run_commands()
+File "/usr/lib64/python2.4/distutils/dist.py", line 946, in run_commands
+self.run_command(cmd)
+File "/usr/lib64/python2.4/distutils/dist.py", line 966, in run_command
+cmd_obj.run()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 211, in run
+self.easy_install(spec, not self.no_deps)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 446, in easy_insta
+ll
+return self.install_item(spec, dist.location, tmpdir, deps)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 476, in install_it
+em
+dists = self.install_eggs(spec, download, tmpdir)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 655, in install_eg
+gs
+return self.build_and_install(setup_script, setup_base)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 930, in build_and_
+install
+self.run_setup(setup_script, setup_base, args)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 919, in run_setup
+run_setup(setup_script, args)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 61, in run_setup
+DirectorySandbox(setup_dir).run(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 105, in run
+return func()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 64, in &lt;lambda&gt;
+{'__file__':setup_script, '__name__':'__main__'}
+File "setup.py", line 110, in ?
+File "/usr/lib64/python2.4/distutils/core.py", line 110, in setup
+_setup_distribution = dist = klass(attrs)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/dist.py", line 260, in __init__
+self.fetch_build_eggs(attrs.pop('setup_requires'))
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/dist.py", line 283, in fetch_build_eggs
+for dist in working_set.resolve(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/pkg_resources.py", line 569, in resolve
+raise VersionConflict(dist,req) # XXX put more info here
+pkg_resources.VersionConflict: (Genshi 0.6dev (/usr/local/lib/python2.4/site-packages/Genshi-0.6dev-py2.4-linux-x86_64.egg), Requirement.parse('Genshi
+&gt;=0.6'))</pre>
+<p>Notice the last line referencing a version conflict with the &#8220;old&#8221; Genshi at /usr/local/lib/python2.4/site-packages. That&#8217;s the system-wide default install. So making explicit that you want to install Trac==0.12 is the way to get it installed in a virtual environment.</p>
+<p>Now I just need to figure out how to configure Trac and Subversion using this virtual environment, and copy over a live older version of each.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2011/04/05/python-trac-virtualenv-and-centos/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1041</post-id>	</item>
+	</channel>
+</rss>

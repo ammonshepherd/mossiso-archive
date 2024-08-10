@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>linux &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/linux/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 19:12:32 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>linux &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>CentOS 6, iDrac6 and PowerEdge R510</title>
+		<link>https://mossiso.com/2011/10/17/centos-6-idrac6-and-poweredge-r510/</link>
+					<comments>https://mossiso.com/2011/10/17/centos-6-idrac6-and-poweredge-r510/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Mon, 17 Oct 2011 17:39:00 +0000</pubDate>
+				<category><![CDATA[Technical]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[servers]]></category>
+		<category><![CDATA[systems administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1121</guid>
+
+					<description><![CDATA[RedHat changed an important part of their system with the upgrade from version 5 to 6. This affects CentOS which is the same thing, but rebranded. I was updating one server to use CentOS 6, and ran into this issue of setting up the iDRAC for remote console use. In previous versions, I would add &#8230; <a href="https://mossiso.com/2011/10/17/centos-6-idrac6-and-poweredge-r510/" class="more-link">Continue reading <span class="screen-reader-text">CentOS 6, iDrac6 and PowerEdge R510</span></a>]]></description>
+										<content:encoded><![CDATA[<ol>
+<li>RedHat changed an important part of their system with the upgrade from version 5 to 6. This affects CentOS which is the same thing, but rebranded.</li>
+</ol>
+<p>I was updating one server to use CentOS 6, and ran into this issue of setting up the iDRAC for remote console use. In previous versions, I would add a line to the /etc/inittab file. This is now unused. RedHat is favoring the &#8220;Upstart&#8221; system developed by and for Ubuntu. It starts services on request, rather than all at once.</p>
+<p>So here is how I set up my Dell PowerEdge R510 with CentOS 6 to use the iDRAC6.</p>
+<p>Info was taken from the <a href="http://docs.redhat.com/docs/en-US/Red_Hat_Enterprise_Linux/6/html/Migration_Planning_Guide/ch04s02.html" target="_blank">RedHat manual</a>, the <a href="http://support.dell.com/support/edocs/software/smdrac3/idrac/idrac11mono/en/ug/html/racugc3.htm#wp3869" target="_blank">Dell iDRAC manual</a>, and probably a bunch of other <a href="http://tldp.org/HOWTO/Remote-Serial-Console-HOWTO/" target="_blank">sites</a> that I googled for.</p>
+<p>These steps are by no means comprehensive or detailed. I barely even know what&#8217;s going on myself, but it seems to work. It&#8217;s kind of cool to see a system boot up in your terminal. It&#8217;s like your terminal turns into a monitor connected to the server.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2011/10/Screen-Shot-2011-10-17-at-Oct-17-1.35.06-PM.png"><img fetchpriority="high" decoding="async" class="aligncenter size-medium wp-image-1123" title="Screen Shot 2011-10-17 at  Oct 17 1.35.06 PM" src="http://mossiso.com/wp-content/uploads/2011/10/Screen-Shot-2011-10-17-at-Oct-17-1.35.06-PM-300x215.png" alt="" width="300" height="215" srcset="https://mossiso.com/wp-content/uploads/2011/10/Screen-Shot-2011-10-17-at-Oct-17-1.35.06-PM-300x215.png 300w, https://mossiso.com/wp-content/uploads/2011/10/Screen-Shot-2011-10-17-at-Oct-17-1.35.06-PM-250x179.png 250w, https://mossiso.com/wp-content/uploads/2011/10/Screen-Shot-2011-10-17-at-Oct-17-1.35.06-PM-150x107.png 150w, https://mossiso.com/wp-content/uploads/2011/10/Screen-Shot-2011-10-17-at-Oct-17-1.35.06-PM-624x448.png 624w, https://mossiso.com/wp-content/uploads/2011/10/Screen-Shot-2011-10-17-at-Oct-17-1.35.06-PM.png 639w" sizes="(max-width: 300px) 100vw, 300px" /></a></p>
+<h3>Setting up the iDrac6</h3>
+<h4>Edit BIOS</h4>
+<ol>
+<li>Boot the server.</li>
+<li>Press <code>F2</code> to enter the BIOS setup utility during POST.</li>
+<li>Scroll down and select Serial Communication by pressing <code>&lt;Enter&gt;</code>.</li>
+<li>Set the Serial Communication screen options as follows:</li>
+<ul>
+<li><code>serial communication....On with serial redirection via com2</code></li>
+<li>NOTE: You can set serial communication to &#8216;On with serial redirection via com1&#8217; as long as the serial port address field, serial device2, is set to com1, also.</li>
+<li><code>serial port address....Serial device1 = com1, serial device2 = com2</code></li>
+<li><code>external serial connector....Serial device 1</code></li>
+<li><code>failsafe baud rate....57600</code></li>
+<li><code>remote terminal type....vt100/vt220</code></li>
+<li><code>redirection after boot....Enabled</code></li>
+</ul>
+<li>Save the changes and exit.</li>
+</ol>
+<h4>Edit iDRAC settings</h4>
+<ol>
+<li>Turn on or restart your system.</li>
+<li>Press <code>&lt;Ctrl&gt;&lt;E&gt;</code> when prompted during POST. If your operating system begins to load before you press <code>&lt;Ctrl&gt;&lt;E&gt;</code>, allow the system to finish booting, and then restart your system and try again.</li>
+<li>Configure the LOM.</li>
+</ol>
+<ol>
+<li>Use the arrow keys to select LAN Parameters and press <code>&lt;Enter&gt;</code>. NIC Selection is displayed.</li>
+<li>Use the arrow keys to select one of the following NIC modes:</li>
+<ul>
+<li>Dedicated — Select this option to enable the remote access device to utilize the dedicated network interface available on the iDRAC6 Enterprise. This interface is not shared with the host operating system and routes the management traffic to a separate physical network, enabling it to be separated from the application traffic. This option is available only if an iDRAC6 Enterprise is installed in the system. After you install the iDRAC6 Enterprise card, ensure that you change the NIC Selection to Dedicated. This can be done either through the iDRAC6 Configuration Utility, the iDRAC6 Web Interface, or through RACADM.</li>
+</ul>
+</ol>
+<ul>
+<li>Configure the network controller LAN parameters to use DHCP or a Static IP address source.</li>
+</ul>
+<ol>
+<li>Using the down-arrow key, select LAN Parameters, and press <code>&lt;Enter&gt;</code>.</li>
+<li>Using the up-arrow and down-arrow keys, select IP Address Source.</li>
+<li>Using the right-arrow and left-arrow keys, select DHCP, Auto Config or Static.</li>
+<li>If you selected Static, configure the Ethernet IP Address, Subnet Mask, and Default Gateway settings.</li>
+<li>Press <code>&lt;Esc&gt;</code>.</li>
+</ol>
+<ul>
+<li>Press <code>&lt;Esc&gt;</code>.</li>
+<li>Select Save Changes and Exit.</li>
+</ul>
+<h4>Set up Linux OS (to do after OS is installed)</h4>
+<ul>
+<li>Configuring Linux for Serial Console Redirection During Boot</li>
+<li>The following steps are specific to the Linux GRand Unified Bootloader (GRUB). Similar changes would be necessary if you use a different boot loader.</li>
+<li><strong>NOTE:</strong> When you configure the client VT100 emulation window, set the window or application that is displaying the redirected console to 25 rows x 80 columns to ensure proper text display; otherwise, some text screens may be garbled.</li>
+</ul>
+<ol>
+<li>Make a copy of the <code>/boot/grub/grub.conf</code>file as follows:<code>cp /boot/grub/grub.conf /boot/grub/grub.conf.orig</code></li>
+<li>Edit the <code>/boot/grub/grub.conf</code> file as follows:</li>
+</ol>
+<ol>
+<li>Locate the General Setting sections in the file and add the following two new lines:<code>serial --unit=0 --speed=57600</code><code>terminal --timeout=10 serial console</code></li>
+<li>Append two options to the kernel line:<code>kernel ............. console=ttyS1,57600 console=tty1</code></li>
+<li>If the /etc/grub.conf contains a splashimage directive, comment it out.Sample File: <code>/boot/grub/grub.conf</code>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#  grub.conf generated by anaconda<br />
+#<br />
+#  Note that you do not have to rerun grub after making changes to this file<br />
+#  NOTICE: You have a /boot partition. This means that<br />
+#  all kernel and initrd paths are relative to /boot/, eg.<br />
+#  root (hd0,0)<br />
+#  kernel /vmlinuz-version ro root=/dev/Logical1/LogVol00<br />
+#  initrd /initrd-version.img<br />
+#boot=/dev/sda<br />
+default=0<br />
+timeout=5<br />
+<strong> #splashimage=(hd0,0)/grub/splash.xpm.gz</strong><br />
+#hiddenmenu<br />
+<strong>serial &#8211;unit=1 &#8211;speed=57600</strong><br />
+<strong>terminal &#8211;timeout=5 console serial</strong>title CentOS (2.6.18-164.11.1.el5) SOL Redirection<br />
+root (hd0,0)<br />
+kernel /vmlinuz-2.6.18-164.11.1.el5 ro root=/dev/Logical1/LogVol00 <strong>console=tty1 console=ttyS1,57600</strong><br />
+initrd /initrd-2.6.18-164.11.1.el5.img<br />
+title CentOS (2.6.18-164.el5)<br />
+root (hd0,0)<br />
+kernel /vmlinuz-2.6.18-164.el5 ro root=/dev/Logical1/LogVol00<br />
+initrd /initrd-2.6.18-164.el5.img</div>
+</li>
+</ol>
+<h4>Enabling Login to the Console After Boot</h4>
+<ol>
+<li>Create a new <code>/etc/init/serial-ttyS1.conf</code>file.Sample File: <code>/etc/inittab</code>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">#  This service maintains a getty on /dev/ttyS1.start on stopped rc RUNLEVEL=[2345]<br />
+stop on starting runlevel [016]respawn<br />
+exec /sbin/agetty -h -L 57600 ttyS1 vt102</div>
+</li>
+</ol>
+<h4>Edit the file <code>/etc/securetty</code></h4>
+<ol>
+<li>Make a copy of the <code>/etc/securetty</code>file as follows:<code>cp /etc/securetty /etc/securetty.orig</code></li>
+<li>Edit the file <code>/etc/securetty</code>as follows:Add a new line with the name of the serial tty for COM2:<code>ttyS1</code>Sample File: <code>/etc/securetty</code>
+<div style="border: 1px solid; font-family: 'Courier New', Courier, monospace; color: #444; padding: 8px;">vc/1<br />
+vc/2<br />
+vc/3<br />
+vc/4<br />
+vc/5<br />
+vc/6<br />
+vc/7<br />
+vc/8<br />
+vc/9<br />
+vc/10<br />
+vc/11<br />
+tty1<br />
+tty2<br />
+tty3<br />
+tty4<br />
+tty5<br />
+tty6<br />
+tty7<br />
+tty8<br />
+tty9<br />
+tty10<br />
+tty11<br />
+*ttyS1*</div>
+</li>
+</ol>
+<h2>Redirect the video output over ssh connections</h2>
+<h3>Starting a Text Console Through SSH (Remote Access, SOL)</h3>
+<p>To connect to the managed system text console, open an iDRAC6 command prompt (displayed through an SSH session):</p>
+<p><code>ssh root@xxx.xxx.xxx.xxx</code></p>
+<p>and type:</p>
+<p><code>console com2</code></p>
+<p>Only one <code>console com2</code> client is supported at a time. The <code>console -h com2</code> command displays the contents of the serial history buffer before waiting for input from the keyboard or new characters from the serial port.</p>
+<p>To exit the console type these three keys: <code></code><code>&lt;Ctrl &gt;&lt;Shift &gt;\</code></p>
+<p>The default (and maximum) size of the history buffer is 8192 characters. You can set this number to a smaller value using the command:</p>
+<p><code>racadm config -g cfgSerial -o cfgSerialHistorySize &lt; number &gt;</code></p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2011/10/17/centos-6-idrac6-and-poweredge-r510/feed/</wfw:commentRss>
+			<slash:comments>7</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1121</post-id>	</item>
+		<item>
+		<title>Making SMF static</title>
+		<link>https://mossiso.com/2011/09/27/making-smf-static/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 27 Sep 2011 14:28:10 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[servers]]></category>
+		<category><![CDATA[systems administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1081</guid>
+
+					<description><![CDATA[We have a few legacy forums powered by the good software SMF (SimpleMachines Forum). Like many of the WordPress installs, it&#8217;s a pain and a security risk to keep these up-to-date when they are no longer needed as content creation platforms. So, once again I need to convert a web app into static HTML pages. &#8230; <a href="https://mossiso.com/2011/09/27/making-smf-static/" class="more-link">Continue reading <span class="screen-reader-text">Making SMF static</span></a>]]></description>
+										<content:encoded><![CDATA[<p><a href="http://www.simplemachines.org/"><img decoding="async" class="aligncenter size-full wp-image-1113" title="frontpage_logo" src="http://mossiso.com/wp-content/uploads/2011/09/frontpage_logo.png" alt="" width="486" height="65" srcset="https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo.png 486w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-300x40.png 300w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-250x33.png 250w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-150x20.png 150w" sizes="(max-width: 486px) 100vw, 486px" /></a>We have a few legacy forums powered by the good software SMF (<a title="http://www.simplemachines.org/" href="http://www.simplemachines.org/">SimpleMachines Forum</a>). Like many of the WordPress installs, it&#8217;s a pain and a security risk to keep these up-to-date when they are no longer needed as content creation platforms. So, once again I need to convert a web app into static HTML pages. This process proved a bit harder than converting WordPress to static HTML.</p>
+<h2><strong>Step 1: Upgrade</strong></h2>
+<p>The first thing to do is update to the latest version. This ensures that if you need to turn this back into a dynamic site, it should hopefully be compatible with whatever the latest version is at that time.</p>
+<h2><strong>Step 2: Make it public</strong></h2>
+<p>Next, we&#8217;ll need to make it public to guests, so that wget has access to the pages.</p>
+<p>Go to the Admin-&gt;Features and Options page and check the &#8220;Allow guests to browse the forum&#8221; box, then click save. Now we have to change the permissions on each board separately. Or with a bit of MySQL magic, we can change them all at once using the CONCAT operator. Open of phpMyAdmin, or something else of your choice. Before we mess with the data, make a copy of the table, just in case we totally hose it.</p>
+<p>Browse to the &#8216;boards&#8217; table, and then to the SQL tab. We&#8217;re going to enter an SQL command that will pre-pend (that&#8217;s append but onto the front rather than the end) some data.</p>
+<pre class="lang:mysql decode:true ">UPDATE boards SET member_groups=CONCAT('-1,', member_groups) WHERE 1</pre>
+<p>&nbsp;</p>
+<p>This will add a -1, to the beginning of each field, which makes the board viewable by guests. No need to log in, which means wget can scrape the pages and turn them into HTML.</p>
+<h2><strong>Step 3: Edit Theme files</strong></h2>
+<p>Now we get to play around with the theme files to get rid of forum specific items that we won&#8217;t need, like links to member info, the login, help, and search links, and anything else that we don&#8217;t want.</p>
+<p>Here are some items to delete or alter, and the files I found them in for our home-made theme based off of an old default theme.</p>
+<h4><strong>index.template.php</strong></h4>
+<ul>
+<li>Add a title</li>
+<li>Get rid of date stamp</li>
+<li>Get rid of the main menu (Home, Help, Search, Login, etc)</li>
+</ul>
+<h4>BoardIndex.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+</ul>
+<h4>Display.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+<li>Get rid of the drop down menu to select pages.</li>
+</ul>
+<h4>MessageIndex.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+<li>Delete the &#8216;Jump to&#8217; drop-down box and the icons explaining post/board types</li>
+</ul>
+<h2><strong>Step 4: Fix the URLs</strong></h2>
+<p>As it stands, SMF has some pretty ugly URLs. There are a couple of mods that I could never get to work. But editing a file and adding an .htaccess file seems to do the trick.</p>
+<p>Open the Sources/QueryString.php file and look for the line like this:</p>
+<pre class="lang:php decode:true ">$scripturl = $boardurl . '/index.php';</pre>
+<p>and get rid of the /index.php</p>
+<p>Now create a .htaccess file in the root of the forum (in the same folder as the Settings.php file). It should look similar to this:</p>
+<pre class="lang:apache decode:true ">RewriteEngine On
+RewriteBase /7tah/forum/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /7tah/forum/index.php [L]</pre>
+<p>&nbsp;</p>
+<h2>Step 5: Wget it</h2>
+<p>Now we run wget on the command line to grab the pages.</p>
+<pre class="lang:sh decode:true">wget --mirror -P static-forum -nH -np -p -k -E --cut-dirs=2 http://domain.com/path/forum/</pre>
+<p>All of the static HTML files will now be located in a directory called static-forum.</p>
+<h2>Step 6: Fix filenames</h2>
+<p>Some filenames will be a bit broken. Specifically the style.css has an extra &#8220;?fin11&#8221; in the html files where the file is called. Also, it get&#8217;s name that way. So fix that by changing the name of the file to just style.css (it&#8217;s in your Theme directory). Then run this one-line command to search and replace throughout all of the static html files (run the command when you are in the static-forum directory.</p>
+<pre class="lang:sh decode:true ">find . -name '*.html' -type f -exec perl -pi -e 's/style.css%3Ffin11/style.css/g' {} \;</pre>
+<p>&nbsp;</p>
+<p>This will look for all of the references to the style.css%3Ffin11 file and change them to style.css. Then the pretty colors and formatting will work. Just for clarification, the %3F is code for a question mark. It shows up as such in the HTML source when viewing from a browser, but is displayed as such in the actual code.</p>
+<p>Don&#8217;t forget to change the the actual name of the css file to style.css.</p>
+<h2>Step 7: Protect it</h2>
+<p>Depending on  your needs, you may want to password protect your new static forum with an htaccess account. The good peoples at <a title="htaccess password tool" href="http://tools.dynamicdrive.com/password/" target="_blank">Dynamic Drive have an helpful tool</a> for making the two files necessary to make this happen. Just plug in your desired user name, password, and location of the htpasswd file, and then it&#8217;s copy and paste into those files on the server.</p>
+<p>I change the last line of the htaccess file to <code>require user username</code> so that it works only with the given user, not any valid. But since it only pulls from the specified htpasswd file, it&#8217;s kind of pointless.</p>
+<h2>Step 8: Backup the old</h2>
+<p>It&#8217;s a good idea to make a backup of the database and site files before getting rid of them. I just make a mysqldump of the database, throw it in the forum folder, and then make a tar or zip file of that and put the file in the new static forum folder for safe keeping.</p>
+<h2>Step 9: That&#8217;s it.</h2>
+<p>Sit back and relax. Your forum is interactive no longer.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1081</post-id>	</item>
+	</channel>
+</rss>

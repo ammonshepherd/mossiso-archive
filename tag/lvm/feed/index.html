@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>lvm &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/lvm/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:38:05 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>lvm &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2</title>
+		<link>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/</link>
+					<comments>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 01 Feb 2013 20:12:57 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Setting up a Hosting Environment]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[cluster]]></category>
+		<category><![CDATA[gfs2]]></category>
+		<category><![CDATA[lvm]]></category>
+		<category><![CDATA[redhat]]></category>
+		<category><![CDATA[servers]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1438</guid>
+
+					<description><![CDATA[Previous posts in this series: Part 1: Setting up the servers Part 2: Connecting the Array RedHat Cluster and GFS2 Setup Required reading: https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial Seriously. Don&#8217;t do anything until you read his tutorial a couple of times. Might as well read a bunch of his other tutorials, too. Unless mentioned, the following commands should be &#8230; <a href="https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment, Part 3: RedHat Cluster and GFS2</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Previous posts in this series:</p>
+<p><a title="Setting up a Hosting Environment: Part 1 – The servers" href="http://mossiso.com/2012/03/01/setting-up-a-hosting-environment-part-1-the-servers.html">Part 1: Setting up the servers</a></p>
+<p><a title="Setting up a Hosting Environment – Part 2: Connecting the Storage Array" href="http://mossiso.com/2012/03/09/setting-up-a-hosting-environment-part-2-connecting-the-storage-array.html">Part 2: Connecting the Array</a></p>
+<h2>RedHat Cluster and GFS2 Setup</h2>
+<ul>
+<li>Required reading: <a href="https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial">https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial</a> Seriously. Don&#8217;t do anything until you read his tutorial a couple of times. Might as well read a bunch of his other tutorials, too.</li>
+<li>Unless mentioned, the following commands should be done on each server.</li>
+</ul>
+<h3>Set date/time to be accurate and within a few minutes of each other.</h3>
+<ul>
+<li>Install the ntp program and update to current time.
+<ul>
+<li><code>yum install ntp</code></li>
+<li><code>ntpdate time.nist.gov</code></li>
+</ul>
+</li>
+<li>Set time servers and start ntpd
+<ul>
+<li><code>service ntpd start</code></li>
+<li>Edit the <code>/etc/ntp.conf</code> file to use the following servers:</li>
+<li>
+<pre>server 0.pool.ntp.org
+server 1.pool.ntp.org
+server 2.pool.ntp.org
+server 3.pool.ntp.org</pre>
+</li>
+</ul>
+</li>
+<li>Restart ntpd
+<ul>
+<li><code>service ntpd restart</code></li>
+<li><code>chkconfig ntpd on</code></li>
+</ul>
+</li>
+</ul>
+<h3>Cluster setup</h3>
+<p>RedHat Cluster must be set up before the GFS2 File systems can be created and mounted.</p>
+<ul>
+<li>Instal the necessary programs
+<ul>
+<li><code>yum install openais cman rgmanager lvm2-cluster gfs2-utils ccs</code></li>
+<li>Create a <code>/etc/cluster/cluster.conf</code> REMEMBER: Always increment the “config_version” parameter in the <code>cluster</code> tag!
+<ul>
+<li>
+<div>
+<pre class="decode-attributes:false lang:xhtml decode:true">&lt;?xml version=“1.0”?&gt;
+    &lt;cluster config_version=“24” name=“web-production”&gt;
+        &lt;cman expected_votes=“1” two_node=“1”/&gt;
+        &lt;fence_daemon clean_start=“1” post_fail_delay=“6” post_join_delay=“3”/&gt;
+        &lt;totem rrp_mode=“none” secauth=“off”/&gt;
+        &lt;clusternodes&gt;
+            &lt;clusternode name=“bill” nodeid="1"&gt;
+                &lt;fence&gt;
+                    &lt;method name="ipmi"&gt;
+                        &lt;device action=“reboot” name=“ipmi_bill”/&gt;
+                    &lt;/method&gt;
+                &lt;/fence&gt;
+            &lt;/clusternode&gt;
+            &lt;clusternode name=“ted” nodeid="2"&gt;
+                &lt;fence&gt;
+                    &lt;method name="ipmi"&gt;
+                        &lt;device action=“reboot” name=“ipmi_ted”/&gt;
+                    &lt;/method&gt;
+                &lt;/fence&gt;
+            &lt;/clusternode&gt;
+        &lt;/clusternodes&gt;
+        &lt;fencedevices&gt;
+            &lt;fencedevice agent=“fence_ipmilan” ipaddr=“billsp” login=“root” name=“ipmi_bill” passwd=“PASSWORD-HERE”/&gt;
+            &lt;fencedevice agent=“fence_ipmilan” ipaddr=“tedsp” login=“root” name=“ipmi_ted” passwd=“PASSWORD-HERE”/&gt;
+        &lt;/fencedevices&gt;
+        &lt;rm log_level="5"&gt;
+            &lt;resources&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-sites” fstype=“gfs2” mountpoint=“/sites” name=“sites”/&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-databases” fstype=“gfs2” mountpoint=“/databases” name=“databases”/&gt;
+                &lt;clusterfs device=“/dev/mapper/StorageTek2530-logs” fstype=“gfs2” mountpoint=“/logs” name=“logs”/&gt;
+            &lt;/resources&gt;
+            &lt;failoverdomains&gt;
+                &lt;failoverdomain name=“bill-only” nofailback=“1” ordered=“0” restricted="1"&gt;
+                    &lt;failoverdomainnode name=“bill”/&gt;
+                &lt;/failoverdomain&gt;
+                &lt;failoverdomain name=“ted-only” nofailback=“1” ordered=“0” restricted="1"&gt;
+                    &lt;failoverdomainnode name=“ted”/&gt;
+                &lt;/failoverdomain&gt;
+            &lt;/failoverdomains&gt;
+        &lt;/rm&gt;
+    &lt;/cluster&gt;</pre>
+</div>
+</li>
+</ul>
+</li>
+<li>We’ll be adding more to this later, but this will work for now.</li>
+<li>Validate the config file
+<ul>
+<li><code>ccs_config_validate</code></li>
+</ul>
+</li>
+<li>Set a password for the ricci user
+<ul>
+<li><code>passwd ricci</code></li>
+</ul>
+</li>
+<li>Start ricci, and set to start on boot
+<ul>
+<li><code>service ricci start</code></li>
+<li><code>chkconfig ricci on</code></li>
+</ul>
+</li>
+<li>Start modclusterd and set to start on boot
+<ul>
+<li><code>service modclusterd start</code></li>
+<li><code>chkconfig modclusterd on</code></li>
+</ul>
+</li>
+<li>Sync the cluster.conf file to other node
+<ul>
+<li><code>ccs -f /etc/cluster/cluster.conf -h ted --setconf</code></li>
+</ul>
+</li>
+<li>Start cman on both servers at the same time
+<ul>
+<li><code>service cman start</code></li>
+</ul>
+</li>
+<li>Set cman to start on boot
+<ul>
+<li><code>chkconfig cman on</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Check the tutorial on testing the fencing
+<ul>
+<li><a href="https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial#Testing_Fencing">https://alteeve.com/w/2-Node_Red_Hat_KVM_Cluster_Tutorial#Testing_Fencing</a></li>
+</ul>
+</li>
+</ul>
+<h3>Create GFS2 partitions</h3>
+<p>Create a partition on the new scsi device /dev/mapper/mpatha using parted. NOTE: This part only needs to be done once on one server</p>
+<ul>
+<li><code>parted /dev/mapper/mpatha</code></li>
+<li><code>mklabel gpt</code></li>
+<li><code>mkpart primary 1 -1</code></li>
+<li><code>set 1 lvm on</code></li>
+<li><code>quit</code></li>
+<li>Now you can see a partition for the storage array.
+<ul>
+<li><code>parted -l</code></li>
+</ul>
+</li>
+</ul>
+<p>Edit the <code>/etc/lvm/lvm.conf file</code> and set the value for <code>locking_type = 3</code> to allow for cluster locking.</p>
+<p>In order to enable the LVM volumes you are creating in a cluster, the cluster infrastructure must be running and the cluster must be quorate.</p>
+<ul>
+<li><code>service clvmd start</code></li>
+<li><code>chkconfig clvmd on</code></li>
+<li><code>chkconfig gfs2 on</code></li>
+</ul>
+<p>Create LVM partitions on the raw drive available from the StorageTek. NOTE: This part only needs to be done once on one server.</p>
+<ul>
+<li><code>pvcreate /dev/mapper/mpatha1</code></li>
+<li><code>vgcreate -c y StorageTek2530 /dev/mapper/mpatha1</code></li>
+</ul>
+<p>Now create the different partitions for the system: sites, databases, logs, home, root</p>
+<ul>
+<li><code>lvcreate --name sites --size 350GB StorageTek2530</code></li>
+<li><code>lvcreate --name databases --size 100GB StorageTek2530</code></li>
+<li><code>lvcreate --name logs --size 50GB StorageTek2530</code></li>
+<li><code>lvcreate --name root --size 50GB StorageTek2530</code></li>
+</ul>
+<p>Make a temporary directory <code>/root-b</code> and copy everything from root’s home directory to there, because it will be erased when we make the GFS2 file system.</p>
+<p>Copy /root/.ssh/known_hosts to /etc/ssh/root_known_hosts so the file is different for both servers.</p>
+<p>Before doing the home directory, we have to remove it from the local LVM.</p>
+<ul>
+<li><code>unmount /home</code></li>
+<li><code>lvremove bill_local/home</code> and on ted <code>lvremove ted_local/home</code></li>
+<li>Remove the line from <code>/etc/fstab</code> referring to the /home directory on the local LVM</li>
+<li>Then add the clustered LV.
+<ul>
+<li><code>lvcreate --name home --size 50GB StorageTek2530</code></li>
+</ul>
+</li>
+</ul>
+<p>Create GFS2 files systems on the LVM partitions created on the StorageTek. Make sure they are unmounted, first. NOTE: This part only needs to be done once on one server.</p>
+<ul>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:sites /dev/mapper/StorageTek2530-sites</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:databases /dev/mapper/StorageTek2530-databases</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:logs /dev/mapper/StorageTek2530-logs</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:root /dev/mapper/StorageTek2530-root</code></li>
+<li><code>mkfs.gfs2 -p lock_dlm -j 2 -t web-production:home /dev/mapper/StorageTek2530-home</code></li>
+</ul>
+<p>Mount the GFS2 partitions</p>
+<ul>
+<li>NOTE: GFS2 file systems that have been mounted manually rather than automatically through an entry in the fstab file will not be known to the system when file systems are unmounted at system shutdown. As a result, the GFS2 script will not unmount the GFS2 file system. After the GFS2 shutdown script is run, the standard shutdown process kills off all remaining user processes, including the cluster infrastructure, and tries to unmount the file system. This unmount will fail without the cluster infrastructure and the system will hang.</li>
+<li>To prevent the system from hanging when the GFS2 file systems are unmounted, you should do one of the following:
+<ul>
+<li>Always use an entry in the fstab file to mount the GFS2 file system.</li>
+<li>If a GFS2 file system has been mounted manually with the mount command, be sure to unmount the file system manually with the umount command before rebooting or shutting down the system.</li>
+</ul>
+</li>
+<li>If your file system hangs while it is being unmounted during system shutdown under these circumstances, perform a hardware reboot. It is unlikely that any data will be lost since the file system is synced earlier in the shutdown process.</li>
+</ul>
+<p>Make the appropriate folders on each node (/home is already there).</p>
+<ul>
+<li><code>mkdir /sites /logs /databases</code></li>
+</ul>
+<p>Make sure the appropriate lines are in /etc/fstab</p>
+<pre class="">#GFS2 partitions shared in the cluster
+/dev/mapper/StorageTek2530-root        /root        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-home        /home        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-databases      /databases      gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-logs        /logs        gfs2   defaults,acl    0 0
+/dev/mapper/StorageTek2530-sites    /sites    gfs2   defaults,acl    0 0</pre>
+<p>Once the GFS2 partitions are set up and in <code>/etc/fstab</code>, rgmanager can be started. This will mount the GFS2 partions.</p>
+<ul>
+<li><code>service rgmanager start</code></li>
+<li><code>chkconfig rgmanager on</code></li>
+</ul>
+<h3>Starting Cluster Software</h3>
+<p>To start the cluster software on a node, type the following commands in this order:</p>
+<ul>
+<li><code>service cman start</code></li>
+<li><code>service clvmd start</code></li>
+<li><code>service gfs2 start</code></li>
+<li><code>service rgmanager start</code></li>
+</ul>
+<h3>Stopping Cluster Software</h3>
+<p>To stop the cluster software on a node, type the following commands in this order:</p>
+<ul>
+<li><code>service ossec-hids stop</code>
+<ul>
+<li>(ossec monitors the apache log files, so the /logs partition will not be unmounted unless ossec is stopped first.)</li>
+</ul>
+</li>
+<li><code>service rgmanager stop</code></li>
+<li><code>service gfs2 stop</code></li>
+<li><code>umount -at gfs2</code></li>
+<li><code>service clvmd stop</code></li>
+<li><code>service cman stop</code></li>
+</ul>
+<h3>Cluster tips</h3>
+<p>If a service shows as ‘failed’ when checking on services with <code>clustat</code></p>
+<ul>
+<li>Disable the service first: <code>clusvcadm -d service-name</code></li>
+<li>Then re-enable it: <code>clusvcadm -e service-name</code></li>
+</ul>
+<p>Have Shorewall start sooner in the boot process.</p>
+<ul>
+<li>It was necessary to move shorewall up in the boot process, otherwise cman had no open connection to detect the other nodes.</li>
+<li>Edit the <code>/etc/init.d/shorewall</code> and change the line near the top from <code># chkconfig: - 28 90</code> to
+<ul>
+<li><code># chkconfig: - 18 90</code></li>
+</ul>
+</li>
+<li>Then use chkconfig to turn off shorewall and then back on.
+<ul>
+<li><code>chkconfig shorewall off</code></li>
+<li><code>chkconfig shorewall on</code></li>
+</ul>
+</li>
+</ul>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2013/02/01/setting-up-a-hosting-environment-part-3-redhat-cluster-and-gfs2/feed/</wfw:commentRss>
+			<slash:comments>5</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1438</post-id>	</item>
+	</channel>
+</rss>

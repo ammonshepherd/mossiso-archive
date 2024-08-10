@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width">
+	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="pingback" href="https://mossiso.com/xmlrpc.php">
+	<script>(function(html){html.className = html.className.replace(/\bno-js\b/,'js')})(document.documentElement);</script>
+<title>Coding &#8211; Ammon Shepherd</title>
+<meta name='robots' content='max-image-preview:large' />
+<link rel='dns-prefetch' href='https://stats.wp.com/' />
+<link rel='dns-prefetch' href='https://v0.wordpress.com/' />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Feed" href="../../../feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Comments Feed" href="../../../comments/feed/index.html" />
+<link rel="alternate" type="application/rss+xml" title="Ammon Shepherd &raquo; Coding Category Feed" href="feed/index.html" />
+<script>
+window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15.0.3\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/mossiso.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=6.6.1"}};
+/*! This file is auto-generated */
+!function(i,n){var o,s,e;function c(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function p(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data),r=(e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0),new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data));return t.every(function(e,t){return e===r[t]})}function u(e,t,n){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\uddfa\ud83c\uddf3","\ud83c\uddfa\u200b\ud83c\uddf3")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!n(e,"\ud83d\udc26\u200d\u2b1b","\ud83d\udc26\u200b\u2b1b")}return!1}function f(e,t,n){var r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):i.createElement("canvas"),a=r.getContext("2d",{willReadFrequently:!0}),o=(a.textBaseline="top",a.font="600 32px Arial",{});return e.forEach(function(e){o[e]=t(a,e,n)}),o}function t(e){var t=i.createElement("script");t.src=e,t.defer=!0,i.head.appendChild(t)}"undefined"!=typeof Promise&&(o="wpEmojiSettingsSupports",s=["flag","emoji"],n.supports={everything:!0,everythingExceptFlag:!0},e=new Promise(function(e){i.addEventListener("DOMContentLoaded",e,{once:!0})}),new Promise(function(t){var n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"}),a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=function(e){c(n=e.data),a.terminate(),t(n)})}catch(e){}c(n=f(s,u,p))}t(n)}).then(function(e){for(var t in e)n.supports[t]=e[t],n.supports.everything=n.supports.everything&&n.supports[t],"flag"!==t&&(n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&n.supports[t]);n.supports.everythingExceptFlag=n.supports.everythingExceptFlag&&!n.supports.flag,n.DOMReady=!1,n.readyCallback=function(){n.DOMReady=!0}}).then(function(){return e}).then(function(){var e;n.supports.everything||(n.readyCallback(),(e=n.source||{}).concatemoji?t(e.concatemoji):e.wpemoji&&e.twemoji&&(t(e.twemoji),t(e.wpemoji)))}))}((window,document),window._wpemojiSettings);
+</script>
+<link rel='stylesheet' id='twentyfifteen-jetpack-css' href='../../../wp-content/plugins/jetpack/modules/theme-tools/compat/twentyfifteen.css%3Fver=13.1.3.css' media='all' />
+<style id='wp-emoji-styles-inline-css'>
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+</style>
+<link rel='stylesheet' id='wp-block-library-css' href='../../../wp-includes/css/dist/block-library/style.min.css%3Fver=6.6.1.css' media='all' />
+<style id='wp-block-library-inline-css'>
+.has-text-align-justify{text-align:justify;}
+</style>
+<style id='wp-block-library-theme-inline-css'>
+.wp-block-audio :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-audio :where(figcaption){color:#ffffffa6}.wp-block-audio{margin:0 0 1em}.wp-block-code{border:1px solid #ccc;border-radius:4px;font-family:Menlo,Consolas,monaco,monospace;padding:.8em 1em}.wp-block-embed :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-embed :where(figcaption){color:#ffffffa6}.wp-block-embed{margin:0 0 1em}.blocks-gallery-caption{color:#555;font-size:13px;text-align:center}.is-dark-theme .blocks-gallery-caption{color:#ffffffa6}:root :where(.wp-block-image figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme :root :where(.wp-block-image figcaption){color:#ffffffa6}.wp-block-image{margin:0 0 1em}.wp-block-pullquote{border-bottom:4px solid;border-top:4px solid;color:currentColor;margin-bottom:1.75em}.wp-block-pullquote cite,.wp-block-pullquote footer,.wp-block-pullquote__citation{color:currentColor;font-size:.8125em;font-style:normal;text-transform:uppercase}.wp-block-quote{border-left:.25em solid;margin:0 0 1.75em;padding-left:1em}.wp-block-quote cite,.wp-block-quote footer{color:currentColor;font-size:.8125em;font-style:normal;position:relative}.wp-block-quote.has-text-align-right{border-left:none;border-right:.25em solid;padding-left:0;padding-right:1em}.wp-block-quote.has-text-align-center{border:none;padding-left:0}.wp-block-quote.is-large,.wp-block-quote.is-style-large,.wp-block-quote.is-style-plain{border:none}.wp-block-search .wp-block-search__label{font-weight:700}.wp-block-search__button{border:1px solid #ccc;padding:.375em .625em}:where(.wp-block-group.has-background){padding:1.25em 2.375em}.wp-block-separator.has-css-opacity{opacity:.4}.wp-block-separator{border:none;border-bottom:2px solid;margin-left:auto;margin-right:auto}.wp-block-separator.has-alpha-channel-opacity{opacity:1}.wp-block-separator:not(.is-style-wide):not(.is-style-dots){width:100px}.wp-block-separator.has-background:not(.is-style-dots){border-bottom:none;height:1px}.wp-block-separator.has-background:not(.is-style-wide):not(.is-style-dots){height:2px}.wp-block-table{margin:0 0 1em}.wp-block-table td,.wp-block-table th{word-break:normal}.wp-block-table :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-table :where(figcaption){color:#ffffffa6}.wp-block-video :where(figcaption){color:#555;font-size:13px;text-align:center}.is-dark-theme .wp-block-video :where(figcaption){color:#ffffffa6}.wp-block-video{margin:0 0 1em}:root :where(.wp-block-template-part.has-background){margin-bottom:0;margin-top:0;padding:1.25em 2.375em}
+</style>
+<link rel='stylesheet' id='mediaelement-css' href='../../../wp-includes/js/mediaelement/mediaelementplayer-legacy.min.css%3Fver=4.2.17.css' media='all' />
+<link rel='stylesheet' id='wp-mediaelement-css' href='../../../wp-includes/js/mediaelement/wp-mediaelement.min.css%3Fver=6.6.1.css' media='all' />
+<style id='jetpack-sharing-buttons-style-inline-css'>
+.jetpack-sharing-buttons__services-list{display:flex;flex-direction:row;flex-wrap:wrap;gap:0;list-style-type:none;margin:5px;padding:0}.jetpack-sharing-buttons__services-list.has-small-icon-size{font-size:12px}.jetpack-sharing-buttons__services-list.has-normal-icon-size{font-size:16px}.jetpack-sharing-buttons__services-list.has-large-icon-size{font-size:24px}.jetpack-sharing-buttons__services-list.has-huge-icon-size{font-size:36px}@media print{.jetpack-sharing-buttons__services-list{display:none!important}}ul.jetpack-sharing-buttons__services-list.has-background{padding:1.25em 2.375em}
+</style>
+<style id='classic-theme-styles-inline-css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #fff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--color--dark-gray: #111;--wp--preset--color--light-gray: #f1f1f1;--wp--preset--color--yellow: #f4ca16;--wp--preset--color--dark-brown: #352712;--wp--preset--color--medium-pink: #e53b51;--wp--preset--color--light-pink: #ffe5d1;--wp--preset--color--dark-purple: #2e2256;--wp--preset--color--purple: #674970;--wp--preset--color--blue-gray: #22313f;--wp--preset--color--bright-blue: #55c3dc;--wp--preset--color--light-blue: #e9f2f9;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--gradient--dark-gray-gradient-gradient: linear-gradient(90deg, rgba(17,17,17,1) 0%, rgba(42,42,42,1) 100%);--wp--preset--gradient--light-gray-gradient: linear-gradient(90deg, rgba(241,241,241,1) 0%, rgba(215,215,215,1) 100%);--wp--preset--gradient--white-gradient: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(230,230,230,1) 100%);--wp--preset--gradient--yellow-gradient: linear-gradient(90deg, rgba(244,202,22,1) 0%, rgba(205,168,10,1) 100%);--wp--preset--gradient--dark-brown-gradient: linear-gradient(90deg, rgba(53,39,18,1) 0%, rgba(91,67,31,1) 100%);--wp--preset--gradient--medium-pink-gradient: linear-gradient(90deg, rgba(229,59,81,1) 0%, rgba(209,28,51,1) 100%);--wp--preset--gradient--light-pink-gradient: linear-gradient(90deg, rgba(255,229,209,1) 0%, rgba(255,200,158,1) 100%);--wp--preset--gradient--dark-purple-gradient: linear-gradient(90deg, rgba(46,34,86,1) 0%, rgba(66,48,123,1) 100%);--wp--preset--gradient--purple-gradient: linear-gradient(90deg, rgba(103,73,112,1) 0%, rgba(131,93,143,1) 100%);--wp--preset--gradient--blue-gray-gradient: linear-gradient(90deg, rgba(34,49,63,1) 0%, rgba(52,75,96,1) 100%);--wp--preset--gradient--bright-blue-gradient: linear-gradient(90deg, rgba(85,195,220,1) 0%, rgba(43,180,211,1) 100%);--wp--preset--gradient--light-blue-gradient: linear-gradient(90deg, rgba(233,242,249,1) 0%, rgba(193,218,238,1) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='twentyfifteen-fonts-css' href='../../../wp-content/themes/twentyfifteen/assets/fonts/noto-sans-plus-noto-serif-plus-inconsolata.css%3Fver=20230328.css' media='all' />
+<link rel='stylesheet' id='genericons-css' href='../../../wp-content/plugins/jetpack/_inc/genericons/genericons/genericons.css%3Fver=3.1.css' media='all' />
+<link rel='stylesheet' id='twentyfifteen-style-css' href='../../../wp-content/themes/twentyfifteen/style.css%3Fver=20231107.css' media='all' />
+<link rel='stylesheet' id='twentyfifteen-block-style-css' href='../../../wp-content/themes/twentyfifteen/css/blocks.css%3Fver=20230623.css' media='all' />
+<link rel='stylesheet' id='jetpack_css-css' href='../../../wp-content/plugins/jetpack/css/jetpack.css%3Fver=13.1.3.css' media='all' />
+<link rel='stylesheet' id='sociable3-css' href='../../../wp-content/plugins/sociable-30/sociable.css%3Fver=5.13.css' media='all' />
+<script src="../../../wp-includes/js/jquery/jquery.min.js%3Fver=3.7.1" id="jquery-core-js"></script>
+<script src="../../../wp-includes/js/jquery/jquery-migrate.min.js%3Fver=3.4.1" id="jquery-migrate-js"></script>
+<script id="twentyfifteen-script-js-extra">
+var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand child menu<\/span>","collapse":"<span class=\"screen-reader-text\">collapse child menu<\/span>"};
+</script>
+<script src="../../../wp-content/themes/twentyfifteen/js/functions.js%3Fver=20221101" id="twentyfifteen-script-js" defer data-wp-strategy="defer"></script>
+<link rel="https://api.w.org/" href="../../../wp-json/index.html" /><link rel="alternate" title="JSON" type="application/json" href="../../../wp-json/wp/v2/categories/3" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://mossiso.com/xmlrpc.php?rsd" />
+<meta name="generator" content="WordPress 6.6.1" />
+	<style>img#wpstats{display:none}</style>
+		
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Coding &#8211; Ammon Shepherd" />
+<meta property="og:url" content="https://mossiso.com/category/technical/coding/" />
+<meta property="og:description" content="Software code that I have written, or tips for doing computery type stuff." />
+<meta property="og:site_name" content="Ammon Shepherd" />
+<meta property="og:image" content="https://s0.wp.com/i/blank.jpg" />
+<meta property="og:image:alt" content="" />
+<meta property="og:locale" content="en_US" />
+<meta name="twitter:creator" content="@mossiso" />
+
+<!-- End Jetpack Open Graph Tags -->
+<link rel="icon" href="../../../wp-content/uploads/2018/12/favicon-96x96.png" sizes="32x32" />
+<link rel="icon" href="../../../wp-content/uploads/2018/12/favicon-96x96.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="../../../wp-content/uploads/2018/12/favicon-96x96.png" />
+<meta name="msapplication-TileImage" content="https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png" />
+<style type="text/css" id="wp-custom-css">a {
+	color:#BE1E23;
+}</style></head>
+
+<body class="archive category category-coding category-3 wp-custom-logo wp-embed-responsive">
+<div id="page" class="hfeed site">
+	<a class="skip-link screen-reader-text" href="index.html#content">
+		Skip to content	</a>
+
+	<div id="sidebar" class="sidebar">
+		<header id="masthead" class="site-header">
+			<div class="site-branding">
+				<a href="../../../index.html" class="custom-logo-link" rel="home"><img width="192" height="192" src="../../../wp-content/uploads/2018/12/android-icon-192x192.png" class="custom-logo" alt="Ammon Shepherd" decoding="async" srcset="https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192.png 192w, https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192-150x150.png 150w" sizes="(max-width: 192px) 100vw, 192px" /></a>						<p class="site-title"><a href="../../../index.html" rel="home">Ammon Shepherd</a></p>
+												<p class="site-description">mossiso = more better</p>
+										<button class="secondary-toggle">Menu and widgets</button>
+			</div><!-- .site-branding -->
+		</header><!-- .site-header -->
+
+			<div id="secondary" class="secondary">
+
+					<nav id="site-navigation" class="main-navigation">
+				<div class="menu-newmain-container"><ul id="menu-newmain" class="nav-menu"><li id="menu-item-1768" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1768"><a href="../../../about/index.html">About</a></li>
+<li id="menu-item-1766" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1766"><a href="../../../digital-projects/index.html">Digital Projects</a></li>
+<li id="menu-item-1767" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1767"><a href="../../../courses/index.html">Courses</a></li>
+<li id="menu-item-1769" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1769"><a href="https://github.com/ammonshepherd">Code</a></li>
+<li id="menu-item-1770" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1770"><a href="../../../resume/index.html">CV</a></li>
+</ul></div>			</nav><!-- .main-navigation -->
+		
+		
+		
+	</div><!-- .secondary -->
+
+	</div><!-- .sidebar -->
+
+	<div id="content" class="site-content">
+
+	<section id="primary" class="content-area">
+		<main id="main" class="site-main">
+
+		
+			<header class="page-header">
+				<h1 class="page-title">Category: <span>Coding</span></h1><div class="taxonomy-description"><p>Software code that I have written, or tips for doing computery type stuff.</p>
+</div>			</header><!-- .page-header -->
+
+			
+<article id="post-1945" class="post-1945 post type-post status-publish format-standard has-post-thumbnail hentry category-coding">
+	
+	<a class="post-thumbnail" href="../../../movie-control-in-processing/index.html" aria-hidden="true">
+		<img width="825" height="510" src="../../../wp-content/uploads/2022/04/Screen-Shot-2022-04-21-at-3.10.23-PM-825x510.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Movie control in Processing" decoding="async" fetchpriority="high" />	</a>
+
+		
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../movie-control-in-processing/index.html" rel="bookmark">Movie control in Processing</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		
+<p>This is a quick post to show how to control movie playback with Processing.</p>
+
+
+<pre class="wp-block-code" aria-describedby="shcb-language-1" data-shcb-language-name="Java" data-shcb-language-slug="java"><link rel='stylesheet' id='syntax-highlighting-code-block-css' href='../../../wp-content/plugins/syntax-highlighting-code-block/vendor/scrivo/highlight-php/styles/default.css%3Fver=1.4.0.css' media='all' /><style>.wp-block-code {
+	border: 0;
+	padding: 0;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+}
+
+.wp-block-code > span {
+	display: block;
+	overflow: auto;
+}
+
+.shcb-language {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	-webkit-clip-path: inset(50%);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute;
+	width: 1px;
+	word-wrap: normal;
+	word-break: normal;
+}
+
+.hljs {
+	box-sizing: border-box;
+}
+
+.hljs.shcb-code-table {
+	display: table;
+	width: 100%;
+}
+
+.hljs.shcb-code-table > .shcb-loc {
+	color: inherit;
+	display: table-row;
+	width: 100%;
+}
+
+.hljs.shcb-code-table .shcb-loc > span {
+	display: table-cell;
+}
+
+.wp-block-code code.hljs:not(.shcb-wrap-lines) {
+	white-space: pre;
+}
+
+.wp-block-code code.hljs.shcb-wrap-lines {
+	white-space: pre-wrap;
+}
+
+.hljs.shcb-line-numbers {
+	border-spacing: 0;
+	counter-reset: line;
+}
+
+.hljs.shcb-line-numbers > .shcb-loc {
+	counter-increment: line;
+}
+
+.hljs.shcb-line-numbers .shcb-loc > span {
+	padding-left: 0.75em;
+}
+
+.hljs.shcb-line-numbers .shcb-loc::before {
+	border-right: 1px solid #ddd;
+	content: counter(line);
+	display: table-cell;
+	padding: 0 0.75em;
+	text-align: right;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	white-space: nowrap;
+	width: 1%;
+}
+</style><span><code class="hljs language-java"><span class="hljs-comment">/**
+ * Loop. 
+ * 
+ * Shows how to load and play a QuickTime movie file.  
+ *
+ */</span>
+
+<span class="hljs-keyword">import</span> processing.video.*;
+
+Movie movie;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  size(<span class="hljs-number">560</span>, <span class="hljs-number">406</span>);
+  background(<span class="hljs-number">0</span>);
+  <span class="hljs-comment">// Load and play the video in a loop</span>
+  movie = <span class="hljs-keyword">new</span> Movie(<span class="hljs-keyword">this</span>, <span class="hljs-string">"tac.mov"</span>);
+  movie.loop();
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> </span>{
+  image(movie, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height);
+
+  <span class="hljs-keyword">if</span> (mousePressed == <span class="hljs-keyword">true</span>) {
+    movie.play();
+    movie.read();
+  } <span class="hljs-keyword">else</span> {
+    movie.stop();
+    fill(<span class="hljs-number">0</span>);
+    rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height);
+  }
+  
+}
+</code></span><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Java</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">java</span><span class="shcb-language__paren">)</span></small></pre>
+
+
+<p>There&#8217;s the code. It&#8217;s the basic default code to show a movie. But what if you want some event (mouse press, input from Arduino, etc) to control if and when the movie plays.</p>
+
+
+
+<p>Not so intuitive, and hence this post.</p>
+
+
+
+<p>The trick is to use the play() and read() methods in the if&#8230;else statement. In the code above. If the mouse button is pressed, then the movie will play from the beginning. </p>
+
+
+
+<p>And if you want the video to disappear after the video is played, then after the movie stops, cover the draw window with a rectangle (filled with black, in this example).</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../movie-control-in-processing/index.html" rel="bookmark"><time class="entry-date published" datetime="2022-04-21T15:11:50-04:00">21 April, 2022</time><time class="updated" datetime="2022-04-21T15:30:17-04:00">21 April, 2022</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="index.html" rel="category tag">Coding</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1945 -->
+
+<article id="post-1875" class="post-1875 post type-post status-publish format-standard has-post-thumbnail hentry category-coding category-howto category-technical category-technology category-websites tag-docker tag-docker-compose tag-flask tag-local-development tag-pgadmin tag-php tag-phpmyadmin tag-postgres tag-python tag-web-development">
+	
+	<a class="post-thumbnail" href="../../../docker-development-environment-for-everyone/index.html" aria-hidden="true">
+		<img width="825" height="510" src="../../../wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.52.52-PM-825x510.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Docker Development Environment for Everyone" decoding="async" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.52.52-PM-825x510.png 825w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.52.52-PM-300x186.png 300w" sizes="(max-width: 825px) 100vw, 825px" />	</a>
+
+		
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../docker-development-environment-for-everyone/index.html" rel="bookmark">Docker Development Environment for Everyone</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		
+<p>One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem.</p>
+
+
+
+<p>Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly.</p>
+
+
+
+<p>You&#8217;re in for a special treat, because I&#8217;m going to show you not one (1), but two (2) different development environments; one for PHP, MySQL, Apache and phpMyAdmin, and one for Python (Flask) and PostgreSQL with pgAdmin. Each of these in a Docker container for ease of use.</p>
+
+
+
+<h2 class="wp-block-heading">Pre-requisites</h2>
+
+
+
+<p>For any of this to work, make sure you have <a href="https://www.docker.com/get-started" data-type="URL" data-id="https://www.docker.com/get-              started">Docker Desktop</a> installed and running.</p>
+
+
+
+<p>We&#8217;ll be using a terminal application for running some commands, so you&#8217;ll need some familiarity with that too.</p>
+
+
+
+<p>Git is used to copy the files from the GitHub repo, but you can also download them as a zip file.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="653" src="../../../wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png" alt="" class="wp-image-1882" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">PMAMP</h2>
+
+
+
+<p>We&#8217;ll tackle the <strong>P</strong>hp<strong>M</strong>yadmin <strong>A</strong>pache <strong>M</strong>ysql <strong>P</strong>hp (PMAMP) environment first.</p>
+
+
+
+<p>After setting this up, we&#8217;ll have a place to put PHP code, a running Apache web server, a MySQL server and a running instance of phpMyAdmin.</p>
+
+
+
+<p>The quickest way to get this going is to download the files from this GitHub repo <a href="https://github.com/ammonshepherd/pmamp" target="_blank" rel="noreferrer noopener">https://github.com/ammonshepherd/pmamp</a></p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pmamp.git</code></p>
+
+
+
+<p>Change into that directory.</p>
+
+
+
+<p><code class="wp-block-code">cd pmamp</code></p>
+
+
+
+<p>And start the Docker containers</p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You can view the website at <a href="http://lvh.me">http://lvh.me</a>. lvh.me is just a nice service that points back to your local machine (127.0.0.1 or localhost). It makes it look like you are using a real domain name.</p>
+
+
+
+<p>You can view phpMyAdmin at <a href="http://pma.lvh.me">http://pma.lvh.me</a>.</p>
+
+
+
+<p>You can even use a real domain name. Just edit the docker-compose.yml file. There is a line like this: &nbsp;</p>
+
+
+
+<p><code class="wp-block-code">- "traefik.http.routers.php-apache.rule=Host('lvh.me', 'pmamp.lvh.me', 'example.com')"</code></p>
+
+
+
+<p>Just add your domain to the list (or remove the other ones). Each entry must use the backtick, rather than the single quotes. WordPress mangles the backticks, so I am using single quotes here.</p>
+
+
+
+<p>Now you just need to let your computer know to redirect all traffic to that domain name to itself.</p>
+
+
+
+<p>You&#8217;ll need to edit the /etc/hosts file (<a href="https://www.makeuseof.com/tag/modify-manage-hosts-file-linux/">Linux or Mac</a>), or c:\windows\system32\drivers\etc\hosts (<a href="https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/">Windows</a>). Now you can develop for any domain name right on your computer as if it were using the actual domain name.</p>
+
+
+
+<p>Put all of your website files in the &#8216;www&#8217; folder and you&#8217;re ready to develop!</p>
+
+
+
+<p>Check the README at <a href="https://github.com/ammonshepherd/pmamp">https://github.com/ammonshepherd/pmamp</a> for more details on how it works and things to change.</p>
+
+
+
+<p>To stop the services (turn off Apache, MySQL and phpAdmin) run</p>
+
+
+
+<p><code class="wp-block-code">docker-compose down </code></p>
+
+
+
+<p>in the same directory where the docker-compose.yml file lives.</p>
+
+
+
+<figure class="wp-block-image size-large"><img loading="lazy" decoding="async" width="1024" height="653" src="../../../wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png" alt="" class="wp-image-1883" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">pFp</h2>
+
+
+
+<p>The set up for Python (using a Flask app) and PostgreSQL is exactly the same process.</p>
+
+
+
+<p>Grab the files from <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a>.</p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pfp.git</code></p>
+
+
+
+<p><code class="wp-block-code">cd pfp</code></p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You now have a running Flask app at <a href="http://lvh.me">http://lvh.me</a>, or <a href="http://pfp.lvh.me">http://pfp.lvh.me</a> and a running pgAdmin application at <a href="http://pga.lvh.me">http://pga.lvh.me</a>.</p>
+
+
+
+<p>The same trick for custom domain names applies here too.</p>
+
+
+
+<p>And also check out the README for more details: <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a></p>
+
+
+
+<p>Follow the same commands above to shutdown the Python, PostgreSQL and pgAdmin containers.</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../docker-development-environment-for-everyone/index.html" rel="bookmark"><time class="entry-date published" datetime="2020-11-13T14:57:44-05:00">13 November, 2020</time><time class="updated" datetime="2020-11-13T16:00:48-05:00">13 November, 2020</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="index.html" rel="category tag">Coding</a>, <a href="../howto/index.html" rel="category tag">HowTo</a>, <a href="../index.html" rel="category tag">Technical</a>, <a href="../technology/index.html" rel="category tag">Technology</a>, <a href="../websites/index.html" rel="category tag">Websites</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../tag/docker/index.html" rel="tag">docker</a>, <a href="../../../tag/docker-compose/index.html" rel="tag">docker-compose</a>, <a href="../../../tag/flask/index.html" rel="tag">flask</a>, <a href="../../../tag/local-development/index.html" rel="tag">local development</a>, <a href="../../../tag/pgadmin/index.html" rel="tag">pgadmin</a>, <a href="../../../tag/php/index.html" rel="tag">php</a>, <a href="../../../tag/phpmyadmin/index.html" rel="tag">phpMyAdmin</a>, <a href="../../../tag/postgres/index.html" rel="tag">postgres</a>, <a href="../../../tag/python/index.html" rel="tag">python</a>, <a href="../../../tag/web-development/index.html" rel="tag">web development</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1875 -->
+
+<article id="post-1707" class="post-1707 post type-post status-publish format-standard has-post-thumbnail hentry category-coding category-howto category-systems-administration-technical category-technical tag-bash tag-prompt tag-terminal">
+	
+	<a class="post-thumbnail" href="../../../what-is-tput-sgr0-doin-in-my-bash-prompt/index.html" aria-hidden="true">
+		<img width="621" height="408" src="../../../wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="What is &#8216;tput sgr0&#8217; doin in my Bash prompt?" decoding="async" loading="lazy" srcset="https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM.png 621w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-300x197.png 300w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-150x99.png 150w" sizes="(max-width: 621px) 100vw, 621px" />	</a>
+
+		
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../what-is-tput-sgr0-doin-in-my-bash-prompt/index.html" rel="bookmark">What is &#8216;tput sgr0&#8217; doin in my Bash prompt?</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I have a new work computer, so this time around, I&#8217;m doing everything from scratch, because that&#8217;s the best way to learn.</p>
+<p>In playing with my Bash prompt, I used this site to generate the prompt: <a href="http://bashrcgenerator.com/">http://bashrcgenerator.com/</a></p>
+<p>Another one that is great is here: <a href="http://ezprompt.net/">http://ezprompt.net/</a></p>
+<p>The prompt that is generated uses a command to clear the text color that I hadn&#8217;t seen before: <code>tput sgr0</code></p>
+<p>My prompt (which I put in the ~/.bash_profile file) is:</p>
+<pre><code>#PROMPT
+# To enter an emoji, while in insert mode type Ctrl-v, then enter the UTF8 code
+# for the emoji, ex. U26A1 (note, use capital letters), then type ESC key. You
+# can get a list of UTF8 emoji codes here: http://graphemica.com/
+export PS1="\[\033[38;5;39m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;229m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] [\[$(tput sgr0)\]\[\033[38;5;76m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]]\n\[$(tput sgr0)\]\[\033[38;5;215m\]⚡\[$(tput sgr0)\] "
+</code></pre>
+<p>So, of course, I spent the next 40 minutes trying to figure out all I could about that command, and more specifically, what &#8216;sgr&#8217; meant.</p>
+<p>I first scoured Google search results. Mostly just information about tput. Then I took to the manual pages: <code>man tput</code> was helpful in learning about what tput does. That led to <code>man terminfo</code> and finally to <code>man ncurses</code>. None of those man pages define &#8216;sgr&#8217;, but &#8216;ncurses&#8217; did give a better clue by stating that &#8220;<span class="s1">The<span class="Apple-converted-space">  </span></span><span class="s2">ncurses</span><span class="s1"><span class="Apple-converted-space">  </span>library can exploit the capabilities of terminals which implement the ISO-6429 </span><span class="s3">SGR</span><span class="s1"> 39 and </span><span class="s3">SGR</span><span class="s1"> 49 controls&#8221;</span></p>
+<p>So a Google search of &#8216;ISO-6429 SGR 39&#8217; turns up an old 1990&#8217;s ECMA standardization for &#8220;Control Functions and Coded Character Sets&#8221;, Standard ECMA-48, <a href="https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf">https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf</a></p>
+<p>(More on ECMA history here: <a href="https://www.ecma-international.org/memento/history.htm">https://www.ecma-international.org/memento/history.htm</a>) [sidenote: ECMA may sound familiar. ECMAScript. Wait isn&#8217;t that Javascript? See here: <a href="https://medium.freecodecamp.org/whats-the-difference-between-javascript-and-ecmascript-cba48c73a2b5">https://medium.freecodecamp.org/whats-the-difference-between-javascript-and-ecmascript-cba48c73a2b5</a>]</p>
+<p>And there we go! Page 75 of the PDF (page 61 internally numbered), section 8.3.117!</p>
+<p><strong>SGR &#8211; SELECT GRAPHIC RENDITION</strong></p>
+<p>And the 0 means = &#8220;default rendition (implementation-defined), cancels the effect of any preceding occurrence of SGR in the data stream regardless of the setting of the GRAPHIC RENDITION COMBINATION MODE (GRCM)&#8221;</p>
+<p>To make things a little more readable, I made the color codes into variables:</p>
+<pre><code>#PROMPT
+# To enter an emoji, while in insert mode type Ctrl-v, then enter the UTF8 code
+# for the emoji, ex. U26A1 (note, use capital letters), then type ESC key. You
+# can get a list of UTF8 emoji codes here: http://graphemica.com/
+BLUE='\[\033[38;5;39m\]'
+PALE_YELLOW='\[\033[38;5;229m\]'
+RESET='\[$(tput sgr0)\]'
+GREEN='\[\033[38;5;76m\]'
+export PS1="${BLUE}\u${RESET}@${PALE_YELLOW}\h${RESET} [${GREEN}\w${RESET}]\n⚡${RESET} "
+</code></pre>
+<p>And there we go. Much too much time learning stuff! And my prompt looks like this:</p>
+<p><img loading="lazy" decoding="async" class="aligncenter wp-image-1711 size-full" src="../../../wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1.png" alt="" width="621" height="408" srcset="https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1.png 621w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1-300x197.png 300w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1-150x99.png 150w" sizes="(max-width: 621px) 100vw, 621px" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>And all of that to figure out what &#8216;sgr&#8217; means.</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../what-is-tput-sgr0-doin-in-my-bash-prompt/index.html" rel="bookmark"><time class="entry-date published" datetime="2018-09-18T10:18:18-04:00">18 September, 2018</time><time class="updated" datetime="2018-09-18T10:23:28-04:00">18 September, 2018</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="index.html" rel="category tag">Coding</a>, <a href="../howto/index.html" rel="category tag">HowTo</a>, <a href="../systems-administration-technical/index.html" rel="category tag">Systems Administration</a>, <a href="../index.html" rel="category tag">Technical</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../tag/bash/index.html" rel="tag">bash</a>, <a href="../../../tag/prompt/index.html" rel="tag">prompt</a>, <a href="../../../tag/terminal/index.html" rel="tag">terminal</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1707 -->
+
+<article id="post-1683" class="post-1683 post type-post status-publish format-aside hentry category-howto category-systems-administration-technical category-technical category-technology category-wordpress tag-update-wp tag-wordpress post_format-post-format-aside">
+	
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../2018/01/03/quick-wp-upgrading-with-wpcli/index.html" rel="bookmark">Quick WP upgrading with WPCLI</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself.</p>
+<h1>Requirements</h1>
+<ul>
+<li>ssh access to your server</li>
+<li>wp-cli command installed (instructions for installing wp-cli at <a href="http://wp-cli.org/">http://wp-cli.org/</a>)</li>
+</ul>
+<h2>Install/Upgrade WP CLI</h2>
+<ul>
+<li><strong>wp-cli should be upgraded each time a WordPress installation is upgraded.</strong></li>
+</ul>
+<pre><code>wp cli update
+</code></pre>
+<h2>Upgrade WP</h2>
+<h3>Prep work</h3>
+<p>Change into the WP directory</p>
+<pre><code>cd /path/to/wordpress/installation/
+</code></pre>
+<p>Make a list of active plugins</p>
+<pre><code>wp plugin list --status=active --format=csv --fields=name | tail -n +2 &gt; ../active-plugins.txt
+</code></pre>
+<h3>Update all plugins</h3>
+<pre><code>wp plugin update --all
+</code></pre>
+<h3>Deactivate all of the plugins</h3>
+<pre><code>wp plugin deactivate --all
+</code></pre>
+<h3>Upgrade WordPress</h3>
+<pre><code>wp core update
+</code></pre>
+<h3>Reactivate all of the previously active plugins.</h3>
+<pre><code>cat ../active-plugins.txt | xargs wp plugin activate
+</code></pre>
+<h1>Check the site in various browsers (make sure cache has been cleared).</h1>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="entry-format"><span class="screen-reader-text">Format </span><a href="../../../type/aside/index.html">Aside</a></span><span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../2018/01/03/quick-wp-upgrading-with-wpcli/index.html" rel="bookmark"><time class="entry-date published updated" datetime="2018-01-03T15:30:59-05:00">3 January, 2018</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="../howto/index.html" rel="category tag">HowTo</a>, <a href="../systems-administration-technical/index.html" rel="category tag">Systems Administration</a>, <a href="../index.html" rel="category tag">Technical</a>, <a href="../technology/index.html" rel="category tag">Technology</a>, <a href="wordpress/index.html" rel="category tag">wordpress</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../tag/update-wp/index.html" rel="tag">update WP</a>, <a href="../../../tag/wordpress/index.html" rel="tag">wordpress</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1683 -->
+
+<article id="post-1675" class="post-1675 post type-post status-publish format-aside hentry category-coding category-systems-administration-technical category-technical category-websites tag-apache tag-bash tag-devops tag-systems-administration post_format-post-format-aside">
+	
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../grab-all-of-the-domain-names-in-apache-host-file/index.html" rel="bookmark">Grab all of the domain names in Apache host file</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>Quick script I whipped up today to grab all of the domain names on a server.</p>
+<pre class="lang:sh decode:true">#!/bin/bash
+
+if [ -e alldomains ]
+then
+  rm alldomains
+fi
+
+alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) )
+
+for domain in ${alldomains[*]}
+do
+  cat $domain | egrep "ServerName|ServerAlias" | egrep -v "#" | sed -e 's|ServerName||' -e 's|ServerAlias||' -e 's|www.||' -e 's|:80||' | tr -s ' ' '\n' | tr -d ' ' | sed -e '/^\s*$/d' &gt;&gt; alldomains
+done
+
+sort alldomains | uniq | sort -o alldomains</pre>
+<p>&nbsp;</p>
+<p>This gets all of the domains from ServerName and ServerAlias lines, takes out all of the white space and empty lines, and creates a file with just a list of the unique domain names.</p>
+<p>This accounts for subdomains that use &#8216;www&#8217; or have port :80 on the end.</p>
+<p>For instance, www.somedomain.com and somedomain.com are the same, so the script takes out the &#8216;www.&#8217; which leaves to copies of somedomain.com, which it then deletes one of them in the final output to the file. The same for &#8216;:80&#8217;.</p>
+<p>&nbsp;</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="entry-format"><span class="screen-reader-text">Format </span><a href="../../../type/aside/index.html">Aside</a></span><span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../grab-all-of-the-domain-names-in-apache-host-file/index.html" rel="bookmark"><time class="entry-date published updated" datetime="2017-06-30T15:55:17-04:00">30 June, 2017</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="index.html" rel="category tag">Coding</a>, <a href="../systems-administration-technical/index.html" rel="category tag">Systems Administration</a>, <a href="../index.html" rel="category tag">Technical</a>, <a href="../websites/index.html" rel="category tag">Websites</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../tag/apache/index.html" rel="tag">apache</a>, <a href="../../../tag/bash/index.html" rel="tag">bash</a>, <a href="../../../tag/devops/index.html" rel="tag">devops</a>, <a href="../../../tag/systems-administration/index.html" rel="tag">systems administration</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1675 -->
+
+<article id="post-1479" class="post-1479 post type-post status-publish format-standard has-post-thumbnail hentry category-systems-administration-technical category-technical category-wordpress tag-firewall tag-iptables tag-ossec tag-shorewall tag-systems-administration tag-wordpress">
+	
+	<a class="post-thumbnail" href="../../../ossec-suhosin-and-wordpress/index.html" aria-hidden="true">
+		<img width="624" height="468" src="../../../wp-content/uploads/2013/06/Access_Denied_-_geograph.org_.uk_-_1197284-624x468.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="OSSEC, Suhosin, and WordPress" decoding="async" loading="lazy" srcset="https://mossiso.com/wp-content/uploads/2013/06/Access_Denied_-_geograph.org_.uk_-_1197284-624x468.jpg 624w, https://mossiso.com/wp-content/uploads/2013/06/Access_Denied_-_geograph.org_.uk_-_1197284-300x225.jpg 300w, https://mossiso.com/wp-content/uploads/2013/06/Access_Denied_-_geograph.org_.uk_-_1197284-250x187.jpg 250w, https://mossiso.com/wp-content/uploads/2013/06/Access_Denied_-_geograph.org_.uk_-_1197284-150x112.jpg 150w, https://mossiso.com/wp-content/uploads/2013/06/Access_Denied_-_geograph.org_.uk_-_1197284.jpg 640w" sizes="(max-width: 624px) 100vw, 624px" />	</a>
+
+		
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../ossec-suhosin-and-wordpress/index.html" rel="bookmark">OSSEC, Suhosin, and WordPress</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I had a problem show up on some of our servers. Visiting sites would work fine, but as soon as you log in to a WordPress site, then your IP was blocked at the firewall level. It took a bit of hunting around the OSSEC logs to figure out the cause, and then finally <a href="https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612" target="_blank">tipped off</a> to a local rule to combat the blockage. I outline the process of figuring out what was wrong, and how to fix it below.</p>
+<h2>DENIED!</h2>
+<p><a href="../../../wp-content/uploads/2013/06/gareth-davies-logo3.png"><img loading="lazy" decoding="async" class="size-medium wp-image-1493 alignright" src="../../../wp-content/uploads/2013/06/gareth-davies-logo3-300x62.png" alt="gareth-davies-logo3" width="300" height="62" srcset="https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-300x62.png 300w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-250x52.png 250w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-150x31.png 150w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3.png 430w" sizes="(max-width: 300px) 100vw, 300px" /></a>So initially, this was quite confusing. All of a sudden people would have their IP blocked. I checked the different sites, and seemed to have no problem. Then when I logged in to the back end, BAM, blocked as well. We have <a href="http://shorewall.net">Shorewall</a> running, so doing:</p>
+<pre class="lang:sh decode:true">shorewall show dynamic</pre>
+<p>Showed all of the IPs that Shorewall had blocked. This could also be done by using iptables</p>
+<pre class="lang:sh decode:true">iptables -nL --line-numbers</pre>
+<p>Sure enough, my IP had been blocked. I unblocked my IP with:</p>
+<pre class="lang:sh decode:true">shorewall allow ip.ad.dr.es</pre>
+<p>Or could also do</p>
+<pre class="lang:sh decode:true">iptables -D INPUT 2</pre>
+<p>where INPUT is the position or section of the firewall chain, and &#8220;2&#8221; is the line number containing my IP address.</p>
+<p>Then I checked with other web applications on that server. Where they also causing an issue? I logged in to an Omeka install. No problems.</p>
+<h2>FOUND IT!</h2>
+<p><a href="../../../wp-content/uploads/2013/06/ossec_logo.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-1494" src="../../../wp-content/uploads/2013/06/ossec_logo.png" alt="ossec_logo" width="191" height="67" srcset="https://mossiso.com/wp-content/uploads/2013/06/ossec_logo.png 191w, https://mossiso.com/wp-content/uploads/2013/06/ossec_logo-150x52.png 150w" sizes="(max-width: 191px) 100vw, 191px" /></a>OK. I know <a href="http://ossec.net">OSSEC</a> is to blame some how. It&#8217;s an awesome HIDS (Host Intrusion Detection Software) that actively responds to issues on the server based on scanning through the system logs and various rules.</p>
+<p>OSSEC keeps itself chroot&#8217;ed to /var/ossec/, so all of the ossec logs are located in /var/ossec/logs/.</p>
+<p>I first looked in the /var/ossec/logs/active-responses.log. Sure enough, a couple of lines like this show my IP being completely blocked to the server.</p>
+<pre class="lang:vim decode:true">Fri Jun 14 06:50:47 EDT 2013 /var/ossec/active-response/bin/host-deny.sh add - XXX.XX.XX.XX 1371207047.5913585 20101
+Fri Jun 14 06:50:47 EDT 2013 /var/ossec/active-response/bin/firewall-drop.sh add - XXX.XX.XX.XX 1371207047.5913585 20101
+</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">So, there we are. OSSEC blocking the IP for some reason. Now why is it blocking the IP?</span></p>
+<p>Taking a look in the /var/ossec/logs/alerts/alerts.log file to see why it thinks it needs to block the IP&#8230;</p>
+<pre class="lang:sh decode:true">** Alert 1371206381.5698606: - ids,
+2013 Jun 14 06:39:41 (server1) 127.0.0.1-&gt;/var/log/messages
+Rule: 20101 (level 6) -&gt; 'IDS event.'
+Src IP: XXX.XX.XX.XX
+Jun 14 06:39:40 server1 suhosin[18563]: ALERT - script tried to increase memory_limit to 268435456 bytes which is above the allowed value (attacker 'XXX.XX.XX.XX', file '/var/html/wp-admin/admin.php', line 109)</pre>
+<p>There were other lines in there with my IP, but nothing would/should have caused blocking, like a WordPress login event, or an SSH login event. Also, the error above is categorized as an IDS event with level 6, which by default OSSEC rules means it gets blocked.</p>
+<h2>HOW TO FIX IT!</h2>
+<p>As a quick fix, I changed the &#8220;suhosin.memory_limit&#8221; option in /etc/php.d/suhosin.ini to 256M, and the &#8220;memory_limit&#8221; in /etc/php.ini to 256M so that no error would be generated.</p>
+<p>Now came the hard part of finding out how to fix it for real. OSSEC is a pretty big beast to tackle, so I turned to my friendly web search engine to help out.</p>
+<p>To fix the issue, I would need to write a decoder or new rule to ignore the suhosin rule causing the problem. OSSEC has descent documentation to get you started, but fortunately the blog linked above had the solution already. <a href="https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612">https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612</a></p>
+<p>From user &#8216;faris&#8217; in the forum linked above:</p>
+<p>Add the following lines the the /var/ossec/etc/rules.d/local_rules.xml file.<br />
+<b></b></p>
+<pre class="lang:xhtml decode:true ">&lt;group name="local,ids,"&gt;
+  &lt;!-- First Time Suhosin event rule --&gt;
+  &lt;rule id="101006" level="14"&gt;
+    &lt;if_sid&gt;20100&lt;/if_sid&gt;
+    &lt;decoded_as&gt;suhosin&lt;/decoded_as&gt;
+    &lt;description&gt;First Time Suhosin Event&lt;/description&gt;
+  &lt;/rule&gt;
+  &lt;!-- Generic Suhosin event rule --&gt;
+  &lt;rule id="101007" level="12"&gt;
+    &lt;if_sid&gt;20101&lt;/if_sid&gt;
+    &lt;decoded_as&gt;suhosin&lt;/decoded_as&gt;
+    &lt;description&gt;Suhosin Event&lt;/description&gt;
+  &lt;/rule&gt;
+  &lt;!-- Specific Suhosin event rule --&gt;
+  &lt;rule id="101008" level="5"&gt;
+    &lt;if_sid&gt;101006,101007&lt;/if_sid&gt;
+    &lt;match&gt;script tried to increase memory&lt;/match&gt;
+    &lt;description&gt;Suhosin Memory Increase Event&lt;/description&gt;
+  &lt;/rule&gt;
+&lt;/group&gt;
+</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">What these new rules do is change the level of the default rules that were tagged/decoded as being suhosin errors. In the first rule, if the default error is 20100, and is decoded (or tagged, or matches) as suhosin, then set the level to 14 instead of the default 8.</span></p>
+<p>The second rule detects if the default error 20101 is decoded as coming from suhosin and sets the level to 12 instead of the default 6.</p>
+<p>The third new rule looks at any error tagged as suhosin and if the error has the matching text in it, then it sets the error level to 5 (below the limit for firing an active response).</p>
+<p>So, just add that group of rules to the local_rules.xml file and restart the OSSEC service. BA-DA-BING! no more blocking the IP when logging in to WordPress.</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../ossec-suhosin-and-wordpress/index.html" rel="bookmark"><time class="entry-date published" datetime="2013-06-14T12:41:53-04:00">14 June, 2013</time><time class="updated" datetime="2014-09-22T14:36:14-04:00">22 September, 2014</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="../systems-administration-technical/index.html" rel="category tag">Systems Administration</a>, <a href="../index.html" rel="category tag">Technical</a>, <a href="wordpress/index.html" rel="category tag">wordpress</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../tag/firewall/index.html" rel="tag">firewall</a>, <a href="../../../tag/iptables/index.html" rel="tag">iptables</a>, <a href="../../../tag/ossec/index.html" rel="tag">ossec</a>, <a href="../../../tag/shorewall/index.html" rel="tag">shorewall</a>, <a href="../../../tag/systems-administration/index.html" rel="tag">systems administration</a>, <a href="../../../tag/wordpress/index.html" rel="tag">wordpress</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1479 -->
+
+<article id="post-1356" class="post-1356 post type-post status-publish format-standard has-post-thumbnail hentry category-academic category-coding category-dissertation category-howto category-school-work category-technical tag-digital-maps tag-exhibit tag-json tag-maps tag-spreadsheets">
+	
+	<a class="post-thumbnail" href="../../../if-at-first-you-dont-succeed/index.html" aria-hidden="true">
+		<img width="624" height="498" src="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.09-PM-624x498.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="If at first you don&#8217;t succeed" decoding="async" loading="lazy" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.09-PM-624x498.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.09-PM-300x239.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.09-PM-1024x817.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.09-PM-250x199.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.09-PM-150x119.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.09-PM.png 1120w" sizes="(max-width: 624px) 100vw, 624px" />	</a>
+
+		
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../if-at-first-you-dont-succeed/index.html" rel="bookmark">If at first you don&#8217;t succeed</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>&#8230;copy somebody&#8217;s code. Or at least your own from the past that works.</p>
+<p>I finally got the map to work for my Exhibit exhibit. <a href="http://chnm.gmu.edu/staff/ammon/clio3/tunnels.php">See</a>.</p>
+<p>&nbsp;</p>
+<p>First I copied the tutorial <a href="http://simile.mit.edu/wiki/Exhibit/2.0/Map_View_Tutorial">here</a>. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken.</p>
+<p>So next I commented out all extraneous stuff, and finally got it to work. Now came the fun part of tracking down what code was making my awesome map look like nothing. I narrowed it down to something within the &lt;header&gt; tag. So line by line I uncommented and tested until I tracked the issue down to the bootstrap.css file I was using.</p>
+<p>Then came the same process within the bootstrap.css file. It was easily 1000 lines long, so a line by line process wasn&#8217;t going to work. Instead I commented out the first have of the file. Bing, the map displayed, so it was somewhere within that first 500 lines. Then I commented out the first 250 lines. Bing again. I kept dividing the culprits in half until I narrowed it down to styles for the img tag. Commented those out and I was in business.</p>
+<p>Through that grueling process I lost the images of the documents on the first page. Now I have to figure out how to get those back, apply some styling and we&#8217;re all set.</p>
+<p>Unfortunately I wasn&#8217;t ever able to get it to pull in the data from a spreadsheet, so the JSON file will have to do. The process for making a JSON file from a spreadsheet is simple:</p>
+<p>1. Make the spreadsheet file so that the headers are encapsulated with curly braces &#8216;{ }&#8217;</p>
+<p><a href="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1361" title="Screen Shot 2012-10-11 at 6.44.16 PM" src="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png" alt="" width="800" height="76" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png 800w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-300x28.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-250x23.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-150x14.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-624x59.png 624w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>2. If you&#8217;re using Google spreadsheets, export it as an Excel file. You&#8217;ll have to open it in Excel and save it as an older file format, because the next step doesn&#8217;t like .xlsx.</p>
+<p>3. Next, use <a href="http://service.simile-widgets.org/babel/">Similie&#8217;s Babel tool</a> to convert the spreadsheet to JSON.</p>
+<p>4. Select &#8220;Excel&#8221; as the &#8220;from format&#8221; and &#8220;Exhibit JSON&#8221; as the &#8220;to format&#8221; and then browse to find the xls file you just made.</p>
+<p>5. Click the &#8220;Upload and Convert&#8221; button.</p>
+<p><a href="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-1360" title="Screen Shot 2012-10-11 at 6.50.19 PM" src="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png" alt="" width="550" height="254" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-300x139.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-250x115.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-150x69.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-624x289.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png 1294w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>6. The next screen is all of your spreadsheet data output into a nice JSON format.</p>
+<p><a href="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1359" title="Screen Shot 2012-10-11 at 6.50.27 PM" src="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png" alt="" width="527" height="860" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png 527w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-183x300.png 183w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-250x407.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-91x150.png 91w" sizes="(max-width: 527px) 100vw, 527px" /></a></p>
+<p>7. Now you can use this JSON file for any number of things. But it&#8217;s especially nice to use it in an Exhibit to display your data.</p>
+<p><a href="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-1357" title="Screen Shot 2012-10-11 at 6.52.53 PM" src="../../../wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png" alt="" width="550" height="422" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-300x230.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-250x192.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-150x115.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-624x479.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png 1110w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>This is cross posted at the class blog <a href="http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/">http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/</a></p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../if-at-first-you-dont-succeed/index.html" rel="bookmark"><time class="entry-date published" datetime="2012-10-11T19:07:40-04:00">11 October, 2012</time><time class="updated" datetime="2012-10-11T19:07:54-04:00">11 October, 2012</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="../../academic/index.html" rel="category tag">Academic</a>, <a href="index.html" rel="category tag">Coding</a>, <a href="../../academic/school-work/dissertation/index.html" rel="category tag">Dissertation</a>, <a href="../howto/index.html" rel="category tag">HowTo</a>, <a href="../../academic/school-work/index.html" rel="category tag">School Work</a>, <a href="../index.html" rel="category tag">Technical</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../tag/digital-maps/index.html" rel="tag">digital maps</a>, <a href="../../../tag/exhibit/index.html" rel="tag">exhibit</a>, <a href="../../../tag/json/index.html" rel="tag">json</a>, <a href="../../../tag/maps/index.html" rel="tag">maps</a>, <a href="../../../tag/spreadsheets/index.html" rel="tag">spreadsheets</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1356 -->
+
+<article id="post-1081" class="post-1081 post type-post status-publish format-standard has-post-thumbnail hentry category-coding category-technical tag-linux tag-servers tag-systems-administration">
+	
+	<a class="post-thumbnail" href="../../../making-smf-static/index.html" aria-hidden="true">
+		<img width="624" height="368" src="../../../wp-content/uploads/2011/09/Screen-Shot-2011-09-27-at-Sep-27-10.18.02-AM-e1317133813359-624x368.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Making SMF static" decoding="async" loading="lazy" srcset="https://mossiso.com/wp-content/uploads/2011/09/Screen-Shot-2011-09-27-at-Sep-27-10.18.02-AM-e1317133813359-624x368.png 624w, https://mossiso.com/wp-content/uploads/2011/09/Screen-Shot-2011-09-27-at-Sep-27-10.18.02-AM-e1317133813359-300x177.png 300w, https://mossiso.com/wp-content/uploads/2011/09/Screen-Shot-2011-09-27-at-Sep-27-10.18.02-AM-e1317133813359-250x147.png 250w, https://mossiso.com/wp-content/uploads/2011/09/Screen-Shot-2011-09-27-at-Sep-27-10.18.02-AM-e1317133813359-150x88.png 150w, https://mossiso.com/wp-content/uploads/2011/09/Screen-Shot-2011-09-27-at-Sep-27-10.18.02-AM-e1317133813359.png 778w" sizes="(max-width: 624px) 100vw, 624px" />	</a>
+
+		
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../making-smf-static/index.html" rel="bookmark">Making SMF static</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p><a href="http://www.simplemachines.org/"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1113" title="frontpage_logo" src="../../../wp-content/uploads/2011/09/frontpage_logo.png" alt="" width="486" height="65" srcset="https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo.png 486w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-300x40.png 300w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-250x33.png 250w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-150x20.png 150w" sizes="(max-width: 486px) 100vw, 486px" /></a>We have a few legacy forums powered by the good software SMF (<a title="http://www.simplemachines.org/" href="http://www.simplemachines.org/">SimpleMachines Forum</a>). Like many of the WordPress installs, it&#8217;s a pain and a security risk to keep these up-to-date when they are no longer needed as content creation platforms. So, once again I need to convert a web app into static HTML pages. This process proved a bit harder than converting WordPress to static HTML.</p>
+<h2><strong>Step 1: Upgrade</strong></h2>
+<p>The first thing to do is update to the latest version. This ensures that if you need to turn this back into a dynamic site, it should hopefully be compatible with whatever the latest version is at that time.</p>
+<h2><strong>Step 2: Make it public</strong></h2>
+<p>Next, we&#8217;ll need to make it public to guests, so that wget has access to the pages.</p>
+<p>Go to the Admin-&gt;Features and Options page and check the &#8220;Allow guests to browse the forum&#8221; box, then click save. Now we have to change the permissions on each board separately. Or with a bit of MySQL magic, we can change them all at once using the CONCAT operator. Open of phpMyAdmin, or something else of your choice. Before we mess with the data, make a copy of the table, just in case we totally hose it.</p>
+<p>Browse to the &#8216;boards&#8217; table, and then to the SQL tab. We&#8217;re going to enter an SQL command that will pre-pend (that&#8217;s append but onto the front rather than the end) some data.</p>
+<pre class="lang:mysql decode:true ">UPDATE boards SET member_groups=CONCAT('-1,', member_groups) WHERE 1</pre>
+<p>&nbsp;</p>
+<p>This will add a -1, to the beginning of each field, which makes the board viewable by guests. No need to log in, which means wget can scrape the pages and turn them into HTML.</p>
+<h2><strong>Step 3: Edit Theme files</strong></h2>
+<p>Now we get to play around with the theme files to get rid of forum specific items that we won&#8217;t need, like links to member info, the login, help, and search links, and anything else that we don&#8217;t want.</p>
+<p>Here are some items to delete or alter, and the files I found them in for our home-made theme based off of an old default theme.</p>
+<h4><strong>index.template.php</strong></h4>
+<ul>
+<li>Add a title</li>
+<li>Get rid of date stamp</li>
+<li>Get rid of the main menu (Home, Help, Search, Login, etc)</li>
+</ul>
+<h4>BoardIndex.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+</ul>
+<h4>Display.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+<li>Get rid of the drop down menu to select pages.</li>
+</ul>
+<h4>MessageIndex.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+<li>Delete the &#8216;Jump to&#8217; drop-down box and the icons explaining post/board types</li>
+</ul>
+<h2><strong>Step 4: Fix the URLs</strong></h2>
+<p>As it stands, SMF has some pretty ugly URLs. There are a couple of mods that I could never get to work. But editing a file and adding an .htaccess file seems to do the trick.</p>
+<p>Open the Sources/QueryString.php file and look for the line like this:</p>
+<pre class="lang:php decode:true ">$scripturl = $boardurl . '/index.php';</pre>
+<p>and get rid of the /index.php</p>
+<p>Now create a .htaccess file in the root of the forum (in the same folder as the Settings.php file). It should look similar to this:</p>
+<pre class="lang:apache decode:true ">RewriteEngine On
+RewriteBase /7tah/forum/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /7tah/forum/index.php [L]</pre>
+<p>&nbsp;</p>
+<h2>Step 5: Wget it</h2>
+<p>Now we run wget on the command line to grab the pages.</p>
+<pre class="lang:sh decode:true">wget --mirror -P static-forum -nH -np -p -k -E --cut-dirs=2 http://domain.com/path/forum/</pre>
+<p>All of the static HTML files will now be located in a directory called static-forum.</p>
+<h2>Step 6: Fix filenames</h2>
+<p>Some filenames will be a bit broken. Specifically the style.css has an extra &#8220;?fin11&#8221; in the html files where the file is called. Also, it get&#8217;s name that way. So fix that by changing the name of the file to just style.css (it&#8217;s in your Theme directory). Then run this one-line command to search and replace throughout all of the static html files (run the command when you are in the static-forum directory.</p>
+<pre class="lang:sh decode:true ">find . -name '*.html' -type f -exec perl -pi -e 's/style.css%3Ffin11/style.css/g' {} \;</pre>
+<p>&nbsp;</p>
+<p>This will look for all of the references to the style.css%3Ffin11 file and change them to style.css. Then the pretty colors and formatting will work. Just for clarification, the %3F is code for a question mark. It shows up as such in the HTML source when viewing from a browser, but is displayed as such in the actual code.</p>
+<p>Don&#8217;t forget to change the the actual name of the css file to style.css.</p>
+<h2>Step 7: Protect it</h2>
+<p>Depending on  your needs, you may want to password protect your new static forum with an htaccess account. The good peoples at <a title="htaccess password tool" href="http://tools.dynamicdrive.com/password/" target="_blank">Dynamic Drive have an helpful tool</a> for making the two files necessary to make this happen. Just plug in your desired user name, password, and location of the htpasswd file, and then it&#8217;s copy and paste into those files on the server.</p>
+<p>I change the last line of the htaccess file to <code>require user username</code> so that it works only with the given user, not any valid. But since it only pulls from the specified htpasswd file, it&#8217;s kind of pointless.</p>
+<h2>Step 8: Backup the old</h2>
+<p>It&#8217;s a good idea to make a backup of the database and site files before getting rid of them. I just make a mysqldump of the database, throw it in the forum folder, and then make a tar or zip file of that and put the file in the new static forum folder for safe keeping.</p>
+<h2>Step 9: That&#8217;s it.</h2>
+<p>Sit back and relax. Your forum is interactive no longer.</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../making-smf-static/index.html" rel="bookmark"><time class="entry-date published" datetime="2011-09-27T10:28:10-04:00">27 September, 2011</time><time class="updated" datetime="2014-09-22T15:12:32-04:00">22 September, 2014</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="index.html" rel="category tag">Coding</a>, <a href="../index.html" rel="category tag">Technical</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../tag/linux/index.html" rel="tag">linux</a>, <a href="../../../tag/servers/index.html" rel="tag">servers</a>, <a href="../../../tag/systems-administration/index.html" rel="tag">systems administration</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1081 -->
+
+<article id="post-1041" class="post-1041 post type-post status-publish format-standard has-post-thumbnail hentry category-coding category-technical tag-python tag-subversion tag-system-administration tag-trac">
+	
+	<a class="post-thumbnail" href="../../../python-trac-virtualenv-and-centos/index.html" aria-hidden="true">
+		<img width="488" height="327" src="../../../wp-content/uploads/2011/04/00001000023.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Python, Trac, virtualenv and CentOS" decoding="async" loading="lazy" srcset="https://mossiso.com/wp-content/uploads/2011/04/00001000023.jpg 488w, https://mossiso.com/wp-content/uploads/2011/04/00001000023-300x201.jpg 300w, https://mossiso.com/wp-content/uploads/2011/04/00001000023-250x167.jpg 250w, https://mossiso.com/wp-content/uploads/2011/04/00001000023-150x100.jpg 150w" sizes="(max-width: 488px) 100vw, 488px" />	</a>
+
+		
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../python-trac-virtualenv-and-centos/index.html" rel="bookmark">Python, Trac, virtualenv and CentOS</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>I&#8217;ve just spent too much time figuring this out. I&#8217;ve had to piece it together from many other sites.</p>
+<p>I need to set up Trac .12 on CentOS 5, but want to do that without interfering with the current setup of Trac and Subversion on the system.</p>
+<p>So in comes <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>. This allows you to create a virtual environment for python. Like a separate install. The beauty is, once this is set up you can install different versions of python packages (like Trac and Subversion) that don&#8217;t have to interact with each other.</p>
+<p>To install virtualenv was pretty simple. With root permissions do</p>
+<pre class="lang:sh decode:true ">easy_install virtualenv</pre>
+<p>Now, as your normal user, you can install a virtual environment.</p>
+<pre class="lang:sh decode:true">virtualenv --no-site-packages foo</pre>
+<p>This will create a new folder called foo with a virtual environment for python. It won&#8217;t reference any of the other installed python packages (like the old Trac version).</p>
+<p>Now upgrade the Genshi package with</p>
+<pre class="lang:sh decode:true">easy_install --upgrade Genshi</pre>
+<p>Then, to install Trac do</p>
+<pre class="lang:sh decode:true  ">easy_install Trac==0.12</pre>
+<p>That&#8217;s the part that always hung me up. I would just do <span class="lang:sh decode:true  crayon-inline ">easy_install Trac</span>  which would cough up this ugly error:</p>
+<pre class="lang:sh decode:true">Searching for trac
+Reading http://pypi.python.org/simple/trac/
+Reading http://trac.edgewall.org/
+Reading http://trac.edgewall.org/wiki/TracDownload
+Reading http://trac.edgewall.com/
+Reading http://projects.edgewall.com/trac
+Reading http://projects.edgewall.com/trac/wiki/TracDownload
+Best match: Trac 0.12.2
+Downloading ftp://ftp.edgewall.com/pub/trac/Trac-0.12.2.zip
+Processing Trac-0.12.2.zip
+Running setup.py -q bdist_egg --dist-dir trac-dir/trac/egg-dist-tmp-JmdQXW
+Traceback (most recent call last):
+File "/home/ammon/foo/bin/easy_install", line 7, in ?
+sys.exit(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1712, in main
+with_ei_usage(lambda:
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1700, in with_ei_u
+sage
+return f()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1716, in &lt;lambda&gt;
+distclass=DistributionWithoutHelpCommands, **kw
+File "/usr/lib64/python2.4/distutils/core.py", line 149, in setup
+dist.run_commands()
+File "/usr/lib64/python2.4/distutils/dist.py", line 946, in run_commands
+self.run_command(cmd)
+File "/usr/lib64/python2.4/distutils/dist.py", line 966, in run_command
+cmd_obj.run()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 211, in run
+self.easy_install(spec, not self.no_deps)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 446, in easy_insta
+ll
+return self.install_item(spec, dist.location, tmpdir, deps)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 476, in install_it
+em
+dists = self.install_eggs(spec, download, tmpdir)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 655, in install_eg
+gs
+return self.build_and_install(setup_script, setup_base)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 930, in build_and_
+install
+self.run_setup(setup_script, setup_base, args)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 919, in run_setup
+run_setup(setup_script, args)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 61, in run_setup
+DirectorySandbox(setup_dir).run(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 105, in run
+return func()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 64, in &lt;lambda&gt;
+{'__file__':setup_script, '__name__':'__main__'}
+File "setup.py", line 110, in ?
+File "/usr/lib64/python2.4/distutils/core.py", line 110, in setup
+_setup_distribution = dist = klass(attrs)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/dist.py", line 260, in __init__
+self.fetch_build_eggs(attrs.pop('setup_requires'))
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/dist.py", line 283, in fetch_build_eggs
+for dist in working_set.resolve(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/pkg_resources.py", line 569, in resolve
+raise VersionConflict(dist,req) # XXX put more info here
+pkg_resources.VersionConflict: (Genshi 0.6dev (/usr/local/lib/python2.4/site-packages/Genshi-0.6dev-py2.4-linux-x86_64.egg), Requirement.parse('Genshi
+&gt;=0.6'))</pre>
+<p>Notice the last line referencing a version conflict with the &#8220;old&#8221; Genshi at /usr/local/lib/python2.4/site-packages. That&#8217;s the system-wide default install. So making explicit that you want to install Trac==0.12 is the way to get it installed in a virtual environment.</p>
+<p>Now I just need to figure out how to configure Trac and Subversion using this virtual environment, and copy over a live older version of each.</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../python-trac-virtualenv-and-centos/index.html" rel="bookmark"><time class="entry-date published" datetime="2011-04-05T14:05:37-04:00">5 April, 2011</time><time class="updated" datetime="2014-09-22T15:16:51-04:00">22 September, 2014</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="index.html" rel="category tag">Coding</a>, <a href="../index.html" rel="category tag">Technical</a></span><span class="tags-links"><span class="screen-reader-text">Tags </span><a href="../../../tag/python/index.html" rel="tag">python</a>, <a href="../../../tag/subversion/index.html" rel="tag">subversion</a>, <a href="../../../tag/system-administration/index.html" rel="tag">system administration</a>, <a href="../../../tag/trac/index.html" rel="tag">trac</a></span><span class="comments-link"><a href="../../../python-trac-virtualenv-and-centos/index.html#comments">1 Comment<span class="screen-reader-text"> on Python, Trac, virtualenv and CentOS</span></a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-1041 -->
+
+<article id="post-759" class="post-759 post type-post status-publish format-standard has-post-thumbnail hentry category-coding category-technical">
+	
+	<a class="post-thumbnail" href="../../../2010/10/15/convert-csv-file-to-directories/index.html" aria-hidden="true">
+		<img width="586" height="510" src="../../../wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.35.26-PM-624x543.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Convert CSV file to directories" decoding="async" loading="lazy" srcset="https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.35.26-PM-624x543.png 624w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.35.26-PM-300x261.png 300w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.35.26-PM-250x217.png 250w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.35.26-PM-150x130.png 150w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.35.26-PM.png 625w" sizes="(max-width: 586px) 100vw, 586px" />	</a>
+
+		
+	<header class="entry-header">
+		<h2 class="entry-title"><a href="../../../2010/10/15/convert-csv-file-to-directories/index.html" rel="bookmark">Convert CSV file to directories</a></h2>	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>A fellow co-worker had a need to turn a CSV file into a series of directories and files where the columns of the CSV file were the directories, and the contents of the cells for each row were made into a text file and placed in the appropriate folder corresponding to the column. For example given the CSV file with the columns (name,email,number,date), and several rows like this:</p>
+<p>john,j@j.com,89,tuesday</p>
+<p>bertha,b@j.com,2716,monday</p>
+<p>dillan,d@j.com,289,saturday</p>
+<p>xavier,x@j.com,839,wednesday</p>
+<p>The script would create four numbered folders (1, 2, 3, 4), and put a file in each folder corresponding with the row number and column.</p>
+<p><figure id="attachment_764" aria-describedby="caption-attachment-764" style="width: 600px" class="wp-caption aligncenter"><a href="../../../wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM.png"><img loading="lazy" decoding="async" class="size-full wp-image-764" title="Columns into folders, cells into text files" src="../../../wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM.png" alt="" width="600" height="106" srcset="https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM.png 600w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM-300x53.png 300w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM-250x44.png 250w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM-150x26.png 150w" sizes="(max-width: 600px) 100vw, 600px" /></a><figcaption id="caption-attachment-764" class="wp-caption-text">Columns into folders, cells into text files</figcaption></figure></p>
+<p>So, within folder number one would be four text files named 1-1.txt, 2-1.txt, 3-1.txt, 4-1.txt. Text file 1-1.txt would contain the content &#8220;john&#8221;. File 3-1.txt would contain the text &#8220;dillan&#8221;. Within folder number 3 would be four text files named 1-3.txt, 2-3.txt, 3-3.txt, and 4-3.txt.</p>
+<p>Well, anyhow, I hope that explanation makes sense. Here&#8217;s the code:</p>
+<p>[code lang=&#8221;perl&#8221;]<br />
+#!/usr/bin/perl<br />
+use strict;<br />
+use warnings;<br />
+use Text::CSV::Encoded;</p>
+<p>my $csv = Text::CSV::Encoded-&gt;new();</p>
+<p># file to be used given on the command line as an argument to the script<br />
+open (CSV, &#8220;&lt;:encoding(UTF-8)&#8221;, $ARGV[0]) or die $!;</p>
+<p>my $rownum = 1;<br />
+while () {<br />
+if ($csv-&gt;parse($_)) {<br />
+# Put the rows into an array<br />
+my @columns = $csv-&gt;fields();</p>
+<p># Make the directories, as many as there are columns<br />
+# Get the number of columns (which is the number of elements in the<br />
+# array).<br />
+my $size = scalar(@columns);<br />
+my $count = 1;<br />
+# Check if the directories are created. Only want to make them on the<br />
+# interration through the first row<br />
+if ( !-d $count ) {<br />
+while ($count &lt;= $size) {                 mkdir &#8220;$count&#8221; or die $!;                 $count++;             }         }         # Now make a file from each cell, putting the file in the directory         # corresponding to the column         my $colnum = 1;         for my $column (@columns) {             # Create a new file (or overwrite an existing one) in the             # appropriate column folder and name it row#-col#.txt             open FILE, &#8220;+&gt;$colnum/row$rownum-col$colnum.txt&#8221; or die $!;<br />
+# This sets the correct encoding on writing to the file<br />
+binmode FILE, &#8220;:utf8&#8221;;<br />
+print FILE $column;<br />
+close FILE;<br />
+$colnum++;<br />
+}</p>
+<p>} else {<br />
+my $err = $csv-&gt;error_input;<br />
+print &#8220;Failed to parse line: $err&#8221;;<br />
+}</p>
+<p>$rownum++;<br />
+}<br />
+close CSV;</p>
+<p>[/code]</p>
+	</div><!-- .entry-content -->
+
+	
+	<footer class="entry-footer">
+		<span class="posted-on"><span class="screen-reader-text">Posted on </span><a href="../../../2010/10/15/convert-csv-file-to-directories/index.html" rel="bookmark"><time class="entry-date published updated" datetime="2010-10-15T13:59:52-04:00">15 October, 2010</time></a></span><span class="cat-links"><span class="screen-reader-text">Categories </span><a href="index.html" rel="category tag">Coding</a>, <a href="../index.html" rel="category tag">Technical</a></span>			</footer><!-- .entry-footer -->
+
+</article><!-- #post-759 -->
+
+	<nav class="navigation pagination" aria-label="Posts">
+		<h2 class="screen-reader-text">Posts navigation</h2>
+		<div class="nav-links"><span aria-current="page" class="page-numbers current"><span class="meta-nav screen-reader-text">Page </span>1</span>
+<a class="page-numbers" href="page/2/index.html"><span class="meta-nav screen-reader-text">Page </span>2</a>
+<span class="page-numbers dots">&hellip;</span>
+<a class="page-numbers" href="page/4/index.html"><span class="meta-nav screen-reader-text">Page </span>4</a>
+<a class="next page-numbers" href="page/2/index.html">Next page</a></div>
+	</nav>
+		</main><!-- .site-main -->
+	</section><!-- .content-area -->
+
+
+	</div><!-- .site-content -->
+
+	<footer id="colophon" class="site-footer">
+		<div class="site-info">
+									<a href="https://wordpress.org/" class="imprint">
+				Proudly powered by WordPress			</a>
+		</div><!-- .site-info -->
+	</footer><!-- .site-footer -->
+
+</div><!-- .site -->
+
+<script src="https://stats.wp.com/e-202432.js" id="jetpack-stats-js" data-wp-strategy="defer"></script>
+<script id="jetpack-stats-js-after">
+_stq = window._stq || [];
+_stq.push([ "view", JSON.parse("{\"v\":\"ext\",\"blog\":\"140707563\",\"post\":\"0\",\"tz\":\"-4\",\"srv\":\"mossiso.com\",\"j\":\"1:13.1.3\"}") ]);
+_stq.push([ "clickTrackerInit", "140707563", "0" ]);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>awstats &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/awstats/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:09:13 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>awstats &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Filling in the missing dates with AWStats</title>
+		<link>https://mossiso.com/2012/04/25/filling-in-the-missing-dates-with-awstats/</link>
+					<comments>https://mossiso.com/2012/04/25/filling-in-the-missing-dates-with-awstats/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 25 Apr 2012 19:23:58 +0000</pubDate>
+				<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[awstats]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[bash code]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1226</guid>
+
+					<description><![CDATA[Doh! Sometimes AWStats will miss some days in calculating stats for your site, and that leaves a big hole in your records. Usually, as in my case, it&#8217;s because I messed up. I reinstalled some software on our AWStats machine, and forgot to reinstall cron. Cron is the absolutely necessary tool for getting the server &#8230; <a href="https://mossiso.com/2012/04/25/filling-in-the-missing-dates-with-awstats/" class="more-link">Continue reading <span class="screen-reader-text">Filling in the missing dates with AWStats</span></a>]]></description>
+										<content:encoded><![CDATA[<h3>Doh!</h3>
+<p>Sometimes AWStats will miss some days in calculating stats for your site, and that leaves a big hole in your records. Usually, as in my case, it&#8217;s because I messed up. I reinstalled some software on our AWStats machine, and forgot to reinstall cron. Cron is the absolutely necessary tool for getting the server to run things on a timed schedule. I didn&#8217;t notice this until several days later, leading to a large gap in the stats for April.</p>
+<h3>What to do?</h3>
+<p>Fortunately, there is a fix. Unfortunately, it&#8217;s a bit labor intensive, and depends on how you rotate your apache logs (if at all, which you should). The <a href="http://awstats.sourceforge.net/docs/awstats_faq.html#OLDLOG">AWStats Documentation</a> (see FAQ-COM350 and FAQ-COM360) has some basic steps to fix the issue, outlined below:</p>
+<ol>
+<li>Move the AWStats data files for months newer to a temporary directory.</li>
+<li>Copy the Apache logs with all of the stats for the month with the missing days to a temporary directory.</li>
+<li>Run the AWStats update tool, using AWStat&#8217;s logresolvemerge tool and other changed paramaters, to re-create the AWStats data file for that month</li>
+<li>Replace the AWStats data files for the following months (undo step 1).</li>
+</ol>
+<h3>The Devil&#8217;s in the Details</h3>
+<p>Again, depending on how you have Apache logs set up, this can be an intensive process. Here&#8217;s how I have Apache set up, and the process I went through to get the missing days back into AWStats.</p>
+<p>We have our Apache logs rotate each day for each domain on the server (or sub-directory that is calculated separately). This means I&#8217;ll have to do this process about 140 times. Looks like I need to write a script&#8230;</p>
+<h3>Step 1. Move the data files of newer months</h3>
+<p>AWStats can&#8217;t run the update on older months if there are more recent months located in the data directory. So we&#8217;ll need to move the more recent month&#8217;s stats to a temporary location out of the way. So, if the missing dates are in June, and it is currently August, you&#8217;ll need to remove the data files for June, July, and August (they look like this <code>awstatsMMYYYY.domain-name.com.txt</code> where MM is the two digit month and YYYY is the four digit year) to a temporary directory so they are out of the way.</p>
+<h3>Step 2. Get the Apache logs for the month.</h3>
+<p>First step is to get all of the logs for each domain for the month. This will work out to about 30 or 31 files (if the month is already past), or however many days have past in the current month. For me, each domain archives the days logs in the following format <code>domain.name.com-access_log-X.gz</code> and <code>domain.name.com-error_log-X.gz</code> where the X is a sequential number. So the first problem is how to get the correct file name without having to look in each file to see if it has the right day? Fortunately for me, nothing touches these files after they are created, so their mtime (the <strong>time</strong> stamp of when they were last <strong>m</strong>odified) is intact and usable. Now, a quick one-liner to grab all of the files within a certain date range and put their content in a new file.</p>
+<p>We&#8217;ll use the find command to find the correct files. Before we construct that command, we&#8217;ll need to create a couple of files to use for our start and end dates.</p>
+<pre class="lang:bash decode:1 " >touch --date YYYY-MM-DD /tmp/start</pre>
+<pre class="lang:bash decode:1 " >touch --date YYYY-MM-DD /tmp/end</pre>
+<p>Now we can use those files in the actual find command. You may need to create the <code>/tmp/apachelogs/</code> directory first.</p>
+<pre class="lang:bash decode:1 " >find /path/to/apache/logs/archive/ -name "domain-name.com-*" -newer /tmp/start -not -newer /tmp/end -exec cp '{}' /tmp/apachelogs/ \;</pre>
+<p>Now unzip those files so they are usable. Move into the <code>/tmp/apachelogs/</code> directory, and run the gunzip command.</p>
+<pre class="lang:bash decode:1 " >gunzip *log*</pre>
+<p>If you are doing the current month, then copy in the current apache log for that domain.</p>
+<pre class="lang:bash decode:1 " >cp /path/to/apache/logs/current/domain-name.com* /tmp/apachelogs/</pre>
+<p>This puts all of the domains log files for the month into a directory that we can use in the AWStats update command</p>
+<p>Things to note: You need to make sure that each of the log files you have just copied use the same format. You also need to make sure they only contain data for one month. You can edit the files by hand or throw some fancy sed commands at the files to remove any extraneous data.</p>
+<h3>Step 3. Run the AWStats logresolvemerge and update tool</h3>
+<p>Now comes the fun part. We first run the logresolvemerge tool on the log files we created in the previous step to create one single log file for the whole month. While in the &lt;code&gt;/tmp/apachelogs/&lt;/code&gt; directory, run:</p>
+<pre class="lang:bash decode:1 " >perl /path/to/logresolvemerger.pl *log* &gt; domain-name.com-YYYY-MM-log</pre>
+<p>Now, we need to run the AWStats update tool with a few parameters to account for the location of the new log file.</p>
+<pre class="lang:bash decode:1 " >perl /path/to/awstats.pl -update -configdir="/path/to/awstats/configs" -config="domain-name.com" -LogFile="/tmp/apachelogs/domain-name.com-YYYY-MM-log"</pre>
+<h3>Step 4. Move back any remaining files</h3>
+<p>If you moved any of the AWStats data files (<code>awstatsMMYYYY.domain-name.com.txt</code> like for July and August in our example) now&#8217;s the time to move them back where they go.</p>
+<p>&nbsp;</p>
+<p>Yeah, that fixed it!</p>
+<p>&nbsp;</p>
+<figure id="attachment_1245" aria-describedby="caption-attachment-1245" style="width: 658px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/04/awstats-fixed.png"><img fetchpriority="high" decoding="async" class="size-full wp-image-1245" title="awstats-fixed" src="http://mossiso.com/wp-content/uploads/2012/04/awstats-fixed.png" alt="" width="658" height="160" srcset="https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed.png 658w, https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed-300x72.png 300w, https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed-250x60.png 250w, https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed-150x36.png 150w, https://mossiso.com/wp-content/uploads/2012/04/awstats-fixed-624x151.png 624w" sizes="(max-width: 658px) 100vw, 658px" /></a><figcaption id="caption-attachment-1245" class="wp-caption-text">Phew! The missing dates are back!</figcaption></figure>
+<p>&nbsp;</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/04/25/filling-in-the-missing-dates-with-awstats/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1226</post-id>	</item>
+	</channel>
+</rss>

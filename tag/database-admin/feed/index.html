@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>database admin &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/database-admin/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Mon, 22 Sep 2014 18:09:13 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>database admin &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Making Multiple MySQL Instances on One Server</title>
+		<link>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/</link>
+					<comments>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 31 Jul 2012 19:15:08 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[database admin]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[servers]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1275</guid>
+
+					<description><![CDATA[I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Replicating a MySQL server is a &#8230; <a href="https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/" class="more-link">Continue reading <span class="screen-reader-text">Making Multiple MySQL Instances on One Server</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Replicating a MySQL server is a good way to ensure High Availability in case of a failure. The backup server acts as a slave to the master (production) server. Basically, the slave is an exact copy of the master. They are two separate instances of MySQL server running on two physical servers. Whatever queries run on the master are sent to the slave so it can do the same. This way they are kept completely in sync. You could also have the slave take over for the master, should the master server happen to fail.</p>
+<figure id="attachment_1279" aria-describedby="caption-attachment-1279" style="width: 300px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png"><img decoding="async" class="size-medium wp-image-1279 " title="master-and-slave" src="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png" alt="" width="300" height="125" srcset="https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png 300w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-250x104.png 250w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-150x62.png 150w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png 503w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1279" class="wp-caption-text">The slave is an ever updating duplicate of the master.</figcaption></figure>
+<p>The only problem I face with this set up, though, is that I have multiple production servers out there. So this only works if this backup server could be a slave for multiple machines.</p>
+<figure id="attachment_1283" aria-describedby="caption-attachment-1283" style="width: 248px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/no-2-masters.png"><img fetchpriority="high" decoding="async" class="size-medium wp-image-1283" title="no-2-masters" src="http://mossiso.com/wp-content/uploads/2012/07/no-2-masters-248x300.png" alt="" width="248" height="300" srcset="https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-248x300.png 248w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-250x301.png 250w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters-124x150.png 124w, https://mossiso.com/wp-content/uploads/2012/07/no-2-masters.png 496w" sizes="(max-width: 248px) 100vw, 248px" /></a><figcaption id="caption-attachment-1283" class="wp-caption-text">No slave can serve two masters.</figcaption></figure>
+<p>This is not possible, though, because, of course, <a href="https://www.lds.org/scriptures/nt/matt/6.24?lang=eng#23" target="_blank">no slave can serve two masters</a>. Fortunately, a server can have multiple instances of MySQL running on it! So, in a sense, we have a server with multiple MySQL instances, to which a master can replicate. More about that set up in an upcoming post.</p>
+<figure id="attachment_1281" aria-describedby="caption-attachment-1281" style="width: 242px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2012/07/mm-slave.png"><img decoding="async" class="size-medium wp-image-1281" title="mm-slave" src="http://mossiso.com/wp-content/uploads/2012/07/mm-slave-242x300.png" alt="" width="242" height="300" srcset="https://mossiso.com/wp-content/uploads/2012/07/mm-slave-242x300.png 242w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave-250x309.png 250w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave-121x150.png 121w, https://mossiso.com/wp-content/uploads/2012/07/mm-slave.png 493w" sizes="(max-width: 242px) 100vw, 242px" /></a><figcaption id="caption-attachment-1281" class="wp-caption-text">The slave has multiple instances of MySQL running.</figcaption></figure>
+<p>A how to on <a href="http://blog.mydream.com.hk/howto/linux/mysql-multiple-instance-on-centos-howto" target="_blank">this blog</a>, shows how this can be done. I&#8217;ll replicate the process below.</p>
+<h2>STEPS TO MULTIPLE MYSQL MADNESS</h2>
+<h3>On the slave server</h3>
+<h4>Step 1. Install MySQL</h4>
+<p>We&#8217;ll be working with CentOS 5.8, but this could really apply for any OS. First we&#8217;ll need to install MySQL like normal.</p>
+<pre class="lang:bash decode:1 " >yum install mysql mysql-server</pre>
+<p>There are plenty of good tutorials out there on how to install the specific version of MySQL you want on the specific OS you&#8217;re running.</p>
+<h4>Step 2. Set up the data area.</h4>
+<p>You&#8217;ll need to have a different folder for each of the MySQL instances, say <code>/dbases/master-a/</code>, <code>/dbases/master-b/</code>, and <code>/dbases/master-c/</code>.</p>
+<pre class="lang:bash decode:1 " >mkdir -p /dbases/{master-a,master-b,master-c}</pre>
+<h4>Step 3. Copy the default my.cnf file</h4>
+<p>This is the default MySQL config file, it may be named differently on other OSes.</p>
+<pre class="lang:bash decode:1 " >cp /etc/my.cnf /etc/master-a.cnf; cp /etc/my.cnf /etc/master-b.cnf; cp /etc/my.cnf /etc/master-c.cnf</pre>
+<h4>Step 4. Edit the new MySQL config files.</h4>
+<p>For each new config file, you&#8217;ll need to specify some unique variables.</p>
+<pre class="lang:bash decode:1 " >
+[mysqld]
+port=3307
+datadir=/dbases/master-a
+socket=/dbases/master-a/mysql.sock
+user=mysql
+server_id=3307
+log-bin=/dbases/master/mysql-bin.log
+
+# Disabling symbolic-links is recommended to prevent assorted security risks;
+# to do so, uncomment this line:
+symbolic-links=0
+
+[mysqld_safe]
+log-error=/dbases/master-a/mysqld.log
+pid-file=/dbases/master-a/mysqld.pid
+</pre>
+<p>The <code>port</code> option sets this MySQL instance on a different port than the default 3306. The <code>datadir</code>, <code>socket</code>, <code>log-bin</code>, <code>log-error</code>, and <code>pid-file</code> options make sure the necessary files are not using the default files.</p>
+<h4>Step 5. Create new init scripts.</h4>
+<p>The init script allows the server to start and stop the service at boot time, and allows for easy start up and shutdown (on CentOS/RedHat, at least &#8211; with an easy <code>service mysqld start</code>).</p>
+<pre class="lang:bash decode:1 " >cp /etc/init.d/mysqld /etc/init.d/mysqld-master-a</pre>
+<p>Just do one for now. We&#8217;ll copy the new one to create the others, then just do a quick search and replace in those files to change the master-a to master-b and master-c.</p>
+<h4>Step 6. Edit the init script</h4>
+<div style="border: 1px solid #ddd; margin: 10px; padding: 10px;">
+<pre>#!/bin/bash
+#
+# mysqld        This shell script takes care of starting and stopping
+#               the MySQL subsystem (mysqld).
+#
+# chkconfig: - 64 36
+# description:  MySQL database server.
+# processname: mysqld
+# config: <span style="color: #3366ff;">/etc/master-a.cnf</span>
+# pidfile: <span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+prog="MySQL"
+
+# extract value of a MySQL option from config files
+# Usage: get_mysql_option SECTION VARNAME DEFAULT
+# result is returned in $result
+# We use my_print_defaults which prints all options from multiple files,
+# with the more specific ones later; hence take the last match.
+get_mysql_option(){
+        result=<code>/usr/bin/my_print_defaults "$1" | sed -n "s/^--$2=//p" | tail -n 1</code>
+        if [ -z "$result" ]; then
+            # not found, use default
+            result="$3"
+        fi
+}
+
+get_mysql_option mysqld datadir "<span style="color: #3366ff;">/dbases/master-a</span>"
+datadir="<span style="color: #3366ff;">/dbases/master-a</span>"
+get_mysql_option mysqld socket "<span style="color: #3366ff;">/dbases/master-a/mysql.sock</span>"
+socketfile="<span style="color: #3366ff;">/dbases/master-a/mysql.sock</span>"
+get_mysql_option mysqld_safe log-error "<span style="color: #3366ff;">/dbases/master-a/mysqld.log</span>"
+errlogfile="<span style="color: #3366ff;">/dbases/master-a/mysqld.log</span>"
+get_mysql_option mysqld_safe pid-file "<span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>"
+mypidfile="<span style="color: #3366ff;">/dbases/master-a/mysqld.pid</span>"
+
+<span style="color: #3366ff;">defaultfile="/etc/master-a.cnf"</span>
+
+start(){
+        touch "$errlogfile"
+        chown mysql:mysql "$errlogfile"
+        chmod 0640 "$errlogfile"
+        [ -x /sbin/restorecon ] &amp;&amp; /sbin/restorecon "$errlogfile"
+        if [ ! -d "$datadir/mysql" ] ; then
+            action $"Initializing MySQL database: " /usr/bin/mysql_install_db --datadir="$datadir" --user=mysql
+            ret=$?
+            chown -R mysql:mysql "$datadir"
+            if [ $ret -ne 0 ] ; then
+                return $ret
+            fi
+        fi
+        chown mysql:mysql "$datadir"
+        chmod 0755 "$datadir"
+        # Pass all the options determined above, to ensure consistent behavior.
+        # In many cases mysqld_safe would arrive at the same conclusions anyway
+        # but we need to be sure.
+        /usr/bin/mysqld_safe  <span style="color: #3366ff;">--defaults-file="$defaultfile"</span> --datadir="$datadir" --socket="$socketfile" \
+                --log-error="$errlogfile" --pid-file="$mypidfile" \
+                --user=mysql &gt;/dev/null 2&gt;&amp;1 &amp;
+        ret=$?
+        # Spin for a maximum of N seconds waiting for the server to come up.
+        # Rather than assuming we know a valid username, accept an "access
+        # denied" response as meaning the server is functioning.        
+        if [ $ret -eq 0 ]; then
+            STARTTIMEOUT=30
+            while [ $STARTTIMEOUT -gt 0 ]; do
+                RESPONSE=<code>/usr/bin/mysqladmin --socket="$socketfile" --user=UNKNOWN_MYSQL_USER ping 2&gt;&amp;1</code> &amp;&amp; break
+                echo "$RESPONSE" | grep -q "Access denied for user" &amp;&amp; break
+                sleep 1
+                let STARTTIMEOUT=${STARTTIMEOUT}-1
+            done
+            if [ $STARTTIMEOUT -eq 0 ]; then
+                    echo "Timeout error occurred trying to start MySQL Daemon."
+                    action $"Starting $prog: " /bin/false
+                    ret=1
+            else
+                    action $"Starting $prog: " /bin/true
+            fi
+        else
+            action $"Starting $prog: " /bin/false
+        fi
+        [ $ret -eq 0 ] &amp;&amp; touch <span style="color: #3366ff;">/dbases/master-a/mysqld</span>
+        return $ret
+}
+
+stop(){ 
+        MYSQLPID=<code>cat "$mypidfile"  2&gt;/dev/null </code>
+        if [ -n "$MYSQLPID" ]; then
+            /bin/kill "$MYSQLPID" &gt;/dev/null 2&gt;&amp;1
+            ret=$?
+            if [ $ret -eq 0 ]; then
+                STOPTIMEOUT=60
+                while [ $STOPTIMEOUT -gt 0 ]; do
+                    /bin/kill -0 "$MYSQLPID" &gt;/dev/null 2&gt;&amp;1 || break
+                    sleep 1
+                    let STOPTIMEOUT=${STOPTIMEOUT}-1
+                done
+                if [ $STOPTIMEOUT -eq 0 ]; then
+                    echo "Timeout error occurred trying to stop MySQL Daemon."
+                    ret=1
+                    action $"Stopping $prog: " /bin/false
+                else
+                    rm -f <span style="color: #3366ff;">/dbases/master-a/mysqld</span>
+                    rm -f "$socketfile"
+                    action $"Stopping $prog: " /bin/true
+                fi
+            else
+                action $"Stopping $prog: " /bin/false
+            fi
+        else
+            ret=1
+            action $"Stopping $prog: " /bin/false
+        fi
+        return $ret
+}
+
+restart(){
+    stop
+    start
+}
+
+condrestart(){
+    [ -e <span style="color: #3366ff;">/dbases/master-a/mysqld</span> ] &amp;&amp; restart || :
+}
+
+# See how we were called.
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  status)
+    status mysqld
+    ;;
+  restart)
+    restart
+    ;;
+  condrestart)
+    condrestart
+    ;;
+  *)
+    echo $"Usage: $0 {start|stop|status|condrestart|restart}"
+    exit 1
+esac
+
+exit $?</pre>
+</div>
+<h4>Step 7. Start each MySQL instance.</h4>
+<p>Now you can start each instance with the handy <code>service</code> command.</p>
+<pre class="lang:bash decode:1 " >service mysqld-master-a start</pre>
+<h4>Step 8. Connect to MySQL instances.</h4>
+<p>Now, to connect to each MySQL instance, you&#8217;ll need to specify the port and/or socket file.</p>
+<pre class="lang:bash decode:1 " >mysql -P3307 --socket="/dbases/mysql-master-a/mysql.sock"</pre>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/07/31/making-multiple-mysql-instances-on-one-server/feed/</wfw:commentRss>
+			<slash:comments>3</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1275</post-id>	</item>
+		<item>
+		<title>Backing up MySQL with Replication and Incremental Files &#8211; Part 1</title>
+		<link>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/</link>
+					<comments>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 24 Jul 2012 19:49:38 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[database admin]]></category>
+		<category><![CDATA[mysql]]></category>
+		<category><![CDATA[server admin]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1277</guid>
+
+					<description><![CDATA[I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to &#8230; <a href="https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/" class="more-link">Continue reading <span class="screen-reader-text">Backing up MySQL with Replication and Incremental Files &#8211; Part 1</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;m trying this new idea for backing up our production MySQL servers. I have a backup server that basically runs rdiff-backup in the morning across several servers, but then does nothing for the rest of the day. It&#8217;s a pretty decent machine, so I&#8217;d like to utilize some resources. Databases are a tough cookie to backup. You can&#8217;t just copy the data files and then expect to copy them back over and have them just work. Especially if your databases have a mixture of InnoDB and MyISAM tables. In order to do a clean and accurate database backup, you need to stop the MySQL server, then copy the files, then restart MySQL.</p>
+<p>If you have a live production MySQL server, stopping it to make a backup is not really an option. Fortunately there are a few options. Before you decide on which option to choose, here is a list of things to keep in mind when choosing a backup solution (from the MySQL gurus at Percona):</p>
+<h3>WHAT TO LOOK FOR</h3>
+<p><a href="http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/" target="_blank">http://www.mysqlperformanceblog.com/2009/03/03/10-things-you-need-to-know-about-backup-solutions-for-mysql/</a></p>
+<ol>
+<li>Does the backup require shutting down MySQL? If not, what is the impact on the running server? Blocking, I/O load, cache pollution, etc?</li>
+<li>What technique is used for the backup? Is it mysqldump or a custom product that does something similar? Is it a filesystem copy?</li>
+<li>Does the backup system understand that <em>you cannot back up InnoDB by simply copying its files</em>?</li>
+<li>Does the backup use FLUSH TABLES, LOCK TABLES, or FLUSH TABLES WITH READ LOCK? These all interrupt processing.</li>
+<li>What other effects are there on MySQL? I’ve seen systems that do a RESET MASTER, which immediately breaks replication. Are there any FLUSH commands at all, like FLUSH LOGS?</li>
+<li>How does the system guarantee that you can perform point-in-time recovery?</li>
+<li>How does the system guarantee consistency with the binary log, InnoDB logs, and replication?</li>
+<li>Can you use the system to set up new MySQL replication slaves? How?</li>
+<li>Does the system verify that the backup is restorable, e.g. does it run InnoDB recovery before declaring success?</li>
+<li>Does anyone stand behind it with support, and guarantee working, recoverable backups? How strong is the legal guarantee of this and how much insurance do they have?</li>
+</ol>
+<p>&nbsp;</p>
+<h3>BACKUP PROGRAMS</h3>
+<p>There are a few MySQL backup products out there as well. I have used the first two on this list.</p>
+<ul>
+<li><a href="http://sourceforge.net/projects/automysqlbackup/" target="_blank">AutoMySQLBackup</a> script (handy for making a rotating incremental backup of your MySQL databases).</li>
+<li><a href="http://www.percona.com/software/percona-xtrabackup/" target="_blank">Percona XtraBackup</a> (nice way to ensure InnoDB and MyISAM tables are backed up properly, also does it incrementally)</li>
+<li><a href="https://zmanda.com/backup-mysql.html" target="_blank">Zmanda</a> (seems to be similar to Percona&#8217;s set up)</li>
+</ul>
+<p>There&#8217;s probably a gazillion more out there. Google&#8217;s your friend in finding things you need.</p>
+<h3>HOW TO DO IT</h3>
+<figure id="attachment_1279" aria-describedby="caption-attachment-1279" style="width: 300px" class="wp-caption alignright"><a href="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png"><img loading="lazy" decoding="async" class="size-medium wp-image-1279" title="master-and-slave" alt="" src="http://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png" width="300" height="125" srcset="https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-300x125.png 300w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-250x104.png 250w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave-150x62.png 150w, https://mossiso.com/wp-content/uploads/2012/07/master-and-slave.png 503w" sizes="(max-width: 300px) 100vw, 300px" /></a><figcaption id="caption-attachment-1279" class="wp-caption-text">How to get a copy of the master to the slave?</figcaption></figure>
+<p>There are several options. You could use a script above, or create a slave of the database (basically an exact copy of the production MySQL server &#8211; all changes that occur in the master are sent to the slave), or some combination. I&#8217;ll use a combination. I&#8217;ll replicate the production server onto the backup server, then run the incremental backups from there. This first part will walk through the process of setting up MySQL replication.</p>
+<p>To give proper credit, here are several other how to&#8217;s I found helpful.</p>
+<ul>
+<li><a href="http://www.badllama.com/content/mysql-backups-using-lvm-snapshots" target="_blank">http://www.badllama.com/content/mysql-backups-using-lvm-snapshots</a></li>
+<li><a href="http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/" target="_blank">http://www.mysqlperformanceblog.com/2006/08/21/using-lvm-for-mysql-backup-and-replication-setup/</a></li>
+<li><a href="http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html" target="_blank">http://www.softwareprojects.com/resources/programming/t-how-to-move-copy-a-live-mysql-database-and-what-1257.html</a></li>
+<li><a href="http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/" target="_blank">http://www.clusterdb.com/mysql-cluster/get-mysql-replication-up-and-running-in-5-minutes/</a></li>
+</ul>
+<h3>On the master server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=1
+innodb_flush_log_at_trx_commit=1
+log_bin=mysql-bin.log
+sync_binlog=1
+</pre>
+</div>
+<p><strong>Step 2.</strong> Make a MySQL user for the slave to use.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">In a MySQL session on the terminal, type in the command:</p>
+<pre class="lang:sql decode:1 " >GRANT REPLICATION SLAVE ON *.* TO 'rep_user'@'localhost' IDENTIFIED BY 'passwordhere';</pre>
+</div>
+<p><strong>Step 3.</strong> Open a terminal session and log in to a MySQL prompt. Type the following command and hit enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >FLUSH TABLES WITH READ LOCK</pre>
+<p>Note: This will lock your database so that no changes can be made from any web applications or other programs. This session should remain open, and the database locked for the next few steps.</p>
+</div>
+<p><strong>Step 4.</strong> After the FLUSH TABLES command finishes, run the following command and press enter.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >SHOW MASTER STATUS</pre>
+<p>Record the information under &#8220;File Name&#8221; and &#8220;Position&#8221;.</p>
+</div>
+<p><strong>Step 5. </strong> Make a copy of the database files.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<p><strong>5.1 LVM Snapshot:</strong></p>
+<p>In another terminal session, run the following command to make an LVM snapshot of the database.</p>
+<pre class="lang:bash decode:1 " >lvcreate -L10G -s -n mysql-backup /dev/mapper/dbases</pre>
+<p>This creates a snapshot of the database files very quickly. We can use the snapshot later to copy the data to the backup server without interfering with the original database files.</p>
+<p>After this command finishes, you can unlock the database as shown in the next step. Then you can mount the new LVM partition and copy the files to the backup server.</p>
+<pre class="lang:bash decode:1 " >mkdir -p /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >mount -o nouuid /dev/mapper/mysql-backup /mnt/mysql-backup</pre>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /mnt/mysql-backup user@remote.host:/backup/location</pre>
+<p><strong>5.2 RSYNC:</strong></p>
+<p>If you don&#8217;t have your database files on an LVM partition, you can just copy the files to the backup server now using rsync, scp or what have you. This will take significantly longer (depending on the size of your database), leaving the database in a locked state.</p>
+<pre class="lang:bash decode:1 " >rsync -avz -e "ssh -c blowfish" /dbases/mysql user@remote.host:/backup/location</pre>
+<p><strong>5.3 MySQL Dump:</strong></p>
+<p>You could also take a mysqldump of the database and copy that SQL file to the other server.</p>
+<pre class="lang:bash decode:1 " >mysqldump -uuser -p --all-databases &gt; mysql-backup.sql</pre>
+<pre class="lang:bash decode:1 " >scp mysql-backup.sql user@remote.host:/backup/location</pre>
+</div>
+<p><strong>Step 6.</strong> Once the lvcreate command has finished, you can unlock the database.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >UNLOCK TABLES</pre>
+</div>
+<p><strong>Step 7.</strong> If you haven&#8217;t already, copy the copy of the database files to the backup server.</p>
+<h3>On the slave server</h3>
+<p><strong>Step 1.</strong> Edit the my.cnf file to include at least the following (if needed) lines. Note: you will have to restart MySQL for these changes to take affect.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:bash decode:1 " >
+[mysqld]
+server_id=2
+</pre>
+</div>
+<p><strong>Step 2.</strong> Start MySQL and run the following commands in a mysql session to start the MySQL slave.</p>
+<div style="padding-left: 30px; margin-bottom: 50px;">
+<pre class="lang:sql decode:1 " >
+CHANGE MASTER TO
+MASTER_HOST = "master.server.com",
+MASTER_USER = "rep_user",
+MASTER_PASSWORD = "passwordhere",
+MASTER_LOG_FILE = "mysql-bin.log",
+MASTER_LOG_POS = 2341234;
+</pre>
+<p>The MASTER_HOST is the domain name or IP address of the master server. MASTER_USER, MASTER_PASSWORD were created on the master server in <strong>Step 2</strong>. MASTER_LOG_FILE and MASTER_LOG_POS were gathered in <strong>Step 4</strong>.Then, finally, to start the slave, issue the following command in mysql.</p>
+<pre class="lang:sql decode:1 " >START SLAVE;</pre>
+</div>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2012/07/24/backing-up-mysql-with-replication-and-incremental-files-part-1/feed/</wfw:commentRss>
+			<slash:comments>2</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1277</post-id>	</item>
+	</channel>
+</rss>

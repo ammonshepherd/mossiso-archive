@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>devops &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/devops/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Fri, 30 Jun 2017 19:55:17 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>devops &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Grab all of the domain names in Apache host file</title>
+		<link>https://mossiso.com/2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 30 Jun 2017 19:55:17 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[devops]]></category>
+		<category><![CDATA[systems administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1675</guid>
+
+					<description><![CDATA[Quick script I whipped up today to grab all of the domain names on a server. #!/bin/bash if [ -e alldomains ] then rm alldomains fi alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) ) for domain in ${alldomains[*]} do cat $domain &#124; egrep "ServerName&#124;ServerAlias" &#124; egrep -v "#" &#124; sed -e 's&#124;ServerName&#124;&#124;' -e 's&#124;ServerAlias&#124;&#124;' -e 's&#124;www.&#124;&#124;' -e &#8230; <a href="https://mossiso.com/2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/" class="more-link">Continue reading <span class="screen-reader-text">Grab all of the domain names in Apache host file</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Quick script I whipped up today to grab all of the domain names on a server.</p>
+<pre class="lang:sh decode:true">#!/bin/bash
+
+if [ -e alldomains ]
+then
+  rm alldomains
+fi
+
+alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) )
+
+for domain in ${alldomains[*]}
+do
+  cat $domain | egrep "ServerName|ServerAlias" | egrep -v "#" | sed -e 's|ServerName||' -e 's|ServerAlias||' -e 's|www.||' -e 's|:80||' | tr -s ' ' '\n' | tr -d ' ' | sed -e '/^\s*$/d' &gt;&gt; alldomains
+done
+
+sort alldomains | uniq | sort -o alldomains</pre>
+<p>&nbsp;</p>
+<p>This gets all of the domains from ServerName and ServerAlias lines, takes out all of the white space and empty lines, and creates a file with just a list of the unique domain names.</p>
+<p>This accounts for subdomains that use &#8216;www&#8217; or have port :80 on the end.</p>
+<p>For instance, www.somedomain.com and somedomain.com are the same, so the script takes out the &#8216;www.&#8217; which leaves to copies of somedomain.com, which it then deletes one of them in the final output to the file. The same for &#8216;:80&#8217;.</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1675</post-id>	</item>
+	</channel>
+</rss>

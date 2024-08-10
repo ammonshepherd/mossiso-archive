@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>pgadmin &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/tag/pgadmin/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Fri, 13 Nov 2020 21:00:48 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>pgadmin &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Docker Development Environment for Everyone</title>
+		<link>https://mossiso.com/2020/11/13/docker-development-environment-for-everyone/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 13 Nov 2020 19:57:44 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[docker]]></category>
+		<category><![CDATA[docker-compose]]></category>
+		<category><![CDATA[flask]]></category>
+		<category><![CDATA[local development]]></category>
+		<category><![CDATA[pgadmin]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[phpMyAdmin]]></category>
+		<category><![CDATA[postgres]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[web development]]></category>
+		<guid isPermaLink="false">https://mossiso.com/?p=1875</guid>
+
+					<description><![CDATA[One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem. Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly. You&#8217;re in for a special &#8230; <a href="https://mossiso.com/2020/11/13/docker-development-environment-for-everyone/" class="more-link">Continue reading <span class="screen-reader-text">Docker Development Environment for Everyone</span></a>]]></description>
+										<content:encoded><![CDATA[
+<p>One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem.</p>
+
+
+
+<p>Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly.</p>
+
+
+
+<p>You&#8217;re in for a special treat, because I&#8217;m going to show you not one (1), but two (2) different development environments; one for PHP, MySQL, Apache and phpMyAdmin, and one for Python (Flask) and PostgreSQL with pgAdmin. Each of these in a Docker container for ease of use.</p>
+
+
+
+<h2 class="wp-block-heading">Pre-requisites</h2>
+
+
+
+<p>For any of this to work, make sure you have <a href="https://www.docker.com/get-started" data-type="URL" data-id="https://www.docker.com/get-              started">Docker Desktop</a> installed and running.</p>
+
+
+
+<p>We&#8217;ll be using a terminal application for running some commands, so you&#8217;ll need some familiarity with that too.</p>
+
+
+
+<p>Git is used to copy the files from the GitHub repo, but you can also download them as a zip file.</p>
+
+
+
+<figure class="wp-block-image size-large"><img fetchpriority="high" decoding="async" width="1024" height="653" src="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png" alt="" class="wp-image-1882" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">PMAMP</h2>
+
+
+
+<p>We&#8217;ll tackle the <strong>P</strong>hp<strong>M</strong>yadmin <strong>A</strong>pache <strong>M</strong>ysql <strong>P</strong>hp (PMAMP) environment first.</p>
+
+
+
+<p>After setting this up, we&#8217;ll have a place to put PHP code, a running Apache web server, a MySQL server and a running instance of phpMyAdmin.</p>
+
+
+
+<p>The quickest way to get this going is to download the files from this GitHub repo <a href="https://github.com/ammonshepherd/pmamp" target="_blank" rel="noreferrer noopener">https://github.com/ammonshepherd/pmamp</a></p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pmamp.git</code></p>
+
+
+
+<p>Change into that directory.</p>
+
+
+
+<p><code class="wp-block-code">cd pmamp</code></p>
+
+
+
+<p>And start the Docker containers</p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You can view the website at <a href="http://lvh.me">http://lvh.me</a>. lvh.me is just a nice service that points back to your local machine (127.0.0.1 or localhost). It makes it look like you are using a real domain name.</p>
+
+
+
+<p>You can view phpMyAdmin at <a href="http://pma.lvh.me">http://pma.lvh.me</a>.</p>
+
+
+
+<p>You can even use a real domain name. Just edit the docker-compose.yml file. There is a line like this: &nbsp;</p>
+
+
+
+<p><code class="wp-block-code">- "traefik.http.routers.php-apache.rule=Host('lvh.me', 'pmamp.lvh.me', 'example.com')"</code></p>
+
+
+
+<p>Just add your domain to the list (or remove the other ones). Each entry must use the backtick, rather than the single quotes. WordPress mangles the backticks, so I am using single quotes here.</p>
+
+
+
+<p>Now you just need to let your computer know to redirect all traffic to that domain name to itself.</p>
+
+
+
+<p>You&#8217;ll need to edit the /etc/hosts file (<a href="https://www.makeuseof.com/tag/modify-manage-hosts-file-linux/">Linux or Mac</a>), or c:\windows\system32\drivers\etc\hosts (<a href="https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/">Windows</a>). Now you can develop for any domain name right on your computer as if it were using the actual domain name.</p>
+
+
+
+<p>Put all of your website files in the &#8216;www&#8217; folder and you&#8217;re ready to develop!</p>
+
+
+
+<p>Check the README at <a href="https://github.com/ammonshepherd/pmamp">https://github.com/ammonshepherd/pmamp</a> for more details on how it works and things to change.</p>
+
+
+
+<p>To stop the services (turn off Apache, MySQL and phpAdmin) run</p>
+
+
+
+<p><code class="wp-block-code">docker-compose down </code></p>
+
+
+
+<p>in the same directory where the docker-compose.yml file lives.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="653" src="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png" alt="" class="wp-image-1883" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">pFp</h2>
+
+
+
+<p>The set up for Python (using a Flask app) and PostgreSQL is exactly the same process.</p>
+
+
+
+<p>Grab the files from <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a>.</p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pfp.git</code></p>
+
+
+
+<p><code class="wp-block-code">cd pfp</code></p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You now have a running Flask app at <a href="http://lvh.me">http://lvh.me</a>, or <a href="http://pfp.lvh.me">http://pfp.lvh.me</a> and a running pgAdmin application at <a href="http://pga.lvh.me">http://pga.lvh.me</a>.</p>
+
+
+
+<p>The same trick for custom domain names applies here too.</p>
+
+
+
+<p>And also check out the README for more details: <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a></p>
+
+
+
+<p>Follow the same commands above to shutdown the Python, PostgreSQL and pgAdmin containers.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1875</post-id>	</item>
+	</channel>
+</rss>

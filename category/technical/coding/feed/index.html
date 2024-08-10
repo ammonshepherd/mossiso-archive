@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	
+	xmlns:georss="http://www.georss.org/georss"
+	xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	>
+
+<channel>
+	<title>Coding &#8211; Ammon Shepherd</title>
+	<atom:link href="https://mossiso.com/category/technical/coding/feed/" rel="self" type="application/rss+xml" />
+	<link>https://mossiso.com</link>
+	<description>mossiso = more better</description>
+	<lastBuildDate>Thu, 21 Apr 2022 19:30:17 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.6.1</generator>
+
+<image>
+	<url>https://mossiso.com/wp-content/uploads/2018/12/favicon-96x96.png</url>
+	<title>Coding &#8211; Ammon Shepherd</title>
+	<link>https://mossiso.com</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+<site xmlns="com-wordpress:feed-additions:1">140707563</site>	<item>
+		<title>Movie control in Processing</title>
+		<link>https://mossiso.com/2022/04/21/movie-control-in-processing/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 21 Apr 2022 19:11:50 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<guid isPermaLink="false">https://mossiso.com/?p=1945</guid>
+
+					<description><![CDATA[This is a quick post to show how to control movie playback with Processing. There&#8217;s the code. It&#8217;s the basic default code to show a movie. But what if you want some event (mouse press, input from Arduino, etc) to control if and when the movie plays. Not so intuitive, and hence this post. The &#8230; <a href="https://mossiso.com/2022/04/21/movie-control-in-processing/" class="more-link">Continue reading <span class="screen-reader-text">Movie control in Processing</span></a>]]></description>
+										<content:encoded><![CDATA[
+<p>This is a quick post to show how to control movie playback with Processing.</p>
+
+
+<pre class="wp-block-code" aria-describedby="shcb-language-1" data-shcb-language-name="Java" data-shcb-language-slug="java"><span><code class="hljs language-java"><span class="hljs-comment">/**
+ * Loop. 
+ * 
+ * Shows how to load and play a QuickTime movie file.  
+ *
+ */</span>
+
+<span class="hljs-keyword">import</span> processing.video.*;
+
+Movie movie;
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">setup</span><span class="hljs-params">()</span> </span>{
+  size(<span class="hljs-number">560</span>, <span class="hljs-number">406</span>);
+  background(<span class="hljs-number">0</span>);
+  <span class="hljs-comment">// Load and play the video in a loop</span>
+  movie = <span class="hljs-keyword">new</span> Movie(<span class="hljs-keyword">this</span>, <span class="hljs-string">"tac.mov"</span>);
+  movie.loop();
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">draw</span><span class="hljs-params">()</span> </span>{
+  image(movie, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height);
+
+  <span class="hljs-keyword">if</span> (mousePressed == <span class="hljs-keyword">true</span>) {
+    movie.play();
+    movie.read();
+  } <span class="hljs-keyword">else</span> {
+    movie.stop();
+    fill(<span class="hljs-number">0</span>);
+    rect(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, width, height);
+  }
+  
+}
+</code></span><small class="shcb-language" id="shcb-language-1"><span class="shcb-language__label">Code language:</span> <span class="shcb-language__name">Java</span> <span class="shcb-language__paren">(</span><span class="shcb-language__slug">java</span><span class="shcb-language__paren">)</span></small></pre>
+
+
+<p>There&#8217;s the code. It&#8217;s the basic default code to show a movie. But what if you want some event (mouse press, input from Arduino, etc) to control if and when the movie plays.</p>
+
+
+
+<p>Not so intuitive, and hence this post.</p>
+
+
+
+<p>The trick is to use the play() and read() methods in the if&#8230;else statement. In the code above. If the mouse button is pressed, then the movie will play from the beginning. </p>
+
+
+
+<p>And if you want the video to disappear after the video is played, then after the movie stops, cover the draw window with a rectangle (filled with black, in this example).</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1945</post-id>	</item>
+		<item>
+		<title>Docker Development Environment for Everyone</title>
+		<link>https://mossiso.com/2020/11/13/docker-development-environment-for-everyone/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 13 Nov 2020 19:57:44 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[docker]]></category>
+		<category><![CDATA[docker-compose]]></category>
+		<category><![CDATA[flask]]></category>
+		<category><![CDATA[local development]]></category>
+		<category><![CDATA[pgadmin]]></category>
+		<category><![CDATA[php]]></category>
+		<category><![CDATA[phpMyAdmin]]></category>
+		<category><![CDATA[postgres]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[web development]]></category>
+		<guid isPermaLink="false">https://mossiso.com/?p=1875</guid>
+
+					<description><![CDATA[One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem. Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly. You&#8217;re in for a special &#8230; <a href="https://mossiso.com/2020/11/13/docker-development-environment-for-everyone/" class="more-link">Continue reading <span class="screen-reader-text">Docker Development Environment for Everyone</span></a>]]></description>
+										<content:encoded><![CDATA[
+<p>One of the biggest challenges when collaborating with others in developing software and websites is setting up the development environment. The good ol &#8220;it works on my machine&#8230;&#8221; problem.</p>
+
+
+
+<p>Well, this is no panacea for development, but it does a good job of setting up a basic environment pretty quickly.</p>
+
+
+
+<p>You&#8217;re in for a special treat, because I&#8217;m going to show you not one (1), but two (2) different development environments; one for PHP, MySQL, Apache and phpMyAdmin, and one for Python (Flask) and PostgreSQL with pgAdmin. Each of these in a Docker container for ease of use.</p>
+
+
+
+<h2 class="wp-block-heading">Pre-requisites</h2>
+
+
+
+<p>For any of this to work, make sure you have <a href="https://www.docker.com/get-started" data-type="URL" data-id="https://www.docker.com/get-              started">Docker Desktop</a> installed and running.</p>
+
+
+
+<p>We&#8217;ll be using a terminal application for running some commands, so you&#8217;ll need some familiarity with that too.</p>
+
+
+
+<p>Git is used to copy the files from the GitHub repo, but you can also download them as a zip file.</p>
+
+
+
+<figure class="wp-block-image size-large"><img fetchpriority="high" decoding="async" width="1024" height="653" src="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png" alt="" class="wp-image-1882" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.46.50-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">PMAMP</h2>
+
+
+
+<p>We&#8217;ll tackle the <strong>P</strong>hp<strong>M</strong>yadmin <strong>A</strong>pache <strong>M</strong>ysql <strong>P</strong>hp (PMAMP) environment first.</p>
+
+
+
+<p>After setting this up, we&#8217;ll have a place to put PHP code, a running Apache web server, a MySQL server and a running instance of phpMyAdmin.</p>
+
+
+
+<p>The quickest way to get this going is to download the files from this GitHub repo <a href="https://github.com/ammonshepherd/pmamp" target="_blank" rel="noreferrer noopener">https://github.com/ammonshepherd/pmamp</a></p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pmamp.git</code></p>
+
+
+
+<p>Change into that directory.</p>
+
+
+
+<p><code class="wp-block-code">cd pmamp</code></p>
+
+
+
+<p>And start the Docker containers</p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You can view the website at <a href="http://lvh.me">http://lvh.me</a>. lvh.me is just a nice service that points back to your local machine (127.0.0.1 or localhost). It makes it look like you are using a real domain name.</p>
+
+
+
+<p>You can view phpMyAdmin at <a href="http://pma.lvh.me">http://pma.lvh.me</a>.</p>
+
+
+
+<p>You can even use a real domain name. Just edit the docker-compose.yml file. There is a line like this: &nbsp;</p>
+
+
+
+<p><code class="wp-block-code">- "traefik.http.routers.php-apache.rule=Host('lvh.me', 'pmamp.lvh.me', 'example.com')"</code></p>
+
+
+
+<p>Just add your domain to the list (or remove the other ones). Each entry must use the backtick, rather than the single quotes. WordPress mangles the backticks, so I am using single quotes here.</p>
+
+
+
+<p>Now you just need to let your computer know to redirect all traffic to that domain name to itself.</p>
+
+
+
+<p>You&#8217;ll need to edit the /etc/hosts file (<a href="https://www.makeuseof.com/tag/modify-manage-hosts-file-linux/">Linux or Mac</a>), or c:\windows\system32\drivers\etc\hosts (<a href="https://www.howtogeek.com/howto/27350/beginner-geek-how-to-edit-your-hosts-file/">Windows</a>). Now you can develop for any domain name right on your computer as if it were using the actual domain name.</p>
+
+
+
+<p>Put all of your website files in the &#8216;www&#8217; folder and you&#8217;re ready to develop!</p>
+
+
+
+<p>Check the README at <a href="https://github.com/ammonshepherd/pmamp">https://github.com/ammonshepherd/pmamp</a> for more details on how it works and things to change.</p>
+
+
+
+<p>To stop the services (turn off Apache, MySQL and phpAdmin) run</p>
+
+
+
+<p><code class="wp-block-code">docker-compose down </code></p>
+
+
+
+<p>in the same directory where the docker-compose.yml file lives.</p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="653" src="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png" alt="" class="wp-image-1883" srcset="https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1024x653.png 1024w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-300x191.png 300w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-768x489.png 768w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-1536x979.png 1536w, https://mossiso.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-13-at-2.43.18-PM-2048x1305.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<h2 class="wp-block-heading">pFp</h2>
+
+
+
+<p>The set up for Python (using a Flask app) and PostgreSQL is exactly the same process.</p>
+
+
+
+<p>Grab the files from <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a>.</p>
+
+
+
+<p><code class="wp-block-code">git clone https://github.com/ammonshepherd/pfp.git</code></p>
+
+
+
+<p><code class="wp-block-code">cd pfp</code></p>
+
+
+
+<p><code class="wp-block-code">docker-compose up -d</code></p>
+
+
+
+<p>You now have a running Flask app at <a href="http://lvh.me">http://lvh.me</a>, or <a href="http://pfp.lvh.me">http://pfp.lvh.me</a> and a running pgAdmin application at <a href="http://pga.lvh.me">http://pga.lvh.me</a>.</p>
+
+
+
+<p>The same trick for custom domain names applies here too.</p>
+
+
+
+<p>And also check out the README for more details: <a href="https://github.com/ammonshepherd/pfp">https://github.com/ammonshepherd/pfp</a></p>
+
+
+
+<p>Follow the same commands above to shutdown the Python, PostgreSQL and pgAdmin containers.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1875</post-id>	</item>
+		<item>
+		<title>What is &#8216;tput sgr0&#8217; doin in my Bash prompt?</title>
+		<link>https://mossiso.com/2018/09/18/what-is-tput-sgr0-doin-in-my-bash-prompt/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 18 Sep 2018 14:18:18 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[prompt]]></category>
+		<category><![CDATA[terminal]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1707</guid>
+
+					<description><![CDATA[I have a new work computer, so this time around, I&#8217;m doing everything from scratch, because that&#8217;s the best way to learn. In playing with my Bash prompt, I used this site to generate the prompt: http://bashrcgenerator.com/ Another one that is great is here: http://ezprompt.net/ The prompt that is generated uses a command to clear the text &#8230; <a href="https://mossiso.com/2018/09/18/what-is-tput-sgr0-doin-in-my-bash-prompt/" class="more-link">Continue reading <span class="screen-reader-text">What is &#8216;tput sgr0&#8217; doin in my Bash prompt?</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I have a new work computer, so this time around, I&#8217;m doing everything from scratch, because that&#8217;s the best way to learn.</p>
+<p>In playing with my Bash prompt, I used this site to generate the prompt: <a href="http://bashrcgenerator.com/">http://bashrcgenerator.com/</a></p>
+<p>Another one that is great is here: <a href="http://ezprompt.net/">http://ezprompt.net/</a></p>
+<p>The prompt that is generated uses a command to clear the text color that I hadn&#8217;t seen before: <code>tput sgr0</code></p>
+<p>My prompt (which I put in the ~/.bash_profile file) is:</p>
+<pre><code>#PROMPT
+# To enter an emoji, while in insert mode type Ctrl-v, then enter the UTF8 code
+# for the emoji, ex. U26A1 (note, use capital letters), then type ESC key. You
+# can get a list of UTF8 emoji codes here: http://graphemica.com/
+export PS1="\[\033[38;5;39m\]\u\[$(tput sgr0)\]\[\033[38;5;15m\]@\[$(tput sgr0)\]\[\033[38;5;229m\]\h\[$(tput sgr0)\]\[\033[38;5;15m\] [\[$(tput sgr0)\]\[\033[38;5;76m\]\w\[$(tput sgr0)\]\[\033[38;5;15m\]]\n\[$(tput sgr0)\]\[\033[38;5;215m\]&#x26a1;\[$(tput sgr0)\] "
+</code></pre>
+<p>So, of course, I spent the next 40 minutes trying to figure out all I could about that command, and more specifically, what &#8216;sgr&#8217; meant.</p>
+<p>I first scoured Google search results. Mostly just information about tput. Then I took to the manual pages: <code>man tput</code> was helpful in learning about what tput does. That led to <code>man terminfo</code> and finally to <code>man ncurses</code>. None of those man pages define &#8216;sgr&#8217;, but &#8216;ncurses&#8217; did give a better clue by stating that &#8220;<span class="s1">The<span class="Apple-converted-space">  </span></span><span class="s2">ncurses</span><span class="s1"><span class="Apple-converted-space">  </span>library can exploit the capabilities of terminals which implement the ISO-6429 </span><span class="s3">SGR</span><span class="s1"> 39 and </span><span class="s3">SGR</span><span class="s1"> 49 controls&#8221;</span></p>
+<p>So a Google search of &#8216;ISO-6429 SGR 39&#8217; turns up an old 1990&#8217;s ECMA standardization for &#8220;Control Functions and Coded Character Sets&#8221;, Standard ECMA-48, <a href="https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf">https://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf</a></p>
+<p>(More on ECMA history here: <a href="https://www.ecma-international.org/memento/history.htm">https://www.ecma-international.org/memento/history.htm</a>) [sidenote: ECMA may sound familiar. ECMAScript. Wait isn&#8217;t that Javascript? See here: <a href="https://medium.freecodecamp.org/whats-the-difference-between-javascript-and-ecmascript-cba48c73a2b5">https://medium.freecodecamp.org/whats-the-difference-between-javascript-and-ecmascript-cba48c73a2b5</a>]</p>
+<p>And there we go! Page 75 of the PDF (page 61 internally numbered), section 8.3.117!</p>
+<p><strong>SGR &#8211; SELECT GRAPHIC RENDITION</strong></p>
+<p>And the 0 means = &#8220;default rendition (implementation-defined), cancels the effect of any preceding occurrence of SGR in the data stream regardless of the setting of the GRAPHIC RENDITION COMBINATION MODE (GRCM)&#8221;</p>
+<p>To make things a little more readable, I made the color codes into variables:</p>
+<pre><code>#PROMPT
+# To enter an emoji, while in insert mode type Ctrl-v, then enter the UTF8 code
+# for the emoji, ex. U26A1 (note, use capital letters), then type ESC key. You
+# can get a list of UTF8 emoji codes here: http://graphemica.com/
+BLUE='\[\033[38;5;39m\]'
+PALE_YELLOW='\[\033[38;5;229m\]'
+RESET='\[$(tput sgr0)\]'
+GREEN='\[\033[38;5;76m\]'
+export PS1="${BLUE}\u${RESET}@${PALE_YELLOW}\h${RESET} [${GREEN}\w${RESET}]\n&#x26a1;${RESET} "
+</code></pre>
+<p>And there we go. Much too much time learning stuff! And my prompt looks like this:</p>
+<p><img decoding="async" class="aligncenter wp-image-1711 size-full" src="http://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1.png" alt="" width="621" height="408" srcset="https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1.png 621w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1-300x197.png 300w, https://mossiso.com/wp-content/uploads/2018/09/Screen-Shot-2018-09-18-at-10.14.44-AM-1-150x99.png 150w" sizes="(max-width: 621px) 100vw, 621px" /></p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>And all of that to figure out what &#8216;sgr&#8217; means.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1707</post-id>	</item>
+		<item>
+		<title>Quick WP upgrading with WPCLI</title>
+		<link>https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Wed, 03 Jan 2018 20:30:59 +0000</pubDate>
+				<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[update WP]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1683</guid>
+
+					<description><![CDATA[This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself. Requirements ssh access to your server wp-cli command installed (instructions for installing wp-cli at http://wp-cli.org/) Install/Upgrade WP CLI wp-cli should be upgraded each time a WordPress installation is upgraded. wp cli update Upgrade WP Prep work Change into the &#8230; <a href="https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/" class="more-link">Continue reading <span class="screen-reader-text">Quick WP upgrading with WPCLI</span></a>]]></description>
+										<content:encoded><![CDATA[<p>This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself.</p>
+<h1>Requirements</h1>
+<ul>
+<li>ssh access to your server</li>
+<li>wp-cli command installed (instructions for installing wp-cli at <a href="http://wp-cli.org/">http://wp-cli.org/</a>)</li>
+</ul>
+<h2>Install/Upgrade WP CLI</h2>
+<ul>
+<li><strong>wp-cli should be upgraded each time a WordPress installation is upgraded.</strong></li>
+</ul>
+<pre><code>wp cli update
+</code></pre>
+<h2>Upgrade WP</h2>
+<h3>Prep work</h3>
+<p>Change into the WP directory</p>
+<pre><code>cd /path/to/wordpress/installation/
+</code></pre>
+<p>Make a list of active plugins</p>
+<pre><code>wp plugin list --status=active --format=csv --fields=name | tail -n +2 &gt; ../active-plugins.txt
+</code></pre>
+<h3>Update all plugins</h3>
+<pre><code>wp plugin update --all
+</code></pre>
+<h3>Deactivate all of the plugins</h3>
+<pre><code>wp plugin deactivate --all
+</code></pre>
+<h3>Upgrade WordPress</h3>
+<pre><code>wp core update
+</code></pre>
+<h3>Reactivate all of the previously active plugins.</h3>
+<pre><code>cat ../active-plugins.txt | xargs wp plugin activate
+</code></pre>
+<h1>Check the site in various browsers (make sure cache has been cleared).</h1>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1683</post-id>	</item>
+		<item>
+		<title>Grab all of the domain names in Apache host file</title>
+		<link>https://mossiso.com/2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 30 Jun 2017 19:55:17 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[Websites]]></category>
+		<category><![CDATA[apache]]></category>
+		<category><![CDATA[bash]]></category>
+		<category><![CDATA[devops]]></category>
+		<category><![CDATA[systems administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1675</guid>
+
+					<description><![CDATA[Quick script I whipped up today to grab all of the domain names on a server. #!/bin/bash if [ -e alldomains ] then rm alldomains fi alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) ) for domain in ${alldomains[*]} do cat $domain &#124; egrep "ServerName&#124;ServerAlias" &#124; egrep -v "#" &#124; sed -e 's&#124;ServerName&#124;&#124;' -e 's&#124;ServerAlias&#124;&#124;' -e 's&#124;www.&#124;&#124;' -e &#8230; <a href="https://mossiso.com/2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/" class="more-link">Continue reading <span class="screen-reader-text">Grab all of the domain names in Apache host file</span></a>]]></description>
+										<content:encoded><![CDATA[<p>Quick script I whipped up today to grab all of the domain names on a server.</p>
+<pre class="lang:sh decode:true">#!/bin/bash
+
+if [ -e alldomains ]
+then
+  rm alldomains
+fi
+
+alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) )
+
+for domain in ${alldomains[*]}
+do
+  cat $domain | egrep "ServerName|ServerAlias" | egrep -v "#" | sed -e 's|ServerName||' -e 's|ServerAlias||' -e 's|www.||' -e 's|:80||' | tr -s ' ' '\n' | tr -d ' ' | sed -e '/^\s*$/d' &gt;&gt; alldomains
+done
+
+sort alldomains | uniq | sort -o alldomains</pre>
+<p>&nbsp;</p>
+<p>This gets all of the domains from ServerName and ServerAlias lines, takes out all of the white space and empty lines, and creates a file with just a list of the unique domain names.</p>
+<p>This accounts for subdomains that use &#8216;www&#8217; or have port :80 on the end.</p>
+<p>For instance, www.somedomain.com and somedomain.com are the same, so the script takes out the &#8216;www.&#8217; which leaves to copies of somedomain.com, which it then deletes one of them in the final output to the file. The same for &#8216;:80&#8217;.</p>
+<p>&nbsp;</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1675</post-id>	</item>
+		<item>
+		<title>OSSEC, Suhosin, and WordPress</title>
+		<link>https://mossiso.com/2013/06/14/ossec-suhosin-and-wordpress/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 14 Jun 2013 16:41:53 +0000</pubDate>
+				<category><![CDATA[Systems Administration]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[wordpress]]></category>
+		<category><![CDATA[firewall]]></category>
+		<category><![CDATA[iptables]]></category>
+		<category><![CDATA[ossec]]></category>
+		<category><![CDATA[shorewall]]></category>
+		<category><![CDATA[systems administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1479</guid>
+
+					<description><![CDATA[I had a problem show up on some of our servers. Visiting sites would work fine, but as soon as you log in to a WordPress site, then your IP was blocked at the firewall level. It took a bit of hunting around the OSSEC logs to figure out the cause, and then finally tipped &#8230; <a href="https://mossiso.com/2013/06/14/ossec-suhosin-and-wordpress/" class="more-link">Continue reading <span class="screen-reader-text">OSSEC, Suhosin, and WordPress</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I had a problem show up on some of our servers. Visiting sites would work fine, but as soon as you log in to a WordPress site, then your IP was blocked at the firewall level. It took a bit of hunting around the OSSEC logs to figure out the cause, and then finally <a href="https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612" target="_blank">tipped off</a> to a local rule to combat the blockage. I outline the process of figuring out what was wrong, and how to fix it below.</p>
+<h2>DENIED!</h2>
+<p><a href="http://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3.png"><img loading="lazy" decoding="async" class="size-medium wp-image-1493 alignright" src="http://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-300x62.png" alt="gareth-davies-logo3" width="300" height="62" srcset="https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-300x62.png 300w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-250x52.png 250w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3-150x31.png 150w, https://mossiso.com/wp-content/uploads/2013/06/gareth-davies-logo3.png 430w" sizes="(max-width: 300px) 100vw, 300px" /></a>So initially, this was quite confusing. All of a sudden people would have their IP blocked. I checked the different sites, and seemed to have no problem. Then when I logged in to the back end, BAM, blocked as well. We have <a href="http://shorewall.net">Shorewall</a> running, so doing:</p>
+<pre class="lang:sh decode:true">shorewall show dynamic</pre>
+<p>Showed all of the IPs that Shorewall had blocked. This could also be done by using iptables</p>
+<pre class="lang:sh decode:true">iptables -nL --line-numbers</pre>
+<p>Sure enough, my IP had been blocked. I unblocked my IP with:</p>
+<pre class="lang:sh decode:true">shorewall allow ip.ad.dr.es</pre>
+<p>Or could also do</p>
+<pre class="lang:sh decode:true">iptables -D INPUT 2</pre>
+<p>where INPUT is the position or section of the firewall chain, and &#8220;2&#8221; is the line number containing my IP address.</p>
+<p>Then I checked with other web applications on that server. Where they also causing an issue? I logged in to an Omeka install. No problems.</p>
+<h2>FOUND IT!</h2>
+<p><a href="http://mossiso.com/wp-content/uploads/2013/06/ossec_logo.png"><img loading="lazy" decoding="async" class="alignleft size-full wp-image-1494" src="http://mossiso.com/wp-content/uploads/2013/06/ossec_logo.png" alt="ossec_logo" width="191" height="67" srcset="https://mossiso.com/wp-content/uploads/2013/06/ossec_logo.png 191w, https://mossiso.com/wp-content/uploads/2013/06/ossec_logo-150x52.png 150w" sizes="(max-width: 191px) 100vw, 191px" /></a>OK. I know <a href="http://ossec.net">OSSEC</a> is to blame some how. It&#8217;s an awesome HIDS (Host Intrusion Detection Software) that actively responds to issues on the server based on scanning through the system logs and various rules.</p>
+<p>OSSEC keeps itself chroot&#8217;ed to /var/ossec/, so all of the ossec logs are located in /var/ossec/logs/.</p>
+<p>I first looked in the /var/ossec/logs/active-responses.log. Sure enough, a couple of lines like this show my IP being completely blocked to the server.</p>
+<pre class="lang:vim decode:true">Fri Jun 14 06:50:47 EDT 2013 /var/ossec/active-response/bin/host-deny.sh add - XXX.XX.XX.XX 1371207047.5913585 20101
+Fri Jun 14 06:50:47 EDT 2013 /var/ossec/active-response/bin/firewall-drop.sh add - XXX.XX.XX.XX 1371207047.5913585 20101
+</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">So, there we are. OSSEC blocking the IP for some reason. Now why is it blocking the IP?</span></p>
+<p>Taking a look in the /var/ossec/logs/alerts/alerts.log file to see why it thinks it needs to block the IP&#8230;</p>
+<pre class="lang:sh decode:true">** Alert 1371206381.5698606: - ids,
+2013 Jun 14 06:39:41 (server1) 127.0.0.1-&gt;/var/log/messages
+Rule: 20101 (level 6) -&gt; 'IDS event.'
+Src IP: XXX.XX.XX.XX
+Jun 14 06:39:40 server1 suhosin[18563]: ALERT - script tried to increase memory_limit to 268435456 bytes which is above the allowed value (attacker 'XXX.XX.XX.XX', file '/var/html/wp-admin/admin.php', line 109)</pre>
+<p>There were other lines in there with my IP, but nothing would/should have caused blocking, like a WordPress login event, or an SSH login event. Also, the error above is categorized as an IDS event with level 6, which by default OSSEC rules means it gets blocked.</p>
+<h2>HOW TO FIX IT!</h2>
+<p>As a quick fix, I changed the &#8220;suhosin.memory_limit&#8221; option in /etc/php.d/suhosin.ini to 256M, and the &#8220;memory_limit&#8221; in /etc/php.ini to 256M so that no error would be generated.</p>
+<p>Now came the hard part of finding out how to fix it for real. OSSEC is a pretty big beast to tackle, so I turned to my friendly web search engine to help out.</p>
+<p>To fix the issue, I would need to write a decoder or new rule to ignore the suhosin rule causing the problem. OSSEC has descent documentation to get you started, but fortunately the blog linked above had the solution already. <a href="https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612">https://www.atomicorp.com/forum/viewtopic.php?f=3&amp;t=5612</a></p>
+<p>From user &#8216;faris&#8217; in the forum linked above:</p>
+<p>Add the following lines the the /var/ossec/etc/rules.d/local_rules.xml file.<br />
+<b></b></p>
+<pre class="lang:xhtml decode:true ">&lt;group name="local,ids,"&gt;
+  &lt;!-- First Time Suhosin event rule --&gt;
+  &lt;rule id="101006" level="14"&gt;
+    &lt;if_sid&gt;20100&lt;/if_sid&gt;
+    &lt;decoded_as&gt;suhosin&lt;/decoded_as&gt;
+    &lt;description&gt;First Time Suhosin Event&lt;/description&gt;
+  &lt;/rule&gt;
+  &lt;!-- Generic Suhosin event rule --&gt;
+  &lt;rule id="101007" level="12"&gt;
+    &lt;if_sid&gt;20101&lt;/if_sid&gt;
+    &lt;decoded_as&gt;suhosin&lt;/decoded_as&gt;
+    &lt;description&gt;Suhosin Event&lt;/description&gt;
+  &lt;/rule&gt;
+  &lt;!-- Specific Suhosin event rule --&gt;
+  &lt;rule id="101008" level="5"&gt;
+    &lt;if_sid&gt;101006,101007&lt;/if_sid&gt;
+    &lt;match&gt;script tried to increase memory&lt;/match&gt;
+    &lt;description&gt;Suhosin Memory Increase Event&lt;/description&gt;
+  &lt;/rule&gt;
+&lt;/group&gt;
+</pre>
+<p><span style="line-height: 1.714285714; font-size: 1rem;">What these new rules do is change the level of the default rules that were tagged/decoded as being suhosin errors. In the first rule, if the default error is 20100, and is decoded (or tagged, or matches) as suhosin, then set the level to 14 instead of the default 8.</span></p>
+<p>The second rule detects if the default error 20101 is decoded as coming from suhosin and sets the level to 12 instead of the default 6.</p>
+<p>The third new rule looks at any error tagged as suhosin and if the error has the matching text in it, then it sets the error level to 5 (below the limit for firing an active response).</p>
+<p>So, just add that group of rules to the local_rules.xml file and restart the OSSEC service. BA-DA-BING! no more blocking the IP when logging in to WordPress.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1479</post-id>	</item>
+		<item>
+		<title>If at first you don&#8217;t succeed</title>
+		<link>https://mossiso.com/2012/10/11/if-at-first-you-dont-succeed/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Thu, 11 Oct 2012 23:07:40 +0000</pubDate>
+				<category><![CDATA[Academic]]></category>
+		<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Dissertation]]></category>
+		<category><![CDATA[HowTo]]></category>
+		<category><![CDATA[School Work]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[digital maps]]></category>
+		<category><![CDATA[exhibit]]></category>
+		<category><![CDATA[json]]></category>
+		<category><![CDATA[maps]]></category>
+		<category><![CDATA[spreadsheets]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1356</guid>
+
+					<description><![CDATA[&#8230;copy somebody&#8217;s code. Or at least your own from the past that works. I finally got the map to work for my Exhibit exhibit. See. &#160; First I copied the tutorial here. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken. So next &#8230; <a href="https://mossiso.com/2012/10/11/if-at-first-you-dont-succeed/" class="more-link">Continue reading <span class="screen-reader-text">If at first you don&#8217;t succeed</span></a>]]></description>
+										<content:encoded><![CDATA[<p>&#8230;copy somebody&#8217;s code. Or at least your own from the past that works.</p>
+<p>I finally got the map to work for my Exhibit exhibit. <a href="http://chnm.gmu.edu/staff/ammon/clio3/tunnels.php">See</a>.</p>
+<p>&nbsp;</p>
+<p>First I copied the tutorial <a href="http://simile.mit.edu/wiki/Exhibit/2.0/Map_View_Tutorial">here</a>. When that was working, I carefully copied it to the file I wanted it to be in and&#8230; nothing. Still broken.</p>
+<p>So next I commented out all extraneous stuff, and finally got it to work. Now came the fun part of tracking down what code was making my awesome map look like nothing. I narrowed it down to something within the &lt;header&gt; tag. So line by line I uncommented and tested until I tracked the issue down to the bootstrap.css file I was using.</p>
+<p>Then came the same process within the bootstrap.css file. It was easily 1000 lines long, so a line by line process wasn&#8217;t going to work. Instead I commented out the first have of the file. Bing, the map displayed, so it was somewhere within that first 500 lines. Then I commented out the first 250 lines. Bing again. I kept dividing the culprits in half until I narrowed it down to styles for the img tag. Commented those out and I was in business.</p>
+<p>Through that grueling process I lost the images of the documents on the first page. Now I have to figure out how to get those back, apply some styling and we&#8217;re all set.</p>
+<p>Unfortunately I wasn&#8217;t ever able to get it to pull in the data from a spreadsheet, so the JSON file will have to do. The process for making a JSON file from a spreadsheet is simple:</p>
+<p>1. Make the spreadsheet file so that the headers are encapsulated with curly braces &#8216;{ }&#8217;</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1361" title="Screen Shot 2012-10-11 at 6.44.16 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png" alt="" width="800" height="76" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM.png 800w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-300x28.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-250x23.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-150x14.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.44.16-PM-624x59.png 624w" sizes="(max-width: 800px) 100vw, 800px" /></a></p>
+<p>2. If you&#8217;re using Google spreadsheets, export it as an Excel file. You&#8217;ll have to open it in Excel and save it as an older file format, because the next step doesn&#8217;t like .xlsx.</p>
+<p>3. Next, use <a href="http://service.simile-widgets.org/babel/">Similie&#8217;s Babel tool</a> to convert the spreadsheet to JSON.</p>
+<p>4. Select &#8220;Excel&#8221; as the &#8220;from format&#8221; and &#8220;Exhibit JSON&#8221; as the &#8220;to format&#8221; and then browse to find the xls file you just made.</p>
+<p>5. Click the &#8220;Upload and Convert&#8221; button.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-1360" title="Screen Shot 2012-10-11 at 6.50.19 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png" alt="" width="550" height="254" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-1024x474.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-300x139.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-250x115.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-150x69.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM-624x289.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.19-PM.png 1294w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>6. The next screen is all of your spreadsheet data output into a nice JSON format.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png"><img loading="lazy" decoding="async" class="alignnone size-full wp-image-1359" title="Screen Shot 2012-10-11 at 6.50.27 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png" alt="" width="527" height="860" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM.png 527w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-183x300.png 183w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-250x407.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.50.27-PM-91x150.png 91w" sizes="(max-width: 527px) 100vw, 527px" /></a></p>
+<p>7. Now you can use this JSON file for any number of things. But it&#8217;s especially nice to use it in an Exhibit to display your data.</p>
+<p><a href="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png"><img loading="lazy" decoding="async" class="alignnone size-large wp-image-1357" title="Screen Shot 2012-10-11 at 6.52.53 PM" src="http://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png" alt="" width="550" height="422" srcset="https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-1024x786.png 1024w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-300x230.png 300w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-250x192.png 250w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-150x115.png 150w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM-624x479.png 624w, https://mossiso.com/wp-content/uploads/2012/10/Screen-Shot-2012-10-11-at-6.52.53-PM.png 1110w" sizes="(max-width: 550px) 100vw, 550px" /></a></p>
+<p>This is cross posted at the class blog <a href="http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/">http://www.fredgibbs.net/clio3workspace/blog/if-at-first-you-dont-succeed/</a></p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1356</post-id>	</item>
+		<item>
+		<title>Making SMF static</title>
+		<link>https://mossiso.com/2011/09/27/making-smf-static/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 27 Sep 2011 14:28:10 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[linux]]></category>
+		<category><![CDATA[servers]]></category>
+		<category><![CDATA[systems administration]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1081</guid>
+
+					<description><![CDATA[We have a few legacy forums powered by the good software SMF (SimpleMachines Forum). Like many of the WordPress installs, it&#8217;s a pain and a security risk to keep these up-to-date when they are no longer needed as content creation platforms. So, once again I need to convert a web app into static HTML pages. &#8230; <a href="https://mossiso.com/2011/09/27/making-smf-static/" class="more-link">Continue reading <span class="screen-reader-text">Making SMF static</span></a>]]></description>
+										<content:encoded><![CDATA[<p><a href="http://www.simplemachines.org/"><img loading="lazy" decoding="async" class="aligncenter size-full wp-image-1113" title="frontpage_logo" src="http://mossiso.com/wp-content/uploads/2011/09/frontpage_logo.png" alt="" width="486" height="65" srcset="https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo.png 486w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-300x40.png 300w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-250x33.png 250w, https://mossiso.com/wp-content/uploads/2011/09/frontpage_logo-150x20.png 150w" sizes="(max-width: 486px) 100vw, 486px" /></a>We have a few legacy forums powered by the good software SMF (<a title="http://www.simplemachines.org/" href="http://www.simplemachines.org/">SimpleMachines Forum</a>). Like many of the WordPress installs, it&#8217;s a pain and a security risk to keep these up-to-date when they are no longer needed as content creation platforms. So, once again I need to convert a web app into static HTML pages. This process proved a bit harder than converting WordPress to static HTML.</p>
+<h2><strong>Step 1: Upgrade</strong></h2>
+<p>The first thing to do is update to the latest version. This ensures that if you need to turn this back into a dynamic site, it should hopefully be compatible with whatever the latest version is at that time.</p>
+<h2><strong>Step 2: Make it public</strong></h2>
+<p>Next, we&#8217;ll need to make it public to guests, so that wget has access to the pages.</p>
+<p>Go to the Admin-&gt;Features and Options page and check the &#8220;Allow guests to browse the forum&#8221; box, then click save. Now we have to change the permissions on each board separately. Or with a bit of MySQL magic, we can change them all at once using the CONCAT operator. Open of phpMyAdmin, or something else of your choice. Before we mess with the data, make a copy of the table, just in case we totally hose it.</p>
+<p>Browse to the &#8216;boards&#8217; table, and then to the SQL tab. We&#8217;re going to enter an SQL command that will pre-pend (that&#8217;s append but onto the front rather than the end) some data.</p>
+<pre class="lang:mysql decode:true ">UPDATE boards SET member_groups=CONCAT('-1,', member_groups) WHERE 1</pre>
+<p>&nbsp;</p>
+<p>This will add a -1, to the beginning of each field, which makes the board viewable by guests. No need to log in, which means wget can scrape the pages and turn them into HTML.</p>
+<h2><strong>Step 3: Edit Theme files</strong></h2>
+<p>Now we get to play around with the theme files to get rid of forum specific items that we won&#8217;t need, like links to member info, the login, help, and search links, and anything else that we don&#8217;t want.</p>
+<p>Here are some items to delete or alter, and the files I found them in for our home-made theme based off of an old default theme.</p>
+<h4><strong>index.template.php</strong></h4>
+<ul>
+<li>Add a title</li>
+<li>Get rid of date stamp</li>
+<li>Get rid of the main menu (Home, Help, Search, Login, etc)</li>
+</ul>
+<h4>BoardIndex.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+</ul>
+<h4>Display.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+<li>Get rid of the drop down menu to select pages.</li>
+</ul>
+<h4>MessageIndex.template.php</h4>
+<ul>
+<li>Search for [&#8216;member&#8217;][&#8216;link&#8217;] and change it to [&#8216;member&#8217;][&#8216;name&#8217;] This will take out all links to member profile pages.</li>
+<li>Delete the &#8216;Jump to&#8217; drop-down box and the icons explaining post/board types</li>
+</ul>
+<h2><strong>Step 4: Fix the URLs</strong></h2>
+<p>As it stands, SMF has some pretty ugly URLs. There are a couple of mods that I could never get to work. But editing a file and adding an .htaccess file seems to do the trick.</p>
+<p>Open the Sources/QueryString.php file and look for the line like this:</p>
+<pre class="lang:php decode:true ">$scripturl = $boardurl . '/index.php';</pre>
+<p>and get rid of the /index.php</p>
+<p>Now create a .htaccess file in the root of the forum (in the same folder as the Settings.php file). It should look similar to this:</p>
+<pre class="lang:apache decode:true ">RewriteEngine On
+RewriteBase /7tah/forum/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /7tah/forum/index.php [L]</pre>
+<p>&nbsp;</p>
+<h2>Step 5: Wget it</h2>
+<p>Now we run wget on the command line to grab the pages.</p>
+<pre class="lang:sh decode:true">wget --mirror -P static-forum -nH -np -p -k -E --cut-dirs=2 http://domain.com/path/forum/</pre>
+<p>All of the static HTML files will now be located in a directory called static-forum.</p>
+<h2>Step 6: Fix filenames</h2>
+<p>Some filenames will be a bit broken. Specifically the style.css has an extra &#8220;?fin11&#8221; in the html files where the file is called. Also, it get&#8217;s name that way. So fix that by changing the name of the file to just style.css (it&#8217;s in your Theme directory). Then run this one-line command to search and replace throughout all of the static html files (run the command when you are in the static-forum directory.</p>
+<pre class="lang:sh decode:true ">find . -name '*.html' -type f -exec perl -pi -e 's/style.css%3Ffin11/style.css/g' {} \;</pre>
+<p>&nbsp;</p>
+<p>This will look for all of the references to the style.css%3Ffin11 file and change them to style.css. Then the pretty colors and formatting will work. Just for clarification, the %3F is code for a question mark. It shows up as such in the HTML source when viewing from a browser, but is displayed as such in the actual code.</p>
+<p>Don&#8217;t forget to change the the actual name of the css file to style.css.</p>
+<h2>Step 7: Protect it</h2>
+<p>Depending on  your needs, you may want to password protect your new static forum with an htaccess account. The good peoples at <a title="htaccess password tool" href="http://tools.dynamicdrive.com/password/" target="_blank">Dynamic Drive have an helpful tool</a> for making the two files necessary to make this happen. Just plug in your desired user name, password, and location of the htpasswd file, and then it&#8217;s copy and paste into those files on the server.</p>
+<p>I change the last line of the htaccess file to <code>require user username</code> so that it works only with the given user, not any valid. But since it only pulls from the specified htpasswd file, it&#8217;s kind of pointless.</p>
+<h2>Step 8: Backup the old</h2>
+<p>It&#8217;s a good idea to make a backup of the database and site files before getting rid of them. I just make a mysqldump of the database, throw it in the forum folder, and then make a tar or zip file of that and put the file in the new static forum folder for safe keeping.</p>
+<h2>Step 9: That&#8217;s it.</h2>
+<p>Sit back and relax. Your forum is interactive no longer.</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1081</post-id>	</item>
+		<item>
+		<title>Python, Trac, virtualenv and CentOS</title>
+		<link>https://mossiso.com/2011/04/05/python-trac-virtualenv-and-centos/</link>
+					<comments>https://mossiso.com/2011/04/05/python-trac-virtualenv-and-centos/#comments</comments>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Tue, 05 Apr 2011 18:05:37 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Technical]]></category>
+		<category><![CDATA[python]]></category>
+		<category><![CDATA[subversion]]></category>
+		<category><![CDATA[system administration]]></category>
+		<category><![CDATA[trac]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=1041</guid>
+
+					<description><![CDATA[I&#8217;ve just spent too much time figuring this out. I&#8217;ve had to piece it together from many other sites. I need to set up Trac .12 on CentOS 5, but want to do that without interfering with the current setup of Trac and Subversion on the system. So in comes virtualenv. This allows you to &#8230; <a href="https://mossiso.com/2011/04/05/python-trac-virtualenv-and-centos/" class="more-link">Continue reading <span class="screen-reader-text">Python, Trac, virtualenv and CentOS</span></a>]]></description>
+										<content:encoded><![CDATA[<p>I&#8217;ve just spent too much time figuring this out. I&#8217;ve had to piece it together from many other sites.</p>
+<p>I need to set up Trac .12 on CentOS 5, but want to do that without interfering with the current setup of Trac and Subversion on the system.</p>
+<p>So in comes <a href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>. This allows you to create a virtual environment for python. Like a separate install. The beauty is, once this is set up you can install different versions of python packages (like Trac and Subversion) that don&#8217;t have to interact with each other.</p>
+<p>To install virtualenv was pretty simple. With root permissions do</p>
+<pre class="lang:sh decode:true ">easy_install virtualenv</pre>
+<p>Now, as your normal user, you can install a virtual environment.</p>
+<pre class="lang:sh decode:true">virtualenv --no-site-packages foo</pre>
+<p>This will create a new folder called foo with a virtual environment for python. It won&#8217;t reference any of the other installed python packages (like the old Trac version).</p>
+<p>Now upgrade the Genshi package with</p>
+<pre class="lang:sh decode:true">easy_install --upgrade Genshi</pre>
+<p>Then, to install Trac do</p>
+<pre class="lang:sh decode:true  ">easy_install Trac==0.12</pre>
+<p>That&#8217;s the part that always hung me up. I would just do <span class="lang:sh decode:true  crayon-inline ">easy_install Trac</span>  which would cough up this ugly error:</p>
+<pre class="lang:sh decode:true">Searching for trac
+Reading http://pypi.python.org/simple/trac/
+Reading http://trac.edgewall.org/
+Reading http://trac.edgewall.org/wiki/TracDownload
+Reading http://trac.edgewall.com/
+Reading http://projects.edgewall.com/trac
+Reading http://projects.edgewall.com/trac/wiki/TracDownload
+Best match: Trac 0.12.2
+Downloading ftp://ftp.edgewall.com/pub/trac/Trac-0.12.2.zip
+Processing Trac-0.12.2.zip
+Running setup.py -q bdist_egg --dist-dir trac-dir/trac/egg-dist-tmp-JmdQXW
+Traceback (most recent call last):
+File "/home/ammon/foo/bin/easy_install", line 7, in ?
+sys.exit(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1712, in main
+with_ei_usage(lambda:
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1700, in with_ei_u
+sage
+return f()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 1716, in &lt;lambda&gt;
+distclass=DistributionWithoutHelpCommands, **kw
+File "/usr/lib64/python2.4/distutils/core.py", line 149, in setup
+dist.run_commands()
+File "/usr/lib64/python2.4/distutils/dist.py", line 946, in run_commands
+self.run_command(cmd)
+File "/usr/lib64/python2.4/distutils/dist.py", line 966, in run_command
+cmd_obj.run()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 211, in run
+self.easy_install(spec, not self.no_deps)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 446, in easy_insta
+ll
+return self.install_item(spec, dist.location, tmpdir, deps)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 476, in install_it
+em
+dists = self.install_eggs(spec, download, tmpdir)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 655, in install_eg
+gs
+return self.build_and_install(setup_script, setup_base)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 930, in build_and_
+install
+self.run_setup(setup_script, setup_base, args)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/command/easy_install.py", line 919, in run_setup
+run_setup(setup_script, args)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 61, in run_setup
+DirectorySandbox(setup_dir).run(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 105, in run
+return func()
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/sandbox.py", line 64, in &lt;lambda&gt;
+{'__file__':setup_script, '__name__':'__main__'}
+File "setup.py", line 110, in ?
+File "/usr/lib64/python2.4/distutils/core.py", line 110, in setup
+_setup_distribution = dist = klass(attrs)
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/dist.py", line 260, in __init__
+self.fetch_build_eggs(attrs.pop('setup_requires'))
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/setuptools/dist.py", line 283, in fetch_build_eggs
+for dist in working_set.resolve(
+File "/home/ammon/foo/lib/python2.4/site-packages/setuptools-0.6c12dev_r88795-py2.4.egg/pkg_resources.py", line 569, in resolve
+raise VersionConflict(dist,req) # XXX put more info here
+pkg_resources.VersionConflict: (Genshi 0.6dev (/usr/local/lib/python2.4/site-packages/Genshi-0.6dev-py2.4-linux-x86_64.egg), Requirement.parse('Genshi
+&gt;=0.6'))</pre>
+<p>Notice the last line referencing a version conflict with the &#8220;old&#8221; Genshi at /usr/local/lib/python2.4/site-packages. That&#8217;s the system-wide default install. So making explicit that you want to install Trac==0.12 is the way to get it installed in a virtual environment.</p>
+<p>Now I just need to figure out how to configure Trac and Subversion using this virtual environment, and copy over a live older version of each.</p>
+]]></content:encoded>
+					
+					<wfw:commentRss>https://mossiso.com/2011/04/05/python-trac-virtualenv-and-centos/feed/</wfw:commentRss>
+			<slash:comments>1</slash:comments>
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">1041</post-id>	</item>
+		<item>
+		<title>Convert CSV file to directories</title>
+		<link>https://mossiso.com/2010/10/15/convert-csv-file-to-directories/</link>
+		
+		<dc:creator><![CDATA[ammon]]></dc:creator>
+		<pubDate>Fri, 15 Oct 2010 17:59:52 +0000</pubDate>
+				<category><![CDATA[Coding]]></category>
+		<category><![CDATA[Technical]]></category>
+		<guid isPermaLink="false">http://mossiso.com/?p=759</guid>
+
+					<description><![CDATA[A fellow co-worker had a need to turn a CSV file into a series of directories and files where the columns of the CSV file were the directories, and the contents of the cells for each row were made into a text file and placed in the appropriate folder corresponding to the column. For example &#8230; <a href="https://mossiso.com/2010/10/15/convert-csv-file-to-directories/" class="more-link">Continue reading <span class="screen-reader-text">Convert CSV file to directories</span></a>]]></description>
+										<content:encoded><![CDATA[<p>A fellow co-worker had a need to turn a CSV file into a series of directories and files where the columns of the CSV file were the directories, and the contents of the cells for each row were made into a text file and placed in the appropriate folder corresponding to the column. For example given the CSV file with the columns (name,email,number,date), and several rows like this:</p>
+<p>john,j@j.com,89,tuesday</p>
+<p>bertha,b@j.com,2716,monday</p>
+<p>dillan,d@j.com,289,saturday</p>
+<p>xavier,x@j.com,839,wednesday</p>
+<p>The script would create four numbered folders (1, 2, 3, 4), and put a file in each folder corresponding with the row number and column.</p>
+<p><figure id="attachment_764" aria-describedby="caption-attachment-764" style="width: 600px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM.png"><img loading="lazy" decoding="async" class="size-full wp-image-764" title="Columns into folders, cells into text files" src="http://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM.png" alt="" width="600" height="106" srcset="https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM.png 600w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM-300x53.png 300w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM-250x44.png 250w, https://mossiso.com/wp-content/uploads/2010/10/Screen-shot-2010-10-15-at-Oct-15-1.51.54-PM-150x26.png 150w" sizes="(max-width: 600px) 100vw, 600px" /></a><figcaption id="caption-attachment-764" class="wp-caption-text">Columns into folders, cells into text files</figcaption></figure></p>
+<p>So, within folder number one would be four text files named 1-1.txt, 2-1.txt, 3-1.txt, 4-1.txt. Text file 1-1.txt would contain the content &#8220;john&#8221;. File 3-1.txt would contain the text &#8220;dillan&#8221;. Within folder number 3 would be four text files named 1-3.txt, 2-3.txt, 3-3.txt, and 4-3.txt.</p>
+<p>Well, anyhow, I hope that explanation makes sense. Here&#8217;s the code:</p>
+<p>[code lang=&#8221;perl&#8221;]<br />
+#!/usr/bin/perl<br />
+use strict;<br />
+use warnings;<br />
+use Text::CSV::Encoded;</p>
+<p>my $csv = Text::CSV::Encoded-&gt;new();</p>
+<p># file to be used given on the command line as an argument to the script<br />
+open (CSV, &#8220;&lt;:encoding(UTF-8)&#8221;, $ARGV[0]) or die $!;</p>
+<p>my $rownum = 1;<br />
+while () {<br />
+if ($csv-&gt;parse($_)) {<br />
+# Put the rows into an array<br />
+my @columns = $csv-&gt;fields();</p>
+<p># Make the directories, as many as there are columns<br />
+# Get the number of columns (which is the number of elements in the<br />
+# array).<br />
+my $size = scalar(@columns);<br />
+my $count = 1;<br />
+# Check if the directories are created. Only want to make them on the<br />
+# interration through the first row<br />
+if ( !-d $count ) {<br />
+while ($count &lt;= $size) {                 mkdir &#8220;$count&#8221; or die $!;                 $count++;             }         }         # Now make a file from each cell, putting the file in the directory         # corresponding to the column         my $colnum = 1;         for my $column (@columns) {             # Create a new file (or overwrite an existing one) in the             # appropriate column folder and name it row#-col#.txt             open FILE, &#8220;+&gt;$colnum/row$rownum-col$colnum.txt&#8221; or die $!;<br />
+# This sets the correct encoding on writing to the file<br />
+binmode FILE, &#8220;:utf8&#8221;;<br />
+print FILE $column;<br />
+close FILE;<br />
+$colnum++;<br />
+}</p>
+<p>} else {<br />
+my $err = $csv-&gt;error_input;<br />
+print &#8220;Failed to parse line: $err&#8221;;<br />
+}</p>
+<p>$rownum++;<br />
+}<br />
+close CSV;</p>
+<p>[/code]</p>
+]]></content:encoded>
+					
+		
+		
+		<post-id xmlns="com-wordpress:feed-additions:1">759</post-id>	</item>
+	</channel>
+</rss>
