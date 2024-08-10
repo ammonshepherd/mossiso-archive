@@ -12,7 +12,7 @@
 
 <channel>
 	<title>Aside &#8211; Ammon Shepherd</title>
-	<atom:link href="https://mossiso.com/type/aside/feed/" rel="self" type="application/rss+xml" />
+	<atom:link href="type/aside/feed/" rel="self" type="application/rss+xml" />
 	<link>https://mossiso.com</link>
 	<description>mossiso = more better</description>
 	<lastBuildDate>Fri, 13 Apr 2018 14:46:32 +0000</lastBuildDate>
@@ -41,12 +41,12 @@
 		<category><![CDATA[wikijs]]></category>
 		<guid isPermaLink="false">http://mossiso.com/?p=1700</guid>
 
-					<description><![CDATA[It took me too long to figure this out, and the documentation wasn&#8217;t as clear as it should be. This is how the port bindings map out when using docker-compose with wikijs: config.yml -&#62; host = docker-compose.yml -&#62; left side of : in the ports section of the wikijs image config.yml -&#62; ports = docker-compose.yml &#8230; <a href="https://mossiso.com/2018/04/13/wikijs-port-bindings/" class="more-link">Continue reading <span class="screen-reader-text">Wikijs port bindings</span></a>]]></description>
+					<description><![CDATA[It took me too long to figure this out, and the documentation wasn&#8217;t as clear as it should be. This is how the port bindings map out when using docker-compose with wikijs: config.yml -&#62; host = docker-compose.yml -&#62; left side of : in the ports section of the wikijs image config.yml -&#62; ports = docker-compose.yml &#8230; <a href="2018/04/13/wikijs-port-bindings/" class="more-link">Continue reading <span class="screen-reader-text">Wikijs port bindings</span></a>]]></description>
 										<content:encoded><![CDATA[<p>It took me too long to figure this out, and the documentation wasn&#8217;t as clear as it should be. This is how the port bindings map out when using docker-compose with wikijs:</p>
 <p>config.yml -&gt; host = docker-compose.yml -&gt; left side of : in the ports section of the wikijs image</p>
 <p>config.yml -&gt; ports = docker-compose.yml -&gt; right side of : in the ports section of the wikijs image</p>
 <p>Here&#8217;s an image to make it more clear.</p>
-<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-1701 size-full" src="http://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings.png" alt="" width="960" height="720" srcset="https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings.png 960w, https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings-300x225.png 300w, https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings-768x576.png 768w, https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings-150x113.png 150w, https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings-624x468.png 624w" sizes="(max-width: 960px) 100vw, 960px" /></p>
+<p><img fetchpriority="high" decoding="async" class="aligncenter wp-image-1701 size-full" src="http://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings.png" alt="" width="960" height="720" srcset="https://mossiso.com/wp-content/uploads/2018/04/Wikijs-port-bindings.png 960w, wp-content/uploads/2018/04/Wikijs-port-bindings-300x225.png 300w, wp-content/uploads/2018/04/Wikijs-port-bindings-768x576.png 768w, wp-content/uploads/2018/04/Wikijs-port-bindings-150x113.png 150w, wp-content/uploads/2018/04/Wikijs-port-bindings-624x468.png 624w" sizes="(max-width: 960px) 100vw, 960px" /></p>
 ]]></content:encoded>
 					
 		
@@ -66,7 +66,7 @@
 		<category><![CDATA[update WP]]></category>
 		<guid isPermaLink="false">http://mossiso.com/?p=1683</guid>
 
-					<description><![CDATA[This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself. Requirements ssh access to your server wp-cli command installed (instructions for installing wp-cli at http://wp-cli.org/) Install/Upgrade WP CLI wp-cli should be upgraded each time a WordPress installation is upgraded. wp cli update Upgrade WP Prep work Change into the &#8230; <a href="https://mossiso.com/2018/01/03/quick-wp-upgrading-with-wpcli/" class="more-link">Continue reading <span class="screen-reader-text">Quick WP upgrading with WPCLI</span></a>]]></description>
+					<description><![CDATA[This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself. Requirements ssh access to your server wp-cli command installed (instructions for installing wp-cli at http://wp-cli.org/) Install/Upgrade WP CLI wp-cli should be upgraded each time a WordPress installation is upgraded. wp cli update Upgrade WP Prep work Change into the &#8230; <a href="2018/01/03/quick-wp-upgrading-with-wpcli/" class="more-link">Continue reading <span class="screen-reader-text">Quick WP upgrading with WPCLI</span></a>]]></description>
 										<content:encoded><![CDATA[<p>This is the easiest way to upgrade WordPress. You&#8217;ll execute these commands on the server itself.</p>
 <h1>Requirements</h1>
 <ul>
@@ -121,7 +121,7 @@
 		<category><![CDATA[systems administration]]></category>
 		<guid isPermaLink="false">http://mossiso.com/?p=1675</guid>
 
-					<description><![CDATA[Quick script I whipped up today to grab all of the domain names on a server. #!/bin/bash if [ -e alldomains ] then rm alldomains fi alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) ) for domain in ${alldomains[*]} do cat $domain &#124; egrep "ServerName&#124;ServerAlias" &#124; egrep -v "#" &#124; sed -e 's&#124;ServerName&#124;&#124;' -e 's&#124;ServerAlias&#124;&#124;' -e 's&#124;www.&#124;&#124;' -e &#8230; <a href="https://mossiso.com/2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/" class="more-link">Continue reading <span class="screen-reader-text">Grab all of the domain names in Apache host file</span></a>]]></description>
+					<description><![CDATA[Quick script I whipped up today to grab all of the domain names on a server. #!/bin/bash if [ -e alldomains ] then rm alldomains fi alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) ) for domain in ${alldomains[*]} do cat $domain &#124; egrep "ServerName&#124;ServerAlias" &#124; egrep -v "#" &#124; sed -e 's&#124;ServerName&#124;&#124;' -e 's&#124;ServerAlias&#124;&#124;' -e 's&#124;www.&#124;&#124;' -e &#8230; <a href="2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/" class="more-link">Continue reading <span class="screen-reader-text">Grab all of the domain names in Apache host file</span></a>]]></description>
 										<content:encoded><![CDATA[<p>Quick script I whipped up today to grab all of the domain names on a server.</p>
 <pre class="lang:sh decode:true">#!/bin/bash
 

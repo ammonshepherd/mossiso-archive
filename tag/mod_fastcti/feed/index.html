@@ -12,7 +12,7 @@
 
 <channel>
 	<title>mod_fastcti &#8211; Ammon Shepherd</title>
-	<atom:link href="https://mossiso.com/tag/mod_fastcti/feed/" rel="self" type="application/rss+xml" />
+	<atom:link href="tag/mod_fastcti/feed/" rel="self" type="application/rss+xml" />
 	<link>https://mossiso.com</link>
 	<description>mossiso = more better</description>
 	<lastBuildDate>Mon, 22 Sep 2014 18:13:28 +0000</lastBuildDate>
@@ -50,7 +50,7 @@
 		<category><![CDATA[php-fpm]]></category>
 		<guid isPermaLink="false">http://mossiso.com/?p=1426</guid>
 
-					<description><![CDATA[Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one &#8230; <a href="https://mossiso.com/2014/09/22/setting-up-a-hosting-environment-part-5-apache-and-php/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment, Part 5: Apache and PHP</span></a>]]></description>
+					<description><![CDATA[Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one &#8230; <a href="2014/09/22/setting-up-a-hosting-environment-part-5-apache-and-php/" class="more-link">Continue reading <span class="screen-reader-text">Setting up a Hosting Environment, Part 5: Apache and PHP</span></a>]]></description>
 										<content:encoded><![CDATA[<p>Figuring out the possibilities for Apache and PHP reminds me of a Dr. Seuss book, &#8220;Fox in Sox&#8221;. It&#8217;s a favorite of mine. I love reading it to the kids. In it, Mr. Fox tries to get Mr. Knox to say all kinds of ridiculous (in meaning and hard to say) tongue twisters. At one point Mr. Knox exclaims:<br />
 &#8220;I can&#8217;t blab such blibber blubber!<br />
 My tongue isn&#8217;t make of rubber.&#8221;</p>
@@ -63,7 +63,7 @@ My tongue isn&#8217;t make of rubber.&#8221;</p>
 <li>Use trusted repositories to make installation and upgrading easier</li>
 </ol>
 <p>Here&#8217;s what I eventually figured out about Apache and PHP:</p>
-<figure id="attachment_1427" aria-describedby="caption-attachment-1427" style="width: 625px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-1427" src="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png" alt="ApachePHP" width="625" height="1017" srcset="https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png 629w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-184x300.png 184w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-250x406.png 250w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-92x150.png 92w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-624x1015.png 624w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png 1087w" sizes="(max-width: 625px) 100vw, 625px" /></a><figcaption id="caption-attachment-1427" class="wp-caption-text">Click on the image to see a larger view</figcaption></figure>
+<figure id="attachment_1427" aria-describedby="caption-attachment-1427" style="width: 625px" class="wp-caption aligncenter"><a href="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png"><img fetchpriority="high" decoding="async" class="size-large wp-image-1427" src="http://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png" alt="ApachePHP" width="625" height="1017" srcset="https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png 629w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-184x300.png 184w, wp-content/uploads/2013/02/ApachePHP-250x406.png 250w, wp-content/uploads/2013/02/ApachePHP-92x150.png 92w, wp-content/uploads/2013/02/ApachePHP-624x1015.png 624w, wp-content/uploads/2013/02/ApachePHP.png 1087w" sizes="(max-width: 625px) 100vw, 625px" /></a><figcaption id="caption-attachment-1427" class="wp-caption-text">Click on the image to see a larger view</figcaption></figure>
 <p>These sites were helpful for the initial set up of PHP as CGI with mod_fcgi and Apache in chroot (mod_fcgi sends one request to each PHP process regardless if PHP children are available to handle more, and no sharing of APC opcode cache across PHP processes):</p>
 <ul>
 <li><a href="http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2">http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2</a></li>

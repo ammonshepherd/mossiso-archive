@@ -12,7 +12,7 @@
 
 <channel>
 	<title>devops &#8211; Ammon Shepherd</title>
-	<atom:link href="https://mossiso.com/tag/devops/feed/" rel="self" type="application/rss+xml" />
+	<atom:link href="tag/devops/feed/" rel="self" type="application/rss+xml" />
 	<link>https://mossiso.com</link>
 	<description>mossiso = more better</description>
 	<lastBuildDate>Fri, 30 Jun 2017 19:55:17 +0000</lastBuildDate>
@@ -46,7 +46,7 @@
 		<category><![CDATA[systems administration]]></category>
 		<guid isPermaLink="false">http://mossiso.com/?p=1675</guid>
 
-					<description><![CDATA[Quick script I whipped up today to grab all of the domain names on a server. #!/bin/bash if [ -e alldomains ] then rm alldomains fi alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) ) for domain in ${alldomains[*]} do cat $domain &#124; egrep "ServerName&#124;ServerAlias" &#124; egrep -v "#" &#124; sed -e 's&#124;ServerName&#124;&#124;' -e 's&#124;ServerAlias&#124;&#124;' -e 's&#124;www.&#124;&#124;' -e &#8230; <a href="https://mossiso.com/2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/" class="more-link">Continue reading <span class="screen-reader-text">Grab all of the domain names in Apache host file</span></a>]]></description>
+					<description><![CDATA[Quick script I whipped up today to grab all of the domain names on a server. #!/bin/bash if [ -e alldomains ] then rm alldomains fi alldomains=( $(find /etc/httpd/conf.vhosts/ -name *.conf) ) for domain in ${alldomains[*]} do cat $domain &#124; egrep "ServerName&#124;ServerAlias" &#124; egrep -v "#" &#124; sed -e 's&#124;ServerName&#124;&#124;' -e 's&#124;ServerAlias&#124;&#124;' -e 's&#124;www.&#124;&#124;' -e &#8230; <a href="2017/06/30/grab-all-of-the-domain-names-in-apache-host-file/" class="more-link">Continue reading <span class="screen-reader-text">Grab all of the domain names in Apache host file</span></a>]]></description>
 										<content:encoded><![CDATA[<p>Quick script I whipped up today to grab all of the domain names on a server.</p>
 <pre class="lang:sh decode:true">#!/bin/bash
 

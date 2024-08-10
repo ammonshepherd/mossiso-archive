@@ -97,7 +97,7 @@ var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand chil
 	<div id="sidebar" class="sidebar">
 		<header id="masthead" class="site-header">
 			<div class="site-branding">
-				<a href="../../index.html" class="custom-logo-link" rel="home"><img width="192" height="192" src="../../wp-content/uploads/2018/12/android-icon-192x192.png" class="custom-logo" alt="Ammon Shepherd" decoding="async" srcset="https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192.png 192w, https://mossiso.com/wp-content/uploads/2018/12/android-icon-192x192-150x150.png 150w" sizes="(max-width: 192px) 100vw, 192px" /></a>						<p class="site-title"><a href="../../index.html" rel="home">Ammon Shepherd</a></p>
+				<a href="../../index.html" class="custom-logo-link" rel="home"><img width="192" height="192" src="../../wp-content/uploads/2018/12/android-icon-192x192.png" class="custom-logo" alt="Ammon Shepherd" decoding="async" srcset="wp-content/uploads/2018/12/android-icon-192x192.png 192w, wp-content/uploads/2018/12/android-icon-192x192-150x150.png 150w" sizes="(max-width: 192px) 100vw, 192px" /></a>						<p class="site-title"><a href="../../index.html" rel="home">Ammon Shepherd</a></p>
 												<p class="site-description">mossiso = more better</p>
 										<button class="secondary-toggle">Menu and widgets</button>
 			</div><!-- .site-branding -->
@@ -132,7 +132,7 @@ var screenReaderText = {"expand":"<span class=\"screen-reader-text\">expand chil
 <article id="post-1426" class="post-1426 post type-post status-publish format-standard has-post-thumbnail hentry category-setting-up-a-hosting-environment category-technical category-technology category-websites tag-apache tag-apache-worker tag-apc tag-centos tag-mod_fastcti tag-mod_fcgi tag-php tag-php-fpm">
 	
 	<a class="post-thumbnail" href="../../setting-up-a-hosting-environment-part-5-apache-and-php/index.html" aria-hidden="true">
-		<img width="200" height="273" src="../../wp-content/uploads/2013/02/200px-FoxInSocksBookCover.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Setting up a Hosting Environment, Part 5: Apache and PHP" decoding="async" fetchpriority="high" srcset="https://mossiso.com/wp-content/uploads/2013/02/200px-FoxInSocksBookCover.jpg 200w, https://mossiso.com/wp-content/uploads/2013/02/200px-FoxInSocksBookCover-109x150.jpg 109w" sizes="(max-width: 200px) 100vw, 200px" />	</a>
+		<img width="200" height="273" src="../../wp-content/uploads/2013/02/200px-FoxInSocksBookCover.jpg" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Setting up a Hosting Environment, Part 5: Apache and PHP" decoding="async" fetchpriority="high" srcset="wp-content/uploads/2013/02/200px-FoxInSocksBookCover.jpg 200w, wp-content/uploads/2013/02/200px-FoxInSocksBookCover-109x150.jpg 109w" sizes="(max-width: 200px) 100vw, 200px" />	</a>
 
 		
 	<header class="entry-header">
@@ -151,7 +151,7 @@ My tongue isn&#8217;t make of rubber.&#8221;</p>
 <li>Use trusted repositories to make installation and upgrading easier</li>
 </ol>
 <p>Here&#8217;s what I eventually figured out about Apache and PHP:</p>
-<figure id="attachment_1427" aria-describedby="caption-attachment-1427" style="width: 625px" class="wp-caption aligncenter"><a href="../../wp-content/uploads/2013/02/ApachePHP.png"><img decoding="async" class="size-large wp-image-1427" src="../../wp-content/uploads/2013/02/ApachePHP-629x1024.png" alt="ApachePHP" width="625" height="1017" srcset="https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png 629w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-184x300.png 184w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-250x406.png 250w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-92x150.png 92w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-624x1015.png 624w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP.png 1087w" sizes="(max-width: 625px) 100vw, 625px" /></a><figcaption id="caption-attachment-1427" class="wp-caption-text">Click on the image to see a larger view</figcaption></figure>
+<figure id="attachment_1427" aria-describedby="caption-attachment-1427" style="width: 625px" class="wp-caption aligncenter"><a href="../../wp-content/uploads/2013/02/ApachePHP.png"><img decoding="async" class="size-large wp-image-1427" src="../../wp-content/uploads/2013/02/ApachePHP-629x1024.png" alt="ApachePHP" width="625" height="1017" srcset="https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-629x1024.png 629w, https://mossiso.com/wp-content/uploads/2013/02/ApachePHP-184x300.png 184w, wp-content/uploads/2013/02/ApachePHP-250x406.png 250w, wp-content/uploads/2013/02/ApachePHP-92x150.png 92w, wp-content/uploads/2013/02/ApachePHP-624x1015.png 624w, wp-content/uploads/2013/02/ApachePHP.png 1087w" sizes="(max-width: 625px) 100vw, 625px" /></a><figcaption id="caption-attachment-1427" class="wp-caption-text">Click on the image to see a larger view</figcaption></figure>
 <p>These sites were helpful for the initial set up of PHP as CGI with mod_fcgi and Apache in chroot (mod_fcgi sends one request to each PHP process regardless if PHP children are available to handle more, and no sharing of APC opcode cache across PHP processes):</p>
 <ul>
 <li><a href="http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2">http://www.howtoforge.com/how-to-set-up-apache2-with-mod_fcgid-and-php5-on-centos-5.2</a></li>
@@ -310,7 +310,7 @@ exec /usr/bin/php-cgi</pre>
 <article id="post-311" class="post-311 post type-post status-publish format-standard has-post-thumbnail hentry category-coding category-howto category-technical tag-apache tag-bash-code tag-centos tag-httpd tag-lamp tag-mysql tag-php tag-tutorial">
 	
 	<a class="post-thumbnail" href="../../multiple-php-instances-with-one-apache/index.html" aria-hidden="true">
-		<img width="624" height="222" src="../../wp-content/uploads/2009/09/php-httpd-php-624x222.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Multiple PHP Instances With One Apache" decoding="async" srcset="https://mossiso.com/wp-content/uploads/2009/09/php-httpd-php-624x222.png 624w, https://mossiso.com/wp-content/uploads/2009/09/php-httpd-php-300x107.png 300w, https://mossiso.com/wp-content/uploads/2009/09/php-httpd-php-250x89.png 250w, https://mossiso.com/wp-content/uploads/2009/09/php-httpd-php-150x53.png 150w, https://mossiso.com/wp-content/uploads/2009/09/php-httpd-php.png 700w" sizes="(max-width: 624px) 100vw, 624px" />	</a>
+		<img width="624" height="222" src="../../wp-content/uploads/2009/09/php-httpd-php-624x222.png" class="attachment-post-thumbnail size-post-thumbnail wp-post-image" alt="Multiple PHP Instances With One Apache" decoding="async" srcset="https://mossiso.com/wp-content/uploads/2009/09/php-httpd-php-624x222.png 624w, wp-content/uploads/2009/09/php-httpd-php-300x107.png 300w, wp-content/uploads/2009/09/php-httpd-php-250x89.png 250w, wp-content/uploads/2009/09/php-httpd-php-150x53.png 150w, wp-content/uploads/2009/09/php-httpd-php.png 700w" sizes="(max-width: 624px) 100vw, 624px" />	</a>
 
 		
 	<header class="entry-header">
